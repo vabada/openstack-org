@@ -23,7 +23,8 @@ class SurveyRegistrationForm extends Form
         $fields = new FieldList (
             new TextField('FirstName', 'First Name'),
             new TextField('Surname', 'Last Name'),
-            new TextField('Email', 'Email')
+            new TextField('Email', 'Email'),
+            new ConfirmedPasswordField('Password', 'Password')
         );
 
         $startSurveyButton = new FormAction('StartSurvey', 'Start Survey');
@@ -32,7 +33,7 @@ class SurveyRegistrationForm extends Form
         );
 
 
-        $validator = new RequiredFields("FirstName", "Surname", "Email");
+        $validator = new RequiredFields("FirstName", "Surname", "Email","Password");
 
 
         parent::__construct($controller, $name, $fields, $actions, $validator);
@@ -47,10 +48,8 @@ class SurveyRegistrationForm extends Form
         ));
     }
 
-
     function StartSurvey($data, $form)
     {
-
 
         //Check for existing member email address
         if ($member = Member::get()->filter('Email', Convert::raw2sql($data['Email']))->first()) {
@@ -67,8 +66,6 @@ class SurveyRegistrationForm extends Form
         $form->saveInto($Member);
         $Member->write();
 
-        $Member->login();
-
         //Find or create the 'user' group
 
         if (!$userGroup = Group::get()->filter('Code', 'users')->first()) {
@@ -81,6 +78,6 @@ class SurveyRegistrationForm extends Form
         //Add member to user group
         $Member->Groups()->add($userGroup);
 
-        return Controller::curr()->redirect(Survey_Controller::RoutePrefix.'/current');
+        return OpenStackIdCommon::loginMember($Member, Controller::curr()->Link());
     }
 }

@@ -10,7 +10,7 @@
             </div>
         </div>
 
-        <div class="row" id="team-members-container"   <% if not TeamMembers %>style="display:none;"<% end_if %> >
+        <div class="row" <% if not TeamMembers %>style="display:none;"<% end_if %> id="team-members-container">
             <div class="col-md-12">
                 <table class="table team-member-table">
                     <thead>
@@ -34,5 +34,6 @@
                 </table>
             </div>
         </div>
+
         </div>
 </div>
