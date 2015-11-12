@@ -17,13 +17,13 @@ module.exports = {
     new webpack.ProvidePlugin({
       riot: 'riot'
     }),
-    new webpack.optimize.UglifyJsPlugin(
+    /*new webpack.optimize.UglifyJsPlugin(
           {
               sourceMap: false,
               mangle:    false,
               minimize:  true
           }
-    )
+    )*/
   ],
   module: {
     loaders: [
