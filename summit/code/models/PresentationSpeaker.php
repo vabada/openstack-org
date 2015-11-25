@@ -42,6 +42,16 @@ implements IPresentationSpeaker
         'AnnouncementSummitEmails' => 'SpeakerAnnouncementSummitEmail',
     );
 
+    private static $has_many = array
+    (
+        'AreasOfExpertise'   => 'SpeakerExpertise',
+        'OtherPresentationLinks' => 'SpeakerPresentationLink',
+        'TravelPreferences'  => 'SpeakerTravelPreference',
+        'Languages'          => 'SpeakerLanguage'
+
+    );
+
+    
     private static $searchable_fields = array
     (
         'Member.Email',
