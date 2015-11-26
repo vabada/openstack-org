@@ -12,7 +12,6 @@
                     $FirstName $LastName
                     <a class="back" href="{$BaseHref}community/speakers">Back to Speakers Bureau</a>
                 </h3>
-
             </div>
             <hr>
             <div class="col-md-6">

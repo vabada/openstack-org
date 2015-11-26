@@ -1,19 +1,14 @@
 <div id="content" class="typography">
 	
-	<h2>
-	    $Title
-	    <a class="back" href="{$BaseHref}community/speakers">Back to Speakers Bureau</a>
-	</h2>
+	<h2>$Title</h2>
 	
 	<% if SearchQuery %>
 		<% if Results.Count %>
 		    <ul id="results">
 		      <% loop Results %>
-		        <% if AvailableForBureau = 1 %>
-                    <li>
-                        <p><a href="{$Top.Link}profile/{$ID}">$FirstName $LastName</a></p>
-                    </li>
-                <% end_if %>
+		        <li>
+					<p><a href="{$Top.Link}profile/{$ID}">$FirstName $LastName</a></p>
+		        </li>
 		      <% end_loop %>
 		    </ul>
 		 <% else %>
