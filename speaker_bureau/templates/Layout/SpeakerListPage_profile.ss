@@ -22,7 +22,11 @@
                     <strong>Country: </strong> $Country
                 </div>
                 <div class="span-4">
+<<<<<<< HEAD
                     <strong>Registered for Upcoming Summit: </strong> <% if RegisteredForSummit %> $Summit.Name <% else %> No <% end_if %>
+=======
+                    <strong>Registered for Summit: </strong> <% if RegisteredForSummit %> $Summit.Name <% else %> No <% end_if %>
+>>>>>>> 653cbef... [spalenque] - #9788 - WIP maybe done
                 </div>
                 <% if Expertise %>
                     <strong>Expertise: </strong> $Expertise

@@ -38,6 +38,7 @@ final class SpeakerContactForm extends BootstrapForm {
         $sec_field = new TextField('field_98438688','field_98438688');
         $sec_field->addExtraClass('honey');
         $fields->push($sec_field);
+
 		// Create action
 		$actions = new FieldList();
 		if($use_actions)
