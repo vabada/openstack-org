@@ -1,6 +1,8 @@
 <?php
 
-
+/**
+ * Class SummitPage
+ */
 class SummitPage extends Page
 {
 
@@ -98,6 +100,16 @@ class SummitPage extends Page
         {
             $this->SummitID = $parent->SummitID;
         }
+    }
+
+    public function validate(){
+        $valid = parent::validate();
+        if(!$valid->valid()) return $valid;
+        $summit_id = $this->SummitID;
+        if(empty($summit_id) || intval($summit_id) === 0 ){
+            return $valid->error('Summit is required!');
+        }
+        return $valid;
     }
 
 }

@@ -17,7 +17,6 @@ final class Summit extends DataObject implements ISummit
 
     private static $db = array
     (
-        'Name'                        => 'Varchar(255)',
         'Title'                       => 'Varchar',
         'SummitBeginDate'             => 'SS_Datetime',
         'SummitEndDate'               => 'SS_Datetime',
@@ -383,7 +382,7 @@ final class Summit extends DataObject implements ISummit
      */
     public function getName()
     {
-        return $this->getField('Name');
+        return $this->getField('Title');
     }
 
     /**
@@ -826,9 +825,9 @@ WHERE(ListType = 'Group') AND (SummitEvent.ClassName IN ('Presentation')) AND  (
     protected function validate(){
         $valid = parent::validate();
         if(!$valid->valid()) return $valid;
-        $name = $this->Name;
+        $name = $this->Title;
         if(empty($name)){
-            return $valid->error('Name is required!');
+            return $valid->error('Title is required!');
         }
 
         $time_zone = $this->TimeZone;
