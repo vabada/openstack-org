@@ -75,7 +75,6 @@ class EditSpeakerProfileForm extends SafeXSSForm {
         $CountriesToTravelField = new MultiDropdownField('CountriesToTravel', 'Countries willing to travel to (Use Ctrl + C to select more than one):', $CountryCodes);
         $CountriesToTravelField->addExtraClass('travel-field');
         $CountriesToTravelField->setEmptyString('-- Select One or More --');
-        $CountriesToTravelField->setSize(10);
 
         // Spoken Languages
         $LanguageField1 = new TextField('Language[1]','#1');
