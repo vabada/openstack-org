@@ -170,26 +170,40 @@ implements IPresentationSpeaker
          return $fields;
     }
 
-    public function AllPresentations() {
+    public function AllPresentations($summit_id = null) {
+        $summit = is_null($summit_id) ? Summit::get_active() : Summit::get()->byID($summit_id) ;
+        if(is_null($summit)) return false;
         return $this->Presentations()->filter(array(
-            'Status' => 'Received'
+            'Status'   => 'Received',
+            'SummitID' => $summit->ID
         ));    
     }
 
     public function MyPresentations($summit_id = null) {
         $summit = is_null($summit_id) ? Summit::get_active() : Summit::get()->byID($summit_id) ;
         if(is_null($summit)) return false;
-        return $summit->Presentations()->filter(array(
-            'CreatorID' => $this->MemberID
+        return $this->Presentations()->filter(array(
+            'CreatorID' => $this->MemberID,
+            'SummitID'  => $summit->ID
         ));
     }
 
     public function OtherPresentations($summit_id = null) {
         $summit = is_null($summit_id) ? Summit::get_active() : Summit::get()->byID($summit_id) ;
         if(is_null($summit)) return false;
-        return $this->Presentations()->exclude(array(
-            'CreatorID' => $this->MemberID
-        ));        
+        return $this->Presentations()->filter
+        (
+            array
+            (
+                'SummitID'  => $summit->ID
+            )
+        )->exclude
+        (
+            array
+            (
+                'CreatorID' => $this->MemberID,
+            )
+        );
     }
 
     // return all presentations for this speaker plus the one he submitted from edit profile
