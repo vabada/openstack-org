@@ -178,12 +178,15 @@ implements IPresentationSpeaker
 
     public function MyPresentations($summit_id = null) {
         $summit = is_null($summit_id) ? Summit::get_active() : Summit::get()->byID($summit_id) ;
+        if(is_null($summit)) return false;
         return $summit->Presentations()->filter(array(
             'CreatorID' => $this->MemberID
         ));
     }
 
-    public function OtherPresentations() {
+    public function OtherPresentations($summit_id = null) {
+        $summit = is_null($summit_id) ? Summit::get_active() : Summit::get()->byID($summit_id) ;
+        if(is_null($summit)) return false;
         return $this->Presentations()->exclude(array(
             'CreatorID' => $this->MemberID
         ));        
@@ -253,6 +256,7 @@ implements IPresentationSpeaker
     public function AcceptedPresentations($summit_id = null) {
         $AcceptedPresentations = new ArrayList();
         $summit = is_null($summit_id) ? Summit::get_active() : Summit::get()->byID($summit_id) ;
+        if(is_null($summit)) return false;
         $Presentations = $this->Presentations('`SummitID` = '.$summit->ID);
         foreach ($Presentations as $Presentation) {
             if($Presentation->SelectionStatus() == "accepted") $AcceptedPresentations->push($Presentation);
@@ -264,6 +268,7 @@ implements IPresentationSpeaker
     public function UnacceptedPresentations($summit_id = null) {
         $UnacceptedPresentations = new ArrayList();
         $summit = is_null($summit_id) ? Summit::get_active() : Summit::get()->byID($summit_id) ;
+        if(is_null($summit)) return false;
         $Presentations = $this->Presentations('`SummitID` = '.$summit->ID);
         foreach ($Presentations as $Presentation) {
             if($Presentation->SelectionStatus() == "unaccepted") $UnacceptedPresentations->push($Presentation);
@@ -275,6 +280,7 @@ implements IPresentationSpeaker
     public function AlternatePresentations($summit_id = null) {
         $AlternatePresentations = new ArrayList();
         $summit = is_null($summit_id) ? Summit::get_active() : Summit::get()->byID($summit_id) ;
+        if(is_null($summit)) return false;
         $Presentations = $this->Presentations('`SummitID` = '.$summit->ID);
         foreach ($Presentations as $Presentation) {
             if($Presentation->SelectionStatus() == "alternate") $AlternatePresentations->push($Presentation);
