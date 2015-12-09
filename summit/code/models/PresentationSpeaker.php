@@ -42,16 +42,6 @@ implements IPresentationSpeaker
         'AnnouncementSummitEmails' => 'SpeakerAnnouncementSummitEmail',
     );
 
-    private static $has_many = array
-    (
-        'AreasOfExpertise'   => 'SpeakerExpertise',
-        'OtherPresentationLinks' => 'SpeakerPresentationLink',
-        'TravelPreferences'  => 'SpeakerTravelPreference',
-        'Languages'          => 'SpeakerLanguage'
-
-    );
-
-
     private static $searchable_fields = array
     (
         'Member.Email',
@@ -226,28 +216,6 @@ implements IPresentationSpeaker
     public function canAddMorePresentations($summit_id = null)
     {
         return $this->getPresentationsCount($summit_id) <= MAX_SUMMIT_ALLOWED_PER_USER;
-    }
-
-    // return all presentations for this speaker plus the one he submitted from edit profile
-    public function MixedPresentationLinks($limit) {
-        $presentation_count = 0;
-        $links = array();
-        foreach ($this->Presentations()->filter("DisplayOnSite",1) as $key => $presentation) {
-            if ($key > ($limit-1)) exit;
-            $links[] = new ArrayData(array('Source'=>'summit','Link'=>Director::absoluteURL($presentation->Link()),'Title'=>$presentation->Title));
-            $presentation_count++;
-        }
-        // complete limit with user presentations
-        if ($presentation_count < $limit) {
-            foreach ($this->OtherPresentationLinks() as $other_presentation) {
-                if ($presentation_count < $limit) {
-                    $links[] = new ArrayData(array('Source' => 'speaker', 'Link' => $other_presentation->LinkUrl));
-                    $presentation_count++;
-                }
-            }
-        }
-
-        return new ArrayList($links);
     }
 
     // return all presentations for this speaker plus the one he submitted from edit profile
