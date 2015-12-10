@@ -205,6 +205,7 @@ final class Summit extends DataObject implements ISummit
         'Attendees'                    => 'SummitAttendee',
         'SummitTicketTypes'            => 'SummitTicketType',
         'SummitRegistrationPromoCodes' => 'SummitRegistrationPromoCode',
+        'Notifications'                => 'SummitPushNotification',
     );
 
     private static $summary_fields = array
@@ -829,6 +830,16 @@ WHERE(ListType = 'Group') AND (SummitEvent.ClassName IN ('Presentation')) AND  (
             $gridField = new GridField('Presentations', 'Presentations', $this->Presentations()->where(" Title IS NOT NULL AND Title <>'' "), $config);
             $config->getComponentByType("GridFieldDataColumns")->setFieldCasting(array("Description" => "HTMLText->BigSummary"));
             $f->addFieldToTab('Root.Presentations', $gridField);
+
+            // push notifications
+            $config = GridFieldConfig_RecordEditor::create(50);
+            $config->addComponent(new GridFieldAjaxRefresh(1000, false));
+            $config->getComponentByType('GridFieldDataColumns')->setDisplayFields
+            (
+                array('Channel'=>'Channel','Message'=>'Message', 'IsSent' => 'Is Sent?')
+            );
+            $gridField = new GridField('Notifications', 'Notifications', $this->Notifications(), $config);
+            $f->addFieldToTab('Root.Notifications', $gridField);
         }
         return $f;
 
@@ -925,7 +936,7 @@ WHERE(ListType = 'Group') AND (SummitEvent.ClassName IN ('Presentation')) AND  (
     {
         $summit = Summit::get()->byID($summit_id);
 
-        if(!SummitType::get()->filter(array('Title'=>'Main Conference', 'SummitID'=>$summit_id))->first()) {
+        if(!SummitType::get()->filter(array('Title'=>'Main Conference', 'SummitID' => $summit_id))->first()) {
             $main_type              = new SummitType();
             $main_type->Title       = 'Main Conference';
             $main_type->Description = 'This Schedule is for general attendees. Its includes breakout tracks, hand-ons labs, keynotes and sponsored sessions';
@@ -933,6 +944,7 @@ WHERE(ListType = 'Group') AND (SummitEvent.ClassName IN ('Presentation')) AND  (
             $main_type->SummitID    = $summit_id;
             $main_type->StartDate   = $summit->BeginDate;
             $main_type->EndDate     = $summit->EndDate;
+            $main_type->Type        = 'MAIN';
             $main_type->write();
         }
 
@@ -944,6 +956,7 @@ WHERE(ListType = 'Group') AND (SummitEvent.ClassName IN ('Presentation')) AND  (
             $design_type->SummitID    = $summit_id;
             $design_type->StartDate   = $summit->BeginDate;
             $design_type->EndDate     = $summit->EndDate;
+            $design_type->Type        = 'DESIGN';
             $design_type->write();
         }
 
@@ -990,7 +1003,11 @@ WHERE(ListType = 'Group') AND (SummitEvent.ClassName IN ('Presentation')) AND  (
             $key_note->SummitID = $summit_id;
             $key_note->write();
         }
+    }
 
+    public static function isDefaultEventType($event_type)
+    {
+        return in_array($event_type, array('Presentation', 'Keynotes', 'Hand-on Labs', 'Lunch & Breaks', 'Evening Events'));
     }
 
     public function isAttendee() {
