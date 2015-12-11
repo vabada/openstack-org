@@ -180,8 +180,13 @@ interface ISummit extends IEntity
     public function isVotingOpen();
 
     /**
-     * @return bool
-     */
+    * @return bool
+    */
     public function isPresentationEditionAllowed();
+
+    /**
+     * @return ICompany[]
+     */
+    public function Sponsors();
 
 }
