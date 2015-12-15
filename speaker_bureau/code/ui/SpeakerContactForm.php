@@ -23,15 +23,15 @@ final class SpeakerContactForm extends BootstrapForm {
         $speakerIDfield = new HiddenField('speaker_id');
         $speakerIDfield->setValue($speakerID);
         $fields->push($speakerIDfield);
-		$fields->push(new TextField('org_name','Name of Organizer'));
-		$fields->push(new EmailField('org_email','Email'));
-        $fields->push(new TextField('event_name','Event'));
-        $fields->push(new TextField('event_format','Format/Length'));
-        $fields->push(new TextField('event_attendance','Expected Attendace (number)'));
-        $fields->push(new TextField('event_date','Date of Event'));
-        $fields->push(new TextField('event_location','Location'));
-        $fields->push(new TextField('event_topic','Topic(s)'));
-        $request = new HtmlEditorField('general_request','General Request');
+        $fields->push(new TextField('org_name', 'Name of Organizer'));
+        $fields->push(new EmailField('org_email', 'Email'));
+        $fields->push(new TextField('event_name', 'Event'));
+        $fields->push(new TextField('event_format', 'Format/Length'));
+        $fields->push(new TextField('event_attendance', 'Expected Attendance (number)'));
+        $fields->push(new TextField('event_date', 'Date of Event'));
+        $fields->push(new TextField('event_location', 'Location'));
+        $fields->push(new TextField('event_topic', 'Topic(s)'));
+        $request = new HtmlEditorField('general_request', 'General Request');
         $request->setRows(10);
         $fields->push($request);
 
@@ -54,7 +54,8 @@ final class SpeakerContactForm extends BootstrapForm {
 		));
 	}
 
-	function submit($data, $form) {
-		// do stuff here
-	}
+    function submit($data, $form)
+    {
+        // do stuff here
+    }
 }
