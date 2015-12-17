@@ -18,8 +18,8 @@
         init : function(options) {
             element = $(this);
 
-            if(element.find('#resultLoading').attr('id') != 'resultLoading'){
-                element.append('<div id="resultLoading" style="display:none"><div><img src="/themes/openstack/javascript/images/loader.gif"><div>'+text+'</div></div><div class="bg"></div></div>');
+            if(jQuery('body').find('#resultLoading').attr('id') != 'resultLoading'){
+                jQuery('body').append('<div id="resultLoading" style="display:none"><div><img src="themes/openstack/javascript/images/loader.gif"><div>'+text+'</div></div><div class="bg"></div></div>');
             }
 
             jQuery('#resultLoading').css({
@@ -29,6 +29,8 @@
                 'z-index':'10000000',
                 'top':'0',
                 'left':'0',
+                'right':'0',
+                'bottom':'0',
                 'margin':'auto'
             });
 
@@ -59,12 +61,12 @@
 
             jQuery('#resultLoading .bg').height('100%');
             jQuery('#resultLoading').fadeIn(500);
-            element.css('cursor', 'wait');
+            jQuery('body').css('cursor', 'wait');
         },
         stop: function(){
             $('#resultLoading .bg').height('100%');
             $('#resultLoading').fadeOut(1000);
-            element.css('cursor', 'default');
+            $('body').css('cursor', 'default');
         }
     };
 
