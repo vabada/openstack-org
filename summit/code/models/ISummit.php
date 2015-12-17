@@ -189,4 +189,10 @@ interface ISummit extends IEntity
      */
     public function Sponsors();
 
+    /**
+     * @param $date
+     * @return bool
+     */
+    public function belongsToDuration($date);
+
 }
