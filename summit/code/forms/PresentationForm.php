@@ -23,7 +23,7 @@ final class PresentationForm extends BootstrapForm
         $categorySource['other'] = '<h4 class="category-label">Other topic...</h4>';
 
         $fields = FieldList::create()
-            ->text('Title', 'Proposed Presentation Title')
+            ->text('Title', 'Proposed Presentation Title*')
                 ->configure()
                     ->setAttribute('autofocus','TRUE')
                 ->end()
@@ -33,25 +33,25 @@ final class PresentationForm extends BootstrapForm
                     ->setSource(Presentation::create()->dbObject('Level')->enumValues())
                 ->end()
             ->literal('AbstractHelp','<hr/><p>YouTube and other services limit the length of your presentation\'s description. We will take the first 100 characters of your abstract to display in the YouTube description.</p>')
-            ->tinyMCEEditor('ShortDescription','Abstract (1000 chars)')
+            ->tinyMCEEditor('ShortDescription','Abstract* (max 1000 chars)')
                 ->configure()
                     ->setRows(20)
                     ->setColumns(8)
                     ->setMaxCharLimit(1000)
                 ->end()
-            ->tinyMCEEditor('ProblemAddressed','What is the problem or use case you’re addressing in this session? (1000 chars)')
+            ->tinyMCEEditor('ProblemAddressed','What is the problem or use case you’re addressing in this session?* (max 1000 chars)')
                 ->configure()
                     ->setRows(20)
                     ->setColumns(8)
                     ->setMaxCharLimit(1000)
                 ->end()
-            ->tinyMCEEditor('AttendeesExpectedLearnt','What should attendees expect to learn? (1000 chars)')
+            ->tinyMCEEditor('AttendeesExpectedLearnt','What should attendees expect to learn?* (max 1000 chars)')
                 ->configure()
                     ->setRows(20)
                     ->setColumns(8)
                     ->setMaxCharLimit(1000)
                 ->end()
-            ->tinyMCEEditor('SelectionMotive','Why should this session be selected? (1000 chars)')
+            ->tinyMCEEditor('SelectionMotive','Why should this session be selected?* (max 1000 chars)')
                 ->configure()
                     ->setRows(20)
                     ->setColumns(8)
@@ -80,7 +80,7 @@ final class PresentationForm extends BootstrapForm
 
     protected function getPresentationValidator()
     {
-        return RequiredFields::create('Title','Level');
+        return RequiredFields::create('Title','Abstract','ProblemAddressed','AttendeesExpectedLearnt','SelectionMotive','Level');
     }
 
     public function loadDataFrom($data, $mergeStrategy = 0, $fieldList = null)
