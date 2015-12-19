@@ -80,7 +80,7 @@ final class PresentationForm extends BootstrapForm
 
     protected function getPresentationValidator()
     {
-        return RequiredFields::create('Title','Abstract','ProblemAddressed','AttendeesExpectedLearnt','SelectionMotive','Level');
+        return RequiredFields::create('Title','ShortDescription','ProblemAddressed','AttendeesExpectedLearnt','SelectionMotive','Level');
     }
 
     public function loadDataFrom($data, $mergeStrategy = 0, $fieldList = null)
