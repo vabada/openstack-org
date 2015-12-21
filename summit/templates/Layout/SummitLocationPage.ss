@@ -65,8 +65,9 @@
             <div class="container">
                 <h1>$Top.VenueTitleText</h1>
                 <p>
-                    <strong>$Name</strong>
-                    $Address
+                    <strong>Austin Convention Center</strong>
+                    500 East Cesar Chavez Street<br>
+                    Austin, Texas 78701
                 </p>
             </div>
             <a href="{$Top.VenueBackgroundImageHeroSource}" class="photo-credit" data-toggle="tooltip" data-placement="left" title="{$Top.VenueBackgroundImageHero}" target="_blank">
@@ -205,8 +206,37 @@
 <% if GettingAround  %>
 <div class="blue" id="getting-around">
     <div class="container">
-        $GettingAround
+        <div class="row">
+            <div class="col-lg-8 col-lg-push-2">
+                <h1>Getting Around In Austin</h1>
+                <p>
+                    There are several safe and reliable transportation options in Austin. Here are a few options to consider.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="getting-options">
+                    <div class="getting-around-item">
+                        <a href="//www.capmetro.org/airport/" target="_blank"><i class="fa fa-bus"></i>MetroAirport<span>(bus)</span></a>
+                    </div>
+                    <div class="getting-around-item">
+                        <a href="//www.uber.com/cities/austin" target="_blank"><i class="fa fa-car"></i>Uber</a>
+                    </div>
+                    <div class="getting-around-item">
+                        <a href="//www.lyft.com/cities/austin" target="_blank"><i class="fa fa-car"></i>Lyft</a>
+                    </div>
+                    <div class="getting-around-item">
+                        <a href="//www.austintexas.gov/department/ground-transportation" target="_blank"><i class="fa fa-plane"></i>Airport Transportation</a>
+                    </div>
+                    <div class="getting-around-item">
+                        <a href="#" target="_blank"><i class="fa fa-car"></i>Rental Cars</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 </div>
 <% end_if %>
 <% if TravelSupport  %>
