@@ -113,6 +113,15 @@ class EditProfilePageSummitAttendeeExtension extends Extension
                     $form->sessionMessage('Current order was cancelled, please try with another one!', "bad");
                     return $this->owner->redirect($this->owner->Link('attendeeInfoRegistration'));
                 }
+                catch(Exception $ex)
+                {
+                    Session::clear('attendees');
+                    Session::clear('ExternalOrderId');
+                    Session::clear('SharedContactInfo');
+                    SS_Log::log($ex->getMessage(), SS_Log::ERR);
+                    $form->sessionMessage('Your request can not be processed, please contact your administrator', "bad");
+                    return $this->owner->redirect($this->owner->Link('attendeeInfoRegistration'));
+                }
             }
             else
             {
