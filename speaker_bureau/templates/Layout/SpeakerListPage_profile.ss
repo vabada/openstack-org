@@ -114,6 +114,7 @@
                         No
                     <% end_if %>
                 </div>
+
                 <% if WillingToTravel %>
                     <div class="span-4">
                         <strong>Travel Preference</strong>
@@ -126,6 +127,7 @@
                         </ul>
                     </div>
                 <% end_if %>
+
                 <% if Languages %>
                     <div class="span-4">
                         <strong>Fluent in</strong>
@@ -137,6 +139,11 @@
                             <% end_loop %>
                         </ul>
                     </div>
+                <% end_if %>
+
+                <% if Notes %>
+                    <div class="span-4"><strong>Notes</strong></div>
+                    <div class="span-6 last"> $Notes </div>
                 <% end_if %>
             </div>
             <div class="col-md-6 contact_form_div">
