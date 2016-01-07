@@ -63,6 +63,7 @@ class EditSpeakerProfileForm extends SafeXSSForm {
 
         // Opt In Field
         $OptInField = new CheckboxField ('AvailableForBureau',"I'd like to be in the speaker bureau.");
+        $WillingVideoField = new CheckboxField ('WillingToPresentVideo',"Willing to present via video conference.");
 
         // Funded Travel
         $FundedTravelField = new CheckboxField ('FundedTravel',"My Company would be willing to fund my travel to events.");
@@ -117,6 +118,7 @@ class EditSpeakerProfileForm extends SafeXSSForm {
             $TwiiterNameField->setValue($speaker->TwitterName);
             $PhotoField->setValue(null, $speaker);
             $OptInField->setValue($speaker->AvailableForBureau);
+            $WillingVideoField->setValue($speaker->WillingToPresentVideo);
             $FundedTravelField->setValue($speaker->FundedTravel);
             $WillingToTravel->setValue($speaker->WillingToTravel);
 
@@ -170,6 +172,7 @@ class EditSpeakerProfileForm extends SafeXSSForm {
             $TwiiterNameField,
             $PhotoField,
             $OptInField,
+            $WillingVideoField,
             $FundedTravelField,
             $WillingToTravel,
             $CountriesToTravelField,
