@@ -77,26 +77,26 @@ class PresentationVotingPage_Controller extends Page_Controller {
 
 
     function LoggedOutPresentationList($catID) {
-        
+
         $summit = Summit::get_active();
-        
+
         if ($catID) {
-        
+
             $filter = array (
                 'CategoryID' => $catID,
                 'Status' => 'Received'
             );
-        
+
         } else {
-        
+
             $filter = array (
                 'Status' => 'Received'
-            );        
-        
+            );
+
         }
-        
+
         return Summit::get_active()->Presentations()->filter($filter);
-        
+
     }
     
     function MemberPresentationList() {
@@ -164,8 +164,7 @@ class PresentationVotingPage_Controller extends Page_Controller {
       $summitID = Summit::get_active()->ID;
 
       $presentations = Presentation::get()
-        ->filter('Status','Received')
-        ->where("Presentation.SummitID = {$summitID}");
+        ->where("SummitEvent.SummitID = {$summitID}");
 
       if($data['Search'] && strlen($data['Search']) > 1) {
 
@@ -177,7 +176,8 @@ class PresentationVotingPage_Controller extends Page_Controller {
               ->where("
                   Presentation.Title LIKE '%{$k}%' 
                   OR Presentation.Description LIKE '%{$k}%'
-                  OR (concat_ws(' ', PresentationSpeaker.FirstName, PresentationSpeaker.LastName)) LIKE '%{$k}%'
+                  OR PresentationSpeaker.FirstName LIKE '%{$k}%'
+                  OR PresentationSpeaker.LastName LIKE '%{$k}%'
             ");
         }   
 
@@ -222,15 +222,13 @@ class PresentationVotingPage_Controller extends Page_Controller {
 
       $summitID = Summit::get_active()->ID;
       $presentations = Presentation::get()
-        ->where("Presentation.SummitID = {$summitID}");
+        ->where("SummitEvent.SummitID = {$summitID}");
 
       if($CategoryID) $presentations = $presentations->filter('CategoryID', $CategoryID);
-      if($currentMemberID)
-      {
+      if($currentMemberID) {
           $presentations = $presentations
-                          ->filter('Status','Received')
-                          ->leftJoin("PresentationVote", "PresentationVote.PresentationID = Presentation.ID AND PresentationVote.MemberID = ".Member::currentUserID())
-                          ->where("PresentationVote.ID IS NULL");
+                          ->leftJoin("PresentationVote", "PresentationVote.PresentationID = Presentation.ID")
+                          ->where("IFNULL(PresentationVote.MemberID,0) = " . Member::currentUserID());              
       }
 
       if($presentations->count()) $Result = $presentations->first();
@@ -305,8 +303,15 @@ class PresentationVotingPage_Controller extends Page_Controller {
         if(is_numeric($CategoryID)) $Category = PresentationCategory::get()->byID($CategoryID);
         if(isset($Category)) $data["CategoryName"] = $Category->Title;
 
-        //return our $Data to use on the page
-        return $this->Customise($data);
+        $data["Search"] = isset($_GET['s']) ? $_GET['s'] : null;
+        if(isset($data['Search']) && strlen($data['Search']) > 1) {
+            $data["PresentationWithSearch"] = TRUE;
+            return $this->doSearch($data, null);
+        }
+        else {
+            //return our $Data to use on the page
+            return $this->Customise($data);
+        }
       } else {
         //Talk not found
         return $this->httpError(404, 'Sorry that talk could not be found');
