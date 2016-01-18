@@ -26,6 +26,7 @@ final class DBMigrateTask extends MigrationTask
         'MigrateExpertiseToDORelation',
         'ChangeTagsCollationMigration',
         'UpdateAttendeesTicketsMigration2',
+        'UpdateSurveyTemplateIndexMigration',
     );
 
     function up()
