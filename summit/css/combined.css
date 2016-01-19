@@ -55,7 +55,11 @@ body.summit-landing-body {
 
 .summit-landing-wrapper {
   background: url('/summit/images/landing-hero-bkgd.jpg') no-repeat left top;
+<<<<<<< HEAD
   min-height: 610px;
+=======
+  min-height: 400px;
+>>>>>>> e1e4925... Summit home page - style tweaks to get all above the fold
   background-size: cover;
   position: relative;
   border-bottom: 1px solid #243440; }
@@ -65,7 +69,12 @@ body.summit-landing-body {
   background-size: cover; }
 
 .summit-landing-logo {
+<<<<<<< HEAD
   margin: 145px 0 20px; }
+=======
+  margin: 90px 0 20px;
+  max-width: 220px; }
+>>>>>>> e1e4925... Summit home page - style tweaks to get all above the fold
 
 .summit-landing-wrapper p {
   color: #29abe2;
