@@ -25,7 +25,7 @@ final class DBMigrateTask extends MigrationTask
         'CreateTableCountries',
         'MigrateExpertiseToDORelation',
         'ChangeTagsCollationMigration',
-        'UpdateAttendeesTicketsMigration',
+        'UpdateAttendeesTicketsMigration2',
     );
 
     function up()
