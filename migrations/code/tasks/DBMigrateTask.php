@@ -27,6 +27,7 @@ final class DBMigrateTask extends MigrationTask
         'ChangeTagsCollationMigration',
         'UpdateAttendeesTicketsMigration2',
         'UpdateSurveyTemplateIndexMigration',
+        'RemovePresentationDeprecatedColumnsMigration',
     );
 
     function up()
