@@ -27,7 +27,8 @@ class PresentationCategory extends DataObject
     );
 
     private static $belongs_many_many = array(
-        'TrackChairs' => 'SummitTrackChair',
+        'TrackChairs'   => 'SummitTrackChair',
+        'CategoryGroup' => 'PresentationCategoryGroup'
     );
 
     private static $summary_fields = array(
@@ -46,7 +47,29 @@ class PresentationCategory extends DataObject
             ->numeric('SessionCount', 'Number of sessions')
             ->numeric('AlternateCount', 'Number of alternates')
             ->checkbox('VotingVisible', "This category is visible to voters")
-            ->checkbox('ChairVisible', "This category is visible to track chairs");
+            ->checkbox('ChairVisible', "This category is visible to track chairs")
+            ->hidden('SummitID', 'SummitID');
+    }
+
+    protected function validate()
+    {
+        $valid = parent::validate();
+        if(!$valid->valid()) return $valid;
+
+        $summit_id = isset($_REQUEST['SummitID']) ?  $_REQUEST['SummitID'] : $this->SummitID;
+
+        $summit   = Summit::get()->byID($summit_id);
+
+        if(!$summit){
+            return $valid->error('Invalid Summit!');
+        }
+
+        $count = intval(PresentationCategory::get()->filter(array('SummitID' => $summit->ID, 'Title' => trim($this->Title), 'ID:ExactMatch:not' => $this->ID))->count());
+
+        if($count > 0)
+            return $valid->error(sprintf('Presentation Category "%s" already exists!. please set another one', $this->Title));
+
+        return $valid;
     }
 
     public function getFormattedTitleAndDescription()
@@ -54,11 +77,17 @@ class PresentationCategory extends DataObject
         return '<h4 class="category-label">' . $this->Title . '</h4> <p>' . $this->Description . '</p>';
     }
 
-    public function isTrackChair($memberid)
-    {
-        $r = $this->TrackChairs()->filter('MemberID', $memberid);
+    public function getCategoryGroups() {
+        return $this->CategoryGroup();
+    }
 
-        return $r->count();
+    /**
+     * @param int $member_id
+     * @return int
+     */
+    public function isTrackChair($member_id)
+    {
+        return $this->exists()? intval($this->TrackChairs()->filter('MemberID', $member_id)->count()):0;
     }
 
     public function MemberList($memberid)
