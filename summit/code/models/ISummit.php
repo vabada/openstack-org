@@ -179,4 +179,9 @@ interface ISummit extends IEntity
      */
     public function isVotingOpen();
 
+    /**
+     * @return bool
+     */
+    public function isPresentationEditionAllowed();
+
 }

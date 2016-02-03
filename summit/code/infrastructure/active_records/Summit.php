@@ -1155,4 +1155,12 @@ SQL;
         $now          = new \DateTime('now', new DateTimeZone('UTC'));
         return ( $now >=  $start_date && $now <= $end_date);
     }
+
+    /**
+     * @return bool
+     */
+    public function isPresentationEditionAllowed()
+    {
+        return $this->isCallForSpeakersOpen() || $this->isVotingOpen();
+    }
 }
