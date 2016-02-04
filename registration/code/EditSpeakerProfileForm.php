@@ -141,13 +141,9 @@ class EditSpeakerProfileForm extends SafeXSSForm {
             }
             $CountriesToTravelField->setValue(implode(',',$country_array));
 
-            foreach ($speaker->MixedPresentationLinks(5) as $key => $presentation) {
-                ${'PresentationLinkField'.($key+1)}->setValue($presentation->Link);
+            foreach ($speaker->OtherPresentationLinks() as $key => $presentation) {
+                ${'PresentationLinkField'.($key+1)}->setValue($presentation->LinkUrl);
                 ${'PresentationTitleField'.($key+1)}->setValue($presentation->Title);
-                if ($presentation->Source == 'summit') {
-                    ${'PresentationLinkField'.($key+1)}->setDisabled(true);
-                    ${'PresentationTitleField'.($key+1)}->setDisabled(true);
-                }
             }
 
         } elseif($member) {
@@ -285,9 +281,7 @@ class EditSpeakerProfileForm extends SafeXSSForm {
             }
 
             // Expertise
-            foreach ($speaker->AreasOfExpertise() as $currentexp) {
-                $currentexp->delete();
-            }
+            $speaker->AreasOfExpertise()->removeAll();
             foreach ($data['Expertise'] as $exp) {
                 if (trim($exp) != '') {
                     $expertise = SpeakerExpertise::create(array(
@@ -298,9 +292,7 @@ class EditSpeakerProfileForm extends SafeXSSForm {
             }
 
             // Presentation Link
-            foreach ($speaker->OtherPresentationLinks() as $currentpres) {
-                $currentpres->delete();
-            }
+            $speaker->OtherPresentationLinks()->removeAll();
             foreach ($data['PresentationLink'] as $key => $link) {
                 if (trim($link) != '') {
                     $presentation_title = trim($data['PresentationTitle'][$key]);
@@ -313,9 +305,7 @@ class EditSpeakerProfileForm extends SafeXSSForm {
             }
 
             // Travel Preferences
-            foreach ($speaker->TravelPreferences() as $current_tf) {
-                $current_tf->delete();
-            }
+            $speaker->TravelPreferences()->removeAll();
             foreach ($data['CountriesToTravel'] as $travel_country) {
                 $travel_pref = SpeakerTravelPreference::create(array(
                     'Country' => $travel_country
