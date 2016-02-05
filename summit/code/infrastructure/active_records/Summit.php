@@ -40,6 +40,95 @@ final class Summit extends DataObject implements ISummit
     );
 
 
+    private static $better_buttons_actions = array (
+        'forcephase',
+        'setasactive',
+        'resetvotes',
+    );
+
+
+    private static $has_one = array
+    (
+        'Logo' => 'BetterImage',
+    );
+
+    private static $has_many = array
+    (
+        'Presentations'                => 'Presentation',
+        'Categories'                   => 'PresentationCategory',
+        'CategoryGroups'               => 'PresentationCategoryGroup',
+        'Locations'                    => 'SummitAbstractLocation',
+        'Types'                        => 'SummitType',
+        'EventTypes'                   => 'SummitEventType',
+        'Events'                       => 'SummitEvent',
+        'Attendees'                    => 'SummitAttendee',
+        'SummitTicketTypes'            => 'SummitTicketType',
+        'SummitRegistrationPromoCodes' => 'SummitRegistrationPromoCode',
+        'Notifications'                => 'SummitPushNotification',
+        'EntityEvents'                 => 'SummitEntityEvent',
+    );
+
+    private static $summary_fields = array
+    (
+        'Title'  => 'Title',
+        'Status' => 'Status',
+    );
+
+    public static function get_active()
+    {
+        $summit = Summit::get()->filter
+        (
+            array
+            (
+                'Active' => true
+            )
+        )->first();
+
+        return $summit ?: Summit::create();
+    }
+
+    public function checkRange($key)
+    {
+        $beginField = "{$key}BeginDate";
+        $endField   = "{$key}EndDate";
+
+        if (!$this->hasField($beginField) || !$this->hasField($endField)) return false;
+
+        return (time() > $this->obj($beginField)->format('U')) && (time() < $this->obj($endField)->format('U'));
+    }
+
+
+    public function getStatus()
+    {
+        if (!$this->Active) return "INACTIVE";
+
+        if ($this->checkRange("Submission")) return "ACCEPTING SUBMISSIONS";
+        if ($this->checkRange("Voting")) return "COMMUNITY VOTING";
+        if ($this->checkRange("Selection")) return "TRACK CHAIR SELECTION";
+        if ($this->checkRange("Registration")) return "REGISTRATION";
+        if ($this->checkRange("Summit")) return "SUMMIT IS ON";
+
+        return "DRAFT";
+    }
+
+    public function getNext()
+    {
+        $end_date = $this->getField('SummitEndDate');
+
+        return Summit::get()->filter( array
+        (
+            'SummitEndDate:GreaterThan' => $end_date,
+            'Active' => 1,
+        ))->sort('SummitEndDate', 'ASC')->first();
+    }
+
+
+    public function getTitle(){
+        $title = $this->getField('Title');
+        $name  = $this->getField('Name');
+        return empty($title)? $name : $title;
+    }
+
     public function setStartShowingVenuesDate($value)
     {
         if(!empty($value))
@@ -54,6 +143,7 @@ final class Summit extends DataObject implements ISummit
         $value = $this->getField('StartShowingVenuesDate');
         return $this->convertDateFromUTC2TimeZone($value);
     }
+
 
     public function setSummitBeginDate($value)
     {
@@ -205,78 +295,6 @@ final class Summit extends DataObject implements ISummit
         return $this->convertDateFromUTC2TimeZone($value);
     }
 
-    private static $has_one = array
-    (
-        'Logo' => 'BetterImage',
-    );
-
-    private static $has_many = array
-    (
-        'Presentations'                => 'Presentation',
-        'Categories'                   => 'PresentationCategory',
-        'CategoryGroups'               => 'PresentationCategoryGroup',
-        'Locations'                    => 'SummitAbstractLocation',
-        'Types'                        => 'SummitType',
-        'EventTypes'                   => 'SummitEventType',
-        'Events'                       => 'SummitEvent',
-        'Attendees'                    => 'SummitAttendee',
-        'SummitTicketTypes'            => 'SummitTicketType',
-        'SummitRegistrationPromoCodes' => 'SummitRegistrationPromoCode',
-        'Notifications'                => 'SummitPushNotification',
-    );
-
-    private static $summary_fields = array
-    (
-        'Title'  => 'Title',
-        'Status' => 'Status',
-    );
-
-    private static $searchable_fields = array
-    (
-    );
-
-    public static function get_active()
-    {
-        $summit = Summit::get()->filter
-        (
-            array
-            (
-                'Active' => true
-            )
-        )->first();
-
-        return $summit ?: Summit::create();
-    }
-
-    public function checkRange($key)
-    {
-        $beginField = "{$key}BeginDate";
-        $endField   = "{$key}EndDate";
-
-        if (!$this->hasField($beginField) || !$this->hasField($endField)) return false;
-
-        return (time() > $this->obj($beginField)->format('U')) && (time() < $this->obj($endField)->format('U'));
-    }
-
-
-    public function getStatus()
-    {
-        if (!$this->Active) return "INACTIVE";
-
-        if ($this->checkRange("Submission")) return "ACCEPTING SUBMISSIONS";
-        if ($this->checkRange("Voting")) return "COMMUNITY VOTING";
-        if ($this->checkRange("Selection")) return "TRACK CHAIR SELECTION";
-        if ($this->checkRange("Summit")) return "SUMMIT IS ON";
-
-        return "DRAFT";
-    }
-
-
-    public function getTitle(){
-        $title = $this->getField('Title');
-        $name  = $this->getField('Name');
-        return empty($title)? $name : $title;
-    }
 
     function TalksByMemberID($memberID)
     {
@@ -400,7 +418,12 @@ final class Summit extends DataObject implements ISummit
      */
     public function getName()
     {
-        return $this->getField('Title');
+        $value =  $this->getField('Name');
+        if(empty($value))
+        {
+            $value = $this->getField('Title');
+        }
+        return $value;
     }
 
     /**
@@ -411,7 +434,7 @@ final class Summit extends DataObject implements ISummit
         return $this->getSummitBeginDate();
     }
 
-     /**
+    /**
      * @return DateTime
      */
     public function getEndDate()
@@ -724,17 +747,19 @@ final class Summit extends DataObject implements ISummit
 
 
         if($this->ID > 0) {
+            $summit_id = $this->ID;
             // tracks
-            $config     = GridFieldConfig_RecordEditor::create(50);
+            $config     = GridFieldConfig_RecordEditor::create(25);
             $categories = new GridField('Categories', 'Presentation Categories', $this->Categories(), $config);
             $f->addFieldToTab('Root.Presentation Categories', $categories);
 
             // track groups
-            $config     = GridFieldConfig_RecordEditor::create(10);
+            $config     = GridFieldConfig_RecordEditor::create(25);
             $categories = new GridField('CategoryGroups', 'Category Groups', $this->CategoryGroups(), $config);
             $f->addFieldToTab('Root.Category Groups', $categories);
 
-            $config = GridFieldConfig_RecordEditor::create(50);
+            // locations
+            $config = GridFieldConfig_RecordEditor::create();
             $config->removeComponentsByType('GridFieldAddNewButton');
             $multi_class_selector = new GridFieldAddNewMultiClass();
             $multi_class_selector->setClasses
@@ -756,8 +781,8 @@ final class Summit extends DataObject implements ISummit
 
             $config = GridFieldConfig_RecordEditor::create();
             $config->addComponent(new GridFieldAddDefaultSummitTypes);
-            $gridField = new GridField('Types', 'Types', $this->Types(), $config);
-            $f->addFieldToTab('Root.Types', $gridField);
+            $gridField = new GridField('SummitTypes', 'SummitTypes', $this->Types(), $config);
+            $f->addFieldToTab('Root.SummitTypes', $gridField);
 
             // event types
             $config = GridFieldConfig_RecordEditor::create();
@@ -767,7 +792,7 @@ final class Summit extends DataObject implements ISummit
 
             //schedule
 
-            $config = GridFieldConfig_RecordEditor::create(50);
+            $config = GridFieldConfig_RecordEditor::create(25);
             $config->addComponent(new GridFieldAjaxRefresh(1000, false));
             $config->removeComponentsByType('GridFieldDeleteAction');
             $gridField = new GridField('Schedule', 'Schedule', $this->Events()->filter('Published', true)->sort
@@ -784,7 +809,7 @@ final class Summit extends DataObject implements ISummit
 
             // events
 
-            $config = GridFieldConfig_RecordEditor::create(50);
+            $config = GridFieldConfig_RecordEditor::create(25);
             $config->addComponent(new GridFieldPublishSummitEventAction);
             $config->addComponent(new GridFieldAjaxRefresh(1000, false));
             $config->addComponent($bulk_summit_types = new GridFieldBulkActionAssignSummitTypeSummitEvents);
@@ -795,38 +820,23 @@ final class Summit extends DataObject implements ISummit
 
             //track selection list presentations
 
-            $result = DB::query("SELECT DISTINCT SummitEvent.*, Presentation.*
-FROM SummitEvent
-INNER JOIN Presentation ON Presentation.ID = SummitEvent.ID
-INNER JOIN SummitSelectedPresentation ON SummitSelectedPresentation.PresentationID = Presentation.ID
-INNER JOIN SummitSelectedPresentationList ON SummitSelectedPresentation.SummitSelectedPresentationListID = SummitSelectedPresentationList.ID
-WHERE(ListType = 'Group') AND (SummitEvent.ClassName IN ('Presentation')) AND  (SummitEvent.SummitID = {$this->ID})");
-
-            $presentations = new ArrayList();
-            foreach ($result as $row) {
-                $presentations->add(new Presentation($row));
-            }
-
-            $config = GridFieldConfig_RecordEditor::create(50);
-            $config->addComponent(new GridFieldPublishSummitEventAction);
-            $config->addComponent(new GridFieldAjaxRefresh(1000, false));
-            $config->addComponent($bulk_summit_types = new GridFieldBulkActionAssignSummitTypeSummitEvents);
-            $bulk_summit_types->setTitle('Set Summit Types');
-            $config->removeComponentsByType('GridFieldAddNewButton');
-            $gridField = new GridField('TrackChairs', 'TrackChairs Selection Lists', $presentations, $config);
-            $gridField->setModelClass('Presentation');
+            $config = GridFieldConfig_RecordEditor::create(25);
+            $gridField = new GridField('TrackChairs', 'TrackChairs Selection Lists',
+                SummitSelectedPresentationList::get()->filter('ListType', 'Group')
+                    ->where(' CategoryID IN ( SELECT ID FROM PresentationCategory WHERE SummitID = '.$summit_id.')')
+                , $config);
             $f->addFieldToTab('Root.TrackChairs Selection Lists', $gridField);
 
 
             // attendees
 
-            $config = GridFieldConfig_RecordEditor::create(50);
+            $config = GridFieldConfig_RecordEditor::create(25);
             $gridField = new GridField('Attendees', 'Attendees', $this->Attendees(), $config);
             $f->addFieldToTab('Root.Attendees', $gridField);
 
             //tickets types
 
-            $config = GridFieldConfig_RecordEditor::create(50);
+            $config = GridFieldConfig_RecordEditor::create(25);
             $gridField = new GridField('SummitTicketTypes', 'Ticket Types', $this->SummitTicketTypes(), $config);
             $f->addFieldToTab('Root.TicketTypes', $gridField);
 
@@ -847,21 +857,20 @@ WHERE(ListType = 'Group') AND (SummitEvent.ClassName IN ('Presentation')) AND  (
 
             $config->addComponent($multi_class_selector);
 
-
             $promo_codes = new GridField('SummitRegistrationPromoCodes', 'Registration Promo Codes',
                 $this->SummitRegistrationPromoCodes(), $config);
             $f->addFieldToTab('Root.RegistrationPromoCodes', $promo_codes);
 
             // speakers
 
-            $config = GridFieldConfig_RecordEditor::create(50);
+            $config = GridFieldConfig_RecordEditor::create(25);
             $gridField = new GridField('Speakers', 'Speakers', $this->Speakers(false), $config);
             $config->getComponentByType("GridFieldDataColumns")->setFieldCasting(array("Bio" => "HTMLText->BigSummary"));
             $f->addFieldToTab('Root.Speakers', $gridField);
 
             // presentations
 
-            $config = GridFieldConfig_RecordEditor::create(50);
+            $config = GridFieldConfig_RecordEditor::create(25);
             $config->addComponent(new GridFieldPublishSummitEventAction);
             $config->addComponent(new GridFieldAjaxRefresh(1000, false));
             $config->addComponent($bulk_summit_types = new GridFieldBulkActionAssignSummitTypeSummitEvents);
@@ -871,7 +880,7 @@ WHERE(ListType = 'Group') AND (SummitEvent.ClassName IN ('Presentation')) AND  (
             $f->addFieldToTab('Root.Presentations', $gridField);
 
             // push notifications
-            $config = GridFieldConfig_RecordEditor::create(50);
+            $config = GridFieldConfig_RecordEditor::create(25);
             $config->addComponent(new GridFieldAjaxRefresh(1000, false));
             $config->getComponentByType('GridFieldDataColumns')->setDisplayFields
             (
@@ -879,16 +888,81 @@ WHERE(ListType = 'Group') AND (SummitEvent.ClassName IN ('Presentation')) AND  (
             );
             $gridField = new GridField('Notifications', 'Notifications', $this->Notifications(), $config);
             $f->addFieldToTab('Root.Notifications', $gridField);
+
+            //entity events
+
+            $config = GridFieldConfig_RecordEditor::create(25);
+            $config->addComponent(new GridFieldAjaxRefresh(1000, false));
+            $config->addComponent(new GridFieldWipeDevicesDataAction);
+            $config->removeComponentsByType('GridFieldAddNewButton');
+            $gridField = new GridField('EntityEvents', 'EntityEvents', $this->EntityEvents(), $config);
+            $f->addFieldToTab('Root.EntityEvents', $gridField);
         }
         return $f;
-
     }
+
+
+    public function getBetterButtonsActions () {
+        $f = parent::getBetterButtonsActions();
+        if(Director::isDev() && Permission::check('ADMIN')) {
+            $f->push(new DropdownFormAction('Dev tools', [
+                new BetterButtonNestedForm('forcephase', 'Force phase...', FieldList::create(
+                    DropdownField::create('Phase', 'Choose a phase', [
+                        0 => 'ACCEPTING SUBMISSIONS',
+                        1 => 'COMMUNITY VOTING',
+                        2 => 'TRACK CHAIR SELECTION',
+                        3 => 'REGISTRATION',
+                        4 => 'SUMMIT IS ON',
+                    ])
+                )),
+                BetterButtonCustomAction::create('resetvotes', 'Reset presentation votes')
+                    ->setRedirectType(BetterButtonCustomAction::REFRESH)
+                    ->setSuccessMessage('All votes have been reset'),
+                BetterButtonCustomAction::create('setasactive', 'Set as active')
+                    ->setRedirectType(BetterButtonCustomAction::REFRESH)
+                    ->setSuccessMessage('Summit is now active')
+            ]));
+        }
+
+        return $f;
+    }
+
+
+    public function forcephase ($data, $form) {
+        $span = 10;
+        $subtractor = ($data['Phase'] * $span)*-1;
+        foreach(['Submission','Voting','Selection','Registration'] as $period) {
+            $date = new DateTime('@'.strtotime("$subtractor days"));
+            $this->{"set".$period."BeginDate"}($date->format("Y-m-d H:i:s"));
+            $subtractor += $span;
+            $date->add(DateInterval::createFromDateString("$span days"));
+            $this->{"set".$period."EndDate"}($date->format("Y-m-d H:i:s"));
+        }
+
+        $this->write();
+        $form->sessionMessage('Phase updated','good');
+    }
+
+
+    public function resetvotes () {
+        DB::query(sprintf(
+            "DELETE FROM PresentationVote WHERE PresentationID IN (%s)",
+            implode(',', $this->Presentations()->column('ID'))
+        ));
+    }
+
+
+    public function setasactive () {
+        DB::query("UPDATE Summit SET Active = 0");
+        $this->Active = 1;
+        $this->write();
+    }
+
 
     protected function validate(){
         $valid = parent::validate();
         if(!$valid->valid()) return $valid;
         $name = trim($this->Title);
-
         if(empty($name)){
             return $valid->error('Title is required!');
         }
@@ -936,7 +1010,7 @@ WHERE(ListType = 'Group') AND (SummitEvent.ClassName IN ('Presentation')) AND  (
         return $valid;
     }
 
-     /**
+    /**
      * @param SummitMainInfo $info
      * @return void
      */
@@ -980,7 +1054,7 @@ WHERE(ListType = 'Group') AND (SummitEvent.ClassName IN ('Presentation')) AND  (
      */
     public function findTicketTypeByExternalId($ticket_external_id)
     {
-       return $this->SummitTicketTypes()->filter('ExternalId', $ticket_external_id)->first();
+        return $this->SummitTicketTypes()->filter('ExternalId', $ticket_external_id)->first();
     }
 
     /**
@@ -1115,7 +1189,7 @@ WHERE(ListType = 'Group') AND (SummitEvent.ClassName IN ('Presentation')) AND  (
         $start_date = $day->format('Y-m-d H:i:s');
         $end_date   = $day->add(new DateInterval('PT23H59M59S'))->format('Y-m-d H:i:s');
         $id = $this->ID;
-$sql = <<<SQL
+        $sql = <<<SQL
 SELECT COUNT(E.ID) FROM SummitEvent E
 WHERE E.SummitID = {$id} AND StartDate >= '{$start_date}' AND EndDate <= '{$end_date}';
 SQL;
@@ -1252,14 +1326,7 @@ SQL;
         }
 
         return new ArrayList($list);
-    }
 
-    /**
-     * @return bool
-     */
-    public function isPresentationEditionAllowed()
-    {
-        return $this->isCallForSpeakersOpen() || $this->isVotingOpen();
     }
 
     /**
@@ -1301,5 +1368,10 @@ SQL;
         $start_showing_venue_date = $this->getField('StartShowingVenuesDate');
         $now                      = new \DateTime('now', new DateTimeZone('UTC'));
         return $start_showing_venue_date <= $now;
+    }
+
+    public function isPresentationEditionAllowed()
+    {
+        return $this->isCallForSpeakersOpen() || $this->isVotingOpen();
     }
 }
