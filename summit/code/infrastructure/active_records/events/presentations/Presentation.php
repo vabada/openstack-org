@@ -452,7 +452,7 @@ class Presentation extends SummitEvent implements IPresentation
     }
 
     /**
-     * Used by the track chair app see if the presentaiton has been selected by currently logged in member.
+     * Used by the track chair app see if the presentation has been selected by currently logged in member.
      **/
 
     public function isSelected() {
@@ -549,7 +549,7 @@ class Presentation extends SummitEvent implements IPresentation
         return PresentationSpeaker::get();
     }
     /**
-     * Used by the track chair app see if the presentaiton has been selected by the group.
+     * Used by the track chair app see if the presentation has been selected by the group.
      **/
 
     public function isGroupSelected() {
@@ -566,7 +566,7 @@ class Presentation extends SummitEvent implements IPresentation
     }
 
     /**
-     * Used by the track chair app see if the presentaiton has been selected by anyone at all.
+     * Used by the track chair app see if the presentation has been selected by anyone at all.
      * TODO: refactor to combine with isSelected() by passing optional memberID
      **/
 
@@ -580,7 +580,7 @@ class Presentation extends SummitEvent implements IPresentation
     }
 
     /**
-     * Used by the track chair app see if the presentaiton was moved to this category.
+     * Used by the track chair app see if the presentation was moved to this category.
      **/
 
     public function movedToThisCategory() {
