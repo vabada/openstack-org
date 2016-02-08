@@ -170,7 +170,7 @@
 
                         <% if Summit.isVotingOpen %>
                             <% if not $CurrentMember %>
-                                <% include PresentationVotingPage_LogIn %>
+                                <% include PresentationVotingPage_LogIn BackUrl=$Top.Link, PresentationID=$ID %>
                             <% else %>
                                 <% include PresentationVotingPage_CastYourVote %>
                             <% end_if %>
