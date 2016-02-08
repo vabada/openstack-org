@@ -1,8 +1,6 @@
 <?php
 
-/**
- * Class SummitPage
- */
+
 class SummitPage extends Page
 {
 
@@ -96,12 +94,18 @@ class SummitPage extends Page
     public function onBeforeWrite() {
         parent::onBeforeWrite();
         $parent = $this->Parent();
-        if($parent && ($parent instanceof SummitPage) && $parent->SummitID > 0)
-        {
+        if($parent && ($parent instanceof SummitPage) && $parent->SummitID > 0){
             $this->SummitID = $parent->SummitID;
         }
     }
 
+    public function LinkingMode() {
+        if($this->isSection()) {
+            return 'current';
+        } else {
+            return 'link';
+        }
+    }
 }
 
 

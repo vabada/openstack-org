@@ -1,5 +1,5 @@
 ---
-Name: summitmodule
+Name: mysite
 After: 'framework/*','cms/*', 'mysite/*'
 ---
 Member:
@@ -12,6 +12,13 @@ EditProfilePage_Controller:
     - EditProfilePageSummitAttendeeExtension
 MemberTokenProvider:
   token_expire: 500000
+Director:
+  rules:
+    'presentations/api/v1': 'PresentationAPI'
+    'trackchairs/api/v1': 'TrackChairAPI'
+    'presentations/authenticate': 'PresentationAPITokenGenerator'
+    'summit-login': 'SummitSecurity'
+    'summit-admin': 'SummitAppAdminController'
 PresentationCategory:
   extensions:
     - JSONable
@@ -75,5 +82,8 @@ SummitType:
   extensions:
     - SummitEntity
 SummitTicketType:
+  extensions:
+    - SummitEntity
+PresentationCategoryGroup:
   extensions:
     - SummitEntity

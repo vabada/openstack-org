@@ -30,8 +30,8 @@ class EmailUtilsPage_Controller extends Page_Controller {
 
         $votingURL = "https://www.openstack.org/summit/tokyo-2015/vote-for-speakers/Presentation/";
     	
-        $myPresentations = $speaker->MyPresentations('Received');
-        $otherPresentations = $speaker->OtherPresentations('Received');
+        $myPresentations = $speaker->MyPresentations();
+        $otherPresentations = $speaker->OtherPresentations();
 
         // Build a list of the presentations this person owns for export
         $myPresentationList = '';

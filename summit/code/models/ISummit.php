@@ -185,11 +185,6 @@ interface ISummit extends IEntity
     public function isVotingOpen();
 
     /**
-    * @return bool
-    */
-    public function isPresentationEditionAllowed();
-
-    /**
      * @return ICompany[]
      */
     public function Sponsors();
@@ -204,5 +199,10 @@ interface ISummit extends IEntity
      * @return bool
      */
     public function ShouldShowVenues();
+
+    /**
+     * @return bool
+    */
+    public function isPresentationEditionAllowed();
 
 }

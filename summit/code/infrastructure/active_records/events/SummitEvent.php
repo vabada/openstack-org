@@ -166,16 +166,6 @@ class SummitEvent extends DataObject implements ISummitEvent
         return $this->getField('Description');
     }
 
-    public function getShortDescription($length=200){
-        $description = strip_tags($this->getField('Description'));
-
-        if (strlen($description) < $length) return $description;
-
-        $pos=strpos($description, ' ', $length);
-        $short_desc = substr($description,0,$pos ).'...';
-        return $short_desc;
-    }
-
     /**
      * @return ISummitLocation
      */
@@ -601,6 +591,10 @@ SQL;
      * @return boolean
      */
     public function canView($member = null) {
+        return Permission::check("ADMIN") || Permission::check("ADMIN_SUMMIT_APP") || Permission::check("ADMIN_SUMMIT_APP_SCHEDULE");
+    }
+
+    public function canDelete($member = null) {
         return Permission::check("ADMIN") || Permission::check("ADMIN_SUMMIT_APP") || Permission::check("ADMIN_SUMMIT_APP_SCHEDULE");
     }
 

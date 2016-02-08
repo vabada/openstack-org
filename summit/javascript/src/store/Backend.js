@@ -38,7 +38,7 @@ var Backend = {
 	},
 
 	resetPresentations: function () {
-		// /Cortex.presentations.remove();
+		Cortex.presentations.remove();
 		Cortex.presentations.set([]);
 	},
 
@@ -51,6 +51,7 @@ var Backend = {
 
 
 	setPresentationVote: function (presID, vote) {
+		console.log('vote');
 		var pres = Backend.getPresentationByID(presID);
 		if(pres) {
 			pres.user_vote.set(vote);

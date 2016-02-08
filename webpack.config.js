@@ -2,7 +2,7 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: {
-     /* here u must define all your entries points*/
+    /* here u must define all your entries points*/
     "software/js/public/software_all_projects": "./software/js/software_all_projects.js",
     "software/js/public/software_sample_configs":"./software/js/software_sample_configs.js",
     "summit/javascript/new-trackchairs-app/app/index": "./summit/javascript/new-trackchairs-app/app/index.js",
@@ -24,12 +24,12 @@ module.exports = {
       riot: 'riot'
     })
     /*new webpack.optimize.UglifyJsPlugin(
-          {
-              sourceMap: false,
-              mangle:    false,
-              minimize:  true
-          }
-    )*/
+     {
+     sourceMap: false,
+     mangle:    false,
+     minimize:  true
+     }
+     )*/
   ],
   module: {
     loaders: [

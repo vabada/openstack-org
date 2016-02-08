@@ -100,7 +100,7 @@
                             element.addClass('event-published');
                             $('.ui-resizable-n', element).show();
                             $('.ui-resizable-s', element).show();
-                            $('.unpublish-event-btn-container', element).show();
+                            $('.unpublish-event-btn', element).show();
                             self.published_store.add(self.unpublished_store.delete(id));
                         }
 
@@ -326,11 +326,13 @@
                 for(var key in hash) {
                     var value = hash[key];
                     if (key == 'event') {
-                        $('body').animate({
-                            scrollTop: ($("#event_"+value).offset().top - 100)
-                        }, 2000, function() {
-                            $("#event_"+value).effect("highlight", {}, 2000);
-                        });
+                        if($("#event_"+value).length > 0){
+                            $('body').animate({
+                                scrollTop: ($("#event_"+value).offset().top - 100)
+                            }, 2000, function() {
+                                $("#event_"+value).effect("highlight", {}, 2000);
+                            });
+                        }
                     } else if (key == 'time') {
                         $('body').animate({
                         scrollTop: ($('[data-time="'+value+'"]').offset().top - 100)

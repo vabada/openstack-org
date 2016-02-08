@@ -11,7 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-class OnsitePhoneForm extends Form {
+class OnsitePhoneForm extends BootstrapForm {
  
    function __construct($controller, $name, $speakerHash) {
    
@@ -40,12 +40,6 @@ class OnsitePhoneForm extends Form {
 
    }
  
-   function forTemplate() {
-      return $this->renderWith(array(
-         $this->class,
-         'Form'
-      ));
-   } 
 
    function doSavePhoneNumber($data, $form) {
 

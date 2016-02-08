@@ -29,7 +29,7 @@ module.exports = React.createClass({displayName: 'VotingApp',
     })
 
     API.registerErrorHandler('TIMEOUT', function (res) {
-      console.log("The applicaiton timed out waiting on a response from the server.");
+      alert("The applicaiton timed out waiting on a response from the server.");
     });
 
     API.registerErrorHandler('ERROR', function(res){

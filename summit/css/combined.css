@@ -64,6 +64,10 @@ body.summit-landing-body {
   background: url('/summit/images/landing-hero-bkgd-v.jpg') no-repeat left center;
   background-size: cover; }
 
+.summit-landing-wrapper.austin {
+  background: url('/summit/images/landing-hero-bkgd.jpg') no-repeat center center;
+  background-size: cover; }
+
 .summit-landing-logo {
   margin: 90px 0 20px;
   max-width: 220px; }

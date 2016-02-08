@@ -41,9 +41,9 @@ final class Summit extends DataObject implements ISummit
 
 
     private static $better_buttons_actions = array (
-        'forcephase',
-        'setasactive',
-        'resetvotes',
+		'forcephase',
+		'setasactive',
+		'resetvotes',
     );
 
 
@@ -294,7 +294,7 @@ final class Summit extends DataObject implements ISummit
         $value = $this->getField('RegistrationEndDate');
         return $this->convertDateFromUTC2TimeZone($value);
     }
-
+    
 
     function TalksByMemberID($memberID)
     {
@@ -434,7 +434,7 @@ final class Summit extends DataObject implements ISummit
         return $this->getSummitBeginDate();
     }
 
-    /**
+     /**
      * @return DateTime
      */
     public function getEndDate()
@@ -903,62 +903,62 @@ final class Summit extends DataObject implements ISummit
 
 
     public function getBetterButtonsActions () {
-        $f = parent::getBetterButtonsActions();
-        if(Director::isDev() && Permission::check('ADMIN')) {
-            $f->push(new DropdownFormAction('Dev tools', [
-                new BetterButtonNestedForm('forcephase', 'Force phase...', FieldList::create(
-                    DropdownField::create('Phase', 'Choose a phase', [
-                        0 => 'ACCEPTING SUBMISSIONS',
-                        1 => 'COMMUNITY VOTING',
-                        2 => 'TRACK CHAIR SELECTION',
-                        3 => 'REGISTRATION',
-                        4 => 'SUMMIT IS ON',
-                    ])
-                )),
-                BetterButtonCustomAction::create('resetvotes', 'Reset presentation votes')
-                    ->setRedirectType(BetterButtonCustomAction::REFRESH)
-                    ->setSuccessMessage('All votes have been reset'),
-                BetterButtonCustomAction::create('setasactive', 'Set as active')
-                    ->setRedirectType(BetterButtonCustomAction::REFRESH)
-                    ->setSuccessMessage('Summit is now active')
-            ]));
-        }
+    	$f = parent::getBetterButtonsActions();
+    	if(Director::isDev() && Permission::check('ADMIN')) {
+    		$f->push(new DropdownFormAction('Dev tools', [
+    			new BetterButtonNestedForm('forcephase', 'Force phase...', FieldList::create(
+    				DropdownField::create('Phase', 'Choose a phase', [
+						0 => 'ACCEPTING SUBMISSIONS',
+			        	1 => 'COMMUNITY VOTING',
+			        	2 => 'TRACK CHAIR SELECTION',
+			        	3 => 'REGISTRATION',
+			        	4 => 'SUMMIT IS ON',
+    				])
+    			)),
+    			BetterButtonCustomAction::create('resetvotes', 'Reset presentation votes')
+    				->setRedirectType(BetterButtonCustomAction::REFRESH)
+    				->setSuccessMessage('All votes have been reset'),
+    			BetterButtonCustomAction::create('setasactive', 'Set as active')
+    				->setRedirectType(BetterButtonCustomAction::REFRESH)
+    				->setSuccessMessage('Summit is now active')
+    		]));
+    	}
 
-        return $f;
+    	return $f;
     }
 
 
     public function forcephase ($data, $form) {
-        $span = 10;
-        $subtractor = ($data['Phase'] * $span)*-1;
-        foreach(['Submission','Voting','Selection','Registration'] as $period) {
-            $date = new DateTime('@'.strtotime("$subtractor days"));
-            $this->{"set".$period."BeginDate"}($date->format("Y-m-d H:i:s"));
-            $subtractor += $span;
-            $date->add(DateInterval::createFromDateString("$span days"));
-            $this->{"set".$period."EndDate"}($date->format("Y-m-d H:i:s"));
-        }
+    	$span = 10;
+    	$subtractor = ($data['Phase'] * $span)*-1;
+    	foreach(['Submission','Voting','Selection','Registration'] as $period) {    		
+	    	$date = new DateTime('@'.strtotime("$subtractor days"));
+	    	$this->{"set".$period."BeginDate"}($date->format("Y-m-d H:i:s"));
+	    	$subtractor += $span;	    	
+	    	$date->add(DateInterval::createFromDateString("$span days"));
+	    	$this->{"set".$period."EndDate"}($date->format("Y-m-d H:i:s"));
+    	}    	
 
-        $this->write();
-        $form->sessionMessage('Phase updated','good');
+    	$this->write();
+    	$form->sessionMessage('Phase updated','good');
     }
 
 
     public function resetvotes () {
-        DB::query(sprintf(
-            "DELETE FROM PresentationVote WHERE PresentationID IN (%s)",
-            implode(',', $this->Presentations()->column('ID'))
-        ));
+    	DB::query(sprintf(
+    		"DELETE FROM PresentationVote WHERE PresentationID IN (%s)",
+    		implode(',', $this->Presentations()->column('ID'))
+    	));
     }
 
 
     public function setasactive () {
-        DB::query("UPDATE Summit SET Active = 0");
-        $this->Active = 1;
-        $this->write();
+    	DB::query("UPDATE Summit SET Active = 0");
+    	$this->Active = 1;
+    	$this->write();
     }
 
-
+    
     protected function validate(){
         $valid = parent::validate();
         if(!$valid->valid()) return $valid;
@@ -1010,7 +1010,7 @@ final class Summit extends DataObject implements ISummit
         return $valid;
     }
 
-    /**
+     /**
      * @param SummitMainInfo $info
      * @return void
      */
@@ -1054,7 +1054,7 @@ final class Summit extends DataObject implements ISummit
      */
     public function findTicketTypeByExternalId($ticket_external_id)
     {
-        return $this->SummitTicketTypes()->filter('ExternalId', $ticket_external_id)->first();
+       return $this->SummitTicketTypes()->filter('ExternalId', $ticket_external_id)->first();
     }
 
     /**
@@ -1189,7 +1189,7 @@ final class Summit extends DataObject implements ISummit
         $start_date = $day->format('Y-m-d H:i:s');
         $end_date   = $day->add(new DateInterval('PT23H59M59S'))->format('Y-m-d H:i:s');
         $id = $this->ID;
-        $sql = <<<SQL
+$sql = <<<SQL
 SELECT COUNT(E.ID) FROM SummitEvent E
 WHERE E.SummitID = {$id} AND StartDate >= '{$start_date}' AND EndDate <= '{$end_date}';
 SQL;

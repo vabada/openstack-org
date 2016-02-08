@@ -34,47 +34,33 @@ final class EventbriteRestApi implements IEventbriteRestApi
      */
     public function getEntity($api_url, array $params)
     {
-        try {
-            if (strstr($api_url, EventbriteRestApi::BaseUrl) === false) {
-                throw new Exception('invalid base url!');
-            }
-            $client = new GuzzleHttp\Client();
+        if(strstr($api_url, EventbriteRestApi::BaseUrl) === false) throw new Exception('invalid base url!');
+        $client   = new GuzzleHttp\Client();
 
-            $query = array
-            (
-                'token' => $this->auth_info['token']
-            );
+        $query = array
+        (
+            'token' => $this->auth_info['token']
+        );
 
-            foreach ($params as $param => $value) {
-                $query[$param] = $value;
-            }
-
-            $response = $client->get($api_url, array
-                (
-                    'query' => $query
-                )
-            );
-
-            if ($response->getStatusCode() !== 200) {
-                throw new Exception('invalid status code!');
-            }
-            $content_type = $response->getHeader('content-type');
-            if (empty($content_type)) {
-                throw new Exception('invalid content type!');
-            }
-            if ($content_type !== 'application/json') {
-                throw new Exception('invalid content type!');
-            }
-
-            $json = $response->getBody()->getContents();
-
-            return json_decode($json, true);
-        }
-        catch(Exception $ex)
+        foreach($params as $param => $value)
         {
-            SS_Log::log($ex->getMessage(), SS_Log::ERR);
-            throw $ex;
+            $query[$param] = $value;
         }
+
+        $response = $client->get($api_url, array
+            (
+                'query' => $query
+            )
+        );
+
+        if($response->getStatusCode() !== 200) throw new Exception('invalid status code!');
+        $content_type = $response->getHeader('content-type');
+        if(empty($content_type)) throw new Exception('invalid content type!');
+        if($content_type !== 'application/json') throw new Exception('invalid content type!');
+
+        $json = $response->getBody()->getContents();
+        return json_decode($json, true);
+
     }
 
     /**

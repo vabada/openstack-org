@@ -25,8 +25,8 @@ final class DBMigrateTask extends MigrationTask
         'CreateTableCountries',
         'MigrateExpertiseToDORelation',
         'ChangeTagsCollationMigration',
-        'UpdateAttendeesTicketsMigration2',
         'UpdateSurveyTemplateIndexMigration',
+        'UpdateAttendeesTicketsMigration2',
         'RemovePresentationDeprecatedColumnsMigration',
     );
 
