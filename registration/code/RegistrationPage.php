@@ -138,7 +138,13 @@ class RegistrationPage_Controller extends Page_Controller
 
         $fields->push(new HiddenField('MembershipType', 'MembershipType', 'foundation'));
 
-
+		$request  = Controller::curr()->getRequest();
+        $back_url = $request->getVar('BackURL');
+        if(!empty($back_url))
+        {
+            $fields->push(new HiddenField('BackURL', 'BackURL', $back_url));
+        }
+		
         $actions = new FieldList(
             new FormAction('doRegister', 'Submit My Application')
         );
@@ -252,7 +258,12 @@ class RegistrationPage_Controller extends Page_Controller
             }
             //Redirect to profile page with success message
             Session::clear("FormInfo.{$form->FormName()}.data");
-            return OpenStackIdCommon::loginMember($member, $ProfilePage->Link('?success=1'));
+            
+			$request  = Controller::curr()->getRequest();
+            $back_url = $request->postVar('BackURL');
+            $link     = $ProfilePage->Link('?success=1');
+            if(!empty($back_url)) $link .= "&BackURL=".$back_url;
+            return OpenStackIdCommon::loginMember($Member, $link);
         }
     }
 
