@@ -15,7 +15,6 @@ var form_validator = null;
 
 $(document).ready(function(){
 
-
     $("#aff_from").datetimepicker();
     $("#aff_to").datetimepicker();
 

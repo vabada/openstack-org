@@ -183,6 +183,7 @@ class SummitService
         $attendee_repository = $this->attendee_repository;
         return $this->tx_service->transaction(function() use($summit, $attendee_data, $attendee_repository){
             if(!isset($attendee_data['id'])) throw new EntityValidationException('missing required param: id');
+
             $attendee_id = intval($attendee_data['id']);
             $attendee = $attendee_repository->getById($attendee_id);
 
