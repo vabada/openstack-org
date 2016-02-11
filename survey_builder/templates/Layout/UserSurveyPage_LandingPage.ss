@@ -16,68 +16,6 @@
 </style>
 <div class="container">
     <h1>$LoginPageTitle</h1>
-    <!-- user survey report -->
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="condensed hero-survey">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <h1 style="color: white">See the results from the latest User Survey</h1>
-                        </div>
-                    </div>
-                    <div title="Photo by the OpenStack Foundation" data-placement="left" data-toggle="tooltip"
-                         class="hero-credit" data-original-title="Photo by the OpenStack Foundation">
-                        <a target="_blank" href="#"><i class="fa fa-info-circle"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <h3>OpenStack users share their opinions and deployment choices to inform the roadmap</h3>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <p>
-                Read more from the sixth survey of OpenStack users since April 2013, with a goal of better
-                understanding attitudes, organizational profiles, use cases, and technology choices across the
-                community’s various deployment stages and sizes.
-            </p>
-            <p>
-                <a class="roundedButton" href="http://www.openstack.org/assets/survey/Public-User-Survey-Report.pdf" target="_blank">Download the report</a>
-            </p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <h3>See prior surveys</h3>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <p>
-                Learn more about past User Survey data to see how OpenStack is growing and maturing.
-            </p>
-            <ul class="list-unstyled">
-                <li>
-                    <a href="http://superuser.openstack.org/articles/user-survey-identifies-leading-industries-and-business-drivers-for-openstack-adoption"
-                       target="_blank">May 2015 Demographics</a></li>
-                <li>
-                    <a href="http://superuser.openstack.org/articles/user-survey-identifies-leading-industries-and-business-drivers-for-openstack-adoption"
-                       target="_blank">May 2015 Business drivers</a></li>
-                <li>
-                    <a href="http://superuser.openstack.org/articles/openstack-users-share-how-their-deployments-stack-up"
-                       target="_blank">May 2015 Deployments</a></li>
-                <li><a href="http://superuser.openstack.org/articles/openstack-user-survey-insights-november-2014"
-                       target="_blank">November 2014 Full report</a></li>
-            </ul>
-        </div>
-    </div>
-    <!-- end - user survey report -->
-    <hr/>
     <div class="row">
 
         <div class="col-lg-4">
@@ -124,4 +62,71 @@
             </div>
         </div>
     </div>
+    
+    <hr/>
+    
+    <!-- user survey report -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="condensed hero-survey">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <h1 style="color: white">See the results from the latest User Survey</h1>
+                        </div>
+                    </div>
+                    <div title="Photo by the OpenStack Foundation" data-placement="left" data-toggle="tooltip"
+                         class="hero-credit" data-original-title="Photo by the OpenStack Foundation">
+                        <a target="_blank" href="#"><i class="fa fa-info-circle"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <hr/>
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>OpenStack users share their opinions and deployment choices to inform the roadmap</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                Read more from the sixth survey of OpenStack users since April 2013, with a goal of better
+                understanding attitudes, organizational profiles, use cases, and technology choices across the
+                community’s various deployment stages and sizes.
+            </p>
+            <p>
+                <a class="roundedButton" href="http://www.openstack.org/assets/survey/Public-User-Survey-Report.pdf" target="_blank">Download the report</a>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>See prior surveys</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <p>
+                Learn more about past User Survey data to see how OpenStack is growing and maturing.
+            </p>
+            <ul class="list-unstyled">
+                <li>
+                    <a href="http://superuser.openstack.org/articles/user-survey-identifies-leading-industries-and-business-drivers-for-openstack-adoption"
+                       target="_blank">May 2015 Demographics</a></li>
+                <li>
+                    <a href="http://superuser.openstack.org/articles/user-survey-identifies-leading-industries-and-business-drivers-for-openstack-adoption"
+                       target="_blank">May 2015 Business drivers</a></li>
+                <li>
+                    <a href="http://superuser.openstack.org/articles/openstack-users-share-how-their-deployments-stack-up"
+                       target="_blank">May 2015 Deployments</a></li>
+                <li><a href="http://superuser.openstack.org/articles/openstack-user-survey-insights-november-2014"
+                       target="_blank">November 2014 Full report</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- end - user survey report -->
 </div>
