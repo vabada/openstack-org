@@ -215,7 +215,7 @@ SQL;
             ->leftJoin('SummitEventType','SummitEventType.ID = SummitEvent.TypeID')
             ->where("SummitEvent.SummitID = {$summit->getIdentifier()} AND SummitEvent.Published = 1
                      AND SummitEvent.StartDate < '{$end_date}' AND SummitEvent.EndDate > '{$start_date}'
-                     AND SummitEvent.LocationID != {$location} AND SummitEventType.BlackOutTimes");
+                     AND SummitEvent.LocationID != {$location} AND SummitEventType.BlackOutTimes = 1");
 
         return $list->toArray();
     }
