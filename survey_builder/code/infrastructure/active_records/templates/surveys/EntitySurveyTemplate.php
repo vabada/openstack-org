@@ -106,10 +106,6 @@ class EntitySurveyTemplate extends SurveyTemplate implements IEntitySurveyTempla
             $config->addComponent($multi_class_selector);
             $gridField = new GridField('MigrationMappings', 'Migration Mappings', $this->MigrationMappings(), $config);
 
-            $dataColumns = $config->getComponentByType('GridFieldDataColumns');
-
-            $dataColumns->setDisplayFields(NewDataModelSurveyMigrationMapping::getDisplayFields());
-
             $fields->add($gridField);
         }
         return $fields;

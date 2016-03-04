@@ -133,10 +133,6 @@ class SurveyTemplate extends DataObject implements ISurveyTemplate {
             $config->addComponent($multi_class_selector);
             $gridField = new GridField('MigrationMappings', 'Migration Mappings', $this->MigrationMappings(), $config);
 
-            $dataColumns = $config->getComponentByType('GridFieldDataColumns');
-
-            $dataColumns->setDisplayFields(NewDataModelSurveyMigrationMapping::getDisplayFields());
-
             $fields->addFieldToTab('Root.Main', $gridField);
         }
 
