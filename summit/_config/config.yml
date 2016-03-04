@@ -38,6 +38,7 @@ Summit:
   extensions:
     - JSONable
     - SummitEntity
+  random_voting_list_count: 100
 SummitTrackChair:
   extensions:
     - JSONable

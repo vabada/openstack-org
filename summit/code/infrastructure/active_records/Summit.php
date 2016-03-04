@@ -39,11 +39,11 @@ final class Summit extends DataObject implements ISummit
         'StartShowingVenuesDate' => 'SS_Datetime',
     );
 
-
     private static $better_buttons_actions = array(
         'forcephase',
         'setasactive',
         'resetvotes',
+        'handlevotinglists'
     );
 
 
@@ -67,6 +67,7 @@ final class Summit extends DataObject implements ISummit
         'Notifications' => 'SummitPushNotification',
         'EntityEvents' => 'SummitEntityEvent',
         'TrackChairs' => 'SummitTrackChair',
+        'RandomVotingLists' => 'PresentationRandomVotingList'
     );
 
     private static $summary_fields = array
@@ -180,18 +181,21 @@ final class Summit extends DataObject implements ISummit
     public function getBeginDateYMD()
     {
         $date = new DateTime($this->getSummitBeginDate());
+
         return $date->format('Y-m-d');
     }
 
     public function getEndDateYMD()
     {
         $date = new DateTime($this->getSummitEndDate());
+
         return $date->format('Y-m-d');
     }
 
     public function getBeginTime()
     {
         $date = new DateTime($this->getSummitBeginDate());
+
         return $date->format('H:i:s');
     }
 
@@ -524,7 +528,8 @@ final class Summit extends DataObject implements ISummit
      * @return SummitEvent[]
      * @throws Exception
      */
-    public function getBlackouts($day, $location_id) {
+    public function getBlackouts($day, $location_id)
+    {
         $blackouts = new ArrayList();
         $location  = SummitAbstractLocation::get()->byID($location_id);
         if (!is_null($location) && !$location->overridesBlackouts()) {
@@ -763,8 +768,13 @@ final class Summit extends DataObject implements ISummit
             $rootTab = new TabSet("Root", $tabMain = new Tab('Main'))
         );
 
+        if ($this->RandomVotingLists()->exists()) {
+            $f->addFieldToTab('Root.Main',
+                HeaderField::create('The presentations in this summit have been randomised for voting', 4));
+        }
         $f->addFieldToTab('Root.Main', new TextField('Title', 'Title'));
         $f->addFieldToTab('Root.Main', $link = new TextField('Link', 'Summit Page Link'));
+
         $link->setDescription('The link to the site page for this summit. Eg: <em>/summit/vancouver-2015/</em>');
         $f->addFieldToTab('Root.Main', new CheckboxField('Active', 'This is the active summit'));
         $f->addFieldToTab('Root.Main', $date_label = new TextField('DateLabel', 'Date label'));
@@ -994,11 +1004,6 @@ final class Summit extends DataObject implements ISummit
     }
 
 
-    public function getTopVenues()
-    {
-        return $this->Locations()->where("ClassName='SummitVenue' OR ClassName='SummitExternalLocation' OR ClassName='SummitHotel'")->sort('Name','ASC');
-    }
-
     public function getBetterButtonsActions()
     {
         $f = parent::getBetterButtonsActions();
@@ -1022,6 +1027,17 @@ final class Summit extends DataObject implements ISummit
             ]));
         }
 
+        $text = $this->RandomVotingLists()->exists() ? "Regenerate random voting order" : "Generate random voting order";
+        $f->push($random = BetterButtonCustomAction::create(
+            'handlevotinglists',
+            $text
+        )
+            ->setRedirectType(BetterButtonCustomAction::REFRESH)
+            ->setSuccessMessage(Summit::config()->random_list_count . " random incarnations created")
+        );
+        if (!$this->checkRange("Voting")) {
+            $random->setConfirmation('You are randomising the presentations outside of the voting phase. If there are more presentations coming, this could cause errors. Are you sure you want to do this?');
+        }
         return $f;
     }
 
@@ -1060,8 +1076,12 @@ final class Summit extends DataObject implements ISummit
     }
 
 
-    protected function validate()
-    {
+    public function handlevotinglists () {
+    	$this->generateVotingLists();
+    }
+
+    protected function validate(){
+
         $valid = parent::validate();
         if (!$valid->valid()) {
             return $valid;
@@ -1309,10 +1329,18 @@ final class Summit extends DataObject implements ISummit
         $id = $this->ID;
         $sql = <<<SQL
 SELECT COUNT(E.ID) FROM SummitEvent E
-WHERE E.SummitID = {$id} AND StartDate >= '{$start_date}' AND EndDate <= '{$end_date}';
+WHERE E.SummitID =
+{
+$id
+}
+
+ AND StartDate >= '{
+    $start_date}' AND EndDate <= '{
+    $end_date}';
 SQL;
 
-        return intval(DB::query($sql)->value()) > 0;
+        return intval(DB::query(
+$sql)->value()) > 0;
     }
 
     private function getDatesFromRange($start, $end)
@@ -1362,8 +1390,10 @@ SQL;
                 SELECT E.ID FROM SummitEvent E
                 INNER JOIN Presentation P ON E.ID = P.ID
                 INNER JOIN Presentation_Speakers PS ON PS.PresentationID = P.ID
-                WHERE E.SummitID = {$id}
-                {$filter}
+                WHERE E.SummitID = {
+    $id}
+                {
+    $filter}
                 AND PS.PresentationSpeakerID = PresentationSpeaker.ID
             )");
 
@@ -1379,7 +1409,8 @@ SQL;
 SELECT distinct T.* FROM Tag T
 INNER JOIN SummitEvent_Tags ET ON ET.TagID = T.ID
 INNER JOIN SummitEvent E ON E.ID = ET.SummitEventID
-WHERE E.SummitID = {$id}
+WHERE E.SummitID = {
+    $id}
 SQL;
 
         $list = array();
@@ -1391,6 +1422,21 @@ SQL;
         }
 
         return new ArrayList($list);
+    }
+
+    public function generateVotingLists () {
+    	DB::query("DELETE FROM PresentationRandomVotingList");
+    	$i = 0;
+    	while ($i < self::config()->random_voting_list_count) {
+    		$list = PresentationRandomVotingList::create([
+    			'SummitID' => $this->ID,
+    		]);
+    		$list->setSequence(
+				$this->Presentations()->sort('RAND()')->column('ID')
+    		);
+    		$list->write();
+    		$i++;
+    	}
     }
 
     /**
@@ -1437,7 +1483,8 @@ SQL;
     {
         $query = <<<SQL
 SELECT DISTINCT C.* FROM SummitEvent_Sponsors S
-INNER JOIN SummitEvent E ON E.ID = S.SummitEventID AND E.SummitID = {$this->ID}
+INNER JOIN SummitEvent E ON E.ID = S.SummitEventID AND E.SummitID = {
+    $this->ID}
 INNER JOIN Company C ON C.ID = S.CompanyID
 SQL;
 
@@ -1550,5 +1597,10 @@ SQL;
         $now = new \DateTime('now', new DateTimeZone('UTC'));
 
         return ($now > $end_date);
+    }
+
+    public function getTopVenues()
+    {
+        return $this->Locations()->where("ClassName='SummitVenue' OR ClassName='SummitExternalLocation' OR ClassName='SummitHotel'")->sort('Name','ASC');
     }
 }
