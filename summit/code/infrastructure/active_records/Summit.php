@@ -1077,7 +1077,7 @@ final class Summit extends DataObject implements ISummit
 
 
     public function handlevotinglists () {
-    	$this->generateVotingLists();
+        $this->generateVotingLists();
     }
 
     protected function validate(){
@@ -1390,10 +1390,8 @@ $sql)->value()) > 0;
                 SELECT E.ID FROM SummitEvent E
                 INNER JOIN Presentation P ON E.ID = P.ID
                 INNER JOIN Presentation_Speakers PS ON PS.PresentationID = P.ID
-                WHERE E.SummitID = {
-    $id}
-                {
-    $filter}
+                WHERE E.SummitID = {$id}
+                {$filter}
                 AND PS.PresentationSpeakerID = PresentationSpeaker.ID
             )");
 
