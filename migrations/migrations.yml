@@ -17,7 +17,7 @@ migrations:
   - UpdatePresentationSpeakerMigration
   - CreateSummitFrontEndAdminGroupMigration
   - PresentationSpeakerSummitConfirmationMigration
+  - PresentationAllowFeedbackMigration
   - ClearOlderIngestTaskMigration
-  - RemoveNullMembersMigration
   - RemoveNullMembersMigration
   - RemoveSummitDeprecatedColumnsMigration
