@@ -625,6 +625,26 @@ SQL;
         return $date->format('Y-m-d');
     }
 
+    public function getStartTimeHMS()
+    {
+        $date = new Datetime($this->getStartDate());
+        return $date->format('H:i:s A');
+    }
+
+    public function getBeginDateYMD()
+    {
+        $date = new DateTime($this->getStartDate());
+
+        return $date->format('Y-m-d');
+    }
+
+    public function getEndDateYMD()
+    {
+        $date = new DateTime($this->getEndDate());
+
+        return $date->format('Y-m-d');
+    }
+
     /**
      * @return string
      */
@@ -641,6 +661,12 @@ SQL;
     {
         $date = new Datetime($this->getEndDate());
         return $date->format('g:ia');
+    }
+
+    public function getEndTimeHMS()
+    {
+        $date = new Datetime($this->getEndDate());
+        return $date->format('H:i:s A');
     }
 
     public function isScheduled() {
