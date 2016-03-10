@@ -325,7 +325,6 @@ final class SummitService implements ISummitService
         return $event;
     }
 
-
     /**
      * @param ISummitEvent $event
      * @param SummitEventType $type
@@ -575,9 +574,9 @@ final class SummitService implements ISummitService
     public function updateBulkEvents(ISummit $summit, array $data)
     {
         $event_repository = $this->event_repository;
+        $this_var         = $this;
 
-        $this->tx_service->transaction(function() use($summit, $data, $event_repository){
-
+        $this->tx_service->transaction(function() use($summit, $data, $event_repository, $this_var){
             $events = $data['events'];
             foreach($events as $event_dto) {
                 $event = $event_repository->getById($event_dto['id']);

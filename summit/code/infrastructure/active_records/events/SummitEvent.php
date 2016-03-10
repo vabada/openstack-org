@@ -549,7 +549,7 @@ class SummitEvent extends DataObject implements ISummitEvent
             // validate start time/end time and location
             if(!empty($this->LocationID))
             {
-                // validate that each speakers is assigned one time at one location
+
                 $start_date      = $summit->convertDateFromTimeZone2UTC( $this->getStartDate());
                 $end_date        = $summit->convertDateFromTimeZone2UTC( $this->getEndDate() );
                 $id              = $this->getIdentifier();
@@ -558,22 +558,24 @@ class SummitEvent extends DataObject implements ISummitEvent
                 if(empty($start_date) || empty($end_date))
                     return $valid;
 
+                if(!$this->isPublished()) return $valid;
+
                 $query = <<<SQL
 SELECT COUNT(E.ID) FROM SummitEvent E
 WHERE
-E.Published = 1              AND
+E.SummitID  = {$summit_id}  AND
+E.Published = 1             AND
 E.StartDate < '{$end_date}' AND
 '{$start_date}' < E.EndDate AND
-E.ID <> $id                  AND
-E.LocationID = $location_id  AND
+E.ID <> $id                 AND
+E.LocationID = $location_id AND
 E.LocationID <> 0;
 SQL;
-
                 $qty = intval(DB::query($query)->value());
 
                 if($qty > 0)
                 {
-                    return $valid->error('There is another event asigned for current location  on that date/time range !');
+                    return $valid->error('There is another event assigned for current location  on that date/time range !');
                 }
             }
         }
@@ -628,7 +630,7 @@ SQL;
     public function getStartTimeHMS()
     {
         $date = new Datetime($this->getStartDate());
-        return $date->format('H:i:s A');
+        return $date->format('h:i:s A');
     }
 
     public function getBeginDateYMD()
@@ -666,7 +668,7 @@ SQL;
     public function getEndTimeHMS()
     {
         $date = new Datetime($this->getEndDate());
-        return $date->format('H:i:s A');
+        return $date->format('h:i:s A');
     }
 
     public function isScheduled() {
