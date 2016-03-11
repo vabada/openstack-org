@@ -120,7 +120,7 @@
             <div class="row speaker_profile">
                 <div class="speaker_pic img-circle">
                     <a href="{$Top.AbsoluteLink}speakers/{$ID}">
-                        <img src="$ProfilePhoto(100)" width="100" class="img-circle" />
+                        <img src="$ProfilePhoto(100)" class="img-circle speaker-photo" />
                     </a>
                 </div>
                 <div class="speaker_info">
