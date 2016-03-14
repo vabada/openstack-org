@@ -191,7 +191,6 @@ final class EventbriteEventManager implements IEventbriteEventManager
                                 $current_summit->getIdentifier()
                             );
 
-
                             $ticket = $attendee_factory->buildTicket($external_id , $order_id, $bought_date, $changed_date, $ticket_type);
                             if ($old_attendee)
                             {
@@ -208,7 +207,31 @@ final class EventbriteEventManager implements IEventbriteEventManager
                                 // send email informing that u became attendee...
                                 $create_sender->send($attendee);
                             }
-                            $attendee->addTicket($ticket);
+                            $old_ticket = SummitAttendeeTicket::get()->filter
+                            (
+                                array
+                                (
+                                    'ExternalOrderId'   => $order_id,
+                                    'ExternalAttendeeId' => $external_id,
+                                )
+                            )->first();
+                            if(!is_null($old_ticket)){
+                                if(intval($old_ticket->OwnerID) === intval($attendee->ID)) continue;
+                                // ticket should be updated
+                                $former_attendee_id =  intval($old_ticket->OwnerID);
+                                $old_ticket->OwnerID = $attendee->ID;
+                                $old_ticket->write();
+                                //check if former attendee has more available tix, if not , remove
+                                $former_attendee = SummitAttendee::get()->byID($former_attendee_id);
+                                if(!is_null($former_attendee))
+                                {
+                                    if($former_attendee->TicketsCount() === 0)
+                                        $former_attendee->delete();
+                                }
+                            }
+                            else
+                                $attendee->addTicket($ticket);
+
                             $attendee_repository->add($attendee);
                         }
                     }

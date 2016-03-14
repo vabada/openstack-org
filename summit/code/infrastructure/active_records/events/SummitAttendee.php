@@ -59,7 +59,7 @@ final class SummitAttendee extends DataObject implements ISummitAttendee
     (
         "Member.Email"        => 'Member',
         'SummitHallCheckedIn' => "Is Checked In",
-        'TicketsCount' => '# Tickets'
+        'TicketsCount'        => '# Tickets'
     );
 
     static $indexes = array
