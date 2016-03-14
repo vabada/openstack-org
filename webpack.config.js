@@ -15,6 +15,7 @@ module.exports = {
     "summit/javascript/schedule/admin/schedule-admin-view":"./summit/javascript/schedule/admin/schedule-admin-view.js",
     "summit/javascript/schedule/admin/attendees-admin-view":"./summit/javascript/schedule/admin/attendees-admin-view.js",
     "summit/javascript/schedule/admin/reports-admin-view":"./summit/javascript/schedule/admin/reports-admin-view.js",
+    "summit/javascript/schedule/admin/speakers-admin-view":"./summit/javascript/schedule/admin/speakers-admin-view.js",
   },
   output: {
     path: __dirname ,
