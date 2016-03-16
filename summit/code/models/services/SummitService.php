@@ -509,24 +509,25 @@ final class SummitService implements ISummitService
     /**
      * @param ISummit $summit
      * @param $data
+     * @return mixed
      */
     public function updateHeadCount(ISummit $summit, $data)
     {
         $event_repository = $this->event_repository;
-        $this_var = $this;
+        $this_var         = $this;
 
-        $this->tx_service->transaction(function () use ($this_var, $summit, $data, $event_repository) {
+        $this->tx_service->transaction(function() use($this_var, $summit, $data, $event_repository){
             foreach ($data as $event_data) {
-                if (!isset($event_data['id']))
+                if(!isset($event_data['id']))
                     throw new EntityValidationException('missing required param: id');
 
                 $event_id = intval($event_data['id']);
-                $event = $event_repository->getById($event_id);
+                $event    = $event_repository->getById($event_id);
 
-                if (is_null($event))
+                if(is_null($event))
                     throw new NotFoundEntityException('Summit Event', sprintf('id %s', $event_id));
 
-                if (intval($event->SummitID) !== intval($summit->getIdentifier()))
+                if(intval($event->SummitID) !== intval($summit->getIdentifier()))
                     throw new EntityValidationException('event doest not belongs to summit');
 
                 $event->HeadCount = intval($event_data['headcount']);
