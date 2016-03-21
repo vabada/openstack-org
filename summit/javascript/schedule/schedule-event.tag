@@ -10,8 +10,12 @@
                             <span if={ show_date }>{ date_nice }</span>
                             &nbsp;<span>{ start_time }</span>-<span>{ end_time }</span>
                         </div>
-                        <div class="col-xs-12 col-md-7 col-location"><i if={ summit.should_show_venues } class="fa fa-map-marker icon-map"></i>&nbsp;<span if={ summit.should_show_venues } >{ locationName(location_id) }</span></div>
-                        <div class="col-xs-12 col-md-2 my-schedule-container" if={ parent.summit.current_user !== null } >
+                        <div class="col-xs-12 col-md-6 col-location">
+                            <i if={ summit.should_show_venues } class="fa fa-map-marker icon-map"></i>
+                            &nbsp;
+                            <span if={ summit.should_show_venues } >{ locationName(location_id) }</span>
+                        </div>
+                        <div class="col-xs-12 col-md-3 my-schedule-container" if={ parent.summit.current_user !== null } >
                             <span if={ !own } onclick={ addToMySchedule } title="add to my schedule" class="icon-event-action">
                                 <i class="fa fa-plus-circle icon-foreign-event" ></i>
                                 My&nbsp;calendar
