@@ -95,11 +95,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2 col-xs-6">
-                            <a href="{ parent.base_url+'events/'+ id }" class="btn btn-primary btn-md active btn-warning btn-go-event" role="button">EVENT DETAILS</a>
-                        </div>
-                        <div class="col-md-2 col-xs-6" if={ rsvp_link != null && rsvp_link != ''}>
-                            <a href={ rsvp_link } class="btn btn-primary btn-md active btn-warning btn-rsvp-event" target="_blank" role="button">RSVP to this Event</a>
+                        <div class="col-sm-12">
+                            <div class="event-btn">
+                                <a href="{ parent.base_url+'events/'+ id }?goback=1" class="btn btn-primary btn-md active btn-warning btn-go-event" role="button">EVENT DETAILS</a>
+                            </div>
+                            <div class="event-btn" if={ rsvp_link != null && rsvp_link != ''}>
+                                <a href={ rsvp_link } class="btn btn-primary btn-md active btn-warning btn-rsvp-event" target="_blank" role="button">RSVP to this Event</a>
+                            </div>
                         </div>
                     </div>
                 </div>
