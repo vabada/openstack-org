@@ -31,11 +31,12 @@ interface IMemberManager
     public function verify($token, IMessageSenderService $sender_service);
 
     /**
-     * @param $email
+     * @param array $data
+     * @param EditProfilePage $profile_page
      * @param IMessageSenderService $sender_service
-     * @throws NotFoundEntityException
-     * @throws EntityValidationException
      * @return Member
+     * @throws Exception
      */
-    public function resendEmailVerification($email, IMessageSenderService $sender_service);
+    public function registerMobile(array $data, EditProfilePage $profile_page, IMessageSenderService $sender_service);
+
 }
