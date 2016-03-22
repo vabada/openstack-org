@@ -22,3 +22,4 @@ migrations:
   - RemoveNullMembersMigration
   - RemoveSummitDeprecatedColumnsMigration
   - UpdateSummitLocationImagesMigration
+  - MemberLegacyMembersMigration

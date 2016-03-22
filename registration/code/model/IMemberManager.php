@@ -29,4 +29,13 @@ interface IMemberManager
      * @return Member
      */
     public function verify($token, IMessageSenderService $sender_service);
+
+    /**
+     * @param $email
+     * @param IMessageSenderService $sender_service
+     * @throws NotFoundEntityException
+     * @throws EntityValidationException
+     * @return Member
+     */
+    public function resendEmailVerification($email, IMessageSenderService $sender_service);
 }
