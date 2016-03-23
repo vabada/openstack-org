@@ -4,12 +4,12 @@
             <div class="row main-event-content" style="border-left: 3px solid { eventColor(category_group_ids) }" data-event-id="{ id }">
                 <div class="event-content">
                     <div class="row row_location">
-                        <div class="col-sm-2 col-time">
+                        <div class="col-sm-3 col-time">
                             <i class="fa fa-clock-o icon-clock"></i>
                             <span if={ show_date }>{ date_nice }</span>
                             &nbsp;<span>{ start_time }</span>-<span>{ end_time }</span>
                         </div>
-                        <div class="col-sm-7 col-location">
+                        <div class="col-sm-6 col-location">
                             <div if={ summit.should_show_venues } >
                                 <i class="fa fa-map-marker icon-map"></i>
                                 &nbsp;
@@ -78,37 +78,35 @@
                                 </div>
                             </div>
                         </div>
-                            <div class="space-row">
-                                &nbsp;
+                        <div class="space-row">
+                            &nbsp;
+                        </div>
+                        <div class="level-row" if={ level }>
+                            <div class="col-sm-12 col-level-content">
+                                <i class="fa fa-signal level-icon"></i>
+                                <span>Level:</span>
+                                <span class="presentation-level'">
+                                    <a class="search-link" title="Search Presentation Level" href="{ parent.search_url+'?t='+level }">{ level }</a>
+                                </span>
                             </div>
-                            <div class="level-row" if={ level }>
-                                <div class="col-sm-12 col-level-content">
-                                    <i class="fa fa-signal level-icon"></i>
-                                    <span>Level:</span>
-                                    <span class="presentation-level'">
-                                        <a class="search-link" title="Search Presentation Level" href="{ parent.search_url+'?t='+level }">{ level }</a>
-                                    </span>
-                                </div>
+                        </div>
+                        <div class="tags-row" if={ tags_id.length > 0 }>
+                            <div class="col-sm-12 col-tags-content">
+                                <i class="fa fa-tags"></i>
+                                <span>Tags:</span>
+                                <span each={ tag_id, i in tags_id } title="Search Tag" class="tag">
+                                    <a class="search-link" href="{ parent.search_url+'?t='+summit.tags[tag_id].name.replace(/ /g,'+') }">{ summit.tags[tag_id].name+ ( (i < parent.tags_id.length - 1) ? ', ':'' ) }</a>
+                                    &nbsp;
+                                </span>
                             </div>
-                            <div class="tags-row" if={ tags_id.length > 0 }>
-                                <div class="col-sm-12 col-tags-content">
-                                    <i class="fa fa-tags"></i>
-                                    <span>Tags:</span>
-                                    <span each={ tag_id, i in tags_id } title="Search Tag" class="tag">
-                                        <a class="search-link" href="{ parent.search_url+'?t='+summit.tags[tag_id].name.replace(/ /g,'+') }">{ summit.tags[tag_id].name+ ( (i < parent.tags_id.length - 1) ? ', ':'' ) }</a>
-                                        &nbsp;
-                                    </span>
-                                </div>
-                            </div>
+                        </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="event-btn">
-                                <a href="{ parent.base_url+'events/'+ id }?goback=1" class="btn btn-primary btn-md active btn-warning btn-go-event" role="button">EVENT DETAILS</a>
-                            </div>
-                            <div class="event-btn" if={ rsvp_link != null && rsvp_link != ''}>
-                                <a href={ rsvp_link } class="btn btn-primary btn-md active btn-warning btn-rsvp-event" target="_blank" role="button">RSVP to this Event</a>
-                            </div>
+                    <div class="col-sm-12">
+                        <div class="event-btn">
+                            <a href="{ parent.base_url+'events/'+ id }?goback=1" class="btn btn-primary btn-md active btn-warning btn-go-event" role="button">EVENT DETAILS</a>
+                        </div>
+                        <div class="event-btn" if={ rsvp_link != null && rsvp_link != ''}>
+                            <a href={ rsvp_link } class="btn btn-primary btn-md active btn-warning btn-rsvp-event" target="_blank" role="button">RSVP to this Event</a>
                         </div>
                     </div>
                 </div>
