@@ -9,6 +9,7 @@ module.exports = {
     "summit/javascript/summit-highlights":"./summit/javascript/summit-highlights.js",
     "summit/javascript/schedule/schedule":"./summit/javascript/schedule/schedule.js",
     "summit/javascript/schedule/event-detail":"./summit/javascript/schedule/event-detail.js",
+    "summit/javascript/schedule/my-schedule-view":"./summit/javascript/schedule/my-schedule-view.js",
     "summit/javascript/schedule/share-buttons":"./summit/javascript/schedule/share-buttons.js",
     "summit/javascript/forms/tagmanagerfield/tagmanagerfield":"./summit/javascript/forms/tagmanagerfield/tagmanagerfield.js",
     "summit/javascript/schedule/event-list":"./summit/javascript/schedule/event-list.js",
@@ -40,7 +41,7 @@ module.exports = {
       { test: /\.tag$/, loader: 'tag' },
       { test: /\.css$/, loader: "style!css" },
       { test: /\.less$/, loader: 'style!css!less' },
-      { test: /\.scss$/, loader: 'style!css!sass' },
+      { test: /\.scss$/, loader: 'style!css!sass' }
     ]
   }
 };

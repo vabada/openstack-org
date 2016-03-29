@@ -8,11 +8,15 @@
                 <span>Calendar&nbsp;Search&nbsp;Filters</span>
             </div>
         </div>
-        <div class="col-xs-6 col-switch-schedule">
+        <div class="col-xs-3 col-switch-schedule">
             <button if={ summit.current_user !== null } type="button" class="btn btn-primary pull-left switch_schedule full">
                 <span class="glyphicon glyphicon-calendar"></span>
                 &nbsp;
-                <span class="content">Switch&nbsp;to&nbsp;My&nbsp;Schedule</span></button>
+                <span class="content">Switch&nbsp;to&nbsp;My&nbsp;Schedule</span>
+            </button>
+        </div>
+        <div class="col-xs-3 col-view-all-schedule" if={ mine }>
+            <a href="{ base_url+'mine/' }?goback=1" class="btn btn-default pull-left view-all-schedule" role="button">View All</a>
         </div>
         <div class="col-xs-3 login-container" if={ summit.current_user == null }>
             <form id="MemberLoginForm_LoginForm" action="Security/login?BackURL={ base_url  }" method="post" enctype="application/x-www-form-urlencoded">
@@ -57,6 +61,7 @@
         this.schedule_filters = opts.schedule_filters;
         this.atomic_filtering = false;
         this.base_url         = opts.base_url;
+        this.mine             = false;
         var self              = this;
 
         this.on('mount', function(){
@@ -119,19 +124,21 @@
             });
 
             $('.switch_schedule').click(function(e){
-                var mine = false;
                 if ($(this).hasClass('full'))
                 {
-                    mine = true;
+                    self.mine = true;
                     $('.content', this).text('Switch to Full Schedule');
                 }
                 else
                 {
+                    self.mine = false;
                     $('.content', this).text('Switch to My Schedule');
                 }
                 $(this).toggleClass('full');
                 if(!self.atomic_filtering)
                     self.doFilter();
+
+                self.update();
             });
 
             var hash = $(window).url_fragment('getParams');

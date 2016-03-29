@@ -145,6 +145,15 @@ class SummitEvent extends DataObject implements ISummitEvent
         return 'TBD';
     }
 
+    public function getLocationCapacity()
+    {
+        if($this->Location()->ID > 0 && $this->Location()->Capacity)
+        {
+            return $this->Location()->Capacity;
+        }
+        return 'TBD';
+    }
+
     public function getStartDateNice()
     {
         $start_date =  $this->getStartDate();
@@ -568,6 +577,33 @@ SQL;
     {
         $date = new Datetime($this->getStartDate());
         return $date->format('g:ia');
+    }
+
+    public function getStartTimeHMS()
+    {
+        $date = new Datetime($this->getStartDate());
+        return $date->format('h:i:s A');
+    }
+
+    public function getBeginDateYMD()
+    {
+        $date = new DateTime($this->getStartDate());
+
+        return $date->format('Y-m-d');
+    }
+
+    public function getDayLabel()
+    {
+        $date = new DateTime($this->getStartDate());
+
+        return $date->format('l j');
+    }
+
+    public function getEndDateYMD()
+    {
+        $date = new DateTime($this->getEndDate());
+
+        return $date->format('Y-m-d');
     }
 
     /**
