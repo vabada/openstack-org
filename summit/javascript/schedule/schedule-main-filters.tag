@@ -15,8 +15,8 @@
                 <span class="content">Switch&nbsp;to&nbsp;My&nbsp;Schedule</span>
             </button>
         </div>
-        <div class="col-xs-3 col-view-all-schedule" if={ mine }>
-            <a href="{ base_url+'mine/' }?goback=1" class="btn btn-default pull-left view-all-schedule" role="button">View All</a>
+        <div class="col-xs-3 col-view-all-schedule">
+            <a href="{ base_url+'mine/' }?goback=1" class="btn btn-default pull-left view-all-schedule" role="button" if={ mine }>View All</a>
         </div>
         <div class="col-xs-3 login-container" if={ summit.current_user == null }>
             <form id="MemberLoginForm_LoginForm" action="Security/login?BackURL={ base_url  }" method="post" enctype="application/x-www-form-urlencoded">
