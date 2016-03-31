@@ -310,3 +310,7 @@ define('PRESENTATION_SPEAKER_NOTIFICATION_ACCEPTANCE_SUMMIT_SUPPORT', 'summit@op
 
 
 SS_Cache::set_cache_lifetime('summitappscheduleapi_api_cache', 60*5);
+// Second Break Out Email Templates
+define('PRESENTATION_SPEAKER_CREATE_MEMBERSHIP_EMAIL', 'presentation-speaker-create-membership-email');
+define('PRESENTATION_SPEAKER_CONFIRM_SUMMIT_ASSISTANCE_EMAIL', 'presentation-speaker-confirm-assistance-email');
+define('PRESENTATION_SPEAKER_SUMMIT_REMINDER_EMAIL', 'presentation-speaker-summit-reminder-email');
