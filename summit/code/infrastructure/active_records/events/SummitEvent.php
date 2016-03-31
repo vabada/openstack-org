@@ -108,7 +108,8 @@ class SummitEvent extends DataObject implements ISummitEvent
     }
 
     public function getLink() {
-        return $this->Summit()->Link.'schedule/events/'.$this->getIdentifier().'/'.$this->getTitleForUrl();
+        $page = SummitAppSchedPage::get()->filter('SummitID', $this->SummitID)->first();
+        return $page->getAbsoluteLiveLink(false).'events/'.$this->getIdentifier().'/'.$this->getTitleForUrl();
     }
 
     public function getAvgRate() {
@@ -120,9 +121,7 @@ class SummitEvent extends DataObject implements ISummitEvent
     }
 
     public function getTitleForUrl() {
-        $lcase_title = strtolower(trim($this->Title));
-        $title_for_url = str_replace(' ','-',$lcase_title);
-        return $title_for_url;
+        return singleton('SiteTree')->generateURLSegment($this->Title);
     }
 
     public function getLocationName()
