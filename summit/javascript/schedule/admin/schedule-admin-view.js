@@ -13,7 +13,7 @@ require('./schedule-admin-view-unpublished-filters.tag');
 require('./schedule-admin-view-unpublished-event.tag');
 require('./schedule-admin-view-unpublished.tag');
 
-riot.mount('schedule-admin-view-published-filters', { dispatcher: dispatcher});
+riot.mount('schedule-admin-view-published-filters', { dispatcher: dispatcher, api: api });
 riot.mount('schedule-admin-view-published', { api: api, dispatcher: dispatcher, published_store: published_store, unpublished_store: unpublished_store });
 riot.mount('schedule-admin-view-published-results', { api: api, dispatcher: dispatcher, published_store: published_store });
 riot.mount('schedule-admin-view-empty-spots', { api: api, dispatcher: dispatcher, published_store: published_store });
