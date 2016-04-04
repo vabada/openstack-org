@@ -13,17 +13,11 @@
         </div>
         <hr/>
         <div class="speaker-photo-left">
-            <a class="profile-pic-wrapper" target="_blank" href="/community/speakers/profile/{$ID}" style="background-image: url('$ProfilePhoto(100)')"></a>
+            <a class="profile-pic-wrapper big-pic" target="_blank" href="/community/speakers/profile/{$ID}" style="background-image: url('$ProfilePhoto(100)')"></a>
         </div>
         <div class="speaker-info">
             <div class="speaker_name row">$FirstName $LastName</div>
-            <div class="speaker_job_title row">
-                <% if $Member.getCurrentPosition() %>
-                    $Member.getCurrentPosition()
-                <% else_if $Title %>
-                    $Title
-                <% end_if %>
-            </div>
+            <div class="speaker_job_title row"> $getTitleNice() </div>
         </div>
         <div class="row section1">
             <div class="container">
@@ -64,6 +58,7 @@
                 </div>
             </div>
 
+<<<<<<< HEAD
             <script type="application/javascript">
 
                 var summit =
@@ -94,7 +89,7 @@
                              id: {$ID},
                              name : "{$Name.JS}",
                              profile_pic : "{$ProfilePhoto.JS}",
-                             position : "{$CurrentPosition.JS}",
+                             position : "{$TitleNice.JS}",
                          };
                         <% end_loop %>
 
