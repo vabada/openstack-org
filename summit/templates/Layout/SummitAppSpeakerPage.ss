@@ -58,7 +58,6 @@
                 </div>
             </div>
 
-<<<<<<< HEAD
             <script type="application/javascript">
 
                 var summit =
