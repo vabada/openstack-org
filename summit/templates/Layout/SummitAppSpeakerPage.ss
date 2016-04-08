@@ -202,7 +202,7 @@
                                         track_id : {$CategoryID},
                                         level : '{$Level}',
                                         <% end_if %>
-                                        <% if $Top.isEventOnMySchedule($ID) %>
+                                        <% if CurrentMember && CurrentMember.isOnMySchedule($ID) %>
                                         own      : true,
                                         <% else %>
                                         own      : false,
