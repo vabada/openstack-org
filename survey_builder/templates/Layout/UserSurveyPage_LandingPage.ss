@@ -45,7 +45,7 @@
                 Read more from the seventh survey of OpenStack users since April 2013, with a goal of better understanding attitudes, organizational profiles, use cases, and technology choices across the community’s various deployment stages and sizes.
             </p>
             <p>
-                <a class="roundedButton" href="http://www.openstack.org/assets/survey/UserSurvey-January-Feb2016.pdf" target="_blank">Download the report</a>
+                <a class="roundedButton" href="http://www.openstack.org/assets/survey/April-2016-User-Survey-Report.pdf" target="_blank">Download the April 2016 Report</a>
             </p>
         </div>
     </div>
