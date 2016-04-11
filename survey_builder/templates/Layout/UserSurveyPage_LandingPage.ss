@@ -99,7 +99,7 @@
         </div>
 
     </div>
-    $LoginPageContent
+    <!-- $LoginPageContent -->
     <!-- <hr/>
     <h1>Get Started</h1>
     <div class="row">
@@ -116,8 +116,8 @@
                     </div>
                 </form>
             </div>
-        </div>
-        <div class="col-lg-6">
+        </div> -->
+        <!-- <div class="col-lg-6">
             <h3>Don't have a login? Start here.</h3>
 
             <div class="survey-login-wrapper">
