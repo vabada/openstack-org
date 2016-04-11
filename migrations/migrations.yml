@@ -27,3 +27,4 @@ migrations:
   - ChangePremiseForPremisesMigration
   - CreateUserCommitteeGroupMigration
   - AddUsersToFoundationStaffMigration
+  - RemoveSortColumnFromGroups
