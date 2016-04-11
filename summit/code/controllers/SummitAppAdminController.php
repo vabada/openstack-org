@@ -568,4 +568,8 @@ final class SummitAppAdminController extends Controller implements PermissionPro
         return SummitService::IsSummitEventType($type);
     }
 
+    public function Time(){
+        return time();
+    }
+
 }
