@@ -43,7 +43,6 @@
                 <li><a href="/summit/austin-2016/mobile-apps/"><i class="fa fa-mobile"></i>Mobile Apps</a></li>
                 <li><a href="/summit/austin-2016/guide-to-austin/"><i class="fa fa-map"></i>Guide To Austin</a></li>
                <li><a href="/summit/austin-2016/austin-and-travel/#hotels"><i class="fa fa-h-square"></i>Hotels</a></li>
-               <li><a href="/summit/austin-2016/austin-and-travel/#visa"><i class="fa fa-globe"></i>Visa Invitation</a></li>
                 <li><a href="/summit/austin-2016/code-of-conduct/"><i class="fa fa-users"></i>Code Of Conduct</a></li>
             </ul>
             <div class="schedule-square">
