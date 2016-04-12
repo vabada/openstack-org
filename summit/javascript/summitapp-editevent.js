@@ -48,6 +48,7 @@ $(document).ready(function(){
         if (val == 'Presentation' || val == 'Keynotes' ) {
            $('.speakers_container').show();
            $('.track_container').show();
+           $('.level_container').show();
            $('#allow_feedback').attr("checked","checked");
            if(val == 'Keynotes')
                $('.moderator_container').show();
@@ -60,6 +61,7 @@ $(document).ready(function(){
            $('.speakers_container').hide();
            $('.moderator_container').hide();
            $('.track_container').hide();
+           $('.level_container').hide();
            $('#allow_feedback').removeAttr("checked");
        }
     });
@@ -244,6 +246,10 @@ $(document).ready(function(){
             headcount: { number: true },
             event_type: { required: true },
             summit_type: { required: true },
+            level: { required: function(){
+                var event_type = $('#event_type').find("option:selected").text();
+                return event_type === 'Presentation' || event_type === 'Keynotes';
+            }},
             track: { required: function(){
                 var event_type = $('#event_type').find("option:selected").text();
                 return event_type === 'Presentation' || event_type === 'Keynotes';
@@ -376,6 +382,7 @@ $(document).ready(function(){
             end_date: $('#end_date').val(),
             event_type: $('#event_type').val(),
             summit_type: $('#summit_type').val(),
+            level: $('#level').val(),
             track: $('#track').val(),
             allow_feedback: ($('#allow_feedback').prop('checked')) ? 1 : 0,
             tags: $('#tags').val(),
