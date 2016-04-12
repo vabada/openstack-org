@@ -109,11 +109,16 @@ final class SapphireTransactionManager implements ITransactionManager
             }
             $result = $callback($this);
             $this->commit();
-        } catch (Exception $ex) {
+        }
+        catch(ValidationException $ex1)
+        {
+            $this->rollBack();
+            throw new EntityValidationException($ex1->getMessage());
+        }
+        catch (Exception $ex) {
             $this->rollBack();
             throw $ex;
         }
-
         return $result;
     }
 }

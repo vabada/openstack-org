@@ -28,3 +28,4 @@ migrations:
   - CreateUserCommitteeGroupMigration
   - AddUsersToFoundationStaffMigration
   - RemoveSortColumnFromGroups
+  - SummitAttendeeDropIndexMigration
