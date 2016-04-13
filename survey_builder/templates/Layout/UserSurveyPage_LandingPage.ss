@@ -77,6 +77,7 @@
         </div>
     </div>
     <!-- end - user survey report -->
+    <% if $LoginPageSlide1Content && $LoginPageSlide2Content && $LoginPageSlide3Content %>
     <hr/>
     <div class="row">
 
@@ -97,18 +98,20 @@
                 <p>$LoginPageSlide3Content</p>
             </div>
         </div>
-
     </div>
-    <!-- $LoginPageContent -->
-    <!-- <hr/>
+    <% end_if %>
+    <% if  $LoginPageContent %>
+     $LoginPageContent
+        <hr/>
+    <% end_if %>
+    <% if not $Top.SurveyTemplate.isVoid && not $CurrentMember %>
     <h1>Get Started</h1>
     <div class="row">
         <div class="col-lg-6">
             <h3>Already have an OpenStack Foundation login?</h3>
             <div class="survey-login-wrapper">
-                <form id="MemberLoginForm_LoginForm" action="Security/login?BackURL={$BackURL}" method="post"
+                <form id="MemberLoginForm_LoginForm" action="Security/login?BackURL={$Link}" method="post"
                       enctype="application/x-www-form-urlencoded">
-                    <input type="hidden" name="fragment" id="fragment"/>
                     <div class="Actions">
                         <input class="action " id="MemberLoginForm_LoginForm_action_dologin" type="submit"
                                name="action_dologin" value="Log in" title="Log in"/>
@@ -116,7 +119,16 @@
                     </div>
                 </form>
             </div>
-        </div> -->
+        </div>
+        <div class="col-lg-6">
+            <h3>Don't have a login? Start here.</h3>
+
+            <div class="survey-login-wrapper">
+                $RegisterForm
+            </div>
+        </div>
+    </div>
+    <% end_if %>
     <script>
         $(function () {
             var param = $('#fragment');
