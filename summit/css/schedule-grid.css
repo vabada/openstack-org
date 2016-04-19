@@ -340,7 +340,7 @@ a.navbar-brand.navbar-brand-month
 }
 
 .navbar-nav > li:first-child > a.level-label {
-    border-left: 2px solid #DDDDDD;
+    border-left: 1px solid #DDDDDD;
 }
 
 .icon-clock, .icon-foreign-event, .icon-own-event, .icon-favorite-event, .icon-non-favorite-event, .icon-map
@@ -758,8 +758,15 @@ h2.subtitle {
     }
 }
 
-.export_my_schedule {
+.export_schedule {
     color: white !important;
     margin-top: 10px;
     float: right;
+}
+
+#full-schedule-filter {
+    margin-top: 10px;
+    float: right;
+    margin-right: 20px;
+    padding: 6px;
 }

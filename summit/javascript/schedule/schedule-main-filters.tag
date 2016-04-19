@@ -12,15 +12,13 @@
 
         <div class="col-xs-6">
             <div class="col-switch-schedule">
-            <button if={ summit.current_user !== null } type="button" class="btn btn-primary pull-right switch_schedule full">
-            <span class="glyphicon glyphicon-calendar"></span>&nbsp;<span class="content">Switch&nbsp;to&nbsp;My&nbsp;Schedule</span>
-            </button>
+                <button if={ summit.current_user !== null } type="button" class="btn btn-primary pull-right switch_schedule full">
+                    <span class="glyphicon glyphicon-calendar"></span>&nbsp;<span class="content">Switch&nbsp;to&nbsp;My&nbsp;Schedule</span>
+                </button>
             </div>
             <div class="col-view-all-schedule">
-                <form onsubmit={ fullViewAction } id="full-view-form" method="POST">
-                    <input type="hidden" name="goback" value="1" />
-                    <button type="submit" class="btn btn-default pull-right view-all-schedule">View&nbsp;/&nbsp;Print&nbsp;Full&nbsp;Calendar</button></button>
-                </form>
+                <a href="{ base_url+'mine/' }?goback=1" class="btn btn-default pull-right view-all-schedule" role="button" if={ mine }>View / Print Full Calendar</a>
+                <a href="{ base_url+'full/' }" class="btn btn-default pull-right view-all-schedule" role="button" if={ !mine }>View / Print Full Calendar</a>
             </div>
         </div>
 
@@ -227,12 +225,6 @@
             $('#ddl_tags').val('').trigger("chosen:updated");
             $('#ddl_levels').val('').trigger("chosen:updated");
             self.doFilter();
-        }
-
-        fullViewAction() {
-            var action = (self.mine) ? self.base_url+'mine/' : self.base_url+'full/';
-            $("#full-view-form").attr("action", action);
-            return true;
         }
 
         this.schedule_filters.on('scheduleToggleFilters', function(hide){
