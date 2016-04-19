@@ -163,7 +163,6 @@
     }
 
     sponsorNames(sponsors_id) {
-
         var sponsors = '';
         for(var id of sponsors_id)
         {
@@ -201,13 +200,15 @@
     //EVENTS
 
     addToMySchedule(e) {
-        self.parent.clicked_event[e.item.id] = e.item;
+        console.log('EVENT.addToMySchedule');
         self.schedule_api.addEvent2MySchedule(self.summit.id, e.item.id);
+        e.item.own = true;
     }
 
     removeFromMySchedule(e) {
-        self.parent.clicked_event[e.item.id] = e.item;
+        console.log('EVENT.removeFromMySchedule');
         self.schedule_api.removeEventFromMySchedule(self.summit.id, e.item.id);
+        e.item.own = false;
     }
 
     </script>
