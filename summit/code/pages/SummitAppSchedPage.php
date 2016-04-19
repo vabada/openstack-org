@@ -175,7 +175,7 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
 
     public function ViewFullSchedule()
     {
-        $goback = $this->getRequest()->getVar('goback') ? $this->getRequest()->getVar('goback') : '';
+        $goback = $this->getRequest()->postVar('goback') ? $this->getRequest()->postVar('goback') : '';
 
         if (is_null($this->Summit())) return $this->httpError(404, 'Sorry, summit not found');
 
