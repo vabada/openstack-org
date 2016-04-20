@@ -1047,7 +1047,7 @@ a.enterprise-bar-right {
     opacity: 1; }
 
 .intro-header.enterprise-booklet {
-  background: url('/themes/openstack/images/enterprise/booklet-bkgd.jpg') no-repeat center center;
+  background: url('/themes/openstack/images/enterprise/path-to-cloud/path-to-cloud-hero.jpg') no-repeat center center;
   background-size: cover;
   position: relative;
   padding: 60px 0; }
@@ -1070,8 +1070,9 @@ a.enterprise-bar-right {
   }
   .intro-header.enterprise-booklet p {
     text-align: left;
-    font-weight: 300;
-    line-height: 1.3em;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.1em;
     margin: 20px 0; 
     text-align: center;
   }
@@ -1508,3 +1509,228 @@ img.global-figures-chart {
   }
 }
 /*End Forrester promo on Enterprise home page*/
+
+.video-wrapper.small .video-overlay {
+  top: 20%; }
+.video-wrapper.small .play-button {
+  width: 30%;
+  top: 20%; }
+  .video-wrapper.small .play-button img {
+    width: 100%; }
+
+@media (max-width: 1199px) {
+  .video-wrapper.small .video-overlay {
+    top: 10%; } }
+
+@media (max-width: 991px) {
+  .video-wrapper.small .video-overlay {
+    top: 0%; } }
+
+@media (max-width: 767px) {
+  .video-wrapper.small .video-overlay {
+    top: 75%; } }
+
+@media (max-width: 480px) {
+  .video-wrapper.small .video-overlay {
+    top: 30%; } }
+.featured-wrapper.nfv .video-wrapper.small {
+  margin-bottom: 0; }
+  .featured-wrapper.nfv .video-wrapper.small:hover .play-button {
+    display: block; }
+.featured-wrapper.nfv .video-title {
+  font-size: 0.9em;
+  width: 100%; }
+
+
+/*Five column layout*/
+.col-xs-5ths, .col-sm-5ths, .col-md-5ths, .col-lg-5ths {
+  position: relative;
+  min-height: 1px;
+  padding-right: 10px;
+  padding-left: 10px; }
+
+.col-xs-5ths {
+  width: 20%;
+  float: left; }
+
+@media (min-width: 768px) {
+  .col-sm-5ths {
+    width: 20%;
+    float: left; } }
+
+@media (min-width: 992px) {
+  .col-md-5ths {
+    width: 20%;
+    float: left; } }
+
+@media (min-width: 1200px) {
+  .col-lg-5ths {
+    width: 20%;
+    float: left; } }
+
+/*End Five column layout*/
+
+.summit-promo {
+  width: 100%; }
+  .summit-promo.containers {
+    background: url('/themes/openstack/images/nfv/nfv-summit-bkgd.jpg') no-repeat center center;
+    background-size: cover;
+    padding: 60px 0 80px; 
+    margin-bottom: -50px;
+  }
+  .summit-promo.containers h3 {
+    color: white; }
+  .summit-promo.containers p {
+    color: white; }
+    .summit-promo.containers p a {
+      color: white;
+      text-decoration: underline; }
+  .summit-promo.containers .containers-summit-right {
+    margin-top: 10px;
+    text-align: center; }
+    .summit-promo.containers .containers-summit-right img.containers-summit-logo {
+      max-width: 130px;
+      margin-bottom: 5px; }
+.summit-promo.containers .containers-summit-right .containers-summit-dates {
+  color: white;
+  font-size: 1.1em;
+  margin-bottom: 20px;
+  font-style: italic; }
+.summit-promo.containers .containers-summit-right .containers-summit-dates .city {
+  font-size: 2em;
+  text-transform: uppercase;
+  display: block;
+  font-weight: 700; }
+.summit-promo.containers .containers-summit-right .containers-summit-register-btn a {
+  display: block;
+  text-align: center;
+  max-width: 80%;
+  margin: 10px auto;
+  background: #29abe2;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px; }
+.summit-promo.containers .containers-summit-right .containers-summit-register-btn a i {
+  margin-left: 5px; }
+.summit-promo.containers .containers-summit-right .containers-summit-register-btn a:hover {
+  background: #30739C;
+  text-decoration: none; }
+
+@media (max-width: 767px) {
+  .summit-promo.containers h3 {
+    text-align: center; }
+  .summit-promo.containers p {
+    text-align: center; }
+  .summit-promo.containers .containers-summit-right {
+    margin-top: 30px; } }
+.mid-overlay {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 30px 0;
+  width: 100%;
+  margin: 20px 0; }
+
+a.path-options-btn {
+  max-width: 325px;
+  whitespace: nowrap;
+  background: #DA422F;
+  border-radius: 4px;
+  padding: 15px 30px;
+  color: white;
+  display: block;
+  margin: 30px auto 10px;
+  font-weight: 400;
+  font-size: 14px; }
+  a.path-options-btn:hover, a.path-options-btn:focus {
+    text-decoration: none;
+    background: #A51B1B;
+    outline: none; }
+
+.booklets-section {
+  padding: 60px 0;
+  background: url("/themes/openstack/images/enterprise/path-to-cloud/booklet-bkgd.jpg") no-repeat center center;
+  background-size: cover;
+  position: relative;
+  text-align: center;
+  color: white; }
+  .booklets-section .booklets-intro {
+    margin-bottom: 30px; }
+  .booklets-section h1 {
+    margin: 0 0 10px;
+    color: white; }
+  .booklets-section .booklets-wrapper {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    padding: 20px 30px; }
+    .booklets-section .booklets-wrapper .booklets-top {
+      min-height: 120px;
+      font-size: 0.95em; }
+      .booklets-section .booklets-wrapper .booklets-top strong {
+        font-weight: 400;
+        font-size: 1.2em;
+        margin-bottom: 10px;
+        display: block;
+        padding-bottom: 7px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.5); }
+  .booklets-section a.booklets-btn {
+    background: #DA422F;
+    border-radius: 4px;
+    padding: 10px 20px;
+    margin: 20px auto 0;
+    color: white;
+    display: block;
+    text-align: center;
+    text-transform: uppercase;
+    whitespace: nowrap;
+    width: 250px; }
+    .booklets-section a.booklets-btn i {
+      margin-left: 10px;
+      font-size: 1.15em; }
+    .booklets-section a.booklets-btn:hover, .booklets-section a.booklets-btn:focus {
+      background: #A51B1B;
+      text-decoration: none;
+      outline: none; }
+
+@media (max-width: 990px) {
+  .booklets-section .booklets-wrapper .booklets-top {
+    min-height: 150px; } }
+
+@media (max-width: 767px) {
+  .booklets-section .left {
+    margin-bottom: 20px; }
+  .booklets-section .booklets-wrapper .booklets-top {
+    min-height: 0; } }
+
+#BookletModalHero .modal-title {
+  text-align: center; }
+
+.booklets-list {
+  margin: 20px 0 0;
+  padding: 0; }
+  .booklets-list li {
+    list-style: none;
+    margin-bottom: 5px;
+    width: 100%; }
+    .booklets-list li a {
+      padding: 10px 15px;
+      background: #edf2f7;
+      border-radius: 4px;
+      width: 100%;
+      display: block; }
+      .booklets-list li a:hover, .booklets-list li a:focus {
+        text-decoration: none;
+        background: #30739C;
+        color: white; }
+    .booklets-list li:last-child {
+      margin-bottom: 0; }
+
+.tip {
+  margin-top: 20px;
+  font-size: 0.9em; }
+  .tip i {
+    margin-right: 5px; }
+  .tip a {
+    font-style: italic;
+    color: #2A4E68;
+    text-decoration: underline; }
+    .tip a:hover {
+      color: #30739C; }
