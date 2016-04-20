@@ -64,16 +64,18 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
         'ExportMySchedule',
         'DoGlobalSearch',
         'index',
+        'eventDetails'
     );
 
     static $url_handlers = array
     (
+        'events/$EVENT_ID/html'         => 'eventDetails',
         'events/$EVENT_ID/$EVENT_TITLE' => 'ViewEvent',
-        'speakers/$SPEAKER_ID' => 'ViewSpeakerProfile',
-        'attendees/$ATTENDEE_ID' => 'ViewAttendeeProfile',
-        'mine/pdf' => 'ExportMySchedule',
-        'mine' => 'ViewMySchedule',
-        'global-search' => 'DoGlobalSearch',
+        'speakers/$SPEAKER_ID'          => 'ViewSpeakerProfile',
+        'attendees/$ATTENDEE_ID'        => 'ViewAttendeeProfile',
+        'mine/pdf'                      => 'ExportMySchedule',
+        'mine'                          => 'ViewMySchedule',
+        'global-search'                 => 'DoGlobalSearch',
     );
 
     public function init()
@@ -122,6 +124,30 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
                 'goback' => $goback,
                 'Token' => $token
             ));
+    }
+
+    public function eventDetails(SS_HTTPRequest $request)
+    {
+        if(!Director::is_ajax())
+            return $this->httpError(404, 'Sorry that event could not be found');
+
+        $event_id = intval($request->param('EVENT_ID'));
+        $event    = $this->event_repository->getById($event_id);
+        if (is_null($event) || !$event->isPublished()) {
+            return $this->httpError(404, 'Sorry that event could not be found');
+        }
+
+        return $this->renderWith
+        (
+            array
+            (
+                'SummitAppSchedPage_eventDetails'
+            ),
+            array
+            (
+                'Event' => $event,
+            )
+        );
     }
 
     public function ViewMySchedule()
