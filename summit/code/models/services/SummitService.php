@@ -14,7 +14,6 @@
  **/
 final class SummitService implements ISummitService
 {
-
     /**
      * @var ISummitRepository
      */
@@ -108,7 +107,6 @@ final class SummitService implements ISummitService
         });
     }
 
-
     /**
      * @param SummitEvent $event
      * @throws EntityValidationException
@@ -120,17 +118,48 @@ final class SummitService implements ISummitService
         foreach ($event_on_timeframe as $c_event) {
             // if the published event is BlackoutTime or if there is a BlackoutTime event in this timeframe
             if (!$event->Location()->overridesBlackouts() && ($event->Type()->BlackoutTimes || $c_event->Type()->BlackoutTimes) && $event->ID != $c_event->ID) {
-                throw new EntityValidationException("You can't publish on this timeframe, it conflicts with '".$c_event->Title."'");
+                throw new EntityValidationException
+                (
+                    sprintf
+                    (
+                        "You can't publish Event (%s) %s  on this timeframe, it conflicts with (%s) %s.",
+                        $event->ID,
+                        $event->Title,
+                        $c_event->ID,
+                        $c_event->Title
+                    )
+                );
             }
             // if trying to publish an event on a slot occupied by another event
             if (intval($event->LocationID) == $c_event->LocationID && $event->ID != $c_event->ID) {
-                throw new EntityValidationException("You can't publish on this timeframe, it conflicts with '".$c_event->Title."'");
+                throw new EntityValidationException
+                (
+                    sprintf
+                    (
+                        "You can't publish Event (%s) %s  on this timeframe, it conflicts with (%s) %s.",
+                        $event->ID,
+                        $event->Title,
+                        $c_event->ID,
+                        $c_event->Title
+                    )
+                );
             }
+
             // validate speaker conflict
             if ($event instanceof Presentation && $c_event instanceof Presentation && $event->ID != $c_event->ID) {
                 foreach ($event->Speakers() as $speaker) {
                     if ($c_event->Speakers()->find('ID', $speaker->ID)) {
-                        throw new EntityValidationException("You can't publish on this timeframe, " . $speaker->getName() . " is presenting in room '" . $c_event->getLocationName() . "' at this time.");
+                        throw new EntityValidationException
+                        (
+                            sprintf
+                            (
+                                "You can't publish Event %s (%s) on this timeframe, speaker %s its presention in room %s at this time.",
+                                $event->Title,
+                                $event->ID,
+                                $speaker->getName(),
+                                $c_event->getLocationName()
+                            )
+                        );
                     }
                 }
             }
@@ -153,7 +182,6 @@ final class SummitService implements ISummitService
             return $event;
         });
     }
-
 
     /**
      * @param ISummit $summit
@@ -286,11 +314,9 @@ final class SummitService implements ISummitService
             $event->CategoryID = $track->ID;
             $event->AttendeesExpectedLearnt = html_entity_decode($event_data['expect_learn']);
             $event->Level = $event_data['level'];
-
         }
         return $event;
     }
-
 
 
     /**
@@ -395,8 +421,6 @@ final class SummitService implements ISummitService
             return $event;
         });
     }
-
-
 
     /**
      * @param ISummit $summit
@@ -511,71 +535,140 @@ final class SummitService implements ISummitService
 
     /**
      * @param ISummit $summit
-     * @param array $assistance_data
+     * @param array $data
+     */
+    public function updateAndPublishBulkEvents(ISummit $summit, array $data)
+    {
+        $event_repository = $this->event_repository;
+        $this_var         = $this;
+
+        $this->tx_service->transaction(function() use($summit, $data, $event_repository, $this_var){
+
+            $events = $data['events'];
+            foreach($events as $event_dto) {
+                $event = $event_repository->getById($event_dto['id']);
+                if(is_null($event)) throw new NotFoundEntityException('SummitEvent');
+                if(intval($event->SummitID) !== $summit->getIdentifier()) throw new EntityValidationException('SummitEvent does not belong to Summit!');
+
+                $event->LocationID = intval($event_dto['location_id']);
+                $event->setStartDate(sprintf("%s %s", $event_dto['start_date'], $event_dto['start_time']));
+                $event->setEndDate(sprintf("%s %s", $event_dto['end_date'], $event_dto['end_time']));
+                $this_var->validateBlackOutTimesAndTimes($event);
+                $event->unPublish();
+                $event->publish();
+                $event->write();
+            }
+        });
+    }
+
+    /**
+     * @param ISummit $summit
+     * @param array $data
+     */
+    public function updateBulkEvents(ISummit $summit, array $data)
+    {
+        $event_repository = $this->event_repository;
+
+        $this->tx_service->transaction(function() use($summit, $data, $event_repository){
+
+            $events = $data['events'];
+            foreach($events as $event_dto) {
+                $event = $event_repository->getById($event_dto['id']);
+                if(is_null($event)) throw new NotFoundEntityException('SummitEvent');
+                if(intval($event->SummitID) !== $summit->getIdentifier()) throw new EntityValidationException('SummitEvent does not belong to Summit!');
+
+                $event->LocationID = intval($event_dto['location_id']);
+                $event->setStartDate(sprintf("%s %s", $event_dto['start_date'], $event_dto['start_time']));
+                $event->setEndDate(sprintf("%s %s", $event_dto['end_date'], $event_dto['end_time']));
+                $event->unPublish();
+                $event->write();
+            }
+        });
+    }
+
+    /**
+     * @param ISummit $summit
+     * @param array $event_ids
+     */
+    public function unPublishBulkEvents(ISummit $summit, array $event_ids)
+    {
+        $event_repository = $this->event_repository;
+
+        $this->tx_service->transaction(function() use($summit, $event_ids, $event_repository) {
+            foreach ($event_ids as $event_id) {
+                $event = $event_repository->getById($event_id);
+                if (is_null($event)) throw new NotFoundEntityException('SummitEvent');
+                if (intval($event->SummitID) !== $summit->getIdentifier()) throw new EntityValidationException('SummitEvent does not belong to Summit!');
+                $event->unPublish();
+            }
+        });
+    }
+
+    /**
+     * @param ISummit $summit
+     * @param array $data
      * @return mixed
      */
-    public function updateAssistanceBatch(ISummit $summit, array $data)
+    public function updateAssistance(ISummit $summit, array $data)
     {
-        $assistance_repository = $this->assistance_repository;
-        $this->tx_service->transaction(function() use($summit, $data, $assistance_repository){
+        $speaker_repository    = $this->speaker_repository;
+
+        $this->tx_service->transaction(function() use($summit, $data, $speaker_repository){
 
             foreach ($data as $assistance_data) {
-                if(!isset($assistance_data['id']))
-                    throw new EntityValidationException('missing required param: id');
 
-                $assistance_id = intval($assistance_data['id']);
-                $assistance = $assistance_repository->getById($assistance_id);
+                $speaker_id    = isset($assistance_data['speaker_id']) ? intval($assistance_data['speaker_id']) : 0;
 
+                if(!$speaker_id)
+                    throw new EntityValidationException('speaker_id param is missing!');
+
+                $speaker = $speaker_repository->getById($speaker_id);
+
+                if(is_null($speaker))
+                    throw new NotFoundEntityException('Speaker');
+
+                $assistance = $speaker->getAssistanceFor($summit->getIdentifier());
                 if(is_null($assistance))
-                    throw new NotFoundEntityException('Speaker Assistance', sprintf('id %s', $assistance_id));
+                {
+                    $assistance = $speaker->createAssistanceFor($summit->getIdentifier());
+                    $assistance->write();
+                }
 
-                if(intval($assistance->SummitID) !== intval($summit->getIdentifier()))
-                    throw new EntityValidationException('speaker assistance doest not belong to summit');
-
-                $assistance->OnSitePhoneNumber = $assistance_data['phone'];
+                $assistance->OnSitePhoneNumber   = $assistance_data['phone'];
                 $assistance->RegisteredForSummit = $assistance_data['registered'];
-                $assistance->CheckedIn = $assistance_data['checked_in'];
+                $assistance->CheckedIn           = $assistance_data['checked_in'];
 
                 $assistance->write();
 
-                if (isset($assistance_data['promo_code'])) {
-                    $promo_code = SummitRegistrationPromoCode::get("SummitRegistrationPromoCode")
-                        ->leftJoin("SpeakerSummitRegistrationPromoCode","SpeakerSummitRegistrationPromoCode.ID = SummitRegistrationPromoCode.ID")
-                        ->where("SpeakerSummitRegistrationPromoCode.SpeakerID = {$assistance->SpeakerID} AND SummitRegistrationPromoCode.SummitID = {$assistance->SummitID}")
-                        ->first();
-
-                    $promo_code->Code = $assistance_data['promo_code'];
-                    $promo_code->write();
+                if (isset($assistance_data['promo_code']) && !empty($assistance_data['promo_code'])) {
+                    $code = $speaker->registerSummitPromoCodeByValue($assistance_data['promo_code'], $summit);
+                    $code->write();
                 }
-
-
             }
-
         });
     }
 
     /**
      * @param ISummit $summit
      * @param $data
-     * @return mixed
      */
     public function updateHeadCount(ISummit $summit, $data)
     {
         $event_repository = $this->event_repository;
-        $this_var         = $this;
+        $this_var = $this;
 
-        $this->tx_service->transaction(function() use($this_var, $summit, $data, $event_repository){
+        $this->tx_service->transaction(function () use ($this_var, $summit, $data, $event_repository) {
             foreach ($data as $event_data) {
-                if(!isset($event_data['id']))
+                if (!isset($event_data['id']))
                     throw new EntityValidationException('missing required param: id');
 
                 $event_id = intval($event_data['id']);
-                $event    = $event_repository->getById($event_id);
+                $event = $event_repository->getById($event_id);
 
-                if(is_null($event))
+                if (is_null($event))
                     throw new NotFoundEntityException('Summit Event', sprintf('id %s', $event_id));
 
-                if(intval($event->SummitID) !== intval($summit->getIdentifier()))
+                if (intval($event->SummitID) !== intval($summit->getIdentifier()))
                     throw new EntityValidationException('event doest not belongs to summit');
 
                 $event->HeadCount = intval($event_data['headcount']);
@@ -662,10 +755,7 @@ final class SummitService implements ISummitService
 
             $onsite_phone = trim($speaker_data['onsite_phone']);
             if(!empty($onsite_phone)) {
-                $summit_assistance = PresentationSpeakerSummitAssistanceConfirmationRequest::create();
-                $summit_assistance->SummitID = $summit->getIdentifier();
-                $summit_assistance->SpeakerID = $speaker->ID;
-                $summit_assistance->write();
+                $summit_assistance = $speaker->createAssistanceFor($summit->getIdentifier());
                 $summit_assistance->OnSitePhoneNumber = $onsite_phone;
                 $summit_assistance->write();
             }
@@ -730,44 +820,18 @@ final class SummitService implements ISummitService
 
             $onsite_phone = trim($speaker_data['onsite_phone']);
             $reg_code     = trim($speaker_data['reg_code']);
+
             if(!empty($onsite_phone)) {
                 $summit_assistance = $speaker->getAssistanceFor($summit->getIdentifier());
                 if(is_null($summit_assistance)){
-                    $summit_assistance = PresentationSpeakerSummitAssistanceConfirmationRequest::create();
-                    $summit_assistance->SummitID = $summit->getIdentifier();
-                    $summit_assistance->SpeakerID = $speaker_id;
-                    $summit_assistance->write();
+                    $summit_assistance = $speaker->createAssistanceFor($summit->getIdentifier());
                 }
                 $summit_assistance->OnSitePhoneNumber = $onsite_phone;
                 $summit_assistance->write();
             }
+
             if(!empty($reg_code)){
-                $old_code = SpeakerSummitRegistrationPromoCode::get()->filter
-                (
-                    array
-                    (
-                        'SummitID'  => $summit->getIdentifier(),
-                        'SpeakerID' => $speaker->ID,
-                    )
-                )->first();
-
-                if(!(is_null($old_code) || $old_code->Code === $reg_code)) {
-                    $code = SpeakerSummitRegistrationPromoCode::get()->filter
-                    (
-                        array
-                        (
-                            'Code' => $reg_code,
-                            'SummitID' => $summit->getIdentifier(),
-                            'OwnerID' => 0,
-                            'SpeakerID' => 0,
-                        )
-                    )->first();
-
-                    if (is_null($code)) throw new EntityValidationException(sprintf('registration code %s is already assigned or not exists!', $reg_code));
-                    if ($code->Code !== $old_code->Code) throw new EntityValidationException(sprintf('speaker has already assigned to another registration code (%s)', $old_code->Code));
-                    $speaker->registerSummitPromoCode($code);
-                    $code->write();
-                }
+               $speaker->registerSummitPromoCodeByValue($reg_code, $summit);
             }
             return $speaker;
 
@@ -803,51 +867,6 @@ final class SummitService implements ISummitService
             $image->write();
 
             return $image;
-
-        });
-    }
-
-    /**
-     * @param ISummit $summit
-     * @param array $data
-     * @return mixed
-     */
-    public function updateAssistance(ISummit $summit, array $data)
-    {
-        $assistance_repository = $this->assistance_repository;
-        $this->tx_service->transaction(function() use($summit, $data, $assistance_repository){
-
-            foreach ($data as $assistance_data) {
-                if(!isset($assistance_data['id']))
-                    throw new EntityValidationException('missing required param: id');
-
-                $assistance_id = intval($assistance_data['id']);
-                $assistance = $assistance_repository->getById($assistance_id);
-
-                if(is_null($assistance))
-                    throw new NotFoundEntityException('Speaker Assistance', sprintf('id %s', $assistance_id));
-
-                if(intval($assistance->SummitID) !== intval($summit->getIdentifier()))
-                    throw new EntityValidationException('speaker assistance doest not belong to summit');
-
-                $assistance->OnSitePhoneNumber = $assistance_data['phone'];
-                $assistance->RegisteredForSummit = $assistance_data['registered'];
-                $assistance->CheckedIn = $assistance_data['checked_in'];
-
-                $assistance->write();
-
-                if (isset($assistance_data['promo_code'])) {
-                    $promo_code = SummitRegistrationPromoCode::get("SummitRegistrationPromoCode")
-                        ->leftJoin("SpeakerSummitRegistrationPromoCode","SpeakerSummitRegistrationPromoCode.ID = SummitRegistrationPromoCode.ID")
-                        ->where("SpeakerSummitRegistrationPromoCode.SpeakerID = {$assistance->SpeakerID} AND SummitRegistrationPromoCode.SummitID = {$assistance->SummitID}")
-                        ->first();
-
-                    $promo_code->Code = $assistance_data['promo_code'];
-                    $promo_code->write();
-                }
-
-
-            }
 
         });
     }
