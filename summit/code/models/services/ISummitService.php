@@ -65,6 +65,18 @@ interface ISummitService
 
     /**
      * @param ISummit $summit
+     * @param $data
+     */
+    public function updateVideoDisplay(ISummit $summit, $data);
+
+    /**
+     * @param $report_name
+     * @param $data
+     */
+    public function updateReportConfig($report_name, $data);
+
+    /**
+     * @param ISummit $summit
      * @param array $speaker_data
      * @return IPresentationSpeaker
      */
