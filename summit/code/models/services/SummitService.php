@@ -710,9 +710,8 @@ final class SummitService implements ISummitService
 
                 foreach ($event->Materials()->filter('ClassName','PresentationVideo') as $video) {
                     $video->DisplayOnSite = intval($event_data['display_video']);
-                    $video->write;
+                    $video->write();
                 }
-                $event->write();
             }
         });
     }
