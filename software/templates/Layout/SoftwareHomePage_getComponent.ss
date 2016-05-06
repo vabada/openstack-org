@@ -196,7 +196,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Does this project have stable branches?
+                                    <td>Is this project maintained following the common Stable branch policy?
                                     </td>
                                     <td>
                                         <ul>
@@ -209,7 +209,7 @@
                                             </li>
                                         </ul>
                                     </td>
-                                    <td><a href="http://governance.openstack.org/reference/tags/release_has-stable-branches.html">View Details</a></td>
+                                    <td><a href="http://docs.openstack.org/project-team-guide/stable-branches.html">View Details</a></td>
                                     <td>
                                         <ul>
                                             <% if $Component.HasStableBranches %>
