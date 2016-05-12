@@ -22,8 +22,10 @@
                   <a href="//openstack.org/assets/barcelona-summit/Barcelona-Sponsorship-Prospectus.pdf" class="btn register-btn-lrg" style="margin: 10px;">Download The Prospectus<i class="fa fa-cloud-download"></i></a>
                   <a href="//openstacksummit2016barcelona.eventbrite.com" class="btn register-btn-lrg" style="margin: 10px;">Register Now<i class="fa fa-chevron-circle-right"></i></a>
                 </div>
-                <div>
-                  <a href="/summit/austin-2016/" class="white-link current-summit-link">View The Current Summit</a>
+                <div class="future-sponsor-wrapper">
+                  <h3>Sponsor Information</h3>
+                  <a href="//openstack.org/assets/barcelona-summit/Barcelona-Sponsorship-Prospectus.pdf" class="btn register-btn-lrg" style="">Download The Prospectus<i class="fa fa-cloud-download"></i></a>
+                  <a href="//openstack.org/assets/barcelona-summit/WATERMARK-Draft-Executable-OpenStack-Event-Sponsorship-Agreement-BARCELONA-SUMMIT.pdf" class="btn register-btn-lrg" style="margin: 10px;">Draft Sponsor Contract<i class="fa fa-chevron-circle-right"></i></a>
                 </div>
                 <div class="landing-social">
                     <a target="_blank" class="social-icons landing-twitter" onclick="return windowpop(this.href, 545, 433)" href="http://twitter.com/share?text=The April 2016 OpenStack Summit will be in Austin, Texas&url=http://openstack.org/summit/austin-2016/"></a>
