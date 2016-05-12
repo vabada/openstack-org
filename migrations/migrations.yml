@@ -29,5 +29,6 @@ migrations:
   - AddUsersToFoundationStaffMigration
   - RemoveSortColumnFromGroups
   - SummitAttendeeDropIndexMigration
-  - NewsChangeNewsDatesToCentral
   - VideoPresentationMigration
+  - NewsChangeNewsDatesToCentral
+  - SummitMaxAllowedSubmissionTaskMigration
