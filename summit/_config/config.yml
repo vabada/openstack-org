@@ -7,21 +7,11 @@ Member:
     - PresentationMemberExtension
     - MemberTokenProvider
     - AttendeeMember
-Director:
-  rules:
-    'submit-slides': 'PresentationSlideSubmissionController'
 EditProfilePage_Controller:
   extensions:
     - EditProfilePageSummitAttendeeExtension
 MemberTokenProvider:
   token_expire: 500000
-Director:
-  rules:
-    'presentations/api/v1': 'PresentationAPI'
-    'trackchairs/api/v1': 'TrackChairAPI'
-    'presentations/authenticate': 'PresentationAPITokenGenerator'
-    'summit-login': 'SummitSecurity'
-    'summit-admin': 'SummitAppAdminController'
 PresentationCategory:
   extensions:
     - JSONable
