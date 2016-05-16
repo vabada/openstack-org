@@ -45,7 +45,9 @@ final class SummitAttendee extends DataObject implements ISummitAttendee
     (
         'Schedule' => array
         (
-            'IsCheckedIn' => "Boolean",
+            'IsCheckedIn'      => 'Boolean',
+            'GoogleCalEventId' => 'Varchar',
+            'AppleCalEventId'  => 'Varchar'
         ),
     );
 
@@ -268,6 +270,7 @@ final class SummitAttendee extends DataObject implements ISummitAttendee
         }
         return $valid;
     }
+
     public function getAllowedSchedule()
     {
         $summit = $this->Summit();
@@ -355,4 +358,29 @@ final class SummitAttendee extends DataObject implements ISummitAttendee
         if(!$event) return false;
         return $event->RSVPSubmissions()->filter('SubmittedByID', $this->ID)->count() > 0;
     }
+
+    /**
+     * @param ISummitEvent $event
+     * @return string
+     */
+    public function getGoogleCalEventId(ISummitEvent $event)
+    {
+        $event_extra_fields = $this->Schedule()->getExtraData('SummitEvent',$event->getIdentifier());
+        return $event_extra_fields['GoogleCalEventId'];
+    }
+
+    /**
+     * @param ISummitEvent $event
+     * @param int $google_event_id
+     * @return string
+     */
+    public function setGoogleCalEventId(ISummitEvent $event, $google_event_id)
+    {
+        AssociationFactory::getInstance()->getMany2ManyAssociation($this, 'Schedule')->updateExtraFields
+        (
+            $event,
+            array('GoogleCalEventId' => $google_event_id)
+        );
+    }
+
 }

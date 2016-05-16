@@ -119,7 +119,6 @@ define('PARSE_REST_KEY','');
 define('PARSE_MASTER_KEY','');
 
 // COA
-
 define('COA_FILE_API_BASE_URL','');
 define('COA_FILE_API_BASE_USER','');
 define('COA_FILE_API_BASE_PASS','');
@@ -146,4 +145,3 @@ define('APP_LINKS_ANDROID_APP_CUSTOM_SCHEMA','');
 
 global $_FILE_TO_URL_MAPPING;
 $_FILE_TO_URL_MAPPING[''] = '';
-

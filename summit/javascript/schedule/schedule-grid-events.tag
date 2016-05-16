@@ -88,6 +88,32 @@
                 return false;
             });
 
+<<<<<<< HEAD
+=======
+            $(document).off("click",".gcal-synch").on("click",".gcal-synch", function(e){
+                var event_id = $(e.currentTarget).parents('.main-event-content').attr('data-event-id');
+                var event    = self.dic_events[event_id];
+                event.location = self.getSummitLocation(event);
+
+                if($(this).hasClass('foreign')){
+                    // synch with google cal
+                    self.schedule_api.googleCalSynch(self.summit.id, event);
+                    $(this).removeClass('foreign').addClass('own');
+                    $('.gcal-icon',$(this)).removeClass('icon-foreign-event').addClass('icon-own-event');
+                    return false;
+                }
+                if($(this).hasClass('own')){
+                    // unsynch with google
+                    self.schedule_api.googleCalUnSynch(self.summit.id, event);
+                    $(this).removeClass('own').addClass('foreign');
+                    $('.gcal-icon',$(this)).removeClass('icon-own-event').addClass('icon-foreign-event');
+                    return false;
+                }
+
+                e.preventDefault();
+                e.stopPropagation();
+            });
+>>>>>>> 926385a... [spalenque] - #10818 - google calendar synch for schedule events
         });
 
         this.schedule_api.on('beforeEventsRetrieved', function(){
@@ -101,6 +127,11 @@
             var myschedule_container = self.summit.current_user !== null ? '<div class="col-sm-3 my-schedule-container">'+
             '<span class="icon-event-action" id="">'+
             '<i class="fa fa-plus-circle myschedule-icon"></i>&nbsp;My&nbsp;schedule</span>'+
+            '</div>' : '';
+
+            var gcal_synch_container = self.summit.current_user !== null ? '<div class="col-md-2 gcal-synch-container">'+
+            '<span class="gcal-synch">'+
+            '<i class="fa fa-check-circle gcal-icon"></i>&nbsp;Google&nbsp;synch</span>'+
             '</div>' : '';
 
             var event_template = $(
@@ -120,7 +151,8 @@
                 myschedule_container+
                 '</div>'+
                 '<div class="row">'+
-                '<div class="col-md-12 event-title"></div>'+
+                '<div class="col-md-10 event-title"></div>'+
+                gcal_synch_container+
                 '</div>'+
                 '<div class="row">'+
                 '<div class="col-xs-8 col-track">'+
@@ -170,6 +202,7 @@
                 },
                 'a.event-type-search-link': function(arg){ return self.summit.event_types[arg.item.type_id].type; },
                 'a.event-type-search-link@href': function(arg){ return self.search_url+'?t='+self.summit.event_types[arg.item.type_id].type.replace(/ /g,'+')  },
+<<<<<<< HEAD
 
 
                 'span.start-time': 'event.start_time',
@@ -192,12 +225,42 @@
                         return item.id;
                     };
                     event_directives['span.icon-event-action@class+']        = function(arg){ return arg.item.own ? ' own ':' foreign'; };
+=======
+                'a.venue-search-link': function(arg){
+                    return self.getSummitLocation(arg.item);
+                },
+                'a.venue-search-link@href':function(arg){
+                    return self.summit.link+'venues/#venue='+ self.summit.locations[arg.item.location_id].venue_id;
+                },
+                'span.start-time': 'event.start_time',
+                'span.end-time': 'event.end_time'
+            };
+
+            if(self.summit.current_user !== null ){
+                // MY SCHEDULE
+                event_directives['i.myschedule-icon@class+']             = function(arg){ return arg.item.own ? ' icon-own-event':' icon-foreign-event'; };
+                event_directives['span.icon-event-action@title']         = function(arg){ return arg.item.own ? 'remove from my schedule':'add to my schedule'; };
+                event_directives['span.icon-event-action@data-event-id'] = function(arg){
+                    var item = arg.item;
+                    self.dic_events[item.id] = item;
+                    return item.id;
+                };
+                // GOOGLE CALENDAR SYNCH
+                event_directives['i.gcal-icon@class+']                   = function(arg){ return arg.item.gcal_id ? ' icon-own-event':' icon-foreign-event'; };
+                event_directives['span.gcal-synch@title']                = function(arg){ return arg.item.gcal_id ? 'unsynch from google calendar':'synch with google calendar'; };
+                event_directives['span.gcal-synch@data-event-id']        = function(arg){ return arg.item.id; };
+
+                event_directives['span.gcal-synch@class+']               = function(arg){ return arg.item.gcal_id ? ' own':' foreign'; };
+                event_directives['span.icon-event-action@class+']        = function(arg){ return arg.item.own ? ' own':' foreign'; };
+>>>>>>> 926385a... [spalenque] - #10818 - google calendar synch for schedule events
             }
+
             var directives = {
                 'div.event-row':{
                     'event<-': event_directives
                 }
             };
+
             var html = event_template.render(data.events, directives);
             $('#events-inner-container').html(html);
             self.applyFilters();
@@ -207,6 +270,10 @@
         this.schedule_filters.on('scheduleFiltersChanged', function(filters){
             self.current_filter = filters;
             self.applyFilters();
+        });
+
+        this.schedule_api.on('googleEventSynchSaved', function(event_id, cal_event_id){
+            self.dic_events[event_id].gcal_id = cal_event_id;
         });
 
         isFilterEmpty() {
@@ -240,7 +307,16 @@
         getSummitLocation(event) {
             var location = self.summit.locations[event.location_id];
             if (typeof location == 'undefined') return 'TBA';
+<<<<<<< HEAD
             else return location.name_nice;
+=======
+            if(location.class_name === 'SummitVenueRoom') {
+                var room = location;
+                location = self.summit.locations[room.venue_id];
+                return location.name+' - '+room.name;
+            }
+            return location.name;
+>>>>>>> 926385a... [spalenque] - #10818 - google calendar synch for schedule events
         }
 
         applyFilters(){

@@ -147,7 +147,6 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
         Requirements::javascript('themes/openstack/javascript/jquery.serialize.js');
         Requirements::javascript('themes/openstack/javascript/jquery.cleanform.js');
         Requirements::javascript('summit/javascript/forms/rsvp.form.js');
-
     }
 
     public function getFacebookAppID(){
