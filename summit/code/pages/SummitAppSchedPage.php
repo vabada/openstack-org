@@ -265,6 +265,7 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
         );
     }
 
+
     /**
      * @return Form|string
      * @throws NotFoundEntityException
@@ -298,8 +299,12 @@ DTSTAMP:" . gmdate('Ymd').'T'. gmdate('His') . "Z
 DTSTART:".date('Ymd',strtotime($event->getField('StartDate')))."T".date('His',strtotime($event->getField('StartDate')))."Z
 DTEND:".date('Ymd',strtotime($event->getField('EndDate')))."T".date('His',strtotime($event->getField('EndDate')))."Z
 SUMMARY:".$event->Title."
+<<<<<<< HEAD
 DESCRIPTION:".strip_tags($event->ShortDescription)."
 X-ALT-DESC:".$event->ShortDescription."
+=======
+DESCRIPTION:".$event->ShortDescription."
+>>>>>>> 92dfcf3... [spalenque] - #10818 - add export event to ics
 END:VEVENT
 END:VCALENDAR";
 
