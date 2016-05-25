@@ -137,6 +137,17 @@ class PresentationSlideSubmissionController extends Page_Controller
 		$getVars = $r->getVars();
 		$speakers = PresentationSpeaker::get();
 		$summit = Summit::get_most_recent();
+		$speakers = PresentationSpeaker::get()
+			->innerJoin('Presentation_Speakers','Presentation_Speakers.PresentationSpeakerID = PresentationSpeaker.ID')
+			->innerJoin('SummitEvent', 'SummitEvent.ID = Presentation_Speakers.PresentationID')
+			->innerJoin('Presentation', 'Presentation.ID = SummitEvent.ID')
+			->exclude([
+				// Keynotes, Sponsored Sessions, BoF, and Working Groups, vBrownBag
+				'Presentation.CategoryID' => [40, 41, 46, 45, 48]
+			])
+			->filter('SummitID', $summit->ID)
+			->limit($confirm ? null : 50);
+
 		foreach ($speakers as $speaker) {
 			/* @var DataList */
 			$presentations = $speaker->PublishedPresentations($summit->ID);
