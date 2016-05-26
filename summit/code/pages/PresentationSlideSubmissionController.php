@@ -159,16 +159,20 @@ class PresentationSlideSubmissionController extends Page_Controller
 
 				$email = EmailFactory::getInstance()->buildEmail('do-not-reply@openstack.org', $to, $subject);
 				$email->setTemplate("UploadPresentationSlidesEmail");
-				$email->populateTemplate($speaker);
+				$email->populateTemplate([
+					'Speaker' => $speaker,
+					'Presentations' => $presentations,
+					'Summit' => $summit
+				]);
 
 				if ($confirm) {
 					//SchedSpeakerEmailLog::addSpeaker($to);
 					$email->send();
-				} else {					
+				} else {
 					echo $email->debug();
 				}
 
-				echo 'Email sent to ' . $to . '<br/>';
+				echo 'Email sent to ' . $to . ' ('.$speaker->getName().')<br/>';
 			}
 		}
 	}
