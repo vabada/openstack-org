@@ -1109,11 +1109,9 @@ final class Summit extends DataObject implements ISummit
                     ])
                 )),
                 BetterButtonCustomAction::create('resetvotes', 'Reset presentation votes')
-                    ->setRedirectType(BetterButtonCustomAction::REFRESH),
-                    //->setSuccessMessage('All votes have been reset'),
+                    ->setRedirectType(BetterButtonCustomAction::REFRESH),                    
                 BetterButtonCustomAction::create('setasactive', 'Set as active')
-                    ->setRedirectType(BetterButtonCustomAction::REFRESH)
-                    //->setSuccessMessage('Summit is now active')
+                    ->setRedirectType(BetterButtonCustomAction::REFRESH)                    
             ]));
         }
 
@@ -1122,8 +1120,7 @@ final class Summit extends DataObject implements ISummit
             'handlevotinglists',
             $text
         )
-            ->setRedirectType(BetterButtonCustomAction::REFRESH)
-            //->setSuccessMessage(Summit::config()->random_list_count . " random incarnations created")
+            ->setRedirectType(BetterButtonCustomAction::REFRESH)            
         );
         if (!$this->checkRange("Voting")) {
             $random->setConfirmation('You are randomising the presentations outside of the voting phase. If there are more presentations coming, this could cause errors. Are you sure you want to do this?');
@@ -1153,6 +1150,8 @@ final class Summit extends DataObject implements ISummit
             "DELETE FROM PresentationVote WHERE PresentationID IN (%s)",
             implode(',', $this->Presentations()->column('ID'))
         ));
+
+        return 'All votes have been reset';
     }
 
     public function setasactive()
@@ -1160,11 +1159,15 @@ final class Summit extends DataObject implements ISummit
         DB::query("UPDATE Summit SET Active = 0");
         $this->Active = 1;
         $this->write();
+
+        return 'Summit is now active';
     }
 
     public function handlevotinglists()
     {
         $this->generateVotingLists();
+
+        return Summit::config()->random_list_count . " random incarnations created";
     }
 
     protected function validate()
