@@ -82,11 +82,43 @@
                 <div class="info_item_text">Design Summit Credential</div>
             </div>
             <% end_if %>
-            <% if Event.RSVPLink %>
+
+            <% if $Event.Tags %>
+            <div class="info_item">
+                <div class="info_item_icon"><i class="fa fa-tags"></i></div>
+                <div class="info_item_text">
+                    Tags:
+                <% loop $Event.Tags %>
+                    <a href="$Top.Link(global-search)?t={$Tag}">$Tag</a>
+                <% end_loop %>
+                </div>
+            </div>
+            <% end_if %>
+            <div class="clearfix"></div>
+
+            <% if Event.RSVPTemplate.Exists() %>
+            <div class="info_item">
+                <button type="button" class="btn btn-primary btn-md active btn-warning btn-rsvp-event" data-toggle="modal" data-target="#rsvpModal">RSVP to this Event</button>
+            </div>
+            <div id="rsvpModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">RSVP</h4>
+                  </div>
+                  <div class="modal-body">
+                    $RSVPForm($Event.ID)
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% else_if Event.RSVPLink %>
             <div class="info_item">
                 <a href="{$Event.RSVPLink}" class="btn btn-primary btn-md active btn-warning btn-rsvp-event" target="_blank" role="button">RSVP to this Event</a>
             </div>
             <% end_if %>
+
             <% if Event.Sponsors %>
             <div class="logo">
                 <% loop Event.Sponsors %>
