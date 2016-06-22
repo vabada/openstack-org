@@ -627,26 +627,6 @@ SQL;
         return $date->format('Y-m-d');
     }
 
-    public function getStartTimeHMS()
-    {
-        $date = new Datetime($this->getStartDate());
-        return $date->format('h:i:s A');
-    }
-
-    public function getBeginDateYMD()
-    {
-        $date = new DateTime($this->getStartDate());
-
-        return $date->format('Y-m-d');
-    }
-
-    public function getEndDateYMD()
-    {
-        $date = new DateTime($this->getEndDate());
-
-        return $date->format('Y-m-d');
-    }
-
     /**
      * @return string
      */
