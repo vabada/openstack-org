@@ -34,3 +34,4 @@ migrations:
   - SummitMaxAllowedSubmissionTaskMigration
   - SummitPresentationTypeMigration
   - PopulateOrganizationalRoleAndActiveInvolvement
+  - TrackChairMigration
