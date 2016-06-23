@@ -24,22 +24,27 @@
                 <hr>
                 <h3 class="recap-title">Watch Video Recaps From Previous Summits</h3>
                 <div class="about-video-wrapper">
-                    <iframe src="//www.youtube.com/embed/iZdEwQ-76P4?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-                <p class='video-catpion'>May 2015 in Vancouver</p>
+                    <iframe src="//www.youtube.com/embed/ggEcb16BVog?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+                <p class='video-catpion'>April 2016 in Austin</p>
                 </div>
                 <div class="about-video-wrapper">
                     <iframe src="//www.youtube.com/embed/-j13REYVJ2g?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
                 <p class='video-catpion'>October 2015 in Tokyo</p>
+                </div>
+                <div class="about-video-wrapper">
+                    <iframe src="//www.youtube.com/embed/iZdEwQ-76P4?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+                <p class='video-catpion'>May 2015 in Vancouver</p>
                 </div>
             </div>
         <div class="col-lg-3 col-md-4 col-sm-4">
             <ul class="help-me-menu">
                <!-- <li><a href="#"><i class="fa fa-calendar"></i>Summit Schedule</a></li>-->
                <li><a href="/summit/barcelona-2016/travel-support/"><i class="fa fa-plane"></i>Travel Support Program</a></li>
+               <li><a href="/summit/barcelona-2016/barcelona-and-travel/#visa"><i class="fa fa-globe"></i>Visa Info</a></li>
+                <li><a href="/summit/barcelona-2016/code-of-conduct/"><i class="fa fa-users"></i>Code Of Conduct</a></li>
                <!--<li><a href="/summit/barcelona-2016/travel-support/"><i class="fa fa-compass"></i>Venues</a></li>
-               <li><a href="/summit/austin-2016/mobile-apps/"><i class="fa fa-mobile"></i>Mobile Apps</a></li>
-                <li><a href="/summit/austin-2016/guide-to-austin/"><i class="fa fa-map"></i>Guide To Austin</a></li>
-                <li><a href="/summit/austin-2016/code-of-conduct/"><i class="fa fa-users"></i>Code Of Conduct</a></li> -->
+               <li><a href="/summit/barcelona-2016/mobile-apps/"><i class="fa fa-mobile"></i>Mobile Apps</a></li>
+                <li><a href="/summit/barcelona-2016/guide-to-austin/"><i class="fa fa-map"></i>Guide To Austin</a></li> -->
             </ul>
             <div class="schedule-square">
                 <h3><i class="fa fa-calendar"></i>Schedule</h3>

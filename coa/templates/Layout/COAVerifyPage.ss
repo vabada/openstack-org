@@ -81,7 +81,7 @@
                   <input type="checkbox" id="terms" class="">
                     I agree to abide by the
                     <a href="{$Link()}#tos" class="tos-link" data-toggle="modal" data-target="#tos">Terms of Service</a>
-                    for The Linux Foundation Certification Verification Tool.
+                    for the Certified OpenStack Administrator Verification Tool.
                 </label>
             </div>
             <div class="row">

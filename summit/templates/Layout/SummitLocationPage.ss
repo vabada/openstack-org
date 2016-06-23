@@ -78,7 +78,7 @@
 <% end_if %>
 <div class="white hotels-row" id="hotels">
     <% if not $Top.CampusGraphic %>
-    <!-- <div class="venue-map" id="map-canvas"></div> -->
+        <div class="venue-map" id="map-canvas"></div>
     <% end_if %>
     <div class="container">
         <% if AlternateHotels %>
@@ -104,9 +104,6 @@
                         <i class="fa fa-hotel fa-4x"></i>
                     </p>
                 <% end_if %>
-                <p class="center">
-                    <strong>We have contracted out discounted hotel room blocks at several surrounding hotels. Links to book hotel rooms will be posted in the coming weeks.</strong>
-                </p>
                 $LocationsTextHeader
             </div>
         </div>
