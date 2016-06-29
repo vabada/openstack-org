@@ -28,9 +28,9 @@ final class EntityCounter extends Extension {
 
     public function MembersCount(){
 
-	    return EntityCounterHelper::getInstance()->EntityCount('FoundationMember',function (){
-		    $query =  new IndividualFoundationMemberCountQuery();
-		    $res   = $query->handle(null)->getResult();
+	    return EntityCounterHelper::getInstance()->EntityCount('Member',function (){
+		    $query =  new IndividualMemberCountQuery();
+		    $res   = $query->handle()->getResult();
 		    return $res[0];
 	    });
     }
