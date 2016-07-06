@@ -56,7 +56,7 @@ final class News extends DataObject implements INews
     );
 
     static $many_many = array(
-        'Tags' => 'Tag',
+        'Tags' => 'NewsTag',
     );
 
     public static $indexes = array(
@@ -108,9 +108,14 @@ final class News extends DataObject implements INews
         $tags = explode(',', $tags);
 
         foreach ($tags as $tag_name) {
-            $tag = new Tag();
-            $tag->Tag = $tag_name;
-            $tag->write();
+            $tag = NewsTag::get("NewsTag","Tag = '".$tag_name."'")->first();
+
+            if (!$tag) {
+                $tag = new NewsTag();
+                $tag->Tag = $tag_name;
+                $tag->write();
+            }
+
             $this->addTag($tag);
         }
     }
@@ -167,7 +172,7 @@ final class News extends DataObject implements INews
         return trim($tags_csv, ",");
     }
 
-    public function addTag(ITag $tag)
+    public function addTag(INewsTag $tag)
     {
         AssociationFactory::getInstance()->getMany2ManyAssociation($this, 'Tags')->add($tag);
     }
