@@ -152,9 +152,4 @@ export default connect(
 		}
 
 	})
-)(BrowseDetail);	e.preventDefault();
-			dispatch(toggleEmailSpeakers());
-		}
-
-	})
 )(BrowseDetail);
