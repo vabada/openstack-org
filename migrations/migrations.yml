@@ -35,3 +35,4 @@ migrations:
   - SummitPresentationTypeMigration
   - PopulateOrganizationalRoleAndActiveInvolvement
   - TrackChairMigration
+  - FixSummitEventTypesMigration
