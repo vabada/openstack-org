@@ -131,9 +131,7 @@ export default connect(
 	state => {
 		const myList = state.lists.results ? state.lists.results.find(l => l.mine) : null;
 		const selectionsRemaining = myList ? (myList.slots - myList.selections.length) : null;
-		if(myList) {
-			console.log('slots',myList.slots, 'mine',myList.selections);
-		}
+
 		return {
 			presentation: state.detailPresentation,
 			myList,
@@ -150,6 +148,11 @@ export default connect(
 		},
 		toggleEmailSpeakers(e) {
 			e.preventDefault();
+			dispatch(toggleEmailSpeakers());
+		}
+
+	})
+)(BrowseDetail);	e.preventDefault();
 			dispatch(toggleEmailSpeakers());
 		}
 
