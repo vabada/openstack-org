@@ -34,16 +34,11 @@ class Browse extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-<<<<<<< HEAD
-		console.log('compare', nextProps.search, this.props.search);
-		if(nextProps.category !== this.props.category) {
-=======
 		const {category, search, params, presentations, detailPresentation} = nextProps;
 
 		// /browse/123?category=20  ----> /browse/123?category=30
 		if(category !== this.props.category) {
 			this.props.clearPresentations();
->>>>>>> 49724e1... numerous fixes to track chair app
 			this.props.fetchPresentations({
 				category: category,
 				keyword: search,
@@ -61,14 +56,9 @@ class Browse extends React.Component {
 				}
 			}
 		}
-<<<<<<< HEAD
-		else if(nextProps.search !== this.props.search) {
-			console.log('its a search');
-=======
 		// /browse/123?search=foo  ----> /browse/123?search=bar
 		else if(search !== this.props.search) {
 			this.props.clearPresentations();	
->>>>>>> 49724e1... numerous fixes to track chair app
 			this.props.fetchPresentations({
 				keyword: search,
 				category: category,
