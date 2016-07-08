@@ -175,10 +175,6 @@
                 },
                 'span.start-time': 'event.start_time',
                 'span.end-time': 'event.end_time',
-                'a.export_event@href': function(arg){
-                    var event_id = +arg.item.id;
-                    return self.parent.base_url+'events/'+event_id+'/export_ics';
-                },
             };
 
             if(self.summit.current_user !== null ){
