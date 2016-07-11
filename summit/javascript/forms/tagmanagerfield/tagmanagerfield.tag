@@ -75,6 +75,7 @@ require('./clicktag.tag')
         <clicktag label="Senlin"></clicktag>
         <clicktag label="Solum"></clicktag>
         <clicktag label="Swift"></clicktag>
+        <clicktag label="Tacker"></clicktag>
         <clicktag label="Telemetry"></clicktag>
         <clicktag label="Tripleo"></clicktag>
         <clicktag label="Trove"></clicktag>
