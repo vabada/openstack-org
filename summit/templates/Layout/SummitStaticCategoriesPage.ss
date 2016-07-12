@@ -8,7 +8,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> 
 <div class="all-sessions-wrapper">
     <div class="container">
         <div class="row session-list-row">
@@ -140,7 +140,7 @@
                     <div class="session-list-wrapper">
                         <div class="session-tracks-title">Description</div>
                         <div class="session-list-description">
-                            <div class="session-list-text">
+                            <div class="session-list-text"> 
                                 <p>
                                     With a focus on education and training for cloud operators and application developers, the OpenStack Academy brings together hands-on workshops and day-long intensive training sessions under one roof. We'll also offer the Certified OpenStack Administrator exam on-site. Workshops and trainings will require an RSVP and certain pre-requisites. Bring your laptop and walk away with OpenStack skills.
                                 </p>
