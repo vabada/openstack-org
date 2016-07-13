@@ -644,9 +644,6 @@ class PresentationSpeaker extends DataObject
      */
     public function registerSummitPromoCode(ISpeakerSummitRegistrationPromoCode $promo_code)
     {
-        if ($this->Member()->exists()) {
-            $this->Member()->registerPromoCode($promo_code);
-        }
         $promo_code->assignSpeaker($this);
         $promo_code->write();
 

@@ -123,4 +123,19 @@ interface ISummitService
      */
     public function unPublishBulkEvents(ISummit $summit, array $event_ids);
 
+    /**
+     * @param ISummit $summit
+     * @param array $promocode_data
+     * @return ISummitRegistrationPromoCode
+     */
+    public function createPromoCode(ISummit $summit, array $promocode_data);
+
+    /**
+     * @param ISummit $summit
+     * @param array $promocode_data
+     * @return ISummitRegistrationPromoCode
+     */
+    public function updatePromoCode(ISummit $summit, array $promocode_data);
+
+
 }
