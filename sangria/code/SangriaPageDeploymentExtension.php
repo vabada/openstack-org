@@ -66,35 +66,25 @@ final class SangriaPageDeploymentExtension extends Extension
 
         $range = Session::get("global_survey_range");
         //get survey version
-        if (!empty($range) && intval($range) > 0 ) {
-            $deployment = Survey::get()->byID($deployment_id);
-            if ($deployment->ClassName === 'EntitySurvey') {
-                $deployment = EntitySurvey::get()->byID($deployment_id);
-            }
-        } else {
-            $deployment = Deployment::get()->byID($deployment_id);
+        $deployment = Survey::get()->byID($deployment_id);
+        if ($deployment->ClassName === 'EntitySurvey') {
+            $deployment = EntitySurvey::get()->byID($deployment_id);
         }
+
 
         if ($deployment) {
             $back_url = $this->owner->request->getVar('BackUrl');
             if (empty($back_url)) {
                 $back_url = $this->owner->Link("ViewDeploymentDetails");
             }
-            if ($deployment instanceof Survey) {
                 $details_template = 'SangriaPage_SurveyBuilderSurveyDetails';
                 $data = array
                 (
-                    "Survey" => $deployment,
+                    "Name"    => 'Deployment',
+                    "Survey"  => $deployment,
                     "BackUrl" => $back_url
-                );
-            } else {
-                $details_template = $deployment->getSurveyType() == SurveyType::OLD ? "SangriaPage_DeploymentDetailsOld" : "SangriaPage_DeploymentDetails";
-                $data = array
-                (
-                    "Deployment" => $deployment,
-                    "BackUrl" => $back_url
-                );
-            }
+            );
+
 
             return $this->owner->Customise
             (
@@ -111,13 +101,9 @@ final class SangriaPageDeploymentExtension extends Extension
         $deployment_id = intval(Convert::raw2sql($params["ID"]));;
         $range = Session::get("global_survey_range");
         //get survey version
-        if (!empty($range) && intval($range) > 0 ) {
-            $survey = Survey::get()->byID($deployment_id);
-            if ($survey->ClassName === 'EntitySurvey') {
-                $survey = EntitySurvey::get()->byID($deployment_id);
-            }
-        } else {
-            $survey = DeploymentSurvey::get()->byID($deployment_id);
+        $survey = Survey::get()->byID($deployment_id);
+        if ($survey->ClassName === 'EntitySurvey') {
+            $survey = EntitySurvey::get()->byID($deployment_id);
         }
 
         if ($survey) {
@@ -126,19 +112,10 @@ final class SangriaPageDeploymentExtension extends Extension
                 $details_template = 'SangriaPage_SurveyBuilderSurveyDetails';
                 $data = array
                 (
+                    "Name"    => 'Survey',
                     "Survey" => $survey,
                     "BackUrl" => $back_url
                 );
-            } else {
-                $details_template = $survey->getSurveyType() == SurveyType::OLD ? "SangriaPage_SurveyDetailsOld" : "SangriaPage_SurveyDetails";
-                $data = array
-                (
-                    "Survey" => $survey,
-                    "BackUrl" => $back_url
-                );
-            }
-            if (empty($back_url)) {
-                $back_url = "#";
             }
 
             return $this->owner->Customise
