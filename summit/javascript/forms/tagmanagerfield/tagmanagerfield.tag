@@ -47,15 +47,18 @@ require('./clicktag.tag')
         <clicktag label="Barbican"></clicktag>
         <clicktag label="Cinder"></clicktag>
         <clicktag label="Cloudkitty"></clicktag>
+        <clicktag label="Community App Catalog"></clicktag>
         <clicktag label="Congress"></clicktag>
         <clicktag label="Cue"></clicktag>
         <clicktag label="Designate"></clicktag>
         <clicktag label="Docs"></clicktag>
+        <clicktag label="Dragonflow"></clicktag>
         <clicktag label="Freezer"></clicktag>
         <clicktag label="Fuel"></clicktag>
         <clicktag label="Glance"></clicktag>
         <clicktag label="Heat"></clicktag>
         <clicktag label="Horizon"></clicktag>
+        <clicktag label="I18n"></clicktag>
         <clicktag label="Infra"></clicktag>
         <clicktag label="Ironic"></clicktag>
         <clicktag label="Keystone"></clicktag>
@@ -69,16 +72,19 @@ require('./clicktag.tag')
         <clicktag label="Nova"></clicktag>
         <clicktag label="Oslo"></clicktag>
         <clicktag label="Rally"></clicktag>
+        <clicktag label="Refstack"></clicktag>
         <clicktag label="Sahara"></clicktag>
         <clicktag label="Searchlight"></clicktag>
         <clicktag label="Security"></clicktag>
         <clicktag label="Senlin"></clicktag>
+        <clicktag label="Smaug"></clicktag>
         <clicktag label="Solum"></clicktag>
         <clicktag label="Swift"></clicktag>
         <clicktag label="Tacker"></clicktag>
         <clicktag label="Telemetry"></clicktag>
         <clicktag label="Tripleo"></clicktag>
         <clicktag label="Trove"></clicktag>
+        <clicktag label="Vitrage"></clicktag>
         <clicktag label="Zaqar"></clicktag>  
 
         <hr>
