@@ -937,7 +937,7 @@ final class Summit extends DataObject implements ISummit
             $summit_id = $this->ID;
             // tracks
             $config = GridFieldConfig_RecordEditor::create(25);
-            $categories = new GridField('Categories', 'Presentation Categories', $this->Categories(), $config);
+            $categories = new GridField('Categories', 'Presentation Categories', $this->getCategories(), $config);
             $f->addFieldToTab('Root.Presentation Categories', $categories);
 
             // track groups
@@ -1776,6 +1776,14 @@ SQL;
     }
 
     /**
+     * @return PresentationCategory[]
+     */
+    public function getCategories()
+    {
+        return $this->Categories()->sort('Title');
+    }
+
+    /**
      * @return PrivatePresentationCategoryGroup[]
      */
     public function getPrivateCategoryGroups()
@@ -1791,8 +1799,7 @@ SQL;
         $categories     = array();
         $private_groups = $this->getPrivateCategoryGroups();
 
-        foreach($this->Categories() as $cat)
-        {
+        foreach ($this->getCategories() as $cat) {
             $is_private = false;
             foreach($private_groups as $private_group)
             {
