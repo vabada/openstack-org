@@ -5,16 +5,6 @@
  */
 class SummitAppSchedPage extends SummitPage
 {
-    /**
-     * @param ISummit $summit
-     * @return SummitAppSchedPage
-     */
-    static public function getBy(ISummit $summit){
-        $page = Versioned::get_by_stage('SummitAppSchedPage', 'Live')->filter('SummitID', $summit->getIdentifier())->first();
-        if(is_null($page))
-            $page = Versioned::get_by_stage('SummitAppSchedPage', 'Stage')->filter('SummitID', $summit->getIdentifier())->first();
-        return $page;
-    }
 }
 
 /**
@@ -98,23 +88,21 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
         'index',
         'ViewFullSchedule',
         'ExportFullSchedule',
-        'eventDetails',
-        'ViewEventRSVP',
+        'eventDetails'
     );
 
     static $url_handlers = array
     (
-        'events/$EVENT_ID/html'              => 'eventDetails',
-        'events/$EVENT_ID/export_ics'        => 'ExportEventToICS',
-        'events/$EVENT_ID/$EVENT_TITLE/rsvp' => 'ViewEventRSVP',
-        'events/$EVENT_ID/$EVENT_TITLE'      => 'ViewEvent',
-        'speakers/$SPEAKER_ID'               => 'ViewSpeakerProfile',
-        'attendees/$ATTENDEE_ID'             => 'ViewAttendeeProfile',
-        'mine/pdf'                           => 'ExportMySchedule',
-        'mine'                               => 'ViewMySchedule',
-        'full/pdf'                           => 'ExportFullSchedule',
-        'full'                               => 'ViewFullSchedule',
-        'global-search'                      => 'DoGlobalSearch',
+        'events/$EVENT_ID/html'         => 'eventDetails',
+        'events/$EVENT_ID/export_ics'   => 'ExportEventToICS',
+        'events/$EVENT_ID/$EVENT_TITLE' => 'ViewEvent',
+        'speakers/$SPEAKER_ID'          => 'ViewSpeakerProfile',
+        'attendees/$ATTENDEE_ID'        => 'ViewAttendeeProfile',
+        'mine/pdf'                      => 'ExportMySchedule',
+        'mine'                          => 'ViewMySchedule',
+        'full/pdf'                      => 'ExportFullSchedule',
+        'full'                          => 'ViewFullSchedule',
+        'global-search'                 => 'DoGlobalSearch',
     );
 
     public function init()
@@ -125,120 +113,51 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
         parent::init();
         Requirements::css('themes/openstack/bower_assets/jquery-loading/dist/jquery.loading.min.css');
         Requirements::css('themes/openstack/bower_assets/chosen/chosen.min.css');
-        Requirements::css('summit/css/install_mobile_app.css');
         Requirements::css("summit/css/schedule-grid.css");
-        Requirements::css('themes/openstack/bower_assets/sweetalert2/dist/sweetalert2.min.css');
         Requirements::javascript('themes/openstack/javascript/jquery-ajax-loader.js');
         Requirements::javascript('themes/openstack/bower_assets/chosen/chosen.jquery.min.js');
         Requirements::javascript('themes/openstack/bower_assets/jquery-validate/dist/jquery.validate.min.js');
         Requirements::javascript('themes/openstack/bower_assets/jquery-validate/dist/additional-methods.min.js');
         Requirements::javascript('themes/openstack/javascript/urlfragment.jquery.js');
         Requirements::javascript('themes/openstack/bower_assets/pure-templates/libs/pure.min.js');
-        Requirements::javascript('themes/openstack/bower_assets/jquery-cookie/jquery.cookie.js');
-
         // GOOGLE CALENDAR
-        Requirements::customScript(" var CLIENT_ID = '".GAPI_CLIENT."';");
+
         Requirements::javascript('summit/javascript/schedule/google-calendar.js');
+        Requirements::customScript(" var CLIENT_ID = '".GAPI_CLIENT."';");
         Requirements::javascript('https://apis.google.com/js/client.js?onload=checkAuth');
-        // browser detection
-        Requirements::javascript('themes/openstack/bower_assets/bowser/src/bowser.js');
-        Requirements::javascript('themes/openstack/bower_assets/sweetalert2/dist/sweetalert2.min.js');
-        Requirements::javascript('summit/javascript/schedule/install_mobile_app.js');
-        Requirements::javascript('themes/openstack/javascript/jquery.serialize.js');
-        Requirements::javascript('themes/openstack/javascript/jquery.cleanform.js');
-        Requirements::javascript('summit/javascript/forms/rsvp.form.js');
+
     }
 
-    public function getFacebookAppID(){
-        return FB_APP_ID;
-    }
-
-    const EventShareByEmailTokenKey = 'SummitAppEventPageShareEmail.Token';
-    const EventShareByEmailCountKey = 'SummitAppEventPageShareEmail.Count';
-
-    public function ViewEvent(SS_HTTPRequest $request)
+    public function ViewEvent()
     {
-        $event  = $this->getSummitEntity($request);
-
-        $goback   = $request->getHeader('Referer') && trim($request->getHeader('Referer'),'/') == trim(Director::absoluteURL($this->Link()),'/')? '1':'';
+        $event_id = intval($this->request->param('EVENT_ID'));
+        $this->event_id = $event_id;
+        $event = $this->event_repository->getById($event_id);
+        $goback = $this->getRequest()->postVar('goback') ? $this->getRequest()->postVar('goback') : '';
 
         if (is_null($event) || !$event->isPublished()) {
             return $this->httpError(404, 'Sorry that event could not be found');
         }
 
-        // only send meta tags
-        if($request->getHeader("Prefer-Html-Meta-Tags")){
-            return $this->buildOnlyMetaTagsResponse($event->MetaTags());
-        }
-
         Requirements::block("summit/css/schedule-grid.css");
         Requirements::css("summit/css/summitapp-event.css");
         Requirements::javascript("summit/javascript/schedule/event-detail-page.js");
 
-        $token = Session::get(self::EventShareByEmailTokenKey);
-
+        $token = Session::get("SummitAppEventPage.ShareEmail");
         if (!$token) {
             $token = md5(uniqid(rand(), TRUE));
-            Session::set(self::EventShareByEmailTokenKey, $token);
-            Session::set(self::EventShareByEmailCountKey, 0);
+            Session::set("SummitAppEventPage.ShareEmail",$token);
+            Session::set("SummitAppEventPage.ShareEmailCount",0);
         }
 
         return $this->renderWith(
             array('SummitAppEventPage', 'SummitPage', 'Page'),
             array(
-                'Event'     => $event,
-                'goback'    => $goback,
-                'Token'     => $token
+                'Event' => $event,
+                'FB_APP_ID' => FB_APP_ID,
+                'goback' => $goback,
+                'Token' => $token
             ));
-    }
-
-    public function ViewEventRSVP(SS_HTTPRequest $request){
-
-        Requirements::block("summit/css/schedule-grid.css");
-        Requirements::css("summit/css/summitapp-event.css");
-        Requirements::javascript("summit/javascript/schedule/event-detail-page.js");
-
-        $event     = $this->getSummitEntity($request);
-
-        if(is_null($event) ||
-            !$event->isPublished() ||
-            !$event->hasRSVPTemplate()) {
-            return $this->httpError(404, 'Sorry that event could not be found');
-        }
-
-        if (!Member::currentUser()){
-            return $this->redirect('Security/login?BackURL='.$event->getRSVPURL(false));
-        }
-
-        if(!Member::currentUser()->isAttendee($event->SummitID)){
-            return $this->redirect('profile/attendeeInfoRegistration');
-        }
-
-        if(Member::currentUser()->getSummitAttendee($event->SummitID)->hasRSVPSubmission($event->getIdentifier()))
-        {
-            return $this->redirect($event->getLink('show'));
-        }
-
-        $token = Session::get(self::EventShareByEmailTokenKey);
-
-        if (!$token) {
-            $token = md5(uniqid(rand(), TRUE));
-            Session::set(self::EventShareByEmailTokenKey, $token);
-            Session::set(self::EventShareByEmailCountKey, 0);
-        }
-
-        return $this->renderWith(
-            array('SummitAppEventPage_RSVP', 'SummitPage', 'Page'),
-            array(
-                'Event'     => $event,
-                'Token'     => $token
-            ));
-    }
-
-    public function getProfileAttendeeRegistrationLink(){
-        $page = EditProfilePage::get()->first();
-        if(!$page) return '#';
-        return $page->Link("attendeeInfoRegistration");
     }
 
     public function eventDetails(SS_HTTPRequest $request)
@@ -265,18 +184,17 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
         );
     }
 
-
     /**
      * @return Form|string
      * @throws NotFoundEntityException
      */
     public function RSVPForm($event_id)
     {
-        $event          = $this->event_repository->getById($event_id);
+        $event = $this->event_repository->getById($event_id);
         $rsvp_template  = $event->RSVPTemplate();
-        $rsvp           = $this->rsvp_repository->getByEventAndAttendee($event_id,Member::currentUserID());
-        $builder        = new RSVPTemplateUIBuilder();
-        $form           = $builder->build($rsvp_template, $rsvp, $event);
+        $rsvp = $this->rsvp_repository->getByEventAndSubmitter($event_id,Member::currentUserID());
+        $builder = new RSVPTemplateUIBuilder();
+        $form = $builder->build($rsvp_template,$rsvp,$event);
         return $form;
     }
 
@@ -299,12 +217,8 @@ DTSTAMP:" . gmdate('Ymd').'T'. gmdate('His') . "Z
 DTSTART:".date('Ymd',strtotime($event->getField('StartDate')))."T".date('His',strtotime($event->getField('StartDate')))."Z
 DTEND:".date('Ymd',strtotime($event->getField('EndDate')))."T".date('His',strtotime($event->getField('EndDate')))."Z
 SUMMARY:".$event->Title."
-<<<<<<< HEAD
 DESCRIPTION:".strip_tags($event->ShortDescription)."
 X-ALT-DESC:".$event->ShortDescription."
-=======
-DESCRIPTION:".$event->ShortDescription."
->>>>>>> 92dfcf3... [spalenque] - #10818 - add export event to ics
 END:VEVENT
 END:VCALENDAR";
 
@@ -316,10 +230,10 @@ END:VCALENDAR";
         exit();
     }
 
-    public function ViewMySchedule(SS_HTTPRequest $request)
+    public function ViewMySchedule()
     {
         $member    = Member::currentUser();
-        $goback    = $request->getHeader('Referer') && trim($request->getHeader('Referer'),'/') == trim(Director::absoluteURL($this->Link()),'/')? '1':'';
+        $goback = $this->getRequest()->postVar('goback') ? $this->getRequest()->postVar('goback') : '';
 
         if (is_null($this->Summit())) return $this->httpError(404, 'Sorry, summit not found');
 
@@ -335,9 +249,9 @@ END:VCALENDAR";
                 'goback'   => $goback));
     }
 
-    public function ViewFullSchedule(SS_HTTPRequest $request)
+    public function ViewFullSchedule()
     {
-        $goback   = $request->getHeader('Referer') && trim($request->getHeader('Referer'),'/') == trim(Director::absoluteURL($this->Link()),'/')? '1':'';
+        $goback = $this->getRequest()->postVar('goback') ? $this->getRequest()->postVar('goback') : '';
 
         if (is_null($this->Summit())) return $this->httpError(404, 'Sorry, summit not found');
 
@@ -488,36 +402,13 @@ END:VCALENDAR";
         }
     }
 
-    /**
-     * @param SS_HTTPRequest $request
-     * @return IEntity|null
-     */
-    private function getSummitEntity(SS_HTTPRequest $request){
-        $speaker_id = intval($request->param('SPEAKER_ID'));
-        $event_id   = intval($request->param('EVENT_ID'));
-
-        if($event_id > 0) {
-            $this->event_id = $event_id;
-            return $this->event_repository->getById($event_id);
-        }
-        if($speaker_id > 0){
-            return $this->speaker_repository->getById($speaker_id);
-        }
-
-        return null;
-    }
-
-    public function ViewSpeakerProfile(SS_HTTPRequest $request)
+    public function ViewSpeakerProfile()
     {
-        $speaker  = $this->getSummitEntity($request);
+        $speaker_id = intval($this->request->param('SPEAKER_ID'));
+        $speaker = $this->speaker_repository->getById($speaker_id);
 
         if (!isset($speaker)) {
             return $this->httpError(404, 'Sorry that speaker could not be found');
-        }
-
-        // only send meta tags
-        if($request->getHeader("Prefer-Html-Meta-Tags")){
-            return $this->buildOnlyMetaTagsResponse($speaker->MetaTags());
         }
 
         //Requirements::block("summit/css/schedule-grid.css");
@@ -527,29 +418,9 @@ END:VCALENDAR";
             array
             (
                 'Speaker' => $speaker,
-                'Summit'  => $this->Summit(),
+                'Summit' => $this->Summit(),
             )
         );
-    }
-
-    /**
-     * @param string $meta_tags
-     * @return SS_HTTPResponse
-     */
-    private function buildOnlyMetaTagsResponse($meta_tags){
-        $response = new SS_HTTPResponse();
-        $response->setStatusCode(200);
-        $html = <<< APP_LINKS
-               <html>
-                <head>
-                    {$meta_tags}
-                </head>
-                <body>
-                </body>
-                </html>
-APP_LINKS;
-        $response->setBody($html);
-        return $response;
     }
 
     public function ViewAttendeeProfile()
@@ -605,28 +476,5 @@ APP_LINKS;
     public function getPresentationLevels()
     {
         return Presentation::getLevels();
-    }
-
-    public function MetaTags()
-    {
-        $entity = $this->getSummitEntity(Controller::curr()->getRequest());
-        if(!is_null($entity)){
-            return $entity->MetaTags();
-        }
-        $tags = parent::MetaTags();
-        // IOS
-        $tags .= AppLinkIOSMetadataBuilder::buildAppLinksMetaTags($tags, "schedule");
-        // Android
-        $tags .= AppLinkIAndroidMetadataBuilder::buildAppLinksMetaTags($tags, "schedule");
-        return $tags;
-    }
-
-    public function index(SS_HTTPRequest $request){
-        // only send meta tags
-        if($request->getHeader("Prefer-Html-Meta-Tags")){
-            return $this->buildOnlyMetaTagsResponse($this->MetaTags());
-        }
-
-        return $this->getViewer('index')->process($this);
     }
 }
