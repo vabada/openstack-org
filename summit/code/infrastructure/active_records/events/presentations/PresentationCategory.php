@@ -49,6 +49,7 @@ class PresentationCategory extends DataObject
     private static $many_many_extraFields = array(
         'AllowedTags' => array(
             'Group' => "Enum('topics, speaker, openstack projects mentioned', 'topics')", // if change see also getcms
+            'IsDefault' => "Boolean",
         ),
     );
 
