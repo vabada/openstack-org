@@ -5,11 +5,11 @@
         <li role="presentation"><a role="menuitem" tabindex="-1" href="{$BaseHref}software/project-navigator/">Project Navigator</a></li>
         <li role="presentation"><a role="menuitem" tabindex="-1" href="{$BaseHref}software/sample-configs/">Sample Configs</a></li>
         <li role="presentation" class="divider"></li>
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="{$BaseHref}<% if $CurrentLocale != 'en_US' %>$CurrentLocale/<% end_if %>software/security/">Security</a></li>
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="{$BaseHref}<% if $CurrentLocale != 'en_US' %>$CurrentLocale/<% end_if %>software/start/">Get Started</a></li>
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="{$BaseHref}<% if $CurrentLocale != 'en_US' %>$CurrentLocale/<% end_if %>software/roadmap/">Roadmap</a></li>
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="{$BaseHref}<% if $CurrentLocale != 'en_US' %>$CurrentLocale/<% end_if %>software/latest-release/">Latest Release</a></li>
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="{$BaseHref}<% if $CurrentLocale != 'en_US' %>$CurrentLocale/<% end_if %>software/sourcecode/">Source Code</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="{$BaseHref}software/security/">Security</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="{$BaseHref}software/start/">Get Started</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="{$BaseHref}software/roadmap/">Roadmap</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="{$BaseHref}software/latest-release/">Latest Release</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="{$BaseHref}software/sourcecode/">Source Code</a></li>
     </ul>
 </li>
 <li>
