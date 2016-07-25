@@ -497,6 +497,16 @@ class Presentation extends SummitEvent implements IPresentation
         return PresentationSpeaker::get();
     }
 
+    public function getSpeakersAndModerators()
+    {
+    	$result = ArrayList::create($this->Speakers()->toArray());
+    	if($this->Moderator()->exists()) {
+    		$result->push($this->Moderator());
+    	}
+
+    	return $result;
+    }
+
     /**
      * @param $type
      * @return mixed
@@ -608,7 +618,7 @@ SQL;
     {
         return implode(', ', array_map(function ($s) {
             return $s->getName();
-        }, $this->Speakers()->toArray()));
+        }, $this->getSpeakersAndModerators()->toArray()));
     }
 
     /**
