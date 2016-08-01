@@ -34,6 +34,8 @@
     "tractorcow/silverstripe-opengraph": "3.1.*@dev",
     "symfony/process": "^3.1",
     "tractorcow/silverstripe-autocomplete": "^3.4"
+    "google/apiclient": "1.*",
+    "tractorcow/silverstripe-opengraph": "3.1.*@dev"
   },
   "require-dev": {
     "phpunit/PHPUnit": "~3.7@stable",
@@ -50,7 +52,8 @@
       "html2pdf_v4.03",
       "summit/code/infrastructure/traits",
       "openstack/code/utils/apis/traits",
-      "googlemaps/code/traits"
+      "googlemaps/code/traits",
+      "summit/code/pages/summit_entities/traits"
     ]
   },
   "config": {
