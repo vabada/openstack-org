@@ -86,3 +86,5 @@ opengraph/
 selenium-server-standalone-2.45.0.jar
 translatable/
 fluent/
+silverstripe-green/
+silverstripe-serialised-dbfields/
