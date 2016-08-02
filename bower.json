@@ -44,6 +44,8 @@
     "html2canvas": "~0.4.1",
     "jspdf": "~1.2.61",
     "jspdf-plugins": "jsPDF-plugins#*",
-    "slick-carousel": "~1.6.0"
+    "slick-carousel": "~1.6.0",
+    "bowser": "1.4.3",
+    "sweetalert2": "4.1.0"
   }
 }
