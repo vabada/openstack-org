@@ -38,4 +38,3 @@ migrations:
   - FixSummitEventTypesMigration
   - SetEmailedFlagForSpeakerPromoCodesMigration
   - RemoveOwnerIDColumnPromoCodesMigration
-  - MarketingPageTableCompressionMigration
