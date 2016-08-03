@@ -37,3 +37,4 @@ migrations:
   - TrackChairMigration
   - FixSummitEventTypesMigration
   - SetEmailedFlagForSpeakerPromoCodesMigration
+  - RemoveOwnerIDColumnPromoCodesMigration
