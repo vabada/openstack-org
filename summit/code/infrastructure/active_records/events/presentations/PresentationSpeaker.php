@@ -691,9 +691,8 @@ class PresentationSpeaker extends DataObject
         }
         // check if promo code exists and its not assigned ...
         $code = SpeakerSummitRegistrationPromoCode::get()->filter([
-            'Code' => $promo_code_value,
-            'SummitID' => $summit->getIdentifier(),
-            'OwnerID' => 0,
+            'Code'      => $promo_code_value,
+            'SummitID'  => $summit->getIdentifier(),
             'SpeakerID' => 0,
         ])
             ->first();
@@ -702,7 +701,7 @@ class PresentationSpeaker extends DataObject
             //create it
             $code = SpeakerSummitRegistrationPromoCode::create();
             $code->SummitID = $summit->getIdentifier();
-            $code->Code = $promo_code_value;
+            $code->Code     = $promo_code_value;
             $code->write();
         }
 
