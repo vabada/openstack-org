@@ -481,6 +481,9 @@ class SummitEvent extends DataObject implements ISummitEvent
 
 
         }
+        if($this->ID > 0){
+            $_REQUEST['SummitEventID'] = $this->ID;
+        }
         return $f;
     }
 
