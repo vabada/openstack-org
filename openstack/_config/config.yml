@@ -25,10 +25,7 @@ Injector:
   TransactionManager:
     factory: SapphireTransactionManagerFactory
 
-git BootstrapForm:
+BootstrapForm:
   bootstrap_included: true
   jquery_included: true
   bootstrap_form_included: true
-Page:
- extensions:
-   - 'PageOpenGraphObjectExtension'
