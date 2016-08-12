@@ -5,6 +5,7 @@
  */
 class SummitAppSchedPage extends SummitPage
 {
+
 }
 
 /**
@@ -131,7 +132,7 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
     {
         $event  = $this->getSummitEntity($request);
 
-        $goback = $this->getRequest()->postVar('goback') ? $this->getRequest()->postVar('goback') : '';
+        $goback = $request->getHeader('Referer') && trim($request->getHeader('Referer'),'/') == trim(Director::absoluteURL($this->Link()),'/')? '1':'';
 
         if (is_null($event) || !$event->isPublished()) {
             return $this->httpError(404, 'Sorry that event could not be found');
@@ -181,7 +182,8 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
             ),
             array
             (
-                'Event' => $event,
+                'Event'     => $event,
+                'EventLink' => Director::absoluteURL($this->Link('events').'/'.$event->ID),
             )
         );
     }
@@ -200,10 +202,10 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
         return $form;
     }
 
-    public function ViewMySchedule()
+    public function ViewMySchedule(SS_HTTPRequest $request)
     {
         $member    = Member::currentUser();
-        $goback = $this->getRequest()->postVar('goback') ? $this->getRequest()->postVar('goback') : '';
+        $goback   = $request->getHeader('Referer') && trim($request->getHeader('Referer'),'/') == trim(Director::absoluteURL($this->Link()),'/')? '1':'';
 
         if (is_null($this->Summit())) return $this->httpError(404, 'Sorry, summit not found');
 
@@ -219,9 +221,9 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
                 'goback'   => $goback));
     }
 
-    public function ViewFullSchedule()
+    public function ViewFullSchedule(SS_HTTPRequest $request)
     {
-        $goback = $this->getRequest()->postVar('goback') ? $this->getRequest()->postVar('goback') : '';
+        $goback = $request->getHeader('Referer') && trim($request->getHeader('Referer'),'/') == trim(Director::absoluteURL($this->Link()),'/')? '1':'';
 
         if (is_null($this->Summit())) return $this->httpError(404, 'Sorry, summit not found');
 
