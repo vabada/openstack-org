@@ -243,4 +243,17 @@ class SummitGeoLocatedLocation extends SummitAbstractLocation implements ISummit
         return $this;
     }
 
+    public function getTypeName()
+    {
+        return self::TypeName;
+    }
+
+    public function inferLocationType()
+    {
+        return self::LocationType;
+    }
+
+    const TypeName     = 'SummitGeoLocatedLocation';
+    const LocationType = 'None';
+
 }
