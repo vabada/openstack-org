@@ -83,3 +83,4 @@ trait-loader/
 gridfieldextensions/
 *.bundle.js
 opengraph/
+selenium-server-standalone-2.45.0.jar
