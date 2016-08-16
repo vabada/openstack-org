@@ -115,7 +115,8 @@ class UserSurveyPage_Controller extends SurveyPage_Controller
     {
         parent::init();
     }
-        /**
+
+    /**
      * @return HTMLText
      */
     public function LandingPage()
