@@ -100,6 +100,9 @@
                     <p>
                         <img class="security-badge" src="/themes/openstack/images/security/badge.png" alt="">
                     </p>
+                    <p>
+                        <a href="http://www.openstack.org/news/view/243/openstack-earns-core-infrastructure-initiative-best-practices-badge-for-security,-quality-and-stability">Read the press release for more information.</a>
+                    </p>
                 </div>
             </div>
         </div>
