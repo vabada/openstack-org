@@ -88,3 +88,4 @@ translatable/
 fluent/
 silverstripe-green/
 silverstripe-serialised-dbfields/
+.DS_Store
