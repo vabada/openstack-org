@@ -43,6 +43,7 @@ function ReportsAdminViewDispatcher() {
             case 'speaker_report' :
                 this.trigger(this.GET_SPEAKER_REPORT);
                 break;
+
             case 'rsvp_report' :
                 this.trigger(this.GET_RSVP_REPORT);
                 break;
