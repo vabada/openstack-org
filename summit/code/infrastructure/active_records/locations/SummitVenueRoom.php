@@ -88,9 +88,23 @@ class SummitVenueRoom extends SummitAbstractLocation implements ISummitVenueRoom
         $ddl_floor->setEmptyString("-- SELECT A FLOOR --");
         $f->addFieldToTab('Root.Main', $upload_field = new UploadField('Image','Map'));
         $upload_field->setAllowedMaxFileNumber(1);
-        $upload_field->setFolderName(sprintf('summits/%s/locations/%s/rooms/%s', $_REQUEST['SummitID'], $_REQUEST['LocationID'], $_REQUEST['RoomID']));
+        $upload_field->setFolderName(sprintf('summits/%s/locations/%s/rooms/', $_REQUEST['SummitID'], $_REQUEST['LocationID']));
         $upload_field->getValidator()->setAllowedMaxFileSize(array('*' => 512 * 1024));
         return $f;
+    }
+
+    /**
+     * @return ValidationResult
+     */
+    protected function validate()
+    {
+
+        $valid = parent::validate();
+        if (!$valid->valid()) {
+            return $valid;
+        }
+
+        return $valid;
     }
 
     public function getTypeName()
