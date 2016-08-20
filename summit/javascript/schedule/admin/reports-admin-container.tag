@@ -11,13 +11,22 @@
                 <option value="presentation_report" selected> Presentation Report </option>
                 <option value="room_report"> Speakers Per Room </option>
                 <option value="video_report"> Video Output List </option>
+                <option value="rsvp_report"> RSVP Report </option>
             </select>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-2">
             <button class="btn btn-primary" id="export-report" onclick={ exportReport } >Export</button>
             <button class="btn btn-success" id="save-report" onclick={ saveReport } >Save</button>
         </div>
-        <div class="col-md-4" if={report == 'presentation_report'}>
+        <div class="col-md-2" if={report == 'presentation_report' || report == 'speaker_report'}>
+            <select id="status-filter" class="form-control" onchange={ searchReport }>
+                <option value="all">All</option>
+                <option value="hide_confirmed">Hide Confirmed</option>
+                <option value="hide_registered">Hide Registered</option>
+                <option value="hide_both">Hide Both</option>
+            </select>
+        </div>
+        <div class="col-md-4" if={report == 'presentation_report' || report == 'rsvp_report'}>
             <div class="input-group" style="width: 100%;">
                 <input data-rule-required="true" data-rule-minlength="3" type="text" id="search-term" class="form-control input-global-search" placeholder="Search Speaker or Presentation">
                 <span class="input-group-btn" style="width: 5%;">
@@ -31,10 +40,11 @@
     </div>
     <br>
 
-    <reports-admin-speaker-report if={report == 'speaker_report'} page_limit="{ limit }" summit_id="{ summit_id }" dispatcher="{ dispatcher }"></reports-admin-speaker-report>
-    <reports-admin-presentation-report if={report == 'presentation_report'} page_limit="{ limit }" summit_id="{ summit_id }" dispatcher="{ dispatcher }"></reports-admin-presentation-report>
-    <reports-admin-room-report if={report == 'room_report'} summit_id="{ summit_id }" locations="{ locations }" dispatcher="{ dispatcher }"></reports-admin-room-report>
-    <reports-admin-video-report if={report == 'video_report'} summit_id="{ summit_id }" locations="{ locations }" tracks="{ tracks }" dispatcher="{ dispatcher }"></reports-admin-room-report>
+    <reports-admin-speaker-report if={ report == 'speaker_report' } page_limit="{ limit }" summit_id="{ summit_id }" dispatcher="{ dispatcher }"></reports-admin-speaker-report>
+    <reports-admin-presentation-report if={ report == 'presentation_report' } page_limit="{ limit }" summit_id="{ summit_id }" dispatcher="{ dispatcher }"></reports-admin-presentation-report>
+    <reports-admin-room-report if={ report == 'room_report' } summit_id="{ summit_id }" locations="{ locations }" dispatcher="{ dispatcher }"></reports-admin-room-report>
+    <reports-admin-video-report if={ report == 'video_report' } summit_id="{ summit_id }" locations="{ locations }" tracks="{ tracks }" dispatcher="{ dispatcher }"></reports-admin-video-report>
+    <reports-admin-rsvp-report if={ report == 'rsvp_report' } page_limit="{ limit }" summit_id="{ summit_id }" dispatcher="{ dispatcher }"></reports-admin-rsvp-report>
 
     <script>
         this.report     = opts.report;
