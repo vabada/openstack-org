@@ -490,7 +490,7 @@ class PresentationSpeaker extends DataObject
         $url = $confirmation_page->getAbsoluteLiveLink(false);
 
         if ($this->hasAssistanceFor($summit_id)) {
-            throw new EntityValidationException(sprintf('this is already an assistance request for summit id %s', $summit_id));
+            throw new EntityValidationException(sprintf('this is already an assistance request for speaker %s on summit id %s',$this->ID, $summit_id));
         }
 
         $request = $this->createAssistanceFor($summit_id);
@@ -822,7 +822,7 @@ class PresentationSpeaker extends DataObject
      */
     public function hasAssistanceFor($summit_id)
     {
-        return $this->SummitAssistances('SummitID', intval($summit_id))->count() > 0;
+        return $this->SummitAssistances()->filter('SummitID ', intval($summit_id))->count() > 0;
     }
 
     /**
@@ -831,7 +831,7 @@ class PresentationSpeaker extends DataObject
      */
     public function getAssistanceFor($summit_id)
     {
-        return $this->SummitAssistances('SummitID', intval($summit_id))->first();
+        return $this->SummitAssistances->filter('SummitID', intval($summit_id))->first();
     }
 
     /**
