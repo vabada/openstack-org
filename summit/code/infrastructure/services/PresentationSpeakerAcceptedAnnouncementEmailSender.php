@@ -23,9 +23,11 @@ final class PresentationSpeakerAcceptedAnnouncementEmailSender implements IMessa
     {
         if(!is_array($subject)) return;
         if(!isset($subject['Summit'])  || !isset($subject['Speaker']) || !isset($subject['PromoCode']) ) return;
+
         $summit     = $subject['Summit'];
         $speaker    = $subject['Speaker'];
         $promo_code = $subject['PromoCode'];
+
         if(!$speaker instanceof IPresentationSpeaker) return;
         if(!$summit instanceof ISummit) return;
         if(!$promo_code instanceof SpeakerSummitRegistrationPromoCode) return;
@@ -37,8 +39,9 @@ final class PresentationSpeakerAcceptedAnnouncementEmailSender implements IMessa
 
         $email = EmailFactory::getInstance()->buildEmail(PRESENTATION_SPEAKER_NOTIFICATION_ACCEPTANCE_EMAIL_FROM, $speaker->getEmail());
 
-        /*$schedule_page = SummitAppSchedPage::get()->filter('SummitID', $summit->ID)->first();
-        if(is_null($schedule_page)) throw new Exception('Summit Schedule page does not exists!');*/
+        $schedule_page = SummitAppSchedPage::getBy($summit);
+
+        if(is_null($schedule_page)) throw new Exception('Summit Schedule page does not exists!');
 
         $email->setUserTemplate(PRESENTATION_SPEAKER_ACCEPTED_ONLY_EMAIL)->populateTemplate(
             array
@@ -47,7 +50,7 @@ final class PresentationSpeakerAcceptedAnnouncementEmailSender implements IMessa
                 'ConfirmationLink'     => $speaker->getSpeakerConfirmationLink($summit->ID),
                 'PromoCode'            => $promo_code->getCode(),
                 'Summit'               => $summit,
-                //'ScheduleMainPageLink' => $schedule_page->getAbsoluteLiveLink(false),
+                'ScheduleMainPageLink' => $schedule_page->getAbsoluteLiveLink(false),
             )
         )
         ->send();

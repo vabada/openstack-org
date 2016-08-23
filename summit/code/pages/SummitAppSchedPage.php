@@ -5,7 +5,16 @@
  */
 class SummitAppSchedPage extends SummitPage
 {
-
+    /**
+     * @param ISummit $summit
+     * @return SummitAppSchedPage
+     */
+    static public function getBy(ISummit $summit){
+        $page = Versioned::get_by_stage('SummitAppSchedPage', 'Live')->filter('SummitID', $summit->getIdentifier())->first();
+        if(is_null($page))
+            $page = Versioned::get_by_stage('SummitAppSchedPage', 'Stage')->filter('SummitID', $summit->getIdentifier())->first();
+        return $page;
+    }
 }
 
 /**
@@ -84,24 +93,26 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
         'ViewAttendeeProfile',
         'ViewMySchedule',
         'ExportMySchedule',
+        'ExportEventToICS',
         'DoGlobalSearch',
         'index',
-        'eventDetails',
         'ViewFullSchedule',
         'ExportFullSchedule',
+        'eventDetails'
     );
 
     static $url_handlers = array
     (
         'events/$EVENT_ID/html'         => 'eventDetails',
+        'events/$EVENT_ID/export_ics'   => 'ExportEventToICS',
         'events/$EVENT_ID/$EVENT_TITLE' => 'ViewEvent',
-        'speakers/$SPEAKER_ID' => 'ViewSpeakerProfile',
-        'attendees/$ATTENDEE_ID' => 'ViewAttendeeProfile',
-        'mine/pdf' => 'ExportMySchedule',
-        'mine' => 'ViewMySchedule',
-        'full/pdf' => 'ExportFullSchedule',
-        'full' => 'ViewFullSchedule',
-        'global-search' => 'DoGlobalSearch',
+        'speakers/$SPEAKER_ID'          => 'ViewSpeakerProfile',
+        'attendees/$ATTENDEE_ID'        => 'ViewAttendeeProfile',
+        'mine/pdf'                      => 'ExportMySchedule',
+        'mine'                          => 'ViewMySchedule',
+        'full/pdf'                      => 'ExportFullSchedule',
+        'full'                          => 'ViewFullSchedule',
+        'global-search'                 => 'DoGlobalSearch',
     );
 
     public function init()
@@ -122,17 +133,23 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
         Requirements::javascript('themes/openstack/javascript/urlfragment.jquery.js');
         Requirements::javascript('themes/openstack/bower_assets/pure-templates/libs/pure.min.js');
         Requirements::javascript('themes/openstack/bower_assets/jquery-cookie/jquery.cookie.js');
+
+        // GOOGLE CALENDAR
+        Requirements::customScript(" var CLIENT_ID = '".GAPI_CLIENT."';");
+        Requirements::javascript('summit/javascript/schedule/google-calendar.js');
+        Requirements::javascript('https://apis.google.com/js/client.js?onload=checkAuth');
         // browser detection
         Requirements::javascript('themes/openstack/bower_assets/bowser/src/bowser.js');
         Requirements::javascript('themes/openstack/bower_assets/sweetalert2/dist/sweetalert2.min.js');
         Requirements::javascript('summit/javascript/schedule/install_mobile_app.js');
+
     }
 
     public function ViewEvent(SS_HTTPRequest $request)
     {
         $event  = $this->getSummitEntity($request);
 
-        $goback = $request->getHeader('Referer') && trim($request->getHeader('Referer'),'/') == trim(Director::absoluteURL($this->Link()),'/')? '1':'';
+        $goback   = $request->getHeader('Referer') && trim($request->getHeader('Referer'),'/') == trim(Director::absoluteURL($this->Link()),'/')? '1':'';
 
         if (is_null($event) || !$event->isPublished()) {
             return $this->httpError(404, 'Sorry that event could not be found');
@@ -182,8 +199,7 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
             ),
             array
             (
-                'Event'     => $event,
-                'EventLink' => Director::absoluteURL($this->Link('events').'/'.$event->ID),
+                'Event' => $event,
             )
         );
     }
@@ -202,10 +218,42 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
         return $form;
     }
 
+    public function ExportEventToICS(SS_HTTPRequest $request)
+    {
+        $event_id            = intval($request->param('EVENT_ID'));
+
+        $event  = $this->event_repository->getById($event_id);
+        if(is_null($event)) throw new NotFoundEntityException('SummitEvent', sprintf(' id %s', $event_id));
+
+
+        $ical = "BEGIN:VCALENDAR
+PRODID:-//hacksw/handcal//NONSGML v1.0//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:" . md5(uniqid(mt_rand(), true)) . "event
+DTSTAMP:" . gmdate('Ymd').'T'. gmdate('His') . "Z
+DTSTART:".date('Ymd',strtotime($event->getField('StartDate')))."T".date('His',strtotime($event->getField('StartDate')))."Z
+DTEND:".date('Ymd',strtotime($event->getField('EndDate')))."T".date('His',strtotime($event->getField('EndDate')))."Z
+SUMMARY:".$event->Title."
+DESCRIPTION:".strip_tags($event->ShortDescription)."
+X-ALT-DESC:".$event->ShortDescription."
+END:VEVENT
+END:VCALENDAR";
+
+        //set correct content-type-header
+        header('Content-type: text/calendar; charset=utf-8');
+        header('Content-Disposition: inline; filename=event-'.$event_id.'.ics');
+        echo $ical;
+
+        exit();
+    }
+
     public function ViewMySchedule(SS_HTTPRequest $request)
     {
         $member    = Member::currentUser();
-        $goback   = $request->getHeader('Referer') && trim($request->getHeader('Referer'),'/') == trim(Director::absoluteURL($this->Link()),'/')? '1':'';
+        $goback    = $request->getHeader('Referer') && trim($request->getHeader('Referer'),'/') == trim(Director::absoluteURL($this->Link()),'/')? '1':'';
 
         if (is_null($this->Summit())) return $this->httpError(404, 'Sorry, summit not found');
 
@@ -223,7 +271,7 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
 
     public function ViewFullSchedule(SS_HTTPRequest $request)
     {
-        $goback = $request->getHeader('Referer') && trim($request->getHeader('Referer'),'/') == trim(Director::absoluteURL($this->Link()),'/')? '1':'';
+        $goback   = $request->getHeader('Referer') && trim($request->getHeader('Referer'),'/') == trim(Director::absoluteURL($this->Link()),'/')? '1':'';
 
         if (is_null($this->Summit())) return $this->httpError(404, 'Sorry, summit not found');
 
