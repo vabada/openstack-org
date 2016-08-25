@@ -695,14 +695,6 @@ SQL;
             throw new EntityValidationException('ShortDescription is mandatory!');
         }
 
-        if (empty($this->ProblemAddressed)) {
-            throw new EntityValidationException('ProblemAddressed is mandatory!');
-        }
-
-        if (empty($this->AttendeesExpectedLearnt)) {
-            throw new EntityValidationException('AttendeesExpectedLearnt is mandatory!');
-        }
-
         if (empty($this->Level)) {
             throw new EntityValidationException('Level is mandatory!');
         }
