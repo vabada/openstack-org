@@ -753,4 +753,12 @@ SQL;
     public function hasRSVPTemplate(){
         return $this->RSVPTemplateID > 0 ;
     }
+
+    /**
+     * @return bool
+     */
+    public function allowSpeakers()
+    {
+        return false;
+    }
 }
