@@ -421,9 +421,8 @@ final class PresentationManager implements IPresentationManager
 
             $extra_questions = ($presentation->Category()->Exists()) ? $presentation->Category()->ExtraQuestions() : array();
             foreach ($extra_questions as $question) {
-                $field = $this->fields->fieldByName($question->Name);
-                if(is_null($field)) continue;
-                $answer_value = $field->Value();
+                if(!isset($data[$question->Name])) continue;
+                $answer_value = $data[$question->Name];
                 if(empty($answer_value)) continue;
 
                 if (!$answer = $presentation->findAnswerByQuestion($question)) {
