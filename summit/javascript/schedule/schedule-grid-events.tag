@@ -21,6 +21,7 @@
         var self                      = this;
 
         this.on('mount', function(){
+
             $(document).off("click", ".main-event-content").on( "click", ".icon-event-action", function(e) {
                 var event_id = $(this).data('event-id');
                 var event    = self.dic_events[event_id];
@@ -45,6 +46,7 @@
                     return false;
                 }
             });
+
             // show event details handler (jquery)
             $(document).off("click", ".main-event-content").on( "click", ".main-event-content", function(e) {
 
@@ -97,7 +99,7 @@
             self.events       = data.events;
 
             var myschedule_container = self.summit.current_user !== null ? '<div class="col-sm-3 my-schedule-container">'+
-            '<span class="icon-event-action">'+
+            '<span class="icon-event-action" id="">'+
             '<i class="fa fa-plus-circle myschedule-icon"></i>&nbsp;My&nbsp;schedule</span>'+
             '</div>' : '';
 
@@ -180,14 +182,16 @@
             }
 
             if(self.summit.current_user !== null ){
+                    event_directives['i.myschedule-icon@id']                 = function(arg){ return arg.item.id+''; };
                     event_directives['i.myschedule-icon@class+']             = function(arg){ return arg.item.own ? ' icon-own-event':' icon-foreign-event'; };
+                    event_directives['span.icon-event-action@id']            = function(arg){ return 'event_myschedule_action_'+arg.item.id};
                     event_directives['span.icon-event-action@title']         = function(arg){ return arg.item.own ? 'remove from my schedule':'add to my schedule'; };
                     event_directives['span.icon-event-action@data-event-id'] = function(arg){
                         var item = arg.item;
                         self.dic_events[item.id] = item;
                         return item.id;
                     };
-                    event_directives['span.icon-event-action@class+']        = function(arg){ return arg.item.own ? ' own':' foreign'; };
+                    event_directives['span.icon-event-action@class+']        = function(arg){ return arg.item.own ? ' own ':' foreign'; };
             }
             var directives = {
                 'div.event-row':{

@@ -367,7 +367,8 @@ define('PRESENTATION_SPEAKER_NOTIFICATION_ACCEPTANCE_EMAIL_FROM', 'speakersuppor
 define('PRESENTATION_SPEAKER_NOTIFICATION_ACCEPTANCE_SUMMIT_SUPPORT', 'summit@openstack.org');
 define('MEMBER_PROMO_CODE_EMAIL', 'member-promo-code');
 define('MEMBER_NOTIFICATION_PROMO_CODE_EMAIL_FROM', 'speakersupport@openstack.org');
-
+define('SUMMIT_ATTENDEE_RSVP_EMAIL','summit-attendee-rsvp');
+define('SUMMIT_ATTENDEE_RSVP_EMAIL_FROM','summit@openstack.org');
 
 
 SS_Cache::set_cache_lifetime('summitappscheduleapi_api_cache', 60*5);
