@@ -1125,10 +1125,10 @@ final class SummitService implements ISummitService
 
     /**
      * @param ISummit $summit
-     * @param ISummit $speaker_1
-     * @param ISummit $speaker_2
+     * @param ISummit $speaker_id_1
+     * @param ISummit $speaker_id_2
      * @param array $data
-     * @return array $changes
+     * @return mixed
      */
     public function mergeSpeakers(ISummit $summit, $speaker_id_1, $speaker_id_2, array $data)
     {
@@ -1161,15 +1161,11 @@ final class SummitService implements ISummitService
                 }
             }
 
-            $speaker_1->write();
+            // DELETE SPEAKER 2
+            $speaker_repository->delete($speaker_2);
 
             return $changes;
-
         });
-
-        // DELETE SPEAKER 2 (had to take it out the transaction to work)
-        $speaker_2 = $speaker_repository->getById($speaker_id_2);
-        $speaker_2->delete();
 
         return $changes;
 
