@@ -380,4 +380,29 @@ final class SummitAttendee extends DataObject implements ISummitAttendee
         );
     }
 
+    /**
+     * @return string
+     * @throws Exception
+     */
+    public function getTicketIDs()
+    {
+        $ids = $this->Tickets()->column('ExternalOrderId');
+        return (count($ids)) ? implode(', ',$ids) : '';
+    }
+
+    /**
+     * @return string
+     * @throws Exception
+     */
+    public function getBoughtDate($format = 'h:ia, M j, Y ')
+    {
+        $last_ticket = $this->Tickets()->sort('TicketBoughtDate','DESC')->first();
+        if ($last_ticket) {
+            $bought_date = new DateTime($last_ticket->TicketBoughtDate);
+            return $bought_date->format($format);
+        }
+
+        return '';
+
+    }
 }
