@@ -107,6 +107,7 @@ class SummitAppReportsApi extends AbstractRestfulJsonApi {
         'GET video_report'          => 'getVideoReport',
         'GET rsvp_report'           => 'getRsvpReport',
         'GET track_questions_report' => 'getTrackQuestionsReport',
+        'GET presentations_company_report'  => 'getPresentationsCompanyReport',
     );
 
     static $allowed_actions = array(
@@ -118,6 +119,7 @@ class SummitAppReportsApi extends AbstractRestfulJsonApi {
         'updateReport',
         'getRsvpReport',
         'getTrackQuestionsReport',
+        'getPresentationsCompanyReport',
     );
 
     public function getSpeakerReport(SS_HTTPRequest $request){
@@ -297,7 +299,7 @@ class SummitAppReportsApi extends AbstractRestfulJsonApi {
             $report_array = array();
 
             foreach($days as $day) {
-                $day_report = $this->assistance_repository->getPresentationMaterialBySummitAndDay($summit_id,$day->Date,$tracks,$venues,$start_date,$end_date,$search_term);
+                $day_report = $this->presentation_repository->getPresentationMaterialBySummitAndDay($summit_id,$day->Date,$tracks,$venues,$start_date,$end_date,$search_term);
                 $report_array[$day->Label] = array();
                 foreach ($day_report as $videos) {
 
@@ -348,7 +350,7 @@ class SummitAppReportsApi extends AbstractRestfulJsonApi {
             $summit       = $this->summit_repository->getById($summit_id);
             if(is_null($summit)) throw new NotFoundEntityException('Summit', sprintf(' id %s', $summit_id));
 
-            $presentations = $this->assistance_repository->getPresentationsAndSpeakersBySummit($summit_id,$page,$page_size,$sort,$sort_dir,$search_term,$filter);
+            $presentations = $this->presentation_repository->getPresentationsAndSpeakersBySummit($summit_id,$page,$page_size,$sort,$sort_dir,$search_term,$filter);
 
             $presentation_array = array();
 
@@ -529,6 +531,35 @@ class SummitAppReportsApi extends AbstractRestfulJsonApi {
         }
     }
 
+    public function getPresentationsCompanyReport(SS_HTTPRequest $request){
+        try
+        {
+            $query_string = $request->getVars();
+            $page         = (isset($query_string['page'])) ? Convert::raw2sql($query_string['page']) : '';
+            $page_size    = (isset($query_string['items'])) ? Convert::raw2sql($query_string['items']) : '';
+            $sort         = (isset($query_string['sort'])) ? Convert::raw2sql($query_string['sort']) : 'presentation';
+            $sort_dir     = (isset($query_string['sort_dir'])) ? Convert::raw2sql($query_string['sort_dir']) : 'ASC';
+            $search_term  = (isset($query_string['term'])) ? Convert::raw2sql($query_string['term']) : '';
+            $summit_id    = intval($request->param('SUMMIT_ID'));
+            $summit       = $this->summit_repository->getById($summit_id);
+            if(is_null($summit)) throw new NotFoundEntityException('Summit', sprintf(' id %s', $summit_id));
+
+            $presentations = $this->presentation_repository->searchByCompanyPaged($summit_id,$page,$page_size,$sort,$sort_dir,$search_term);
+
+            return $this->ok(array('total' => $presentations['Total'], 'data' => $presentations['Data']));
+        }
+        catch(NotFoundEntityException $ex2)
+        {
+            SS_Log::log($ex2->getMessage(), SS_Log::WARN);
+            return $this->notFound($ex2->getMessage());
+        }
+        catch(Exception $ex)
+        {
+            SS_Log::log($ex->getMessage(), SS_Log::ERR);
+            return $this->serverError();
+        }
+    }
+
     public function exportReport(SS_HTTPRequest $request) {
         try {
 
@@ -613,7 +644,7 @@ class SummitAppReportsApi extends AbstractRestfulJsonApi {
                 case 'presentation_report' :
                     $search_term = (isset($query_string['term'])) ? Convert::raw2sql($query_string['term']) : '';
                     $filter = (isset($query_string['filter'])) ? $query_string['filter'] : 'all';
-                    $report_data = $this->assistance_repository->getPresentationsAndSpeakersBySummit($summit_id, null, null, $sort, $sort_dir, $search_term,$filter);
+                    $report_data = $this->presentation_repository->getPresentationsAndSpeakersBySummit($summit_id, null, null, $sort, $sort_dir, $search_term,$filter);
                     $data = $report_data['Data'];
                     $results = array();
                     foreach ($data as $row) {
@@ -640,7 +671,7 @@ class SummitAppReportsApi extends AbstractRestfulJsonApi {
                         $active_sheet->setTitle(date('n-d',strtotime($day->Date)));
                         $active_sheet->fromArray(array('Date','Time','Tags','Event','Description','Room','Venue','Display','YoutubeID'), NULL, 'A1');
 
-                        $day_report = $this->assistance_repository->getPresentationMaterialBySummitAndDay($summit_id,$day->Date,$tracks,$venues,$start_date,$end_date,$search_term);
+                        $day_report = $this->presentation_repository->getPresentationMaterialBySummitAndDay($summit_id,$day->Date,$tracks,$venues,$start_date,$end_date,$search_term);
 
                         foreach ($day_report as $key2 => $val) {
                             $row = $key2 + 2;
@@ -702,6 +733,13 @@ class SummitAppReportsApi extends AbstractRestfulJsonApi {
                     }
 
                     return $this->notFound();
+                    break;
+                case 'presentations_company_report' :
+                    $search_term = (isset($query_string['term'])) ? Convert::raw2sql($query_string['term']) : '';
+                    $report_data = $this->presentation_repository->searchByCompanyPaged($summit_id, null, null, $sort, $sort_dir, $search_term);
+                    $filename = "presentations_company_report-" . date('Ymd') . "." . $ext;
+                    $delimiter = ($ext == 'xls') ? "\t" : ",";
+                    return CSVExporter::getInstance()->export($filename, $report_data['Data'], $delimiter);
                     break;
             }
             return $this->notFound();
