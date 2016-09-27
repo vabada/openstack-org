@@ -41,13 +41,8 @@ Injector:
     class: SapphireSpeakerRegistrationRequestRepository
   RSVPRepository:
     class: SapphireRSVPRepository
-<<<<<<< HEAD
-=======
-  MetricsRepository:
-      class: SapphireRoomMetricsRepository
   CategoryRepository:
         class: SapphirePresentationCategoryRepository
->>>>>>> 5524781... [spalenque] - #11783 * new report for track extra questions in summit admin
   SpeakerRegistrationRequestFactory:
     class: SapphireSpeakerRegistrationRequestFactory
     constructor:
