@@ -42,13 +42,8 @@
                     You can see how this plays out in the timeline below.
                 </p>
                 <p>
-<<<<<<< HEAD
-                    <a href="/images/ptg/ptg-release-timeline.png" target="_blank">
-                        <img class="ptg-release-timeline" src="/themes/openstack/images/summit-ptg-timeline-revised.png" alt="Project Teams Gathering vs Design Summit">
-=======
                     <a href="//openstack.org/themes/openstack/images/summit-ptg-timeline-revised.png" target="_blank">
                         <img class="ptg-release-timeline" src="//openstack.org/themes/openstack/images/summit-ptg-timeline-revised.png" alt="Project Teams Gathering vs Design Summit">
->>>>>>> 2a08426... PTG - fix for image link
                     </a>
                 </p>
             </div>
