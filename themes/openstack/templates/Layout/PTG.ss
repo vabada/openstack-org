@@ -120,6 +120,28 @@
                     </div>
                     <button type="submit" class="btn inline-btn">Submit</button>
                 </form>-->
+                <script type="text/javascript">
+                    $(document).ready(function() {
+                        // sign up form
+                        $('#e2ma_signup').submit(function(){
+                            localStorage['ptg_signed_up'] = 1;
+                        });
+
+                        if (localStorage['ptg_signed_up']) {
+                            $("#formShow").hide();
+                            $("#thankyou").show();
+                            localStorage.removeItem('ptg_signed_up');
+                        } else {
+                            $("#thankyou").hide();
+                        };
+                    });
+                </script>
+                <div class="box" id="formShow">
+                    <script type="text/javascript" src="https://app.e2ma.net/app2/audience/tts_signup_refresh/1821066/dc3896463a1fcdd2f57f993be48d29f6/1771360/"></script><div id="load_check" class="signup_form_message" >This form needs Javascript to display, which your browser doesn't support. <a href="https://app.e2ma.net/app2/audience/signup/1821066/1771360/"> Sign up here</a> instead </div><script type="text/javascript">signupFormObj.drawForm();</script>
+                </div>
+                <div class="box" id="thankyou">
+                    <h3>Thank you for your interest in the Project Teams Gathering. <br> You will be notified of any important updates.<h3>
+                </div>            
             </div>
         </div>
     </div>
