@@ -259,6 +259,8 @@ final class EventbriteEventManager implements IEventbriteEventManager
      * @param string $bought_date
      * @param bool $shared_contact_info
      * @return ISummitAttendee
+     * @throws NotFoundEntityException
+     * @throws RedeemTicketException
      */
     public function registerAttendee
     (
@@ -327,9 +329,9 @@ final class EventbriteEventManager implements IEventbriteEventManager
                     $redeem_error->OriginatorID       = $member->ID;
                     $redeem_error->OriginalOwnerID    = $old_ticket->OwnerID;
                     $redeem_error->OriginalTicketID   = $old_ticket->ID;
-                    $redeem_error->write();
 
-                    throw new EntityValidationException
+
+                    $exception = new RedeemTicketException
                     (
                         sprintf
                         (
@@ -340,6 +342,8 @@ final class EventbriteEventManager implements IEventbriteEventManager
                             $member->ID
                         )
                     );
+                    $exception->setRedeemTicketError($redeem_error);
+                    throw $exception;
                 }
                 $old_ticket->delete();
             }
