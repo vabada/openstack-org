@@ -11,7 +11,7 @@
             </div>
             <h3>{ current_config.title }</h3>
             <p>
-                { current_config.summary }
+                <span id="summary"></span>
             </p>
             <!--
             <p>
@@ -204,6 +204,7 @@
                       self.configurations = type.configurations;
                       self.current_config = type.configurations[0];
                       $('#config_button_'+self.current_config.id).addClass('active');
+                      $('summary').html(current_config.summary);
                       self.update();
                 });
             });
