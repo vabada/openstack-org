@@ -204,7 +204,7 @@
                       self.configurations = type.configurations;
                       self.current_config = type.configurations[0];
                       $('#config_button_'+self.current_config.id).addClass('active');
-                      $('summary').html(current_config.summary);
+                      $('#summary').html(self.current_config.summary);
                       self.update();
                 });
             });
