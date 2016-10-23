@@ -495,17 +495,17 @@
         }
 
         scrollToTime() {
-            var d = new Date();
+            var d     = new Date();
             var month = d.getMonth()+1;
-            var day = d.getDate();
-            var date = d.getFullYear() + '-' + (month<10 ? '0' : '') + month + '-' + (day<10 ? '0' : '') + day;
+            var day   = d.getDate();
+            var date  = d.getFullYear() + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
 
             if (date == self.day_selected) {
                 var current_event = $('.start-time[data-epoch]').filter(function () {
                     return $(this).data('epoch') >= ($.now()/1000);
                 }).last();
 
-                if (current_event) {
+                if (current_event && current_event.parents('.event-row').length > 0) {
                     $('html, body').animate({
                         scrollTop: current_event.parents('.event-row').offset().top
                     }, 2000);
