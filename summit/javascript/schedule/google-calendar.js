@@ -80,7 +80,7 @@ var GoogleCalendarApi = (function () {
     }
 
     my.addEvents = function (events, callback){
-        for(var i=0; i < events.length ; i++) {
+        for(var i = 0; i < events.length ; i++) {
             this.addEvent(events[i], callback);
         }
     };
