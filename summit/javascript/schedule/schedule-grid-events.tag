@@ -504,7 +504,7 @@
             if (date == self.day_selected) {
                 var current_event = $('.start-time[data-epoch]').filter(function () {
                     return $(this).data('epoch') >= ($.now()/1000);
-                }).last();
+                }).first();
 
                 if (current_event && current_event.parents('.event-row').length > 0) {
                     $('html, body').animate({
