@@ -47,3 +47,4 @@ migrations:
   - NormalizeTagsMigration
   - UninstallTranslatableMigration
   - FixEventBriteEventTable
+  - SummitSlugMigration
