@@ -127,6 +127,32 @@ ul#ptg-tabs {
 img.ptg-release-timeline {
   max-width: 100%; }
 
+.ptg-hotel-wrapper {
+  background: #30739C;
+  padding: 40px 0;
+  text-align: center;
+}
+.ptg-hotel-wrapper i.fa-hotel {
+  color: white;
+  margin-bottom: 20px;
+}
+.ptg-hotel-wrapper h2 {
+  color: white;
+  margin-top: 0;
+  text-align: center;
+}
+.ptg-hotel-wrapper p {
+  color: white;
+  text-align: center;
+}
+.ptg-hotel-wrapper a.hotel-btn, a.hotel-btn:visited {
+  color: white;
+  border: 1px solid white;
+  border-radius: 4px;
+  background: transparent;
+  display: inline-block;
+  margin-top: 15px;
+}
 .ptg-cta {
   background: #248EC7;
   padding: 40px 0px 70px;
@@ -193,5 +219,4 @@ img.ptg-release-timeline {
     font-size: 14px;
     line-height: 1.3em;
   }
->>>>>>> 717406b... New PTG layout, moved static FAQs into PTGDynamic
 
