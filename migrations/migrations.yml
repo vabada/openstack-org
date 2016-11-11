@@ -48,3 +48,4 @@ migrations:
   - UninstallTranslatableMigration
   - FixEventBriteEventTable
   - SummitSlugMigration
+  - PresentationCategorySlugMigration
