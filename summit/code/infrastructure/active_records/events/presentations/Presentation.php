@@ -275,6 +275,10 @@ class Presentation extends SummitEvent implements IPresentation
         return null;
     }
 
+    public function getTitleNice() {
+        return ($this->Title) ? $this->Title : $this->ID;
+    }
+
     /**
      * Gets a link to edit this presentation
      *
@@ -305,10 +309,22 @@ class Presentation extends SummitEvent implements IPresentation
      *
      * @return  string
      */
+    public function PreviewIFrameLink()
+    {
+        if ($page = PresentationPage::get()->filter('SummitID', $this->SummitID)->first()) {
+            return Controller::join_links($page->Link(), 'manage', $this->ID, 'preview_iframe');
+        }
+    }
+
+    /**
+     * Gets a link to the preview
+     *
+     * @return  string
+     */
     public function PreviewLink()
     {
         if ($page = PresentationPage::get()->filter('SummitID', $this->SummitID)->first()) {
-            return Controller::join_links($page->Link(), 'manage', $this->ID, 'preview');
+            return Controller::join_links($page->Link(), 'preview', $this->ID);
         }
     }
 
@@ -458,6 +474,14 @@ class Presentation extends SummitEvent implements IPresentation
         return $list;
     }
 
+    public function getStatusNice() {
+        if ($this->SelectionStatus() == IPresentation::SelectionStatus_Accepted) {
+            return 'Accepted';
+        } else {
+            return $this->Status;
+        }
+    }
+
     /**
      * @return FieldList
      */
@@ -481,7 +505,7 @@ class Presentation extends SummitEvent implements IPresentation
                 '<iframe width="%s" height="%s" frameborder="0" src="%s"></iframe>',
                 '100%',
                 '400',
-                Director::absoluteBaseURL() . $this->PreviewLink()
+                Director::absoluteBaseURL() . $this->PreviewIFrameLink()
             ));
 
         $f->addFieldToTab('Root.Main',
