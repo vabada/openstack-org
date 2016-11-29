@@ -1352,7 +1352,7 @@ SQL;
 
     public function getTopVenues()
     {
-        return $this->Locations()->where("ClassName='SummitVenue' OR ClassName='SummitExternalLocation' OR ClassName='SummitHotel'")->sort('Name', 'ASC');
+        return $this->Locations()->where("ClassName='SummitVenue' OR ClassName='SummitExternalLocation' ")->sort('Name', 'ASC');
     }
 
     public function getSummitDateRange()

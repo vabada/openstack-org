@@ -79,7 +79,7 @@
                 };
                 <% end_loop %>
                 <% loop $Summit.getTopVenues() %>
-                    <% if ClassName == SummitVenue || ClassName == SummitExternalLocation || ClassName == SummitHotel  %>
+                    <% if ClassName == SummitVenue || ClassName == SummitExternalLocation  %>
 
 
                     summit.locations.push({
