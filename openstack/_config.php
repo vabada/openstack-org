@@ -36,6 +36,8 @@ Translatable::set_allowed_locales(array(
 // Search index for Orgs
 Object::add_extension('Org', 'AutocompleteOrgDecorator');
 
+Page::remove_extension('OpenGraphObjectExtension');
+
 // Enable SSL for specific subdomains
 
 if(Director::isLive()) Director::forceSSL(array('/^Security/','/^profile/',
