@@ -21,9 +21,16 @@ class BulkEmailer extends Controller
      */
 	public function emailspeakers(SS_HTTPRequest $r)
 	{
-		$summit = Summit::get_most_recent();
-		$confirm = $r->getVar('confirm');
-		$limit = $r->getVar('limit');
+	    $summit_id = $r->getVar('summit_id');
+	    if(empty($summit_id)){
+	        die('summit_id is mandatory');
+        }
+		$summit    = Summit::get()->byId($summit_id);
+	    if(is_null($summit)){
+	        die('summit not found!');
+        }
+		$confirm   = $r->getVar('confirm');
+		$limit     = $r->getVar('limit');
 		$speakers = PresentationSpeaker::get()
 			->innerJoin('Presentation_Speakers','Presentation_Speakers.PresentationSpeakerID = PresentationSpeaker.ID')
 			->innerJoin('SummitEvent', 'SummitEvent.ID = Presentation_Speakers.PresentationID')
@@ -33,12 +40,12 @@ class BulkEmailer extends Controller
 				'SummitEvent.CategoryID' => [40, 41, 46, 45, 48]
 			])
 			->filter([
-				'SummitID' => $summit->ID,
+				'SummitID'              => $summit->ID,
 				'SummitEvent.Published' => true
 			]);
 		$totalBeforeLimit = $speakers->count();
-		$appliedLimit = $confirm ? null : ($limit ?: 50);
-		$speakers =	$speakers->limit($appliedLimit);
+		$appliedLimit     = $confirm ? null : ($limit ?: 50);
+		$speakers         =	$speakers->limit($appliedLimit);
 
 		foreach ($speakers as $speaker) {
 			/* @var DataList */
@@ -55,15 +62,15 @@ class BulkEmailer extends Controller
 				continue;
 			}
 			
-			$to = $speaker->Member()->Email;				
+			$to      = $speaker->Member()->Email;
 			$subject = "Important Speaker Information for OpenStack Summit in {$summit->Title}";
 
 			$email = EmailFactory::getInstance()->buildEmail('do-not-reply@openstack.org', $to, $subject);
 			$email->setUserTemplate("upload-presentation-slides-email");
 			$email->populateTemplate([
-				'Speaker' => $speaker,
+				'Speaker'       => $speaker,
 				'Presentations' => $presentations,
-				'Summit' => $summit
+				'Summit'        => $summit
 			]);
 
 			if ($confirm) {
@@ -86,7 +93,14 @@ class BulkEmailer extends Controller
 	public function emailattendees(SS_HTTPRequest $r)
 	{
 		$startTime = microtime(true);
-		$summit = Summit::get_most_recent();
+        $summit_id = $r->getVar('summit_id');
+        if(empty($summit_id)){
+            die('summit_id is mandatory');
+        }
+        $summit    = Summit::get()->byId($summit_id);
+        if(is_null($summit)){
+            die('summit not found!');
+        }
 		$confirm = $r->getVar('confirm');
 		$limit = $r->getVar('limit');		
 		$attendees = $summit->Attendees();
