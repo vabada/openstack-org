@@ -396,6 +396,8 @@ class PresentationSpeaker extends DataObject
         foreach($summit->getPublicCategories() as $cat)
             array_push($categories_ids, $cat->ID);
 
+        if(count($categories_ids) == 0) return null;
+
         $categories_ids = implode(',', $categories_ids);
 
         return $this->Presentations()->filter([
@@ -409,6 +411,15 @@ class PresentationSpeaker extends DataObject
 
     /**
      * @param ISummit $summit
+     * @return int
+     */
+    public function getPublicCategoryPresentationsBySummitCount(ISummit $summit){
+        $list = $this->getPublicCategoryPresentationsBySummit($summit);
+        return is_null($list) ? 0 : $list->count();
+    }
+
+    /**
+     * @param ISummit $summit
      * @return DataList
      */
     // NOTE: THIS ONE INCLUDES CREATED, MODERATED AND SPEAKER PRESENTATIONS
@@ -416,6 +427,8 @@ class PresentationSpeaker extends DataObject
         $categories_ids = array(0);
         foreach($summit->getPublicCategories() as $cat)
             array_push($categories_ids, $cat->ID);
+
+        if(count($categories_ids) == 0) return null;
 
         $categories_ids = implode(',', $categories_ids);
 
@@ -427,12 +440,23 @@ class PresentationSpeaker extends DataObject
 
     /**
      * @param ISummit $summit
+     * @return int
+     */
+    public function getPublicCategoryOwnedPresentationsBySummitCount(ISummit $summit){
+        $list = $this->getPublicCategoryOwnedPresentationsBySummit($summit);
+        return is_null($list) ? 0 : $list->count();
+    }
+
+    /**
+     * @param ISummit $summit
      * @return DataList
      */
     public function getPublicCategoryModeratedPresentationsBySummit(ISummit $summit){
         $categories_ids = array(0);
         foreach($summit->getPublicCategories() as $cat)
             array_push($categories_ids, $cat->ID);
+
+        if(count($categories_ids) == 0) return null;
 
         $categories_ids = implode(',', $categories_ids);
 
@@ -446,14 +470,26 @@ class PresentationSpeaker extends DataObject
 
     /**
      * @param ISummit $summit
+     * @return int
+     */
+    public function getPublicCategoryModeratedPresentationsBySummitCount(ISummit $summit){
+        $list = $this->getPublicCategoryModeratedPresentationsBySummit($summit);
+        return is_null($list) ? 0 : $list->count();
+    }
+
+    /**
+     * @param ISummit $summit
      * @param PrivatePresentationCategoryGroup $private_group
      * @return DataList
      */
     public function getPrivateCategoryPresentationsBySummit(ISummit $summit, PrivatePresentationCategoryGroup $private_group){
 
-        $categories_ids = array();
+        $categories_ids = [];
         foreach($private_group->Categories() as $cat)
-            array_push($categories_ids, $cat->ID);
+            $categories_ids[] = $cat->ID;
+
+        if(count($categories_ids) == 0) return null;
+
         $categories_ids = implode(',', $categories_ids);
 
         return $this->Presentations()
@@ -466,14 +502,27 @@ class PresentationSpeaker extends DataObject
     /**
      * @param ISummit $summit
      * @param PrivatePresentationCategoryGroup $private_group
+     * @return int
+     */
+    public function getPrivateCategoryPresentationsBySummitCount(ISummit $summit, PrivatePresentationCategoryGroup $private_group){
+        $list = $this->getPrivateCategoryPresentationsBySummit($summit, $private_group);
+        return is_null($list) ? 0 : intval($list->count());
+    }
+
+    /**
+     * @param ISummit $summit
+     * @param PrivatePresentationCategoryGroup $private_group
      * @return DataList
      */
     // NOTE: THIS ONE INCLUDES CREATED, MODERATED AND SPEAKER PRESENTATIONS
     public function getPrivateCategoryOwnedPresentationsBySummit(ISummit $summit, PrivatePresentationCategoryGroup $private_group){
 
-        $categories_ids = array();
+        $categories_ids = [];
         foreach($private_group->Categories() as $cat)
-            array_push($categories_ids, $cat->ID);
+            $categories_ids[] = $cat->ID;
+
+        if(count($categories_ids) == 0) return null;
+
         $categories_ids = implode(',', $categories_ids);
 
         return Presentation::get()->filter([
@@ -485,13 +534,25 @@ class PresentationSpeaker extends DataObject
     /**
      * @param ISummit $summit
      * @param PrivatePresentationCategoryGroup $private_group
+     * @return int
+     */
+    public function getPrivateCategoryOwnedPresentationsBySummitCount(ISummit $summit, PrivatePresentationCategoryGroup $private_group){
+        $list = $this->getPrivateCategoryOwnedPresentationsBySummit($summit, $private_group);
+        return is_null($list) ? 0 : intval($list->count());
+    }
+
+    /**
+     * @param ISummit $summit
+     * @param PrivatePresentationCategoryGroup $private_group
      * @return DataList
      */
     public function getPrivateCategoryModeratedPresentationsBySummit(ISummit $summit, PrivatePresentationCategoryGroup $private_group){
 
-        $categories_ids = array();
+        $categories_ids = [];
         foreach($private_group->Categories() as $cat)
-            array_push($categories_ids, $cat->ID);
+            $categories_ids[] =  $cat->ID;
+        if(count($categories_ids) == 0) return null;
+
         $categories_ids = implode(',', $categories_ids);
 
         return Presentation::get()->filter([
@@ -500,6 +561,16 @@ class PresentationSpeaker extends DataObject
         ])
             ->exclude(['CreatorID' => $this->MemberID])
             ->where(" SummitEvent.CategoryID IN ({$categories_ids})");
+    }
+
+    /**
+     * @param ISummit $summit
+     * @param PrivatePresentationCategoryGroup $private_group
+     * @return int
+     */
+    public function getPrivateCategoryModeratedPresentationsBySummitCount(ISummit $summit, PrivatePresentationCategoryGroup $private_group){
+        $list = $this->getPrivateCategoryModeratedPresentationsBySummit($summit, $private_group);
+        return is_null($list) ? 0 : intval($list->count());
     }
 
     /**
