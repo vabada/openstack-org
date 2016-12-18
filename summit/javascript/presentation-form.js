@@ -11,7 +11,7 @@
  * limitations under the License.
  **/
 
-var show_if_public = ['AttendeesExpectedLearnt'];
+var show_if_public = ['AttendeesExpectedLearnt','LightningTalk'];
 var form = null;
 
 $(document).ready(function(){

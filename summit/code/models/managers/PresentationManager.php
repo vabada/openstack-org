@@ -391,6 +391,7 @@ final class PresentationManager implements IPresentationManager
             $presentation->TypeID                  = intval($data['TypeID']);
             $presentation->Level                   = trim($data['Level']);
             $presentation->FeatureCloud            = intval($data['FeatureCloud']);
+            $presentation->LightningTalk           = intval($data['LightningTalk']);
             $presentation->Abstract                = trim($data['Abstract']);
             $presentation->SocialSummary           = trim($data['SocialSummary']);
             $presentation->AttendeesExpectedLearnt = trim($data['AttendeesExpectedLearnt']);
@@ -468,12 +469,14 @@ final class PresentationManager implements IPresentationManager
      */
     public function updatePresentationSummary(IPresentation $presentation, array $data)
     {
+        //TODO: this method and registerPresentationOn should be refactored
         return $this->tx_manager->transaction(function() use($presentation,  $data){
 
             $presentation->Title                   = trim($data['Title']);
             $presentation->TypeID                  = intval($data['TypeID']);
             $presentation->Level                   = trim($data['Level']);
             $presentation->FeatureCloud            = intval($data['FeatureCloud']);
+            $presentation->LightningTalk           = intval($data['LightningTalk']);
             $presentation->Abstract                = trim($data['Abstract']);
             $presentation->SocialSummary           = trim($data['SocialSummary']);
             $presentation->AttendeesExpectedLearnt = trim($data['AttendeesExpectedLearnt']);
