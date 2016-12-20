@@ -166,6 +166,8 @@
                     <% end_if %>
                 </ul>
 
+                <span class="hr margin0-0-24"></span>
+
                 <p><strong>OpenStack Day Logo and Digital Assets</strong>
                 <p>The OpenStack Foundation has created an official OpenStack Day logo and digital assets to be used for all OpenStack Days events.  For both trademark and legal reasons, all official OpenStack Day events are required to use these assets in all event commuinications, printed materials, signage, and website presence.  To request your official OpenStack Day logo and branding kit, please send an email to events@openstack.org</p>
 
@@ -180,6 +182,8 @@
 
                 <p>OpenStack Trademark Policy<br/>
                 <a href="https://www.openstack.org/brand/openstack-trademark-policy/">https://www.openstack.org/brand/openstack-trademark-policy/</a></p>
+
+                <p>&nbsp;</p>
 
 
                 <span class="hr margin0-0-24"></span>
