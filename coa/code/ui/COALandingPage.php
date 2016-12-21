@@ -99,7 +99,6 @@ HTML;
 
     public function getExamSpecialCost(){
         $html = $this->getField('ExamSpecialCost');
-        }
         return $html;
     }
 
