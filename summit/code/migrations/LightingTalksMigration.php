@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2015 OpenStack Foundation
+ * Copyright 2016 OpenStack Foundation
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,16 +12,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-interface ISummitEventType extends IEntity
+final class LightingTalksMigration extends AbstractDBMigrationTask
 {
-    /**
-     * @return string
-     */
-    public function getType();
+    protected $title = "LightingTalksMigration";
 
-    const HandonLabs = 'Hand-on Labs';
+    protected $description = "LightingTalksMigration";
 
-    const Lunch_Breaks = 'Lunch & Breaks';
+    function doUp()
+    {
+        global $database;
 
-    const EveningEvents = 'Evening Events';
+        $summit_list = [6, 7, 22];
+
+        foreach($summit_list as $summit_id) {
+            Summit::seedBasicEventTypes($summit_id);
+        }
+
+    }
+
+    function doDown()
+    {
+        // TODO: Implement doDown() method.
+    }
 }

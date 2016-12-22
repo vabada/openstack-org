@@ -70,16 +70,29 @@ final class PresentationForm extends BootstrapForm
         }
 
         usort($category_groups_map, function($a, $b) { return strcmp($a["title"], $b["title"]); });
+        $types = PresentationType::get()->filter('SummitID', $this->summit->ID)->exclude('Type', IPresentationType::Keynotes);
+        $instructions = '(';
+        foreach($types as $type){
+            $instructions .= $type->Type;
+            if(intval($type->MaxSpeakers > 0))
+                $instructions .= sprintf(" Max %s speakers", $type->MaxSpeakers);
 
+            if(intval($type->MaxModerators > 0))
+                $instructions .= sprintf(" %s moderator", $type->MaxModerators);
+
+            $instructions .= '; ';
+        }
+        $instructions .= ')';
         $fields = FieldList::create()
             ->text('Title', 'Proposed Presentation Title')
                 ->configure()
                     ->setAttribute('autofocus','TRUE')
                 ->end()
-            ->dropdown('TypeID','Select the format (Presentation: Max 3 speakers; Panel: Max 4 speakers, 1 moderator)')
+            ->literal('TypeIDHelp','<label>Select the format</label> <br>'.$instructions)
+            ->dropdown('TypeID','')
                 ->configure()
                     ->setEmptyString('-- Select one --')
-                    ->setSource(PresentationType::get()->filter('SummitID',$this->summit->ID)->exclude('Type','Keynotes')->map('ID', 'Type'))
+                    ->setSource($types->map('ID', 'Type'))
                 ->end()
             ->literal('CategoryContainer','<div id="category_options"></div>')
             ->dropdown('Level','Select the technical level of your presentation content')
@@ -99,10 +112,10 @@ final class PresentationForm extends BootstrapForm
                     0 => 'No'
                 )
             )
-                ->configure()
-                    ->setTemplate('BootstrapAwesomeOptionsetField')
-                    ->setInline(true)
-                ->end()
+            ->configure()
+                ->setTemplate('BootstrapAwesomeOptionsetField')
+                ->setInline(true)
+            ->end()
             ->tinyMCEEditor('Abstract','Abstract (1000 chars)')
                 ->configure()
                     ->setRows(20)
