@@ -1,0 +1,17 @@
+{
+  "name": "ui-style-guide",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OpenStackweb/openstack-org"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OpenStackweb/openstack-org/issues"
+  },
+  "homepage": "https://github.com/OpenStackweb/openstack-org",
+  "dependencies": {    
+  }
+}

@@ -1,0 +1,8 @@
+---
+Name: ui-style-guide
+only:
+  environment: 'dev'
+---
+Director:
+  rules:
+    'style-guide': 'UIStyleGuide'

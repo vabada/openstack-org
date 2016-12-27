@@ -9,7 +9,8 @@
     "serve": "webpack-dashboard -- node ./webpack",
     "watch": "webpack-dashboard -- node ./webpack",
     "build": "NODE_ENV=production node ./webpack",
-    "build-all": "NODE_ENV=production node ./webpack/build-all"
+    "build-all": "NODE_ENV=production node ./webpack/build-all",
+    "create-ui": "node ./webpack/create-ui"
   },
   "dependencies": {
     "amdefine": "^1.0.0",
