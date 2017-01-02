@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "19a29d009f1cc8abab7406feee786930",
-    "content-hash": "2e615d6767dfba5fcb1450279f5372b9",
+    "hash": "c3efd7adf7ec88cd3a2cb289de4d9e5c",
+    "content-hash": "a64ee726f96effef440771eef1a70e5e",
     "packages": [
         {
             "name": "composer/installers",
@@ -561,6 +561,58 @@
                 "stream"
             ],
             "time": "2016-04-13 16:32:01"
+        },
+        {
+            "name": "icanboogie/inflector",
+            "version": "v1.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ICanBoogie/Inflector.git",
+                "reference": "d3a2c4930c67fa93dc782f67955b85d56369742c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ICanBoogie/Inflector/zipball/d3a2c4930c67fa93dc782f67955b85d56369742c",
+                "reference": "d3a2c4930c67fa93dc782f67955b85d56369742c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=5.3.4"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib/"
+                ],
+                "files": [
+                    "lib/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Laviale",
+                    "email": "olivier.laviale@gmail.com",
+                    "homepage": "http://www.weirdog.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Multilingual inflector that transforms words from singular to plural, underscore to camel case, and more.",
+            "homepage": "http://icanboogie.org/",
+            "keywords": [
+                "camelize",
+                "hyphenate",
+                "inflect",
+                "multilingual",
+                "pluralize",
+                "singularize",
+                "underscore"
+            ],
+            "time": "2016-12-15 09:15:25"
         },
         {
             "name": "knplabs/github-api",
@@ -1307,12 +1359,12 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/silverstripe-labs/silverstripe-gridfieldajaxrefresh.git",
+                "url": "https://github.com/silverstripe-archive/silverstripe-gridfieldajaxrefresh.git",
                 "reference": "64698c8efedab950fccf19ce6601979ba95a5725"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/silverstripe-labs/silverstripe-gridfieldajaxrefresh/zipball/64698c8efedab950fccf19ce6601979ba95a5725",
+                "url": "https://api.github.com/repos/silverstripe-archive/silverstripe-gridfieldajaxrefresh/zipball/64698c8efedab950fccf19ce6601979ba95a5725",
                 "reference": "64698c8efedab950fccf19ce6601979ba95a5725",
                 "shasum": ""
             },
