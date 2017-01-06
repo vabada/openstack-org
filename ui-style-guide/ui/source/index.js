@@ -1,2 +1,2 @@
-import './scss/ui-style-guide.scss';
+import './less/ui-style-guide.less';
 import './js/init.js';

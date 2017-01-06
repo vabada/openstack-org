@@ -1,0 +1,127 @@
+{
+  "Button": {
+    "name": "Button",
+    "example": "import Button from '~core-components/Button';\n\nclass MyButtonExample extends React.Component {\n\n\trender() {\n\t\treturn (\n\t\t\t<div>\n\t\t\t\t<Button>Normal button</Button>\n\t\t\t\t<Button onButtonClicked={function() {alert('hello');}}>Click me</Button>\n\t\t\t\t<Button active={true}>Active button</Button>\n\t\t\t\t<Button disabled={true}>Disabled button</Button>\n\t\t\t</div>\n\t\t);\t\t\n\t}\n}\n\nreturn <MyButtonExample />\n",
+    "components": [
+      {
+        "name": "Button",
+        "props": {
+          "active": {
+            "type": {
+              "name": "bool"
+            },
+            "required": false,
+            "description": "If true, show the button in an \"active\" state"
+          },
+          "disabled": {
+            "type": {
+              "name": "bool"
+            },
+            "required": false,
+            "description": "If true, show the button in a \"disabled\" state"
+          },
+          "onButtonClicked": {
+            "type": {
+              "name": "func"
+            },
+            "required": false,
+            "description": "Handler that is fired on click of the button. Receives an Event object."
+          }
+        },
+        "description": "Buttons can be used for pretty much anything. You can link with them, you can add click handlers to them.\nThey come in all sorts of shapes and sizes. Pretty cool."
+      }
+    ]
+  },
+  "Dropdown": {
+    "name": "Dropdown",
+    "example": "import { Dropdown, DropdownItem } from '~core-components/Dropdown';\n\nconst options = [\n\t{code: \"US\", title: \"United States\"},\n\t{code: \"AR\", title: \"Argentina\"},\n\t{code: \"NZ\", title: \"New Zealand\"},\n\t{code: \"AU\", title: \"Australia\"}\t\n];\n\nclass MyDropdown extends React.Component {\n\n\tconstructor (props) {\n\t\tsuper(props);\n\t\tthis.handleChange = this.handleChange.bind(this);\n\t\tthis.state = {\n\t\t\tselection: null\n\t\t};\n\t}\n\n\thandleChange (selection) {\n\t\tthis.setState({selection});\t\t\n\t}\n\n\trender () {\n\t\tconst {selection} = this.state;\n\t\tconst option = options.find(o => o.code === selection);\n\t\tconst val = option ? option.title : '-- Please select --';\n\t\tconst children = options.map(o => (\n\t\t\t<DropdownItem key={o.code} eventKey={o.code}>{o.title}</DropdownItem>\n\t\t));\n\t\tchildren.splice(2, 0, <DropdownItem key='divider' eventKey='divider' divider />);\n\n\t\treturn (\n\t\t\t<Dropdown onChange={this.handleChange} value={val}>\n\t\t\t\t{children}\n\t\t\t</Dropdown>\n\t\t);\n\t}\n}\n\nreturn <MyDropdown />;",
+    "components": [
+      {
+        "name": "Dropdown",
+        "props": {
+          "value": {
+            "type": {
+              "name": "string"
+            },
+            "required": false,
+            "description": "The current value of the dropdown. Displayed in the box when unopened."
+          },
+          "onChange": {
+            "type": {
+              "name": "func"
+            },
+            "required": false,
+            "description": "Handler that is fired when the dropdown value changes. It is passed the\nchild's `eventKey` as an argument."
+          }
+        },
+        "description": "Dropdown is a simple dropdown menu that works almost exactly the same way as a `<select>`\ntag, but looks way nicer."
+      },
+      {
+        "name": "DropdownItem",
+        "props": {
+          "divider": {
+            "type": {
+              "name": "bool"
+            },
+            "required": false,
+            "description": "If true, this item is a visual divider (not selectable)."
+          },
+          "eventKey": {
+            "type": {
+              "name": "any"
+            },
+            "required": true,
+            "description": "A unique identifier for this child. Passed to the parent component on selection."
+          }
+        },
+        "description": ""
+      }
+    ]
+  },
+  "ToggleButtonGroup": {
+    "name": "ToggleButtonGroup",
+    "example": "import { ToggleButtonGroup, ToggleButton } from '~core-components/ToggleButtonGroup';\n\nclass MyToggler extends React.Component {\n\n\tconstructor (props) {\n\t\tsuper(props);\n\t\tthis.handleChange = this.handleChange.bind(this);\n\t\tthis.state = {\n\t\t\tcurrentView: 'list'\n\t\t};\n\t}\n\n\thandleChange (currentView) {\n\t\tthis.setState({currentView});\n\t}\n\n\trender () {\n\t\tconst {currentView} = this.state;\n\t\treturn (\n\t\t\t<div>\n\t\t\t\t<h3>Now viewing {currentView}</h3>\n\t\t\t\t<ToggleButtonGroup selectedKey={currentView} onChange={this.handleChange}>\n\t\t\t\t\t<ToggleButton eventKey='grid'>Grid</ToggleButton>\n\t\t\t\t\t<ToggleButton eventKey='list'>List</ToggleButton>\n\t\t\t\t</ToggleButtonGroup>\t\t\n\t\t\t</div>\n\t\t);\n\t}\n}\n\nreturn <MyToggler />;",
+    "components": [
+      {
+        "name": "ToggleButtonGroup",
+        "props": {
+          "onChange": {
+            "type": {
+              "name": "func"
+            },
+            "required": false,
+            "description": "The event that is fired on toggle. Receives the selected `eventKey` as the first parameter."
+          },
+          "selectedKey": {
+            "type": {
+              "name": "any"
+            },
+            "required": false,
+            "description": "The `eventKey` of the child that is currently selected"
+          }
+        },
+        "description": "Toggle buttons work like radio buttons. You can choose one option from a horizontally\ndisplayed list of buttons, and it shows selected state."
+      },
+      {
+        "name": "ToggleButton",
+        "props": {
+          "active": {
+            "type": {
+              "name": "bool"
+            },
+            "required": false,
+            "description": "If true, the button is in an active state."
+          },
+          "eventKey": {
+            "type": {
+              "name": "any"
+            },
+            "required": true,
+            "description": "A unique identifier for this child. Passed to the parent component on selection."
+          }
+        },
+        "description": ""
+      }
+    ]
+  }
+}

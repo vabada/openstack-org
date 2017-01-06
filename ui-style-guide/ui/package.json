@@ -12,6 +12,14 @@
     "url": "https://github.com/OpenStackweb/openstack-org/issues"
   },
   "homepage": "https://github.com/OpenStackweb/openstack-org",
-  "dependencies": {    
+  "dependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.21.0",
+    "babel-preset-node6": "^11.0.0",
+    "babel-standalone": "^6.21.0",
+    "markdown": "^0.5.0",
+    "react-docgen": "^2.13.0",
+    "react-live-editor": "^5.2.1",
+    "react-router": "^4.0.0-alpha.6"
   }
 }
