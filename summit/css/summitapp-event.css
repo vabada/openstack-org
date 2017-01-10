@@ -93,18 +93,18 @@
     padding: 20px;
 }
 
-.info_item {
-    clear: both;
+.event_item {
     margin-bottom: 15px;
     min-height: 20px;
+    height: 25px;
 }
 
-.info_item_icon {
+.event_item_icon {
     width: 20px;
     text-align: center;
 }
 
-.info_item_icon img {
+.event_item_icon img {
     height: 20px;
 }
 
@@ -126,7 +126,7 @@
     top: -10px;
 }
 
-.info_item_text {
+.event_item_text {
     float: left;
     width: 90%;
 }
@@ -331,9 +331,6 @@ a.profile-pic-wrapper {
     color: red;
 }
 
-.col-rsvp{
+.col-rsvp {
     padding-top: 5%;
-}
-
-.info_item {
 }

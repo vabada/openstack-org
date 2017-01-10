@@ -149,7 +149,7 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
 
     public function ViewEvent(SS_HTTPRequest $request)
     {
-        $event  = $this->getSummitEntity($request);
+        $event    = $this->getSummitEntity($request);
 
         $goback   = $request->getHeader('Referer') && trim($request->getHeader('Referer'),'/') == trim(Director::absoluteURL($this->Link()),'/')? '1':'';
 
@@ -173,6 +173,15 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
             $token = md5(uniqid(rand(), TRUE));
             Session::set(self::EventShareByEmailTokenKey, $token);
             Session::set(self::EventShareByEmailCountKey, 0);
+        }
+
+        if(Director::is_ajax()) {
+            return $this->renderWith(
+                array('SummitAppEventPage_eventDetails'),
+                array(
+                    'Event'     => $event,
+                    'Token'     => $token
+                ));
         }
 
         return $this->renderWith(
@@ -591,6 +600,7 @@ APP_LINKS;
         if($request->getHeader("Prefer-Html-Meta-Tags")){
             return $this->buildOnlyMetaTagsResponse($this->MetaTags());
         }
+        Requirements::javascript("summit/javascript/schedule/event-detail-page.js");
         Requirements::javascript("summit/javascript/schedule/schedule-page.js");
 
         return $this->getViewer('index')->process($this);

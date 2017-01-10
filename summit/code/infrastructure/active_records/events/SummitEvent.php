@@ -760,7 +760,7 @@ SQL;
      * @return bool
      */
     public function hasRSVPTemplate(){
-        return $this->RSVPTemplateID > 0 ;
+        return intval($this->RSVPTemplateID) > 0 ;
     }
 
     /**
