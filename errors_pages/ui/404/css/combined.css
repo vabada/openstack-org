@@ -2552,7 +2552,7 @@ ul.marketplace-nav .current a {
   border-radius: 4px; }
 
 .filter-label {
-  background: url("/images/images/marketplace-search-icon.png") no-repeat scroll left 7px rgba(0, 0, 0, 0);
+  background: url("/themes/openstack/images/marketplace/search-icon.png") no-repeat scroll left 7px rgba(0, 0, 0, 0);
   color: #30739C;
   float: left;
   margin-bottom: 0;
