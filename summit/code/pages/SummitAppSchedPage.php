@@ -149,6 +149,19 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
 
     public function ViewEvent(SS_HTTPRequest $request)
     {
+        if(Director::is_ajax()){
+            $event  = $this->getSummitEntity($request);
+            return $this->renderWith(
+                array
+                (
+                    'SummitAppEventPage_eventDetails'
+                ),
+                array
+                (
+                    'Event' => $event,
+                )
+                );
+        }
         $event  = $this->getSummitEntity($request);
 
         $goback   = $request->getHeader('Referer') && trim($request->getHeader('Referer'),'/') == trim(Director::absoluteURL($this->Link()),'/')? '1':'';
