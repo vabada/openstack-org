@@ -1,10 +1,45 @@
-            <div class="white about-summit with-arrow">
+<div class="light city-nav city" id="nav-bar">
+    <div class="container">
+        <ul class="city-nav-list">
+            <li>
+                <a href="#who-should-attend">
+                    <i class="fa fa-map-marker"></i>
+                    Who Should Attend
+                </a>
+            </li>
+            <li>
+                <a href="#featured-speakers">
+                    <i class="fa fa-h-square"></i>
+                    Featured Speakers
+                </a>
+            </li>
+            
+                <li>
+                    <a href="#openstackacademy">
+                        <i class="fa fa-globe"></i>
+                        OpenStack Academy
+                    </a>
+                </li>
+            
+            
+            <li>
+                <a href="#forum">
+                    <i class="fa fa-plane"></i>
+                    The Forum
+                </a>
+            </li>
+            
+            
+        </ul>
+    </div>
+</div>
+<div class="white about-summit with-arrow">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-9 col-md-8 col-sm-8">
-        <div class="blue-title">
+        <h1>
           Who Should Attend?
-        </div>
+        </h1><a name="who-should-attend"></a>
         <div class="who-section-wrapper">
           <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-4">
@@ -39,9 +74,10 @@
             </div>
           </div>
         </div>
+        <p>Join attendees from over 60 countries to enhance your knowledge of OpenStack and get more involved with the community.</p>
         <a class="who-section-cta" href="//www.openstack.org/summit/boston-2017/summit-categories">Learn more about the content planned for the OpenStack Summit Boston</a>
 			</div>
-		<div class="col-lg-3 col-md-4 col-sm-4">
+		<div class="col-lg-3 col-md-4 col-sm-4" style="margin-top:30px;">
       <ul class="help-me-menu">
         <li><a href="http://openstackfoundation.formstack.com/forms/boston_summit_discounted_registration"><i class="fa fa-bicycle"></i>Apply for a student discount</a></li>
         <li><a href="//www.openstack.org/summit/boston-2017/travel/#hotels"><i class="fa fa-hotel"></i>Book your hotel</a></li>
@@ -56,7 +92,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <h2>Boston Summit Speakers</h2>
+        <h2>Featured Speakers</h2><a name="featured-speakers"></a>
       </div>
     </div>
     <div class="row">
@@ -97,16 +133,16 @@
     <div class="row">
       <div class="col-sm-4 col-sm-push-1">
         <div class="summit-user-section">
-          <img src="//www.openstack.org/assets/boston-summit/speakers/Mark-Collier3.jpg" alt="Mark Collier" class="summit-user-image">
-          <div class="name">Mark Collier</div>
-          <div class="title">COO, OpenStack Foundation</div>
+          <img src="//www.openstack.org/assets/Uploads/malini.jpg" alt="Malini Bhandaru" class="summit-user-image">
+          <div class="name">Malini Bhandaru</div>
+          <div class="title">Principal engineer, cloud architect, Intel</div>
         </div>
       </div>
       <div class="col-sm-4 col-sm-push-3">
         <div class="summit-user-section">
-          <img src="//www.openstack.org/assets/boston-summit/speakers/Jonathan-Bryce2.jpg" alt="Jonathan Bryce" class="summit-user-image">
-          <div class="name">Jonathan Bryce</div>
-          <div class="title">Executive Director, OpenStack Foundation</div>
+          <img src="//www.openstack.org/assets/profile-images/Boris-Picture2.jpg" alt="Mark Collier" class="summit-user-image">
+          <div class="name">Boris Renski</div>
+          <div class="title">Co-Founder and CMO, Mirantis</div>
         </div>
       </div>
     </div>
@@ -127,7 +163,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <h2>Get Hands On With OpenStack Academy</h2>
+        <h2>Get Hands On With OpenStack Academy</h2><a name="openstackacademy"></a>
       </div>
     </div>
     <div class="row">
@@ -172,16 +208,21 @@
     <div class="row">
 				<div class="col-sm-12">
           <hr style="margin-top:60px;">
-          <h1 style="margin-bottom: 20px;">The Forum</h1>
+          <h1 style="margin-bottom: 20px;">The Forum</h1><a name="forum"></a>
           <i class="fa fa-flask" style="color: #3E9B85;font-size: 5.5em;margin-bottom: 20px;"></i>
           <div class="row">
             <div class="col-sm-8 col-sm-push-2">
               <p>
-                At the Forum, OpenStack users and developers will gather to brainstorm the requirements for the next release, gather feedback on the past version and have strategic discussions that go beyond just one release cycle. Development teams, working groups and interested individuals will discuss release requirements, connect with community members about cross-project collaboration, and to exchange feedback between design and operations members.
+                At the <a href="http://superuser.openstack.org/articles/openstack-forum/" target="_blank">Forum</a>, OpenStack users and developers will gather to brainstorm the requirements for the next release, gather feedback on the past version and have strategic discussions that go beyond just one release cycle. Development teams, working groups and interested individuals will discuss release requirements, connect with community members about cross-project collaboration, and to exchange feedback between design and operations members.
               </p>
             </div>
           </div>
         </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <a href="https://wiki.openstack.org/wiki/Forum" class="btn academy-cta" target="_blank">Read more about the Forum</a>
+      </div>
     </div>
   </div>
 </div>
@@ -189,23 +230,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <hr>
-				<div class="stats-wrapper">
-					<h3 class="recap-title">Attendees From Around The World</h3>
-					<div class="single-summit-stats right">
-						<h4>May 2015: Vancouver, BC</h4>
-						<img src="/themes/openstack/static/images/boston/stats-vancouver.svg" alt="Vancouver Summit Attendees">
-					</div>
-					<div class="single-summit-stats">
-						<h4>April 2016: Austin, Texas</h4>
-						<img src="/themes/openstack/static/images/boston/stats-austin.svg" alt="Austin Summit Attendees">
-					</div>
-					<div class="about-summit-legend-wrapper">
-						<img class="about-summit-legend" src="/themes/openstack/static/images/tokyo/about-stats-legend.svg" onerror="this.onerror=null; this.src=/themes/openstack/static/images/tokyo/about-stats-legend.png" alt="Vancouver Summit Attendees">
-					</div>
-				</div> 
-      </div>
-      <div class="col-sm-12">
+        <hr style="margin-top:60px;">
 				<h3 class="recap-title">Watch the Keynotes from Barcelona</h3>
 				<div class="about-video-wrapper">
 					<iframe src="//www.youtube.com/embed/GGxzlLwt6WA?rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
