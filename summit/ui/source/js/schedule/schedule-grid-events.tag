@@ -1,5 +1,10 @@
 <schedule-grid-events>
-    <div id="eventModal" class="modal fade">
+    <style type="text/css">
+        .modal-body .container {
+            width: auto ;
+        }
+    </style>
+    <div id="eventModal" pepe class="modal fade">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
