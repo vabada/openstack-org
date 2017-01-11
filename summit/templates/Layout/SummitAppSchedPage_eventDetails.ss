@@ -57,41 +57,8 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="event-btn">
-            <a href="{$Event.getLink(show)}" data-target="#myModal" class="btn btn-primary btn-md active btn-warning btn-go-event" role="button">EVENT DETAILS</a>
+            <a href="{$Event.getLink(show)}" data-target="#eventModal" class="btn btn-primary btn-md active btn-warning btn-go-event" role="button">EVENT DETAILS</a>
         </div>
         <% include SummitAppEvent_RSVPButton Event=$Event %>
     </div>
 </div>
-<div id="myModal" class="modal fade">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>Loading...</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-
-    </div>
-        <!-- /.modal-content -->
-</div>
-<style>
-    .modal-lg{
-
-    }
-</style>
-<script>
-
-    $('[data-target="#myModal"]').click(function(e){
-        e.preventDefault();
-        $('.modal-body').load($(this).attr("href"),function(result){
-            $('#myModal').modal({show:true});
-        });
-     });
-
-</script>

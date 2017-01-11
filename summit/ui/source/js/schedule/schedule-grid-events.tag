@@ -1,4 +1,20 @@
 <schedule-grid-events>
+    <div id="eventModal" class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Loading...</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row" id="events-inner-container">
     </div>
     <div class="row" style="display:none;">
@@ -168,24 +184,29 @@
                     detail.slideDown( "slow" );
                     if(must_load){
                         detail.html('<i class="fa fa-spinner fa-spin" style="font-size:24px"></i>');
-                    var url =  self.parent.base_url+'events/'+ event_id+'/html'
-                    $.ajax({
-                    type: 'GET',
-                    url:  url,
-                    timeout:60000,
-                    //ifModified: true,
-                    //contentType: "application/json; charset=utf-8",
-                    success: function (data, textStatus, jqXHR) {
-                    detail.html(data);
-                    detail.addClass('loaded');
-                    }
-                    }).fail(function (jqXHR, textStatus, errorThrown) {
-                    alert('there was an error, please contact your administrator');
-                    });
+                        var url =  self.parent.base_url+'events/'+ event_id+'/html'
+                            $.ajax({
+                            type: 'GET',
+                            url:  url,
+                            timeout:60000,
+                            //ifModified: true,
+                            //contentType: "application/json; charset=utf-8",
+                            success: function (data, textStatus, jqXHR) {
+                                detail.html(data);
+                                detail.addClass('loaded');
+                                $('[data-target="#eventModal"]').click(function(e){
+                                    e.preventDefault();
+                                    $('.modal-body').load($(this).attr("href"),function(result){
+                                        $('#eventModal').modal({show:true});
+                                    });
+                                });
+                            }
+                        }).fail(function (jqXHR, textStatus, errorThrown) {
+                            alert('there was an error, please contact your administrator');
+                        });
                     }
                 }
-                else
-                {
+                else {
                     detail.slideUp( "slow" );
                 }
                 e.preventDefault();
@@ -225,7 +246,10 @@
                 return false;
             });
 
+
         });
+
+
 
         addEventCallback(response, event){
             event.gcal_id = response.result.id;
