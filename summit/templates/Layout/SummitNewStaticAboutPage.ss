@@ -131,14 +131,14 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-4 col-sm-push-3">
+      <div class="col-sm-4 col-sm-push-1">
         <div class="summit-user-section">
           <img src="//www.openstack.org/assets/Uploads/malini.jpg" alt="Malini Bhandaru" class="summit-user-image">
           <div class="name">Malini Bhandaru</div>
           <div class="title">Principal engineer, cloud architect, Intel</div>
         </div>
       </div>
-      <div class="col-sm-4 col-sm-push-1">
+      <div class="col-sm-4 col-sm-push-3">
         <div class="summit-user-section">
           <img src="//www.openstack.org/assets/profile-images/Boris-Picture2.jpg" alt="Mark Collier" class="summit-user-image">
           <div class="name">Boris Renski</div>
