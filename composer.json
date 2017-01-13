@@ -28,7 +28,7 @@
     "unclecheese/display-logic": "1.2.1",
     "unclecheese/zen-fields": "1.0.*",
     "unclecheese/betterbuttons": "^1.3",
-    "silverstripe/tagfield": "dev-master",
+    "silverstripe/tagfield": "1.2.1",
     "unclecheese/silverstripe-permamail": "dev-3.1-compat",
     "unclecheese/bootstrap-forms": "1.1.11",
     "unclecheese/dropzone": "1.3.0",
@@ -47,7 +47,9 @@
     "eluceo/ical": "^0.10.1",
     "mustangostang/spyc": "0.5.1",
     "simplepie/simplepie": "1.4.2",
-    "symfony/yaml": "~2.1|~3.0"
+    "symfony/yaml": "~2.1|~3.0",
+    "icanboogie/inflector": "^1.4",
+    "doctrine/common": "2.7.2"
   },
   "require-dev": {
     "phpunit/PHPUnit": "~3.7@stable",
@@ -63,8 +65,10 @@
       "html2pdf_v4.03",
       "summit/code/infrastructure/traits",
       "openstack/code/utils/apis/traits",
+      "openstack/code/utils/apis",
       "googlemaps/code/traits",
-      "summit/code/pages/summit_entities/traits"
+      "summit/code/pages/summit_entities/traits",
+      "openstack/code/utils/DB/traits"
     ]
   },
   "config": {

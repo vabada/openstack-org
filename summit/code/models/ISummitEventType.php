@@ -19,9 +19,13 @@ interface ISummitEventType extends IEntity
      */
     public function getType();
 
-    const HandonLabs = 'Hand-on Labs';
+    // default types
 
-    const Lunch_Breaks = 'Lunch & Breaks';
+    const HandonLabs    = 'Hand-on Labs';
+
+    const Lunch_Breaks  = 'Lunch & Breaks';
 
     const EveningEvents = 'Evening Events';
+
+    const GroupsEvents  = 'Groups Events';
 }

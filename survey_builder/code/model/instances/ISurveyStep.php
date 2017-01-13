@@ -17,6 +17,9 @@
  */
 interface ISurveyStep extends IEntity {
 
+    const CompleteState   = 'COMPLETE';
+    const IncompleteState = 'INCOMPLETE';
+
     /**
      * @return ISurveyStepTemplate
      */
@@ -36,4 +39,19 @@ interface ISurveyStep extends IEntity {
      * @return void
      */
     public function clear();
+
+    /**
+     * @return $this
+     */
+    function markComplete();
+
+    /**
+     * @return bool
+     */
+    function isComplete();
+
+    /**
+     * @return $this
+     */
+    public function markIncomplete();
 }

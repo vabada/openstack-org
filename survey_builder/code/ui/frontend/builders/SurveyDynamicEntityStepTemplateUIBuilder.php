@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2015 OpenStack Foundation
+ * Copyright 2017 OpenStack Foundation
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,7 +12,9 @@
  * limitations under the License.
  **/
 
-class SurveyDynamicEntityStepTemplateUIBuilder implements ISurveyStepUIBuilder {
+class SurveyDynamicEntityStepTemplateUIBuilder
+    extends SurveyAbstractStepTemplateUIBuilder
+    implements ISurveyStepUIBuilder {
     /**
      * @param ISurveyStep $step
      * @param string $action
@@ -26,29 +28,31 @@ class SurveyDynamicEntityStepTemplateUIBuilder implements ISurveyStepUIBuilder {
         $fields->add(new HiddenField('survey_id', 'survey_id', $step->survey()->getIdentifier()));
         $fields->add(new HiddenField('step_id', 'step_id', $step->getIdentifier()));
 
-
         $content = $step->template()->content();
         if(!empty($content))
             $fields->add(new LiteralField('content', $content));
 
-        if($step->template()->canSkip()){
-            $fields->add(
-                new LiteralField('skip',sprintf('<p><strong>If you do not wish to answer these questions, you may <a href="%s%s/skip-step">skip to the next section</a>.</strong></p>', Controller::curr()->Link(), $step->template()->title()))
-            );
-        }
-
-        if(!empty($content) || $step->template()->canSkip())
-            $fields->add(new LiteralField('hr', '<hr/>'));
-
         $validator = null;
-        $actions   = new FieldList(
-            FormAction::create('AddEntity')->setTitle("Add")->setUseButtonTag(true),
-            FormAction::create('Done')->setTitle("Done")->setUseButtonTag(true)
-        );
 
-        $form =  new DynamicStepForm(Controller::curr(), $form_name, $fields, $actions, $step, $validator);
+        list($default_action, $actions) = $this->buildActions($action, $step);
+
+        $form = $this->buildForm($form_name, $fields, $actions, $step, $validator);
         $form->setTemplate('DynamicEntityStepForm');
         $form->setAttribute('class','survey_step_form');
+        $form->setDefaultAction($default_action);
         return $form;
+    }
+
+    /**
+     * @param string $form_name
+     * @param $fields
+     * @param $actions
+     * @param $step
+     * @param $validator
+     * @return DynamicStepForm
+     */
+    protected function buildForm($form_name, $fields, $actions, $step, $validator)
+    {
+       return new DynamicStepForm(Controller::curr(), $form_name, $fields, $actions, $step, $validator);
     }
 }
