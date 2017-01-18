@@ -44,6 +44,8 @@
 
     <% include Footer %>
     <% include Quantcast %>
+    <% include UpdateProfileModal %>
+
   </body>
     <% include Page_LinkedinInsightTracker %>
 </html>
