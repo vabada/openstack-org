@@ -551,4 +551,9 @@ class Page_Controller extends ContentController
         $tags = parent::MetaTags(false);
         return $tags;
     }
+
+    public function showUpdateProfileModal(){
+        return Member::currentUser() && Session::get("Member.showUpdateProfileModal");
+
+    }
 }

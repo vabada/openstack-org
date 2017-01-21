@@ -46,6 +46,7 @@ class OpenStackMember extends DataExtension
         'EmailVerifiedTokenHash' => 'Text',
         'EmailVerifiedDate'      => 'SS_Datetime',
         'LegacyMember'           => 'Boolean',
+        'ProfileLastUpdate'           => 'SS_Datetime',
     );
 
     private static $defaults = array
@@ -508,5 +509,16 @@ class OpenStackMember extends DataExtension
             return $validationResult->error('Password is required');
     }
 
+    public function ProfileUpdated()
+    {
+        $this->owner->LastUpdateProfile = SS_Datetime::now()->Rfc2822();
+    }
+
+    public function isProfileUpdated()
+    {
+        $notNull = $this->owner->ProfileLastUpdate != null;
+        $isGreater =  strtotime($this->owner->ProfileLastUpdate ) > strtotime('-90 days');
+        return $notNull && $isGreater;
+    }
 }
 

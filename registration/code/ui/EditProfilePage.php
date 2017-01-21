@@ -178,12 +178,14 @@ class EditProfilePage_Controller extends Page_Controller
             $purifier = new HTMLPurifier($config);
             $cleanedBio = $purifier->purify($data["Bio"]);
         }
+
         $form->saveInto($CurrentMember);
         if (isset($cleanedBio)) $CurrentMember->Bio = $cleanedBio;
         if ($data['Gender'] == 'Specify') {
             $CurrentMember->Gender = $data['GenderSpecify'];
         }
         $email_updated = $CurrentMember->isChanged('Email');
+        $CurrentMember->ProfileUpdated();
         $CurrentMember->write();
 
         $speaker = PresentationSpeaker::get()->filter('MemberID', $CurrentMember->ID)->first();
