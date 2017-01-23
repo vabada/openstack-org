@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c3efd7adf7ec88cd3a2cb289de4d9e5c",
-    "content-hash": "a64ee726f96effef440771eef1a70e5e",
+    "hash": "8a50f85f248e154192dac5ca3e95f636",
+    "content-hash": "e76cb6fa8cfd4c3da1bc9b58e0b2dbd3",
     "packages": [
         {
             "name": "composer/installers",
@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "87933d75bdab747400138a7e0381760bb9b64dde"
+                "reference": "f1a0de61fb7f7a8cc5e67ab70b68f11573490a55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/87933d75bdab747400138a7e0381760bb9b64dde",
-                "reference": "87933d75bdab747400138a7e0381760bb9b64dde",
+                "url": "https://api.github.com/repos/composer/installers/zipball/f1a0de61fb7f7a8cc5e67ab70b68f11573490a55",
+                "reference": "f1a0de61fb7f7a8cc5e67ab70b68f11573490a55",
                 "shasum": ""
             },
             "require": {
@@ -65,6 +65,7 @@
                 "Kanboard",
                 "MODX Evo",
                 "Mautic",
+                "Maya",
                 "OXID",
                 "Plentymarkets",
                 "Porto",
@@ -114,7 +115,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2016-12-23 18:55:51"
+            "time": "2017-01-22 07:37:08"
         },
         {
             "name": "eluceo/ical",
@@ -175,12 +176,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ezyang/htmlpurifier.git",
-                "reference": "5070404376d3b4287ce5c6bfae13e888b464742d"
+                "reference": "a1c09b09e398687deeb8e309a6305def4b43439b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/5070404376d3b4287ce5c6bfae13e888b464742d",
-                "reference": "5070404376d3b4287ce5c6bfae13e888b464742d",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/a1c09b09e398687deeb8e309a6305def4b43439b",
+                "reference": "a1c09b09e398687deeb8e309a6305def4b43439b",
                 "shasum": ""
             },
             "require": {
@@ -214,7 +215,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2016-10-29 07:01:19"
+            "time": "2017-01-13 12:31:37"
         },
         {
             "name": "fzaninotto/faker",
@@ -469,12 +470,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/RingPHP.git",
-                "reference": "9465032ac5d6beaa55f10923403e6e1c36018d9c"
+                "reference": "4c8fe4c48a0fb7cc5e41ef529e43fecd6da4d539"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/9465032ac5d6beaa55f10923403e6e1c36018d9c",
-                "reference": "9465032ac5d6beaa55f10923403e6e1c36018d9c",
+                "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/4c8fe4c48a0fb7cc5e41ef529e43fecd6da4d539",
+                "reference": "4c8fe4c48a0fb7cc5e41ef529e43fecd6da4d539",
                 "shasum": ""
             },
             "require": {
@@ -512,7 +513,7 @@
                 }
             ],
             "description": "Provides a simple API and specification that abstracts away the details of HTTP into a single PHP function.",
-            "time": "2015-05-21 17:23:02"
+            "time": "2017-01-13 20:44:38"
         },
         {
             "name": "guzzlehttp/streams",
@@ -678,6 +679,60 @@
             "time": "2015-02-23 16:36:53"
         },
         {
+            "name": "mobiledetect/mobiledetectlib",
+            "version": "2.8.24",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/serbanghita/Mobile-Detect.git",
+                "reference": "cdf8f8efaf993bc687e78e4622f5eebd0b8b3bf3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/serbanghita/Mobile-Detect/zipball/cdf8f8efaf993bc687e78e4622f5eebd0b8b3bf3",
+                "reference": "cdf8f8efaf993bc687e78e4622f5eebd0b8b3bf3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.0.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "dev-master",
+                "johnkary/phpunit-speedtrap": "~1.0@dev",
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "Mobile_Detect.php"
+                ],
+                "psr-0": {
+                    "Detection": "namespaced/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Serban Ghita",
+                    "email": "serbanghita@gmail.com",
+                    "homepage": "http://mobiledetect.net",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Mobile_Detect is a lightweight PHP class for detecting mobile devices. It uses the User-Agent string combined with specific HTTP headers to detect the mobile environment.",
+            "homepage": "https://github.com/serbanghita/Mobile-Detect",
+            "keywords": [
+                "detect mobile devices",
+                "mobile",
+                "mobile detect",
+                "mobile detector",
+                "php mobile detect"
+            ],
+            "time": "2016-11-11 14:56:25"
+        },
+        {
             "name": "mustangostang/spyc",
             "version": "0.5.1",
             "source": {
@@ -730,12 +785,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/chartjs/Chart.js.git",
-                "reference": "7c3e71d58b6cb4b169ef03ca22f7bf2cfd09b912"
+                "reference": "c20e57bc8ae86f2881b1f894b1767d95194bada1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chartjs/Chart.js/zipball/7c3e71d58b6cb4b169ef03ca22f7bf2cfd09b912",
-                "reference": "7c3e71d58b6cb4b169ef03ca22f7bf2cfd09b912",
+                "url": "https://api.github.com/repos/chartjs/Chart.js/zipball/c20e57bc8ae86f2881b1f894b1767d95194bada1",
+                "reference": "c20e57bc8ae86f2881b1f894b1767d95194bada1",
                 "shasum": ""
             },
             "require": {
@@ -763,7 +818,7 @@
                 "JS",
                 "chart"
             ],
-            "time": "2017-01-02 18:26:51"
+            "time": "2017-01-18 02:13:09"
         },
         {
             "name": "openid/php-openid",
@@ -1396,30 +1451,25 @@
         },
         {
             "name": "silverstripe/tagfield",
-            "version": "dev-master",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/silverstripe/silverstripe-tagfield.git",
-                "reference": "4ce0560d6e9f027e7f077d8f57f4d7d5853d529a"
+                "reference": "d46e325aa7ffed8af566d33d33b8f0893828d691"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/silverstripe/silverstripe-tagfield/zipball/4ce0560d6e9f027e7f077d8f57f4d7d5853d529a",
-                "reference": "4ce0560d6e9f027e7f077d8f57f4d7d5853d529a",
+                "url": "https://api.github.com/repos/silverstripe/silverstripe-tagfield/zipball/d46e325aa7ffed8af566d33d33b8f0893828d691",
+                "reference": "d46e325aa7ffed8af566d33d33b8f0893828d691",
                 "shasum": ""
             },
             "require": {
                 "silverstripe/framework": "~3.1"
             },
             "type": "silverstripe-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.x-dev"
-                }
-            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3-Clause"
+                "BSD-2-Clause"
             ],
             "authors": [
                 {
@@ -1434,7 +1484,7 @@
                 "silverstripe",
                 "tag"
             ],
-            "time": "2016-12-20 15:26:40"
+            "time": "2015-11-04 01:25:35"
         },
         {
             "name": "simplepie/simplepie",
@@ -1605,12 +1655,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "6c687d5ae36a8677a6e3ce020d12b18feac79d5b"
+                "reference": "31e5a3078c061925cc8d91b4d55f1ba4c895efc7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/6c687d5ae36a8677a6e3ce020d12b18feac79d5b",
-                "reference": "6c687d5ae36a8677a6e3ce020d12b18feac79d5b",
+                "url": "https://api.github.com/repos/symfony/process/zipball/31e5a3078c061925cc8d91b4d55f1ba4c895efc7",
+                "reference": "31e5a3078c061925cc8d91b4d55f1ba4c895efc7",
                 "shasum": ""
             },
             "require": {
@@ -1646,7 +1696,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-02 20:33:09"
+            "time": "2017-01-21 17:19:16"
         },
         {
             "name": "symfony/yaml",
@@ -1654,12 +1704,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "a7be1238e556929b5a07aa8188d938078e467fab"
+                "reference": "7928849b226f065dae93ec0e8be3b829f73ba67b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/a7be1238e556929b5a07aa8188d938078e467fab",
-                "reference": "a7be1238e556929b5a07aa8188d938078e467fab",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/7928849b226f065dae93ec0e8be3b829f73ba67b",
+                "reference": "7928849b226f065dae93ec0e8be3b829f73ba67b",
                 "shasum": ""
             },
             "require": {
@@ -1701,7 +1751,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-09 14:37:34"
+            "time": "2017-01-21 17:10:26"
         },
         {
             "name": "tractorcow/silverstripe-autocomplete",
@@ -1785,12 +1835,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/unclecheese/silverstripe-fluent.git",
-                "reference": "59a43e718cf3c12a0e900378fb7463b2f311b873"
+                "reference": "46f6b3f365aa85dc6f38f0e9683c85418b4b4cea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/unclecheese/silverstripe-fluent/zipball/59a43e718cf3c12a0e900378fb7463b2f311b873",
-                "reference": "59a43e718cf3c12a0e900378fb7463b2f311b873",
+                "url": "https://api.github.com/repos/unclecheese/silverstripe-fluent/zipball/46f6b3f365aa85dc6f38f0e9683c85418b4b4cea",
+                "reference": "46f6b3f365aa85dc6f38f0e9683c85418b4b4cea",
                 "shasum": ""
             },
             "require": {
@@ -1825,7 +1875,7 @@
                 "issues": "http://github.com/tractorcow/silverstripe-fluent/issues",
                 "source": "https://github.com/unclecheese/silverstripe-fluent/tree/patch/default-route"
             },
-            "time": "2016-06-27 22:20:41"
+            "time": "2017-01-17 22:07:28"
         },
         {
             "name": "tractorcow/silverstripe-opengraph",
@@ -1869,16 +1919,16 @@
         },
         {
             "name": "unclecheese/betterbuttons",
-            "version": "1.3.12",
+            "version": "1.3.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/unclecheese/silverstripe-gridfield-betterbuttons.git",
-                "reference": "04ff8bf7928a94626a7eefff3efacd0baa53d8b5"
+                "reference": "71f9653f51420ca07a33024bd8fe4396ee532bdb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/unclecheese/silverstripe-gridfield-betterbuttons/zipball/04ff8bf7928a94626a7eefff3efacd0baa53d8b5",
-                "reference": "04ff8bf7928a94626a7eefff3efacd0baa53d8b5",
+                "url": "https://api.github.com/repos/unclecheese/silverstripe-gridfield-betterbuttons/zipball/71f9653f51420ca07a33024bd8fe4396ee532bdb",
+                "reference": "71f9653f51420ca07a33024bd8fe4396ee532bdb",
                 "shasum": ""
             },
             "require": {
@@ -1901,7 +1951,7 @@
                 "gridfield",
                 "silverstripe"
             ],
-            "time": "2017-01-10 20:47:57"
+            "time": "2017-01-20 08:51:05"
         },
         {
             "name": "unclecheese/bootstrap-forms",
@@ -2110,12 +2160,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/smarcet/silverstripe-green.git",
-                "reference": "c83253c114b4f798fae2bc54e77f76266707074a"
+                "reference": "4395dcef5f4efd5a2c67e0bba3ab5cc583e3fdd4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/smarcet/silverstripe-green/zipball/c83253c114b4f798fae2bc54e77f76266707074a",
-                "reference": "c83253c114b4f798fae2bc54e77f76266707074a",
+                "url": "https://api.github.com/repos/smarcet/silverstripe-green/zipball/4395dcef5f4efd5a2c67e0bba3ab5cc583e3fdd4",
+                "reference": "4395dcef5f4efd5a2c67e0bba3ab5cc583e3fdd4",
                 "shasum": ""
             },
             "require": {
@@ -2125,6 +2175,9 @@
             },
             "require-dev": {
                 "symfony/filesystem": "~3.1"
+            },
+            "suggest": {
+                "unclecheese/silverstripe-green-addons": "Provides additional functionality for content and code generation."
             },
             "type": "silverstripe-module",
             "license": [
@@ -2148,7 +2201,7 @@
                 "issues": "https://github.com/unclecheese/silverstripe-green/issues",
                 "source": "https://github.com/smarcet/silverstripe-green/tree/master"
             },
-            "time": "2016-10-18 01:33:08"
+            "time": "2016-10-19 01:22:37"
         },
         {
             "name": "unclecheese/silverstripe-permamail",
@@ -3358,12 +3411,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/class-loader.git",
-                "reference": "4d0a33df75d2891bc7c35e84e9faea4c23b001b1"
+                "reference": "99e1c4b3adbddcac8dfa2aa5a3cd9b1d28f25404"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/class-loader/zipball/4d0a33df75d2891bc7c35e84e9faea4c23b001b1",
-                "reference": "4d0a33df75d2891bc7c35e84e9faea4c23b001b1",
+                "url": "https://api.github.com/repos/symfony/class-loader/zipball/99e1c4b3adbddcac8dfa2aa5a3cd9b1d28f25404",
+                "reference": "99e1c4b3adbddcac8dfa2aa5a3cd9b1d28f25404",
                 "shasum": ""
             },
             "require": {
@@ -3406,7 +3459,7 @@
             ],
             "description": "Symfony ClassLoader Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-10 14:32:56"
+            "time": "2017-01-21 17:10:26"
         },
         {
             "name": "symfony/config",
@@ -3470,12 +3523,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "fddd0c5c7c9c3126c7e1f7ce7c851439a7e586b1"
+                "reference": "4272e242823935c74c4090aa9b60bcf0d42f2a2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/fddd0c5c7c9c3126c7e1f7ce7c851439a7e586b1",
-                "reference": "fddd0c5c7c9c3126c7e1f7ce7c851439a7e586b1",
+                "url": "https://api.github.com/repos/symfony/console/zipball/4272e242823935c74c4090aa9b60bcf0d42f2a2e",
+                "reference": "4272e242823935c74c4090aa9b60bcf0d42f2a2e",
                 "shasum": ""
             },
             "require": {
@@ -3485,8 +3538,10 @@
             },
             "require-dev": {
                 "psr/log": "~1.0",
+                "symfony/dependency-injection": "~2.8|~3.0",
                 "symfony/event-dispatcher": "~2.8|~3.0",
                 "symfony/filesystem": "~2.8|~3.0",
+                "symfony/http-kernel": "~2.8|~3.0",
                 "symfony/process": "~2.8|~3.0"
             },
             "suggest": {
@@ -3525,7 +3580,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-08 21:15:04"
+            "time": "2017-01-21 17:19:16"
         },
         {
             "name": "symfony/css-selector",
@@ -3586,12 +3641,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "7a0d1faf0e3e9ef6c3eea08e48a461010ea211db"
+                "reference": "8dfba97c33692aef9b0f85d9b38a73972bfd7b77"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/7a0d1faf0e3e9ef6c3eea08e48a461010ea211db",
-                "reference": "7a0d1faf0e3e9ef6c3eea08e48a461010ea211db",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/8dfba97c33692aef9b0f85d9b38a73972bfd7b77",
+                "reference": "8dfba97c33692aef9b0f85d9b38a73972bfd7b77",
                 "shasum": ""
             },
             "require": {
@@ -3602,7 +3657,6 @@
                 "symfony/http-kernel": ">=2.3,<2.3.24|~2.4.0|>=2.5,<2.5.9|>=2.6,<2.6.2"
             },
             "require-dev": {
-                "symfony/class-loader": "~2.8|~3.0",
                 "symfony/http-kernel": "~2.8|~3.0"
             },
             "type": "library",
@@ -3635,7 +3689,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-02 20:33:09"
+            "time": "2017-01-23 08:28:52"
         },
         {
             "name": "symfony/dependency-injection",
@@ -3643,12 +3697,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "b25451c5e0aeb4227efde89d47b81c4be2d77ab0"
+                "reference": "3fee94ce5f7932fc0379118671fc08b9f636a6ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/b25451c5e0aeb4227efde89d47b81c4be2d77ab0",
-                "reference": "b25451c5e0aeb4227efde89d47b81c4be2d77ab0",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/3fee94ce5f7932fc0379118671fc08b9f636a6ce",
+                "reference": "3fee94ce5f7932fc0379118671fc08b9f636a6ce",
                 "shasum": ""
             },
             "require": {
@@ -3698,7 +3752,7 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-10 15:50:45"
+            "time": "2017-01-23 21:43:33"
         },
         {
             "name": "symfony/dom-crawler",
@@ -3706,12 +3760,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "52cc211afa9458c0a54c478010a55f44892c1c02"
+                "reference": "6225d65e001b3f03f63d43e302a26314f8e1e6fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/52cc211afa9458c0a54c478010a55f44892c1c02",
-                "reference": "52cc211afa9458c0a54c478010a55f44892c1c02",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/6225d65e001b3f03f63d43e302a26314f8e1e6fe",
+                "reference": "6225d65e001b3f03f63d43e302a26314f8e1e6fe",
                 "shasum": ""
             },
             "require": {
@@ -3754,7 +3808,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-02 20:30:24"
+            "time": "2017-01-21 16:40:50"
         },
         {
             "name": "symfony/filesystem",
@@ -3870,12 +3924,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "2bf109204240e7f9f661369df7bcd4a9abcf1962"
+                "reference": "5d598faac341f9ac753f327ec62903671d3da8d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/2bf109204240e7f9f661369df7bcd4a9abcf1962",
-                "reference": "2bf109204240e7f9f661369df7bcd4a9abcf1962",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/5d598faac341f9ac753f327ec62903671d3da8d3",
+                "reference": "5d598faac341f9ac753f327ec62903671d3da8d3",
                 "shasum": ""
             },
             "require": {
@@ -3926,7 +3980,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-02 20:33:09"
+            "time": "2017-01-21 17:10:26"
         }
     ],
     "aliases": [],
@@ -3937,7 +3991,6 @@
         "nnnick/chartjs": 20,
         "openid/php-openid": 20,
         "silverstripe/geoip": 20,
-        "silverstripe/tagfield": 20,
         "unclecheese/silverstripe-permamail": 20,
         "unclecheese/bootstrap-tagfield": 20,
         "silverstripe/gridfieldajaxrefresh": 20,
