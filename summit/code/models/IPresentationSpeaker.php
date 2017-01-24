@@ -37,8 +37,6 @@ interface IPresentationSpeaker extends IEntity
      */
     public function getNameSlug();
 
-    public function createUniqueSlug($slug = '', $idx = 0);
-
     /**
      * Gets a url label for the speaker
      *
