@@ -57,3 +57,4 @@ migrations:
   - UpdateOpenstackComponentMigration
   - LightingTalksMigration
   - RemoveSlugColMigration
+  - LightingTalksMigrationFix

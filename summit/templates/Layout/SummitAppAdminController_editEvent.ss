@@ -272,7 +272,7 @@
             $("#location").chosen();
             $("#event_type").chosen();
             <% if $Top.Event %>
-                <% if $Top.Event.Type.Type == 'Presentation' || $Top.Event.Type.Type == 'Keynotes' || $Top.Event.Type.Type == 'Panel' || $Top.Event.Type.Type == 'Lighting Talks'%>
+                <% if $Top.Event.Type.Type == 'Presentation' || $Top.Event.Type.Type == 'Keynotes' || $Top.Event.Type.Type == 'Panel' || $Top.Event.Type.Type == 'Lightning Talks'%>
                     $('.speakers_container').show();
                     $('.level_container').show();
                     $('#expect_learn_container').show();

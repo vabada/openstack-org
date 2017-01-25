@@ -256,6 +256,15 @@ class SummitEvent extends DataObject implements ISummitEvent
     }
 
     /**
+     * @param string $type
+     * @return bool
+     */
+    public function isOfType($type)
+    {
+        return $this->getTypeName() == $type;
+    }
+
+    /**
      * @return ISummit
      */
     public function getSummit()
