@@ -58,3 +58,4 @@ migrations:
   - LightingTalksMigration
   - RemoveSlugColMigration
   - LightingTalksMigrationFix
+  - NewsFeaturedToArchiveMigration

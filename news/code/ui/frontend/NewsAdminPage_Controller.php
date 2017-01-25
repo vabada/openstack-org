@@ -88,7 +88,7 @@ final class NewsAdminPage_Controller extends AdminController {
                 $articles = $this->news_repository->getSlideNews(false);
                 break;
             case 'featured' :
-                $articles = $this->news_repository->getFeaturedNews(false);
+                $articles = $this->news_repository->getFeaturedNews(false,5);
                 break;
             case 'recent' :
                 $articles = $this->news_repository->getRecentNews(false);
@@ -132,6 +132,8 @@ final class NewsAdminPage_Controller extends AdminController {
             //item removed, reorder
             $this->news_manager->sortNewsArticles($article_id,$new_rank,$old_rank,false,true,$type);
         }
+
+        $this->news_manager->doReorderArticles($type);
     }
 
     public function deleteArticle() {
