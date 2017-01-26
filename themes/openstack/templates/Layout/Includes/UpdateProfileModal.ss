@@ -1,8 +1,4 @@
-<script type="text/javascript">
-    jQuery(document).ready(function($) {
-        $("#updateProfileModal").modal('show');
-    });
-</script>
+
 <div id="updateProfileModal" class="modal fade in" >
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -15,7 +11,8 @@
                 <p>Please update your profile</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" onclick="location.href='/profile/';" >Go to my profile</button>
+                <button type="button" class="btn btn-default" id="btn_dismissProfileModal">Dont show me again</button>
             </div>
         </div>
     </div>

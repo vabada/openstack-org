@@ -44,7 +44,8 @@
 
     <% include Footer %>
     <% include Quantcast %>
-    <% if showUpdateProfileModal() %>
+    <!-- udpdate profile modal -->
+    <% if showUpdateProfileModal() && $Top.URLSegment != profile %>
       <% include UpdateProfileModal %>
     <% end_if %>
   </body>
