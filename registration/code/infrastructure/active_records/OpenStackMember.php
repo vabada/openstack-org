@@ -511,7 +511,7 @@ class OpenStackMember extends DataExtension
 
     public function ProfileUpdated()
     {
-        $this->owner->LastUpdateProfile = SS_Datetime::now()->Rfc2822();
+        $this->owner->ProfileLastUpdate = SS_Datetime::now()->Rfc2822();
     }
 
     public function isProfileUpdated()
