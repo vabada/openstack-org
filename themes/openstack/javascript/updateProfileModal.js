@@ -19,7 +19,7 @@ jQuery(document).ready(function($){
 
         $("#btn_dismissProfileModal").on("click", function(e){
             console.log("closing modal, calling ajax.");
-            jQuery.ajax({url: "/home/dismissUpdateProfileModal", complete: function(result){
+            jQuery.ajax({url: "/memberProfile/dismiss-update-profile", complete: function(result){
                 $("#updateProfileModal").modal('hide');
 
             }});

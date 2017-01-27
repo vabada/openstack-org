@@ -557,12 +557,4 @@ class Page_Controller extends ContentController
     public function showUpdateProfileModal(){
         return (Member::currentUser() && Session::get("Member.showUpdateProfileModal"));
     }
-
-    public function dismissUpdateProfileModal()
-    {
-        if (Director::is_ajax() && Member::currentUser()) {
-            Session::set("Member.showUpdateProfileModal", false);
-            return $this->ok();
-        }
-    }
 }

@@ -12,10 +12,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-final class MemberProfileAPI extends AbstractRestfulJsonApi
+class MemberProfileAPI extends AbstractRestfulJsonApi
 {
-    public function __construct
-    (
+    public function __construct() {
         parent::__construct();
     }
 
@@ -33,7 +32,7 @@ final class MemberProfileAPI extends AbstractRestfulJsonApi
     }
 
     protected function authenticate() {
-        return false;
+        return true;
     }
 
     static $url_handlers = array(
