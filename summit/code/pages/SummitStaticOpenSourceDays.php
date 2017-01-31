@@ -13,7 +13,7 @@ class SummitStaticOpenSourceDays_Controller extends SummitPage_Controller {
         Requirements::block("summit/css/combined.css");
         Requirements::css("themes/openstack/static/css/combined.css");
         Requirements::css("summit/css/opensourceday.css");
-	Requirements::css('themes/openstack/javascript/secondary-nav.jquery/secondary-nav.jquery.css');
-        Requirements::javascript('themes/openstack/javascript/secondary-nav.jquery/secondary-nav.jquery.js');
+#	Requirements::css('themes/openstack/javascript/secondary-nav.jquery/secondary-nav.jquery.css');
+#        Requirements::javascript('themes/openstack/javascript/secondary-nav.jquery/secondary-nav.jquery.js');
     }
 }
