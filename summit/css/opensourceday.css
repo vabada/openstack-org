@@ -24,3 +24,11 @@
 	-o-background-size: cover;
 	background-size: cover;
 }
+
+.mobile-city-date {
+    display: none;
+}
+
+.company-desc {
+	display:none;
+}
