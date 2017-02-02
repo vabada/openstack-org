@@ -441,9 +441,9 @@ SQL;
             return;
         }
         if ($class_name === 'SurveyTemplate') {
-            return "Surveys Submitted";
+            return "Surveys Submitted (w/ at least 1 mandatory answer)";
         } else {
-            return "Deployments Submitted";
+            return "Deployments Submitted (w/ at least 1 mandatory answer)";
         }
     }
 
@@ -483,7 +483,7 @@ SQL;
 
                 $from = date('Y/m/d H:i', strtotime($template->StartDate));
                 $to = date('Y/m/d H:i', strtotime($template->EndDate));
-                $query_str = sprintf("?From=%s&To=%s", $from, $to);
+                $query_str = sprintf("?survey_template_id=%s&From=%s&To=%s", $template_id, $from, $to);
 
                 return Controller::curr()->redirect(Controller::curr()->Link($action) . $query_str);
             }
@@ -501,7 +501,7 @@ SQL;
 
                 $query_str = '';
                 if (!empty($from) && !empty($to)) {
-                    $query_str = sprintf("?From=%s&To=%s", $from, $to);
+                    $query_str = sprintf("?survey_template_id=%s&From=%s&To=%s", $template_id, $from, $to);
                 }
 
                 return Controller::curr()->redirect(Controller::curr()->Link($action) . $query_str);
@@ -811,8 +811,6 @@ SQL;
                             AND ANS.`Value` IS NOT NULL {$filters_where}";
 
         $answers = DB::query($answers_query);
-
-        //die($answers_query);
 
         $question_values = SurveyQuestionValueTemplate::get()
                             ->where("OwnerID IN (".implode(',',$pu_question_ids).")")
