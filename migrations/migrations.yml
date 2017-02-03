@@ -61,3 +61,4 @@ migrations:
   - RemoveSlugColMigration
   - NewsFeaturedToArchiveMigration
   - SurveyStateMigration
+  - InsertEmailForgotPasswordTemplateMigration
