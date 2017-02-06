@@ -459,8 +459,10 @@ SQL;
         $template_id   = intval($request->requestVar('survey_template_id'));
 
         if (empty($template_id)) {
-            $template = $this->SurveyBuilderSurveyTemplates($class_name)->last();
-            $template_id = $template->ID;
+            if (!$template_id = Session::get(sprintf("SurveyBuilder.%sStatistics.TemplateId", $class_name))) {
+                $template = $this->SurveyBuilderSurveyTemplates($class_name)->last();
+                $template_id = $template->ID;
+            }
         } else {
             Session::clear(sprintf("SurveyBuilder.%sStatistics.Filters", $class_name));
             Session::clear(sprintf("SurveyBuilder.%sStatistics.Filters_Questions", $class_name));
@@ -483,7 +485,7 @@ SQL;
 
                 $from = date('Y/m/d H:i', strtotime($template->StartDate));
                 $to = date('Y/m/d H:i', strtotime($template->EndDate));
-                $query_str = sprintf("?survey_template_id=%s&From=%s&To=%s", $template_id, $from, $to);
+                $query_str = sprintf("?From=%s&To=%s", $from, $to);
 
                 return Controller::curr()->redirect(Controller::curr()->Link($action) . $query_str);
             }
@@ -501,7 +503,7 @@ SQL;
 
                 $query_str = '';
                 if (!empty($from) && !empty($to)) {
-                    $query_str = sprintf("?survey_template_id=%s&From=%s&To=%s", $template_id, $from, $to);
+                    $query_str = sprintf("?From=%s&To=%s", $from, $to);
                 }
 
                 return Controller::curr()->redirect(Controller::curr()->Link($action) . $query_str);
