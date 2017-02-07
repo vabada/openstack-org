@@ -100,6 +100,9 @@ final class SangriaPageExportDataExtension extends Extension
         $query->setFrom('Member');
         $query->addLeftJoin('Group_Members', 'GM.MemberID = Member.ID','GM');
         $query->addLeftJoin('Group', 'Group.ID = GM.GroupID');
+        $query->addLeftJoin('Continent_Countries', 'Continent_Countries.CountryCode = Member.Country');
+        $query->addLeftJoin('Continent', 'Continent.ID = Continent_Countries.ContinentID');
+        $query->addLeftJoin('Countries', 'Countries.Code = Member.Country');
         //$query->addWhere('Member.GerritID IS NOT NULL');
         $query->addWhere('GM.GroupID IN ('.implode(',',$groups).')');
         $fields['Groups'] = "GROUP_CONCAT(Group.Code SEPARATOR ' | ')";
@@ -474,8 +477,13 @@ SQL;
                     $template_1[$header] = null;
                 }
             }
-            else
+            else {
+                if (strpos($name,'Country') !== false) {
+                    $template_1['Continent'] = null;
+                }
                 $template_1[$name] = null;
+            }
+
         }
 
         $entity_survey_header_query = <<<SQL
@@ -788,8 +796,15 @@ SQL;
                     }
                 }
             }
-            else
-                $line[$question] = $row['Answer'];
+            else {
+                if (strpos($question,'Country') !== false) {
+                    $line['Continent'] = CountryCodes::getContinent($row['Answer']);
+                    $country_name = CountryCodes::countryCode2name($row['Answer']);
+                    $line[$question] = $country_name ? $country_name : $row['Answer'];
+                } else {
+                    $line[$question] = $row['Answer'];
+                }
+            }
         }
 
         if(isset($line['SurveyID']) && intval($line['SurveyID']) > 0)
@@ -942,6 +957,9 @@ SQL;
                     $query->setFrom('Company');
                     $query->addLeftJoin('SummitSponsorPage_Companies', 'SummitSponsorPage_Companies.CompanyID = Company.ID');
                     $query->addLeftJoin('Summit', 'Summit.ID = SummitSponsorPage_Companies.SummitID');
+                    $query->addLeftJoin('Countries', 'Company.Country = Countries.Code');
+                    $query->addLeftJoin('Continent_Countries', 'Continent_Countries.CountryCode = Company.Country');
+                    $query->addLeftJoin('Continent', 'Continent.ID = Continent_Countries.ContinentID');
                     $query->addWhere('Summit.Active','1');
                     $fields = array_merge($fields,array('Sponsorship'=>'SummitSponsorPage_Companies.SponsorshipType','Summit ID'=>'Summit.ID'));
 
@@ -952,6 +970,9 @@ SQL;
                     break;
                 case 'member_level' :
                     $query->setFrom('Company');
+                    $query->addLeftJoin('Countries', 'Company.Country = Countries.Code');
+                    $query->addLeftJoin('Continent_Countries', 'Continent_Countries.CountryCode = Company.Country');
+                    $query->addLeftJoin('Continent', 'Continent.ID = Continent_Countries.ContinentID');
                     array_push($fields, 'Company.MemberLevel');
                     $query->setSelect($fields);
 
@@ -962,6 +983,9 @@ SQL;
                     $query->addInnerJoin('Company_Administrators', 'Company_Administrators.CompanyID = Company.ID');
                     $query->addLeftJoin('Member', 'Member.ID = Company_Administrators.MemberID');
                     $query->addLeftJoin('Group', 'Group.ID = Company_Administrators.GroupID');
+                    $query->addLeftJoin('Countries', 'Company.Country = Countries.Code');
+                    $query->addLeftJoin('Continent_Countries', 'Continent_Countries.CountryCode = Company.Country');
+                    $query->addLeftJoin('Continent', 'Continent.ID = Continent_Countries.ContinentID');
                     array_push($fields, 'Group.Title');
                     $query->setSelect($fields);
                     $query->addOrderBy('Company.Name');
