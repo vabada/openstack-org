@@ -62,3 +62,4 @@ migrations:
   - NewsFeaturedToArchiveMigration
   - SurveyStateMigration
   - InsertEmailForgotPasswordTemplateMigration
+  - CleanMemberFirstNameSurnameMigration
