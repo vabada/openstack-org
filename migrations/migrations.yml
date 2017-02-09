@@ -63,3 +63,4 @@ migrations:
   - SurveyStateMigration
   - InsertEmailForgotPasswordTemplateMigration
   - CleanMemberFirstNameSurnameMigration
+  - AddUniqueIndexToSummitEventsFavorites
