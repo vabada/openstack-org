@@ -4199,8 +4199,8 @@ h1 span.subhead {
 
 /*Open Source Days*/
 
-.learn-more-button a,
-a:visited {
+a.learn-more-button,
+a.learn-more-button:visited {
   color: #fff; }
 
 .about-open-source-days a:hover.btn.btn.btn-block {
