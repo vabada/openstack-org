@@ -291,7 +291,7 @@ class PresentationVotingPage_API extends RequestHandler
                 'date' => $vote->obj('Created')->Format('F j, Y'),
                 'ago' => $vote->obj('Created')->Ago()
             ] : null,
-            'abstract' => $presentation->Description,
+            'abstract' => $presentation->Abstract,
             'attendees_expected_learnt' => $presentation->AttendeesExpectedLearnt
         ];
 
