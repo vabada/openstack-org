@@ -808,4 +808,7 @@ SQL;
        return $this->getField('Abstract');
     }
 
+    public function AllowFeedBack(){
+        return $this->AllowFeedBack;
+    }
 }

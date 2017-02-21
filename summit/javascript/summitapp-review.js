@@ -12,10 +12,10 @@
  **/
 
 $(document).ready(function(){
-    $(".rating").rating({size:'xs',showCaption:false,showClear:false,step:1});
+    $(".rating").rating({showCaption:false,showClear:false,step:0.5});
 
     $('.save').click(function() {
-       saveReview($(this).attr('id'));
+       saveReview();
     });
 
     $('.rating').on('rating.change', function(event, value, caption) {
@@ -39,10 +39,13 @@ $(document).ready(function(){
     });*/
 });
 
-function saveReview(event_id) {
-    var rating = $('#rating-'+event_id).val();
-    var comment = $('#comment-'+event_id).val();
-    var review = {rating: rating, comment: comment};
+function saveReview() {
+    var event_id = $('#event_id').val();
+    var rating = $('#rating').val();
+    var comment = $('#comment').val();
+    var member_id = $('#member_id').val();
+    var summit_id = $('#summit_id').val();
+    var review = {rating: rating, comment: comment, member_id: member_id, event_id: event_id};
 
     if (rating == 0 || comment == ''){
         swal('Error', 'Please fill in the rating and the comment.', 'warning');

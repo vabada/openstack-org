@@ -345,3 +345,16 @@ a.profile-pic-wrapper {
 
 .info_item {
 }
+
+.feedback_box textarea {
+    width: 100%;
+    height: 100px;
+}
+
+.feedback_box button
+{
+    background-color: #224066 !important;
+    border-color: #224066 !important;
+    border-radius: 2px;
+    margin-top: 10px;
+}

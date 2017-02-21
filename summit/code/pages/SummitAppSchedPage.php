@@ -171,6 +171,13 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
         Requirements::css("summit/css/summitapp-event.css");
         Requirements::javascript("summit/javascript/schedule/event-detail-page.js");
 
+        //JS libraries for feedback form
+        if(Member::currentUser() && $event->AllowFeedback()){
+            Requirements::javascript('summit/javascript/summitapp-review.js');
+            Requirements::javascript('marketplace/code/ui/frontend/js/star-rating.min.js');
+            Requirements::css("marketplace/code/ui/frontend/css/star-rating.min.css");
+        }
+
         $token = Session::get(self::EventShareByEmailTokenKey);
 
         if (!$token) {

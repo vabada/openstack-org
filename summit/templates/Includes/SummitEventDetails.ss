@@ -141,6 +141,23 @@
     </div>
 </div>
 
+<% if CurrentMember && Event.AllowFeedBack %>
+    <div class="feedback_box">
+        <div class="container">
+            <div>Rating</div>
+            <input id="rating"  class="rating" min="1" max="5" data-size="xs" >
+            <div>Comment</div>
+            <textarea id="comment"></textarea>
+            <input id="event_id" value="{$Event.ID}" type="hidden" />
+            <input id="summit_id" value="{$Event.Summit.ID}" type="hidden" />
+            <input id="member_id" value="{$CurrentMember.ID}" type="hidden" />
+            <div>
+                <button id="btn_submit_event_feedback" type="button" class="btn btn-primary btn-md active btn-warning save">Submit</button>
+            </div>
+        </div>
+    </div>
+<% end_if %>
+
 
 <% if Event.allowSpeakers %>
     <div class="speaker_box">
