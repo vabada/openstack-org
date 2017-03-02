@@ -85,6 +85,9 @@ class PresentationTrackChairFeatures extends DataExtension
             }
         }
 
+        // error message
+        $msg = '';
+
         foreach ($lists_to_add_to as $list_class) {
             $mySelections = SummitSelectedPresentationList::getMemberList($this->owner->CategoryID, $list_class);
 
@@ -94,8 +97,8 @@ class PresentationTrackChairFeatures extends DataExtension
                 ->filter('PresentationID', $this->owner->ID)
                 ->first();
 
-            $category = $this->owner->Category();
             $highestSelection = $mySelections->maxPresentations();
+
             $highestOrderInList = $mySelections
                 ->SummitSelectedPresentations()
                 ->filter('Collection', $collection)
@@ -115,7 +118,6 @@ class PresentationTrackChairFeatures extends DataExtension
                         ->max('Order');
 
                     // lightning wannabes first we add session and then lightning, so it depends
-                    $should_add_declaimer = false;
                     if ($list_class == SummitSelectedPresentationList::Lightning) {
                         $should_add_declaimer = $highestOtherOrderInList == $highestOtherSelection;
                     } else {
@@ -128,10 +130,9 @@ class PresentationTrackChairFeatures extends DataExtension
                     }
                 }
 
-                throw new EntityValidationException($msg);
+                // will not add this presentation, list is full
+                continue;
             }
-
-
 
             if (!$selectedPresentation) {
                 $selectedPresentation = SummitSelectedPresentation::create();
@@ -156,6 +157,9 @@ class PresentationTrackChairFeatures extends DataExtension
             }
         }
 
+        if ($msg) {
+            throw new EntityValidationException($msg);
+        }
     }
 
     /**
