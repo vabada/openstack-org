@@ -417,7 +417,7 @@ class PresentationTrackChairFeatures extends DataExtension
     {
         $completedMove = $this->owner->ChangeRequests()->filter(array(
             'NewCategoryID' => $this->owner->CategoryID,
-            'Done' => true
+            'Status' => SummitCategoryChange::STATUS_APPROVED
         ));
         if ($completedMove->count()) {
             return true;
