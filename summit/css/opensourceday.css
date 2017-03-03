@@ -7,6 +7,11 @@
   background-color: #DA422F;
   margin-bottom: 10px;
 }
+#about-open-source-days a.btn.btn-block:hover {
+  background-color: #bc1518;
+}
+
+
 
 #about-open-source-days a,
 #about-open-source-days a:visited {
@@ -18,13 +23,18 @@
 }
 
 #osd-register {
-	background: #DA422F url(/summit/images/boston/group-4-background.jpg) no-repeat center center scroll;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
+  background: #DA422F url(/summit/images/boston/group-4-background.jpg) no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .mobile-city-date {
     display: none;
+}
+
+
+.learn-more-button a:visited{
+  color: #fff;
 }
