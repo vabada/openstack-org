@@ -205,6 +205,7 @@ final class ScheduleManager implements IScheduleManager
             $feedback = $this->eventfeedback_repository->getFeedback($data['event_id'], $member_id);
             if ($feedback) {
                 $feedback->Rate = $data['rating'];
+                $feedback->Approved = 0;
                 $feedback->Note = $data['comment'];
                 $feedback->write();
             } else {
