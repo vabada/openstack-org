@@ -811,4 +811,8 @@ SQL;
     public function AllowFeedBack(){
         return $this->AllowFeedBack;
     }
+
+    public function hasEnded(){
+        return $this->getSummit()->getLocalTime() > $this->getEndDate();
+    }
 }

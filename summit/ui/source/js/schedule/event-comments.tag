@@ -7,10 +7,9 @@
 
     <div class="comment {last:parent.isLast(i)} {hidden:parent.isOutOfLimits(i)}" each={ comment, i in comments }>
         <div class="comment_info">
-            <div class="comment_pic">
-                <img src="{ comment.profile_pic }" alt="{comment.full_name}" />
+            <div>
+                <input id="rating"  class="rating" readOnly value="{comment.rate}" min="1" max="5" >
             </div>
-            <div class="comment_name"> {comment.full_name} </div>
             <div class="comment_date">
                 <b> Posted: </b>
                 <span> {comment.date} </span>

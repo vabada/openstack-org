@@ -12,7 +12,8 @@
  **/
 
 $(document).ready(function(){
-    $(".rating").rating({showCaption:false,showClear:false,step:0.5});
+    $(".rating").rating({showCaption:false,showClear:false,step:0.5, size: "xxxs"});
+    $(".avgRating").rating({showCaption:false, showClear:false, step:0.1, size: "xxxs"});
 
     $('.save').click(function() {
        saveReview();
@@ -29,9 +30,10 @@ $(document).ready(function(){
     });
 });
 
-function clearReviewInputs(){
+function HideAndclearReviewInputs(){
     $(".rating").rating('reset');
     $('#comment').val('');
+    $('.feedback_box').hide();
 }
 
 function saveReview() {
@@ -56,10 +58,14 @@ function saveReview() {
         timeout:10000,
         contentType: "application/json; charset=utf-8",
         success: function (data) {
-            clearReviewInputs();
-            swal('Thanks!',
-                'Your review has been sent and now is pending for approval.',
-                'success');
+            swal({
+                    title: 'Thanks!',
+                    text: 'Your feedback has been sent!',
+                    type: "success",
+                }).then(function () {
+                    HideAndclearReviewInputs();
+                    location.reload();
+                    });
         }
 
     }).fail(function (jqXHR, textStatus, errorThrown) {

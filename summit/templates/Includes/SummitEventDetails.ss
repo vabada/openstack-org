@@ -141,24 +141,6 @@
     </div>
 </div>
 
-<% if CurrentMember && Event.AllowFeedBack %>
-    <div class="feedback_box">
-        <div class="container">
-            <div>Rating</div>
-            <input id="rating"  class="rating" min="1" max="5" data-size="xs" >
-            <div>Comment</div>
-            <textarea id="comment"></textarea>
-            <input id="event_id" value="{$Event.ID}" type="hidden" />
-            <input id="summit_id" value="{$Event.Summit.ID}" type="hidden" />
-            <input id="member_id" value="{$CurrentMember.ID}" type="hidden" />
-            <div>
-                <button id="btn_submit_event_feedback" type="button" class="btn btn-primary btn-md active btn-warning save">Submit</button>
-            </div>
-        </div>
-    </div>
-<% end_if %>
-
-
 <% if Event.allowSpeakers %>
     <div class="speaker_box">
         <div class="container">
@@ -181,21 +163,41 @@
     </div>
 <% end_if %>
 
-<%--
-Hidding comments, leaving this feature for phase 2
+<% if CurrentMember && Event.AllowFeedBack && Event.hasEnded && not $HasFeedback %>
+    <div class="feedback_box">
+        <div class="container">
+            <div>Rating</div>
+            <input id="rating"  class="rating" min="1" max="5" data-size="xs" >
+            <div>Comment</div>
+            <textarea id="comment"></textarea>
+            <input id="event_id" value="{$Event.ID}" type="hidden" />
+            <input id="summit_id" value="{$Event.Summit.ID}" type="hidden" />
+            <input id="member_id" value="{$CurrentMember.ID}" type="hidden" />
+            <div>
+                <button id="btn_submit_event_feedback" type="button" class="btn btn-primary btn-md active btn-warning save">Submit</button>
+            </div>
+        </div>
+    </div>
+<% end_if %>
+
 
 <div class="container">
     <div class="col1 comment_section">
-        <div class="comment_title"> Comment </div>
-
+        <div class="comment_title"> Comments </div>
+        <div class="comment" >
+            <div>{$FeedbackCount} Reviews</div>
+            <div style="display:inline">
+                <div style="float:left"><input id="rating" class="avgRating" disabled value="{$Event.getAvgRate()}" min="1" max="5" ></div>
+                <div style="float:left"> {$Event.getAvgRate()}</div>
+            </div>
+        </div>
         <script type="application/javascript">
                 var comments = [];
 
                 <% loop $Event.getFeedback() %>
                     comments.push(
                     {
-                        profile_pic : "{$Owner.ProfilePhotoUrl(50).JS}",
-                        full_name : "{$Owner.getFullName.JS}",
+                        rate:  "{$getRate.JS}",
                         date : "{$getDateNice.JS}",
                         note : "{$getNote.JS}",
                     });
@@ -206,5 +208,4 @@ Hidding comments, leaving this feature for phase 2
     </div>
 </div>
 $ModuleJS('event-detail')
---%>
 <div id="fb-root"></div>
