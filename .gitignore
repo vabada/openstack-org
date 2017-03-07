@@ -87,4 +87,5 @@ Thumbs.db
 config.json
 auth.json
 autocomplete/
+silverstripe-superquery/
 *.patch

@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "678c81da508fb173dbb115b0095e955d",
+    "hash": "8d8923787d5a59b02d529a38abc38826",
+    "content-hash": "4f8f282a4bbdc02d86e461a8edbb920f",
     "packages": [
         {
             "name": "composer/installers",
@@ -114,7 +115,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2017-01-27T13:02:46+00:00"
+            "time": "2017-01-27 13:02:46"
         },
         {
             "name": "doctrine/annotations",
@@ -182,7 +183,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2017-01-09T00:44:36+00:00"
+            "time": "2017-01-09 00:44:36"
         },
         {
             "name": "doctrine/cache",
@@ -251,7 +252,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2017-01-20T09:27:09+00:00"
+            "time": "2017-01-20 09:27:09"
         },
         {
             "name": "doctrine/collections",
@@ -318,7 +319,7 @@
                 "collections",
                 "iterator"
             ],
-            "time": "2017-01-03T10:49:41+00:00"
+            "time": "2017-01-03 10:49:41"
         },
         {
             "name": "doctrine/common",
@@ -391,7 +392,7 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2016-11-30T16:50:46+00:00"
+            "time": "2016-11-30 16:50:46"
         },
         {
             "name": "doctrine/inflector",
@@ -458,7 +459,7 @@
                 "singularize",
                 "string"
             ],
-            "time": "2016-05-12T17:23:41+00:00"
+            "time": "2016-05-12 17:23:41"
         },
         {
             "name": "doctrine/lexer",
@@ -512,7 +513,7 @@
                 "lexer",
                 "parser"
             ],
-            "time": "2014-09-09T13:34:57+00:00"
+            "time": "2014-09-09 13:34:57"
         },
         {
             "name": "eluceo/ical",
@@ -565,7 +566,7 @@
                 "ics",
                 "php calendar"
             ],
-            "time": "2016-06-09T09:08:55+00:00"
+            "time": "2016-06-09 09:08:55"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -612,7 +613,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2017-01-19T17:28:40+00:00"
+            "time": "2017-01-19 17:28:40"
         },
         {
             "name": "fzaninotto/faker",
@@ -662,7 +663,7 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2017-02-01T09:18:35+00:00"
+            "time": "2017-02-01 09:18:35"
         },
         {
             "name": "google/apiclient",
@@ -705,7 +706,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2017-01-09T19:33:08+00:00"
+            "time": "2017-01-09 19:33:08"
         },
         {
             "name": "guzzle/guzzle",
@@ -801,7 +802,7 @@
                 "web service"
             ],
             "abandoned": "guzzlehttp/guzzle",
-            "time": "2016-10-26T18:22:07+00:00"
+            "time": "2016-10-26 18:22:07"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -859,7 +860,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2015-05-20T03:47:55+00:00"
+            "time": "2015-05-20 03:47:55"
         },
         {
             "name": "guzzlehttp/ringphp",
@@ -910,7 +911,7 @@
                 }
             ],
             "description": "Provides a simple API and specification that abstracts away the details of HTTP into a single PHP function.",
-            "time": "2017-01-13T20:44:38+00:00"
+            "time": "2017-01-13 20:44:38"
         },
         {
             "name": "guzzlehttp/streams",
@@ -960,7 +961,7 @@
                 "Guzzle",
                 "stream"
             ],
-            "time": "2016-04-13T16:32:01+00:00"
+            "time": "2016-04-13 16:32:01"
         },
         {
             "name": "icanboogie/inflector",
@@ -1012,7 +1013,7 @@
                 "singularize",
                 "underscore"
             ],
-            "time": "2016-12-15T09:15:25+00:00"
+            "time": "2016-12-15 09:15:25"
         },
         {
             "name": "knplabs/github-api",
@@ -1073,7 +1074,7 @@
                 "gist",
                 "github"
             ],
-            "time": "2015-02-23T16:36:53+00:00"
+            "time": "2015-02-23 16:36:53"
         },
         {
             "name": "mobiledetect/mobiledetectlib",
@@ -1127,7 +1128,7 @@
                 "mobile detector",
                 "php mobile detect"
             ],
-            "time": "2016-11-11T14:56:25+00:00"
+            "time": "2016-11-11 14:56:25"
         },
         {
             "name": "mustangostang/spyc",
@@ -1174,7 +1175,7 @@
                 "yaml",
                 "yml"
             ],
-            "time": "2013-02-21T10:52:01+00:00"
+            "time": "2013-02-21 10:52:01"
         },
         {
             "name": "nnnick/chartjs",
@@ -1215,7 +1216,7 @@
                 "JS",
                 "chart"
             ],
-            "time": "2017-01-28T16:33:14+00:00"
+            "time": "2017-01-28 16:33:14"
         },
         {
             "name": "openid/php-openid",
@@ -1264,7 +1265,7 @@
                 "auth",
                 "yadis"
             ],
-            "time": "2016-09-30T19:50:50+00:00"
+            "time": "2016-09-30 19:50:50"
         },
         {
             "name": "parse/php-sdk",
@@ -1317,7 +1318,7 @@
                 "parse",
                 "sdk"
             ],
-            "time": "2017-02-02T17:03:31+00:00"
+            "time": "2017-02-02 17:03:31"
         },
         {
             "name": "phpoffice/phpexcel",
@@ -1374,7 +1375,53 @@
                 "xls",
                 "xlsx"
             ],
-            "time": "2015-05-05T00:10:25+00:00"
+            "time": "2015-05-05 00:10:25"
+        },
+        {
+            "name": "psr/cache",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/cache.git",
+                "reference": "78c5a01ddbf11cf731f1338a4f5aba23b14d5b47"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/cache/zipball/78c5a01ddbf11cf731f1338a4f5aba23b14d5b47",
+                "reference": "78c5a01ddbf11cf731f1338a4f5aba23b14d5b47",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Cache\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for caching libraries",
+            "keywords": [
+                "cache",
+                "psr",
+                "psr-6"
+            ],
+            "time": "2016-10-13 14:48:10"
         },
         {
             "name": "psr/log",
@@ -1421,7 +1468,55 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10T12:19:37+00:00"
+            "time": "2016-10-10 12:19:37"
+        },
+        {
+            "name": "psr/simple-cache",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/simple-cache.git",
+                "reference": "753fa598e8f3b9966c886fe13f370baa45ef0e24"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/simple-cache/zipball/753fa598e8f3b9966c886fe13f370baa45ef0e24",
+                "reference": "753fa598e8f3b9966c886fe13f370baa45ef0e24",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\SimpleCache\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interfaces for simple caching",
+            "keywords": [
+                "cache",
+                "caching",
+                "psr",
+                "psr-16",
+                "simple-cache"
+            ],
+            "time": "2017-01-02 13:31:39"
         },
         {
             "name": "rackspace/php-opencloud",
@@ -1486,7 +1581,7 @@
                 "rackspace",
                 "swift"
             ],
-            "time": "2015-03-16T23:57:58+00:00"
+            "time": "2015-03-16 23:57:58"
         },
         {
             "name": "react/promise",
@@ -1529,7 +1624,7 @@
                 "promise",
                 "promises"
             ],
-            "time": "2016-12-22T14:09:01+00:00"
+            "time": "2016-12-22 14:09:01"
         },
         {
             "name": "sendgrid/sendgrid",
@@ -1576,7 +1671,7 @@
                 "send",
                 "sendgrid"
             ],
-            "time": "2015-04-14T20:19:12+00:00"
+            "time": "2015-04-14 20:19:12"
         },
         {
             "name": "sendgrid/smtpapi",
@@ -1624,7 +1719,7 @@
                 "smtpapi",
                 "xsmtp"
             ],
-            "time": "2015-04-14T02:37:45+00:00"
+            "time": "2015-04-14 02:37:45"
         },
         {
             "name": "silverstripe-australia/gridfieldextensions",
@@ -1674,7 +1769,7 @@
                 "gridfield",
                 "silverstripe"
             ],
-            "time": "2014-12-08T11:14:53+00:00"
+            "time": "2014-12-08 11:14:53"
         },
         {
             "name": "silverstripe/cms",
@@ -1721,7 +1816,7 @@
                 "cms",
                 "silverstripe"
             ],
-            "time": "2016-05-10T22:58:24+00:00"
+            "time": "2016-05-10 22:58:24"
         },
         {
             "name": "silverstripe/framework",
@@ -1770,7 +1865,7 @@
                 "framework",
                 "silverstripe"
             ],
-            "time": "2016-05-10T23:09:20+00:00"
+            "time": "2016-05-10 23:09:20"
         },
         {
             "name": "silverstripe/geoip",
@@ -1805,7 +1900,7 @@
                 "geoip",
                 "silverstripe-labs"
             ],
-            "time": "2016-03-07T20:40:00+00:00"
+            "time": "2016-03-07 20:40:00"
         },
         {
             "name": "silverstripe/gridfieldajaxrefresh",
@@ -1844,7 +1939,7 @@
                 "refresh",
                 "silverstripe"
             ],
-            "time": "2016-11-24T11:49:43+00:00"
+            "time": "2016-11-24 11:49:43"
         },
         {
             "name": "silverstripe/tagfield",
@@ -1881,7 +1976,7 @@
                 "silverstripe",
                 "tag"
             ],
-            "time": "2015-11-04T01:25:35+00:00"
+            "time": "2015-11-04 01:25:35"
         },
         {
             "name": "simplepie/simplepie",
@@ -1935,7 +2030,76 @@
                 "feeds",
                 "rss"
             ],
-            "time": "2016-06-14T05:48:16+00:00"
+            "time": "2016-06-14 05:48:16"
+        },
+        {
+            "name": "symfony/cache",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/cache.git",
+                "reference": "47475a7252cd2600472e61f2b0b8a6c6d7b98286"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/cache/zipball/47475a7252cd2600472e61f2b0b8a6c6d7b98286",
+                "reference": "47475a7252cd2600472e61f2b0b8a6c6d7b98286",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9",
+                "psr/cache": "~1.0",
+                "psr/log": "~1.0",
+                "psr/simple-cache": "^1.0"
+            },
+            "provide": {
+                "psr/cache-implementation": "1.0",
+                "psr/simple-cache-implementation": "1.0"
+            },
+            "require-dev": {
+                "cache/integration-tests": "^0.15.0",
+                "doctrine/cache": "~1.6",
+                "doctrine/dbal": "~2.4",
+                "predis/predis": "~1.0"
+            },
+            "suggest": {
+                "symfony/polyfill-apcu": "For using ApcuAdapter on HHVM"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Cache\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Cache component with PSR-6, PSR-16, and tags",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "caching",
+                "psr6"
+            ],
+            "time": "2017-01-29 19:06:24"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -1995,7 +2159,57 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-02T20:30:24+00:00"
+            "time": "2017-01-02 20:30:24"
+        },
+        {
+            "name": "symfony/expression-language",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/expression-language.git",
+                "reference": "1dbe5789f0d8158814bc770feac6f022ab95c7cf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/expression-language/zipball/1dbe5789f0d8158814bc770feac6f022ab95c7cf",
+                "reference": "1dbe5789f0d8158814bc770feac6f022ab95c7cf",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9",
+                "symfony/cache": "~3.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\ExpressionLanguage\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony ExpressionLanguage Component",
+            "homepage": "https://symfony.com",
+            "time": "2017-01-02 20:33:09"
         },
         {
             "name": "symfony/finder",
@@ -2044,7 +2258,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-02T20:33:09+00:00"
+            "time": "2017-01-02 20:33:09"
         },
         {
             "name": "symfony/process",
@@ -2093,7 +2307,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-31T14:22:24+00:00"
+            "time": "2017-01-31 14:22:24"
         },
         {
             "name": "symfony/yaml",
@@ -2148,7 +2362,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-21T17:10:26+00:00"
+            "time": "2017-01-21 17:10:26"
         },
         {
             "name": "tractorcow/silverstripe-autocomplete",
@@ -2188,7 +2402,7 @@
                 "autocomplete",
                 "silverstripe"
             ],
-            "time": "2015-10-29T03:17:07+00:00"
+            "time": "2015-10-29 03:17:07"
         },
         {
             "name": "tractorcow/silverstripe-colorpicker",
@@ -2224,7 +2438,7 @@
                 "colour",
                 "silverstripe"
             ],
-            "time": "2015-01-27T20:44:50+00:00"
+            "time": "2015-01-27 20:44:50"
         },
         {
             "name": "tractorcow/silverstripe-fluent",
@@ -2272,7 +2486,7 @@
                 "issues": "http://github.com/tractorcow/silverstripe-fluent/issues",
                 "source": "https://github.com/unclecheese/silverstripe-fluent/tree/patch/default-route"
             },
-            "time": "2017-01-17T22:07:28+00:00"
+            "time": "2017-01-17 22:07:28"
         },
         {
             "name": "tractorcow/silverstripe-opengraph",
@@ -2312,7 +2526,7 @@
                 "opengraph",
                 "silverstripe"
             ],
-            "time": "2016-07-06T05:31:30+00:00"
+            "time": "2016-07-06 05:31:30"
         },
         {
             "name": "unclecheese/betterbuttons",
@@ -2348,7 +2562,7 @@
                 "gridfield",
                 "silverstripe"
             ],
-            "time": "2017-01-20T08:51:05+00:00"
+            "time": "2017-01-20 08:51:05"
         },
         {
             "name": "unclecheese/bootstrap-forms",
@@ -2389,7 +2603,7 @@
                 "silverstripe",
                 "twitter"
             ],
-            "time": "2016-01-20T23:44:19+00:00"
+            "time": "2016-01-20 23:44:19"
         },
         {
             "name": "unclecheese/bootstrap-tagfield",
@@ -2428,7 +2642,7 @@
                 "tags",
                 "twitter"
             ],
-            "time": "2015-01-05T23:39:42+00:00"
+            "time": "2015-01-05 23:39:42"
         },
         {
             "name": "unclecheese/display-logic",
@@ -2472,7 +2686,7 @@
                 "logic",
                 "silverstripe"
             ],
-            "time": "2015-01-29T23:35:48+00:00"
+            "time": "2015-01-29 23:35:48"
         },
         {
             "name": "unclecheese/dropzone",
@@ -2514,7 +2728,7 @@
                 "upload",
                 "uploader"
             ],
-            "time": "2016-09-08T00:24:26+00:00"
+            "time": "2016-09-08 00:24:26"
         },
         {
             "name": "unclecheese/reflection-templates",
@@ -2549,7 +2763,7 @@
                 "silverstripe",
                 "templates"
             ],
-            "time": "2016-10-18T01:33:29+00:00"
+            "time": "2016-10-18 01:33:29"
         },
         {
             "name": "unclecheese/silverstripe-green",
@@ -2598,7 +2812,7 @@
                 "issues": "https://github.com/unclecheese/silverstripe-green/issues",
                 "source": "https://github.com/smarcet/silverstripe-green/tree/master"
             },
-            "time": "2016-10-19T01:22:37+00:00"
+            "time": "2016-10-19 01:22:37"
         },
         {
             "name": "unclecheese/silverstripe-permamail",
@@ -2636,7 +2850,7 @@
                 "email",
                 "silverstripe"
             ],
-            "time": "2016-05-26T21:41:32+00:00"
+            "time": "2016-05-26 21:41:32"
         },
         {
             "name": "unclecheese/silverstripe-serialised-dbfields",
@@ -2677,7 +2891,46 @@
                 "silverstripe",
                 "yaml"
             ],
-            "time": "2016-10-13T01:06:25+00:00"
+            "time": "2016-10-13 01:06:25"
+        },
+        {
+            "name": "unclecheese/silverstripe-superquery",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/unclecheese/silverstripe-superquery.git",
+                "reference": "ca5cc70517f2c4595722798e4c0c13fdfa6f693b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/unclecheese/silverstripe-superquery/zipball/ca5cc70517f2c4595722798e4c0c13fdfa6f693b",
+                "reference": "ca5cc70517f2c4595722798e4c0c13fdfa6f693b",
+                "shasum": ""
+            },
+            "require": {
+                "silverstripe/framework": "~3.1",
+                "symfony/expression-language": "^3.1"
+            },
+            "type": "silverstripe-module",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Uncle Cheese",
+                    "email": "unclecheese@leftandmain.com"
+                }
+            ],
+            "description": "A tool for running queries in the CMS",
+            "homepage": "https://github.com/unclecheese/silverstripe-superquery",
+            "keywords": [
+                "orm",
+                "queries",
+                "silverstripe",
+                "sql"
+            ],
+            "time": "2017-03-07 21:09:59"
         },
         {
             "name": "unclecheese/zen-fields",
@@ -2719,7 +2972,7 @@
                 "fields",
                 "silverstripe"
             ],
-            "time": "2014-05-19T21:47:58+00:00"
+            "time": "2014-05-19 21:47:58"
         },
         {
             "name": "undefinedoffset/sortablegridfield",
@@ -2759,7 +3012,7 @@
                 "gridfield",
                 "silverstripe"
             ],
-            "time": "2016-01-18T13:53:30+00:00"
+            "time": "2016-01-18 13:53:30"
         }
     ],
     "packages-dev": [
@@ -2843,7 +3096,7 @@
                 "symfony",
                 "testing"
             ],
-            "time": "2016-12-25T13:43:52+00:00"
+            "time": "2016-12-25 13:43:52"
         },
         {
             "name": "behat/gherkin",
@@ -2902,7 +3155,7 @@
                 "gherkin",
                 "parser"
             ],
-            "time": "2016-10-30T11:50:56+00:00"
+            "time": "2016-10-30 11:50:56"
         },
         {
             "name": "behat/mink",
@@ -2960,7 +3213,7 @@
                 "testing",
                 "web"
             ],
-            "time": "2016-03-05T08:26:18+00:00"
+            "time": "2016-03-05 08:26:18"
         },
         {
             "name": "behat/mink-browserkit-driver",
@@ -3016,7 +3269,7 @@
                 "browser",
                 "testing"
             ],
-            "time": "2016-10-03T08:27:03+00:00"
+            "time": "2016-10-03 08:27:03"
         },
         {
             "name": "behat/mink-extension",
@@ -3075,7 +3328,7 @@
                 "test",
                 "web"
             ],
-            "time": "2016-02-15T07:55:18+00:00"
+            "time": "2016-02-15 07:55:18"
         },
         {
             "name": "behat/mink-goutte-driver",
@@ -3130,7 +3383,7 @@
                 "headless",
                 "testing"
             ],
-            "time": "2016-03-05T09:04:22+00:00"
+            "time": "2016-03-05 09:04:22"
         },
         {
             "name": "behat/mink-selenium2-driver",
@@ -3191,7 +3444,7 @@
                 "testing",
                 "webdriver"
             ],
-            "time": "2016-03-05T09:10:18+00:00"
+            "time": "2016-03-05 09:10:18"
         },
         {
             "name": "behat/transliterator",
@@ -3235,7 +3488,7 @@
                 "slug",
                 "transliterator"
             ],
-            "time": "2016-10-21T08:46:05+00:00"
+            "time": "2016-10-21 08:46:05"
         },
         {
             "name": "container-interop/container-interop",
@@ -3262,7 +3515,7 @@
                 "MIT"
             ],
             "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
-            "time": "2014-12-30T15:22:37+00:00"
+            "time": "2014-12-30 15:22:37"
         },
         {
             "name": "fabpot/goutte",
@@ -3311,7 +3564,7 @@
             "keywords": [
                 "scraper"
             ],
-            "time": "2015-05-05T21:14:57+00:00"
+            "time": "2015-05-05 21:14:57"
         },
         {
             "name": "instaclick/php-webdriver",
@@ -3369,7 +3622,7 @@
                 "webdriver",
                 "webtest"
             ],
-            "time": "2016-02-05T12:35:01+00:00"
+            "time": "2016-02-05 12:35:01"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -3430,7 +3683,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-09-02T10:13:14+00:00"
+            "time": "2014-09-02 10:13:14"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -3477,7 +3730,7 @@
                 "filesystem",
                 "iterator"
             ],
-            "time": "2016-10-03T07:40:28+00:00"
+            "time": "2016-10-03 07:40:28"
         },
         {
             "name": "phpunit/php-text-template",
@@ -3518,7 +3771,7 @@
             "keywords": [
                 "template"
             ],
-            "time": "2016-10-03T07:39:42+00:00"
+            "time": "2016-10-03 07:39:42"
         },
         {
             "name": "phpunit/php-timer",
@@ -3562,7 +3815,7 @@
             "keywords": [
                 "timer"
             ],
-            "time": "2016-05-12T18:03:57+00:00"
+            "time": "2016-05-12 18:03:57"
         },
         {
             "name": "phpunit/php-token-stream",
@@ -3612,7 +3865,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2014-03-03T05:10:30+00:00"
+            "time": "2014-03-03 05:10:30"
         },
         {
             "name": "phpunit/phpunit",
@@ -3686,7 +3939,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-03-07T21:45:39+00:00"
+            "time": "2013-03-07 21:45:39"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -3743,7 +3996,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2014-02-16T12:43:56+00:00"
+            "time": "2014-02-16 12:43:56"
         },
         {
             "name": "symfony/browser-kit",
@@ -3800,7 +4053,7 @@
             ],
             "description": "Symfony BrowserKit Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-31T21:48:58+00:00"
+            "time": "2017-01-31 21:48:58"
         },
         {
             "name": "symfony/class-loader",
@@ -3856,7 +4109,7 @@
             ],
             "description": "Symfony ClassLoader Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-21T17:10:26+00:00"
+            "time": "2017-01-21 17:10:26"
         },
         {
             "name": "symfony/config",
@@ -3912,7 +4165,7 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "https://symfony.com",
-            "time": "2017-02-02T13:15:15+00:00"
+            "time": "2017-02-02 13:15:15"
         },
         {
             "name": "symfony/console",
@@ -3980,7 +4233,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2017-02-02T13:15:15+00:00"
+            "time": "2017-02-02 13:15:15"
         },
         {
             "name": "symfony/css-selector",
@@ -4033,7 +4286,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-02T20:30:24+00:00"
+            "time": "2017-01-02 20:30:24"
         },
         {
             "name": "symfony/debug",
@@ -4089,7 +4342,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-28T02:39:08+00:00"
+            "time": "2017-01-28 02:39:08"
         },
         {
             "name": "symfony/dependency-injection",
@@ -4153,7 +4406,7 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
-            "time": "2017-02-02T19:37:38+00:00"
+            "time": "2017-02-02 19:37:38"
         },
         {
             "name": "symfony/dom-crawler",
@@ -4209,7 +4462,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-21T16:40:50+00:00"
+            "time": "2017-01-21 16:40:50"
         },
         {
             "name": "symfony/filesystem",
@@ -4258,7 +4511,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-08T21:15:04+00:00"
+            "time": "2017-01-08 21:15:04"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -4317,7 +4570,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-11-14T01:06:16+00:00"
+            "time": "2016-11-14 01:06:16"
         },
         {
             "name": "symfony/translation",
@@ -4381,7 +4634,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-21T17:10:26+00:00"
+            "time": "2017-01-21 17:10:26"
         }
     ],
     "aliases": [],
@@ -4398,6 +4651,7 @@
         "phpoffice/phpexcel": 20,
         "tractorcow/silverstripe-fluent": 20,
         "tractorcow/silverstripe-opengraph": 20,
+        "unclecheese/silverstripe-superquery": 20,
         "phpunit/phpunit": 0,
         "behat/behat": 0,
         "behat/mink": 0,
