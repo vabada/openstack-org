@@ -8,6 +8,55 @@
     "content-hash": "4f8f282a4bbdc02d86e461a8edbb920f",
     "packages": [
         {
+            "name": "analog/analog",
+            "version": "1.0.9-stable",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jbroadway/analog.git",
+                "reference": "2f0f5e0be983bf84e97dd86f39465a486f9f3af6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jbroadway/analog/zipball/2f0f5e0be983bf84e97dd86f39465a486f9f3af6",
+                "reference": "2f0f5e0be983bf84e97dd86f39465a486f9f3af6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "psr/log": "1.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Analog": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Johnny Broadway",
+                    "email": "johnny@johnnybroadway.com",
+                    "homepage": "http://www.johnnybroadway.com/"
+                }
+            ],
+            "description": "PHP 5.3+ micro logging class that can be extended via closures. Includes several pre-built handlers including file, mail, syslog, HTTP post, and MongoDB.",
+            "homepage": "https://github.com/jbroadway/analog",
+            "keywords": [
+                "alerts",
+                "debug",
+                "debugging",
+                "error",
+                "log",
+                "logger",
+                "logging",
+                "syslog"
+            ],
+            "time": "2016-11-17 14:39:33"
+        },
+        {
             "name": "composer/installers",
             "version": "dev-master",
             "source": {
@@ -707,6 +756,62 @@
                 "google"
             ],
             "time": "2017-01-09 19:33:08"
+        },
+        {
+            "name": "greenlion/php-sql-parser",
+            "version": "v4.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/greenlion/PHP-SQL-Parser.git",
+                "reference": "45227af0f6ed2c094cefdbc5b921889605c0c1ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/greenlion/PHP-SQL-Parser/zipball/45227af0f6ed2c094cefdbc5b921889605c0c1ff",
+                "reference": "45227af0f6ed2c094cefdbc5b921889605c0c1ff",
+                "shasum": ""
+            },
+            "require": {
+                "analog/analog": "^1.0.6",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.0.14",
+                "squizlabs/php_codesniffer": "^1.5.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PHPSQLParser\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "André Rothe",
+                    "email": "phosco@gmx.de",
+                    "homepage": "https://www.phosco.info",
+                    "role": "Committer"
+                },
+                {
+                    "name": "Justin Swanhart",
+                    "email": "greenlion@gmail.com",
+                    "homepage": "http://code.google.com/u/greenlion@gmail.com/",
+                    "role": "Owner"
+                }
+            ],
+            "description": "A pure PHP SQL (non validating) parser w/ focus on MySQL dialect of SQL",
+            "homepage": "https://github.com/greenlion/PHP-SQL-Parser",
+            "keywords": [
+                "creator",
+                "mysql",
+                "parser",
+                "sql"
+            ],
+            "time": "2016-10-12 04:29:55"
         },
         {
             "name": "guzzle/guzzle",
@@ -2899,15 +3004,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/unclecheese/silverstripe-superquery.git",
-                "reference": "ca5cc70517f2c4595722798e4c0c13fdfa6f693b"
+                "reference": "5104fc42f4e652b669a901375b7da57710f083b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/unclecheese/silverstripe-superquery/zipball/ca5cc70517f2c4595722798e4c0c13fdfa6f693b",
-                "reference": "ca5cc70517f2c4595722798e4c0c13fdfa6f693b",
+                "url": "https://api.github.com/repos/unclecheese/silverstripe-superquery/zipball/5104fc42f4e652b669a901375b7da57710f083b1",
+                "reference": "5104fc42f4e652b669a901375b7da57710f083b1",
                 "shasum": ""
             },
             "require": {
+                "greenlion/php-sql-parser": "^4.1",
                 "silverstripe/framework": "~3.1",
                 "symfony/expression-language": "^3.1"
             },
@@ -2930,7 +3036,7 @@
                 "silverstripe",
                 "sql"
             ],
-            "time": "2017-03-07 21:09:59"
+            "time": "2017-03-08 02:28:38"
         },
         {
             "name": "unclecheese/zen-fields",
