@@ -138,13 +138,4 @@ interface IOpenStackRelease extends IEntity
      */
     public function supportsApiVersion(IOpenStackApiVersion $version);
 
-    /**
-     * @param string $term
-     * @param int $adoption
-     * @param int $maturity
-     * @param int $age
-     * @return IOpenStackComponent[]
-     */
-    public function getOpenStackComponentsFiltered($term = '', $adoption = 0, $maturity = 0, $age = 0);
-
 } 

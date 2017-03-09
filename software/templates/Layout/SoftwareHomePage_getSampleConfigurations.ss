@@ -37,7 +37,7 @@
                                 {
                                     id: $ID,
                                     code_name : '{$CodeName}',
-                                    mascot_class: '{$MascotClass}',
+                                    icon_class: '{$IconClass}',
                                     release_slug : '{$Top.Release.Slug}',
                                     slug : '{$Slug}',
                                     name : '{$Name}',
@@ -55,7 +55,7 @@
                             {
                                 id: $ID,
                                 code_name : '{$CodeName}',
-                                mascot_class: '{$MascotClass}',
+                                icon_class: '{$IconClass}',
                                 release_slug : '{$Top.Release.Slug}',
                                 slug : '{$Slug}',
                                 name : '{$Name}',

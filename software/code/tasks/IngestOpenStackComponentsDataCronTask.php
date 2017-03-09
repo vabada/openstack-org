@@ -225,10 +225,7 @@ final class IngestOpenStackComponentsDataCronTask extends CronTask
         $url_template = "http://git.openstack.org/cgit/openstack/releases/plain/deliverables/%s/%s.yaml";
 
         foreach($release->OpenStackComponents() as $component){
-
-            $filename = $component->CustomTeamYAMLFileName;
-            if(empty($filename)) $filename = strtolower($component->CodeName);
-            $url = sprintf($url_template, strtolower($release->Name), $filename);
+            $url      = sprintf($url_template, strtolower($release->Name), strtolower($component->CodeName));
             echo sprintf("processing url %s ", $url).PHP_EOL;
             $response = null;
             try {
@@ -431,6 +428,10 @@ final class IngestOpenStackComponentsDataCronTask extends CronTask
                 $points += 1;
             }
             if($c->HasStableBranches)
+            {
+                $points += 1;
+            }
+            if(intval($c->SDKSupport) > 7)
             {
                 $points += 1;
             }

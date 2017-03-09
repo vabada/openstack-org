@@ -47,24 +47,10 @@ final class OpenStackReleaseAdminUI extends DataExtension
         //components
         if ($this->owner->ID > 0)
         {
+            $components_config = new GridFieldConfig_RelationEditor(100);
 
-            $openStackComponentFields = singleton('OpenStackComponent')->getCMSFields();
-            $openStackComponentFields->addField(
-                // The "ManyMany[<extradata-name>]" convention
-                new TextField('ManyMany[CustomTeamYAMLFileName]', 'Custom Team YAML FileName ( without extension)')
-            );
-
-            $components_config = GridFieldConfig_RelationEditor::create(PHP_INT_MAX);
-            $components_config->getComponentByType('GridFieldDetailForm')->setFields($openStackComponentFields);
-
-            $components = new GridField
-            (
-                "OpenStackComponents",
-                "Supported Release Components",
-                $this->owner->OpenStackComponents(),
-                $components_config
-            );
-
+            $components = new GridField("OpenStackComponents", "Supported Release Components",
+                $this->owner->OpenStackComponents(), $components_config);
             $components_config->removeComponentsByType('GridFieldAddNewButton');
             $fields->push($components);
 

@@ -1,5 +1,5 @@
 <script>
-    var components = $getComponentsByCategoryJSON;
+    var components = $getDefaultComponents;
     var releases   = $getReleases;
     components.max_maturity_points = $Top.getMaxAllowedMaturityPoints;
 </script>
@@ -32,8 +32,9 @@
                 <hr>
             </div>
         </div>
-        <project-services base_url="{$Top.Link}" groups="{ components.grouped_components }" max_maturity_points="{ components.max_maturity_points }">
-        </project-services>
+        <core-services base_url="{$Top.Link}" components="{ components.core_components }" max_maturity_points="{ components.max_maturity_points }">
+        </core-services>
+        <optional-services base_url="{$Top.Link}" components="{ components.optional_components }" max_maturity_points="{ components.max_maturity_points }"></optional-services>
         <!-- Stats 'what does this mean?' Modal -->
         <div id="statsInfoModal" class="modal fade">
             <div class="modal-dialog">

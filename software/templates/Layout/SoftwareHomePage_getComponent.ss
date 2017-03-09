@@ -8,11 +8,8 @@
     <div class="container inner-software">
         <!-- Begin Page Content -->
         <div class="row project-details-intro">
-            <div class="col-lg-2 col-md-2 col-sm-2">
-                <img src="/software/images/mascots/{$Component.MascotRef}.png" width="100%">
-            </div>
-            <div class="col-lg-6 col-md-5 col-sm-4">
-                <h2>$Component.CodeName <i class="<% if $Component.MascotClass %>$Component.MascotClass<% else %>Barbican<% end_if %>"></i></h2>
+            <div class="col-lg-8 col-md-7 col-sm-6">
+                <h2>$Component.CodeName <i class="fa <% if $Component.IconClass %>$Component.IconClass<% else %>fa-cogs<% end_if %>"></i></h2>
                 <h4>$Component.Name</h4>
                 <div class="project-intro-links">
                     <% if $Component.WikiUrl %>
@@ -35,28 +32,18 @@
                     <div class="core-stats-wrapper">
                         <div class="row">
                             <div class="col-sm-4 col-xs-4">
-                                <% if $Component.Adoption > 0 %>
-                                    <div class="core-stat-graphic">
-                                        {$Component.Adoption}%
-                                    </div>
-                                <% else %>
-                                    <div class="core-stat-graphic off"></div>
-                                <% end_if %>
-                                <div class="core-stat-title <% if $Component.Adoption == 0 %>off<% end_if %>">
+                                <div class="core-stat-graphic">
+                                    {$Component.Adoption}%
+                                </div>
+                                <div class="core-stat-title">
                                     <%t Software.ADOPTION 'Adoption' %>
                                 </div>
                             </div>
                             <div class="col-sm-4 col-xs-4">
-                                <% if $Component.MaturityPoints > 0 %>
-                                    <div class="core-stat-graphic">
-                                        $Component.MaturityPoints
-                                        <span><%t Openstack.RANGE_OF 'of' %></span>
-                                        $Top.getMaxAllowedMaturityPoints
-                                    </div>
-                                <% else %>
-                                    <div class="core-stat-graphic off"></div>
-                                <% end_if %>
-                                <div class="core-stat-title <% if $Component.MaturityPoints == 0 %>off<% end_if %>">
+                                <div class="core-stat-graphic">
+                                    $Component.MaturityPoints <span><%t Openstack.RANGE_OF 'of' %></span> $Top.getMaxAllowedMaturityPoints
+                                </div>
+                                <div class="core-stat-title">
                                     <%t Software.MATURITY 'Maturity' %>
                                 </div>
                             </div>
@@ -71,9 +58,7 @@
                         </div>
                     </div>
                     <div class="core-bottom">
-                        <a data-target="#statsInfoModal" data-toggle="modal" class="projects-stats-tip" href="#">
-                        <i class="fa fa-question-circle"></i>
-                        <%t Software.WHAT_DOES_MEAN 'What does this mean?' %></a>
+                        <a data-target="#statsInfoModal" data-toggle="modal" class="projects-stats-tip" href="#"><i class="fa fa-question-circle"></i> <%t Software.WHAT_DOES_MEAN 'What does this mean?' %></a>
                     </div>
                 </div>
             </div>
@@ -109,7 +94,7 @@
                                                         <i class="fa fa-sticky-note tag-caveat-note" data-container="body" data-toggle="popover" data-placement="right" data-content="{$Label} : {$Description}"></i>
                                                     <% end_loop %>
                                                 <% else %>
-                                                    <i class="fa fa-circle-o"></i>
+                                                    <i class="fa fa-circle-o"></i><span><%t Openstack.NO 'No' %></span>
                                                 <% end_if %>
                                             </li>
                                         </ul>
@@ -137,22 +122,14 @@
                                     <td>
                                         <ul>
                                             <li <% if $Component.SDKSupport %>class="on"<% end_if %>>
-                                                <% if $Component.SDKSupport %>
-                                                    <i class="fa fa-circle"></i><span>{$Component.SDKSupport}</span>
-                                                    <% loop $Component.getCaveatsForReleaseType($Top.CurrentRelease.ID, SDKSupport) %>
-                                                        <i class="fa fa-sticky-note tag-caveat-note" data-container="body" data-toggle="popover" data-placement="right" data-content="{$Label} : {$Description}"></i>
-                                                    <% end_loop %>
-                                                <% else %>
-                                                    <i class="fa fa-circle-o"></i>
-                                                <% end_if %>
+                                                <i class="fa fa-circle"></i><span>{$Component.SDKSupport}</span>
+                                                <% loop $Component.getCaveatsForReleaseType($Top.CurrentRelease.ID, SDKSupport) %>
+                                                    <i class="fa fa-sticky-note tag-caveat-note" data-container="body" data-toggle="popover" data-placement="right" data-content="{$Label} : {$Description}"></i>
+                                                <% end_loop %>
                                             </li>
                                         </ul>
                                     </td>
-                                    <td>
-                                        <a href="https://github.com/openstack/ops-tags-team/blob/master/descriptions/ops-sdk-support.rst">
-                                            <%t Openstack.VIEW_DETAILS 'View Details' %>
-                                        </a>
-                                    </td>
+                                    <td><a href="https://github.com/openstack/ops-tags-team/blob/master/descriptions/ops-sdk-support.rst"><%t Openstack.VIEW_DETAILS 'View Details' %></a></td>
                                     <td>
                                         <ul>
                                             <% if $Component.SDKSupport > 7 %>
@@ -166,21 +143,17 @@
                                 <tr>
                                     <td>
                                         <%t Software.PERCENTAGE_OF_DEPLOYMENTS 'Percentage of deployments using this project in production environments.' %>
-                                        <a href="#" onclick="return false;" data-html="true" data-trigger="focus" data-content="<%t Software.ADOPTION_DATA_CONTENT "Adoption data is derived from the latest <a href='//www.openstack.org/user-survey'>user survey</a>." %>" title="" data-placement="right" data-toggle="popover" data-original-title="<%t Software.HOW_CALCULATED 'How is this calculated?' %>"><i class="fa fa-question-circle tag-tooltip"></i></a>
+                                        <i data-content="<%t Software.ADOPTION_DATA_CONTENT "Adoption data is derived from the latest <a href='//www.openstack.org/user-survey'>user survey</a>." %>" title="" data-placement="right" data-toggle="popover" class="fa fa-question-circle tag-tooltip" data-original-title="<%t Software.HOW_CALCULATED 'How is this calculated?' %>"></i>
                                     </td>
                                     <td>
                                         <ul>
-                                            <li <% if $Component.Adoption > 0 %>class="on"<% end_if %>>
-                                                <% if $Component.Adoption > 0 %>
-                                                    <a href="https://github.com/openstack/ops-tags-team/blob/master/descriptions/ops-production-use.rst">
-                                                        <i class="fa fa-circle"></i><span> {$Component.Adoption}%</span>
-                                                        <% loop $Component.getCaveatsForReleaseType($Top.CurrentRelease.ID, ProductionUse) %>
-                                                                <i class="fa fa-sticky-note tag-caveat-note" data-container="body" data-toggle="popover" data-placement="right" data-content="{$Label} : {$Description}"></i>
-                                                        <% end_loop %>
-                                                    </a>
-                                                <% else %>
-                                                    <i class="fa fa-circle-o"></i>
-                                                <% end_if %>
+                                            <li class="on">
+                                                <a href="https://github.com/openstack/ops-tags-team/blob/master/descriptions/ops-production-use.rst">
+                                                    <i class="fa fa-circle"></i><span> {$Component.Adoption}%</span>
+                                                    <% loop $Component.getCaveatsForReleaseType($Top.CurrentRelease.ID, ProductionUse) %>
+                                                            <i class="fa fa-sticky-note tag-caveat-note" data-container="body" data-toggle="popover" data-placement="right" data-content="{$Label} : {$Description}"></i>
+                                                    <% end_loop %>
+                                                </a>
                                             </li>
                                         </ul>
                                     </td>
@@ -198,7 +171,7 @@
                                 <tr>
                                     <td>
                                         <%t Software.USED_IN_CORPORATE 'Has this project team achieved corporate diversity?' %>
-                                        <a href="#" onclick="return false;" data-trigger="focus" data-content="<%t Software.PROJECT_DIVERSITY "A project with this tag has achieved a level of diversity in the affiliation of contributors that is indicative of a healthy collaborative project. This tag exists in the ‘team’ category, which as the name implies, covers information about the team itself. Another example of a tag that could exist in this category is one that conveys the size of the team that is actively contributing." %>" title="" data-placement="right" data-toggle="popover" data-original-title="<%t Software.WHAT_DOES_MEAN 'What does this mean?' %>"><i class="fa fa-question-circle tag-tooltip"></i></a>
+                                        <i data-content="<%t Software.PROJECT_DIVERSITY "A project with this tag has achieved a level of diversity in the affiliation of contributors that is indicative of a healthy collaborative project. This tag exists in the ‘team’ category, which as the name implies, covers information about the team itself. Another example of a tag that could exist in this category is one that conveys the size of the team that is actively contributing." %>" title="" data-placement="right" data-toggle="popover" class="fa fa-question-circle tag-tooltip" data-original-title="<%t Software.WHAT_DOES_MEAN 'What does this mean?' %>"></i>
                                     </td>
                                     <td>
                                         <ul>
@@ -231,7 +204,7 @@
                                                 <% if $Component.HasStableBranches %>
                                                     <i class="fa fa-circle"></i><span><%t Openstack.YES 'Yes' %></span>
                                                 <% else %>
-                                                    <i class="fa fa-circle-o"></i>
+                                                    <i class="fa fa-circle-o"></i><span><%t Openstack.NO 'No' %></span>
                                                 <% end_if %>
                                             </li>
                                         </ul>
@@ -250,7 +223,7 @@
                                 <tr>
                                     <td>
                                         <%t Software.FOLLOW_DEPRECATION 'Does this project follows standard deprecation?' %>
-                                        <a href="#" onclick="return false;" data-trigger="focus" data-content="<%t Software.DEPRECATION_TAG_DESCRIPTION 'The “assert:follows-standard-deprecation” tag asserts that the project will follow standard feature deprecation rules' %>" title="" data-placement="right" data-toggle="popover" data-original-title="<%t Software.WHAT_DOES_MEAN 'What does this mean?' %>"><i class="fa fa-question-circle tag-tooltip"></i></a>
+                                        <i data-content="<%t Software.DEPRECATION_TAG_DESCRIPTION 'The “assert:follows-standard-deprecation” tag asserts that the project will follow standard feature deprecation rules' %>" title="" data-placement="right" data-toggle="popover" class="fa fa-question-circle tag-tooltip" data-original-title="<%t Software.WHAT_DOES_MEAN 'What does this mean?' %>"></i>
                                     </td>
                                     <td>
                                         <ul>
@@ -258,7 +231,7 @@
                                                 <% if $Component.FollowsStandardDeprecation %>
                                                     <i class="fa fa-circle"></i><span><%t Openstack.YES 'Yes' %></span>
                                                 <% else %>
-                                                    <i class="fa fa-circle-o"></i>
+                                                    <i class="fa fa-circle-o"></i><span><%t Openstack.NO 'No' %></span>
                                                 <% end_if %>
                                             </li>
                                         </ul>
@@ -277,7 +250,7 @@
                                 <tr>
                                     <td>
                                         <%t Software.MINIMAL_UPGRADE 'Does this project support minimal cold (offline) upgrade capabilities?' %>
-                                        <a href="#" onclick="return false;" data-trigger="focus" data-content="<%t Software.MINIMAL_UPGRADE_DESCRIPTION 'asserts that the project will support minimal cold (offline) upgrade capabilities' %>" title="" data-placement="right" data-toggle="popover" data-original-title="<%t Software.WHAT_DOES_MEAN 'What does this mean?' %>"><i class="fa fa-question-circle tag-tooltip"></i></a>
+                                        <i data-content="<%t Software.MINIMAL_UPGRADE_DESCRIPTION 'asserts that the project will support minimal cold (offline) upgrade capabilities' %>" title="" data-placement="right" data-toggle="popover" class="fa fa-question-circle tag-tooltip" data-original-title="<%t Software.WHAT_DOES_MEAN 'What does this mean?' %>"></i>
                                     </td>
                                     <td>
                                         <ul>
@@ -285,7 +258,7 @@
                                                 <% if $Component.SupportsUpgrade %>
                                                     <i class="fa fa-circle"></i><span><%t Openstack.YES 'Yes' %></span>
                                                 <% else %>
-                                                    <i class="fa fa-circle-o"></i>
+                                                    <i class="fa fa-circle-o"></i><span><%t Openstack.NO 'No' %></span>
                                                 <% end_if %>
                                             </li>
                                         </ul>
@@ -304,7 +277,7 @@
                                 <tr>
                                     <td>
                                         <%t Software.MINIMAL_ROLLING 'Does this project support minimal rolling upgrade capabilities?' %>
-                                        <a href="#" onclick="return false;" data-trigger="focus" data-content="<%t Software.MINIMAL_ROLLING_DESCRIPTION 'tag asserts that the project will support minimal rolling upgrade capabilities.' %>" title="" data-placement="right" data-toggle="popover" data-original-title="<%t Software.WHAT_DOES_MEAN 'What does this mean?' %>"><i class="fa fa-question-circle tag-tooltip"></i></a>
+                                        <i data-content="<%t Software.MINIMAL_ROLLING_DESCRIPTION 'tag asserts that the project will support minimal rolling upgrade capabilities.' %>" title="" data-placement="right" data-toggle="popover" class="fa fa-question-circle tag-tooltip" data-original-title="<%t Software.WHAT_DOES_MEAN 'What does this mean?' %>"></i>
                                     </td>
                                     <td>
                                         <ul>
@@ -312,7 +285,7 @@
                                                 <% if $Component.SupportsRollingUpgrade %>
                                                     <i class="fa fa-circle"></i><span><%t Openstack.YES 'Yes' %></span>
                                                 <% else %>
-                                                    <i class="fa fa-circle-o"></i>
+                                                    <i class="fa fa-circle-o"></i><span><%t Openstack.NO 'No' %></span>
                                                 <% end_if %>
                                             </li>
                                         </ul>
@@ -348,7 +321,7 @@
                                 <tr>
                                     <td>
                                         <%t Software.HOW_RELEASED 'How is this project released?' %>
-                                        <a href="#" onclick="return false;" data-trigger="focus" data-content="<%t Software.HOW_RELEASED_DESCRIPTION 'OpenStack development happens on a six-month cycle. Projects can choose to release on this cycle with oversight of the release management team, or to release independently of the cycle.' %>" title="" data-placement="right" data-toggle="popover" data-original-title="<%t Software.HOW_PROJECTS_RELEASED 'How are projects released?' %>"><i class="fa fa-question-circle tag-tooltip"></i></a>
+                                        <i data-content="<%t Software.HOW_RELEASED_DESCRIPTION 'OpenStack development happens on a six-month cycle. Projects can choose to release on this cycle with oversight of the release management team, or to release independently of the cycle.' %>" title="" data-placement="right" data-toggle="popover" class="fa fa-question-circle tag-tooltip" data-original-title="<%t Software.HOW_PROJECTS_RELEASED 'How are projects released?' %>"></i>
                                     </td>
                                     <td>
                                         <ul>
@@ -425,10 +398,10 @@
                         </p>
                         <p>
                             <a target="_blank" href="community/members/profile/{$Component.LatestReleasePTL.ID}">
-                                <img alt="OpenStack Profile" src="themes/openstack/images/foundation-staff/icon_openstack.png"></a>
+                                <img alt="OpenStack Profile" src="themes/openstack/images/software/ptl-openstack.png"></a>
                             <% if $Component.LatestReleasePTL.TwitterName %>
                             <a target="_blank" href="https://twitter.com/{$Component.LatestReleasePTL.TwitterName}">
-                                <img alt="Twitter Profile" src="themes/openstack/images/foundation-staff/icon_twitter.png">
+                                <img alt="Twitter Profile" src="themes/openstack/images/software/ptl-twitter.png">
                             </a>
                             <% end_if %>
                         </p>

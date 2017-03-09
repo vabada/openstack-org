@@ -2,7 +2,6 @@ module.exports = {
   entry: {
     "summit-highlights":"./source/js/highlights/summit-highlights.js",
     "schedule":"./source/js/schedule/schedule.js",
-    "event-detail":"./source/js/schedule/event-detail.js",
     "my-schedule-view":"./source/js/schedule/my-schedule-view.js",
     "full-schedule-view":"./source/js/schedule/full-schedule-view.js",
     "share-buttons":"./source/js/schedule/share-buttons.js",

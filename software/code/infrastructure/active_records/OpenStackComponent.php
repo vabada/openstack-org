@@ -20,19 +20,6 @@ class OpenStackComponent extends DataObject implements IOpenStackComponent
 
     private static $create_table_options = array('MySQLDatabase' => 'ENGINE=InnoDB');
 
-    // IMPORTANT : this fixes the order for categories on software page
-    public static $categories = array(
-        "Compute",
-        "Storage, Backup & Recovery",
-        "Networking & Content Delivery",
-        "Data & Analytics",
-        "Security, Identity & Compliance",
-        "Management Tools",
-        "Deployment Tools",
-        "Application Services",
-        "None"
-    );
-
     private static $db = array
     (
         'Name'                         => 'Varchar',
@@ -41,8 +28,8 @@ class OpenStackComponent extends DataObject implements IOpenStackComponent
         'SupportsVersioning'           => 'Boolean',
         'SupportsExtensions'           => 'Boolean',
         'IsCoreService'                => 'Boolean',
-        'MascotClass'                  => "Enum('Barbican,Chef OpenStack,Cinder,CLI,CloudKitty,Congress,Designate,Dragonflow,Freezer,Fuel,Glance,Heat,Horizon,Ironic,Karbor,Keystone,Kolla,Kuryr,Magnum,Manila,Mistral,Monasca,Murano,Neutron,Nova,Octavia,OpenStack Charms,OpenStackansible,Puppet OpenStack,Rally,Sahara,Searchlight,Senlin,Solum,Storlets,Swift,Tacker,Telemetry,Tricircle,TripleO,Trove,Vitrage,Watcher,Zun','Barbican')",
-        'Use'                          => 'Enum(array("Application Services","Compute","Data & Analytics","Deployment Tools","Management Tools","Monitoring & Metering","Networking & Content Delivery","Security, Identity & Compliance","Storage, Backup & Recovery","None"), "None")',
+        'IconClass'                    => "Enum('fa-cogs, fa-cloud-upload, fa-archive, fa-exchange, fa-object-group, fa-key','fa-cogs')",
+        'Use'                          => 'Enum(array("Compute","Object Storage","None"), "None")',
         'HasStableBranches'            => 'Boolean',
         'WikiUrl'                      => 'Text',
         'TCApprovedRelease'            => 'Boolean',
@@ -56,7 +43,6 @@ class OpenStackComponent extends DataObject implements IOpenStackComponent
         'FollowsStandardDeprecation'   => 'Boolean',
         'SupportsUpgrade'              => 'Boolean',
         'SupportsRollingUpgrade'       => 'Boolean',
-        'ShowOnMarketplace'            => 'Boolean(1)',
     );
 
     private static $has_one = array
@@ -78,18 +64,13 @@ class OpenStackComponent extends DataObject implements IOpenStackComponent
 
     private static $indexes = array
     (
-        'Name'     => array('type' => 'index', 'value' => 'Name'),
-        'CodeName' => array('type' => 'index', 'value' => 'CodeName'),
-        'NameCodeName' => array(
-            'type' => 'unique',
-            'value' => '"Name","CodeName"'
-        )
+        'Name'     => array('type' => 'unique', 'value' => 'Name'),
+        'CodeName' => array('type' => 'unique', 'value' => 'CodeName')
     );
 
     private static $defaults = array
     (
-        'MascotClass'       => 'Barbican',
-        'ShowOnMarketplace' => 1,
+        'IconClass' => 'fa-cogs',
     );
 
     protected function onBeforeWrite()
@@ -125,10 +106,6 @@ class OpenStackComponent extends DataObject implements IOpenStackComponent
         return strtolower($this->getCodeName());
     }
 
-    public function getMascotRef()
-    {
-        return str_replace(' ', '-', strtolower($this->getCodeName()));
-    }
 
     public function setCodeName($codename)
     {
@@ -152,7 +129,7 @@ class OpenStackComponent extends DataObject implements IOpenStackComponent
     public function getVersions()
     {
         if (!$this->getSupportsVersioning()) {
-            throw new Exception('Component does not support api versioning');
+            throw new Exception('Component does not supports api versioning');
         }
 
         return AssociationFactory::getInstance()->getOne2ManyAssociation($this, 'Versions')->toArray();
@@ -165,7 +142,7 @@ class OpenStackComponent extends DataObject implements IOpenStackComponent
     public function addVersion(IOpenStackApiVersion $new_version)
     {
         if (!$this->getSupportsVersioning()) {
-            throw new Exception('Component does not support api versioning');
+            throw new Exception('Component does not supports api versioning');
         }
         AssociationFactory::getInstance()->getOne2ManyAssociation($this, 'Versions')->add($new_version);
     }

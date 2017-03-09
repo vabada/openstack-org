@@ -22,15 +22,15 @@ class OpenStackRelease
 
     static $create_table_options = array('MySQLDatabase' => 'ENGINE=InnoDB');
 
-    static $db = [
-
-        'Name'            => 'Varchar',
-        'ReleaseNumber'   => 'Varchar',
-        'ReleaseDate'     => 'Date',
-        'ReleaseNotesUrl' => 'Text',
-        'Status'          => "Enum('Deprecated, EOL, SecuritySupported , Current, UnderDevelopment, Future', 'Deprecated')",
-        'HasStatistics'   => 'Boolean',
-    ];
+    static $db = array
+    (
+        'Name'                             => 'Varchar',
+        'ReleaseNumber'                    => 'Varchar',
+        'ReleaseDate'                      => 'Date',
+        'ReleaseNotesUrl'                  => 'Text',
+        'Status'                           => "Enum('Deprecated, EOL, SecuritySupported , Current, UnderDevelopment, Future', 'Deprecated')",
+        'HasStatistics'                    => 'Boolean',
+    );
 
     static $summary_fields = array
     (
@@ -53,8 +53,8 @@ class OpenStackRelease
         'OpenStackComponents' => 'OpenStackComponent',
     );
 
-    private static $many_many_extraFields = [
-
+    private static $many_many_extraFields = array
+    (
         'OpenStackComponents'  =>[
             'Adoption'                               => 'Int',
             'MaturityPoints'                         => 'Int',
@@ -69,9 +69,8 @@ class OpenStackRelease
             'ReleaseIndependent'                     => 'Boolean',
             'ReleaseTrailing'                        => 'Boolean',
             'ReleasesNotes'                          => 'Text',
-            'CustomTeamYAMLFileName'                 => 'Text',
         ]
-    ];
+    );
 
     static $has_many = array
     (
@@ -430,33 +429,5 @@ class OpenStackRelease
         $component = $this->getComponentById($component_id);
         if(is_null($component)) return null;
         return $component->MaturityPoints;
-    }
-
-    /**
-     * @param string $term
-     * @param int $adoption
-     * @param int $maturity
-     * @param int $age
-     * @return IOpenStackComponent[]
-     */
-    public function getOpenStackComponentsFiltered($term = '', $adoption = 0, $maturity = 0, $age = 0)
-    {
-        $query = $this->OpenStackComponents();
-
-        $query = $query->where(" Adoption >= {$adoption} AND  MaturityPoints >= {$maturity}");
-
-        if(!empty($term))
-        {
-            $query = $query->where(" (Name LIKE '%{$term}%' OR CodeName LIKE '%{$term}%' OR Description LIKE '%{$term}%' ) ");
-        }
-
-        $final = array();
-        $res   = $query->sort(array('Use'=>'ASC','IsCoreService'=>'DESC', 'Order'=>'ASC'))->toArray();
-        foreach($res as $c)
-        {
-            if($c->getAge() >= $age)
-                array_push($final, $c);
-        }
-        return $final;
     }
 }
