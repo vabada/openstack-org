@@ -1,2 +1,3 @@
-<tagmanagerfield value="{$Value}" allowed_tags="{ category_tags }"></tagmanagerfield>
-$ModuleJS('tagmanagerfield')
+<div id="os-tag-manager-field" value="{$Value}"></div>
+$ModuleJS('tag-manager-field')
+$ModuleCSS('tag-manager-field')
