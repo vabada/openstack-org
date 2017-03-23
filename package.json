@@ -21,6 +21,8 @@
     "mousetrap": "^1.6.0",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
+    "react-redux": "^5.0.4",
+    "redux-thunk": "^2.2.0",
     "reqwest": "^2.0.5",
     "riot": "2.3.13",
     "riotcontrol": "0.0.3",
