@@ -50,6 +50,8 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
      */
     private $rsvp_repository;
 
+    private $eventfeedback_repository;
+
     /**
      * @return ISpeakerRepository
      */
@@ -98,6 +100,11 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
         $this->rsvp_repository = $rsvp_repository;
     }
 
+    public function setEventFeedbackRepository(IEventFeedbackRepository $eventfeedback_repository)
+    {
+        $this->eventfeedback_repository = $eventfeedback_repository;
+    }
+
     static $allowed_actions = array(
         'ViewEvent',
         'ViewSpeakerProfile',
@@ -110,10 +117,12 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
         'ExportFullSchedule',
         'eventDetails',
         'ViewEventRSVP',
+        'getFeedback',
     );
 
     static $url_handlers = array
     (
+        'events/$EVENT_ID/feedback'          => 'getFeedback',
         'events/$EVENT_ID/html'              => 'eventDetails',
         'events/$EVENT_ID/$EVENT_TITLE/rsvp' => 'ViewEventRSVP',
         'events/$EVENT_ID/$EVENT_TITLE'      => 'ViewEvent',
@@ -184,6 +193,12 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
         Requirements::css("summit/css/summitapp-event.css");
         Requirements::javascript("summit/javascript/schedule/event-detail-page.js");
 
+
+        //JS libraries for feedback form and list
+        Requirements::javascript('summit/javascript/summitapp-review.js');
+        Requirements::javascript('marketplace/code/ui/frontend/js/star-rating.min.js');
+        Requirements::css("marketplace/code/ui/frontend/css/star-rating.min.css");
+
         $token = Session::get(self::EventShareByEmailTokenKey);
 
         if (!$token) {
@@ -200,15 +215,43 @@ class SummitAppSchedPage_Controller extends SummitPage_Controller
             $back_url .= sprintf("#day=%s-%s-%s&eventid=%s", $start_date->format('Y'), $start_date->format('m'), $start_date->format('d'), $event->ID);
         }
 
+        if(Director::is_ajax()) {
+            return $this->renderWith(
+                array('SummitAppEventPage_eventDetails'),
+                array(
+                    'Event'     => $event,
+                    'Token'     => $token,
+                    'ShowFeedback' => false,
+                ));
+        }
+
         return $this->renderWith(
             array('SummitAppEventPage', 'SummitPage', 'Page'),
             array(
                 'Event'     => $event,
                 'BackURL'   => $back_url,
-                'Token'     => $token
+                'Token'     => $token,
+                'ShowFeedback' => true
             ));
     }
 
+    public function getFeedback(SS_HTTPRequest $request)
+    {
+        $event    = $this->getSummitEntity($request);
+
+        if (is_null($event) || !$event->isPublished() || !ScheduleManager::allowToSee($event)) {
+            return $this->httpError(404, 'Sorry that event could not be found');
+        }
+
+
+        if(Director::is_ajax()) {
+            return $this->renderWith(
+                array('SummitAppEventPage_eventFeedback'),
+                array(
+                    'Event'     => $event,
+                ));
+        }
+    }
     /**
      * @param SS_HTTPRequest $request
      * @return HTMLText|SS_HTTPResponse|void

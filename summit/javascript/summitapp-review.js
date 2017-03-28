@@ -12,59 +12,70 @@
  **/
 
 $(document).ready(function(){
-    $(".rating").rating({size:'xs',showCaption:false,showClear:false,step:1});
+    $(".rating").rating({showCaption:false,showClear:false,step:0.5, size: "xxxs"});
 
     $('.save').click(function() {
-       saveReview($(this).attr('id'));
+       saveReview();
     });
 
-    $('.rating').on('rating.change', function(event, value, caption) {
-        var event_id = $(this).data('event-id');
-        $('#'+event_id).prop('disabled',false).text('Save');
-    });
 
-    $('.comment').change(function(){
-        var event_id = $(this).data('event-id');
-        $('#'+event_id).prop('disabled',false).text('Save');
-    });
+    function getReviews(event_id){
+        $.ajax({
+            type: 'GET',
+            url:  '/SummitAppSchedPage_Controller/events/'+event_id+'/feedback',
+            success: function (data) {
+                $("#commentList").html(data);
+            }
 
-    /*tinyMCE.init({
-        selector: "textarea",
-        width:      '100%',
-        height:     270,
-        plugins:    [ "anchor link spellchecker" ],
-        toolbar:    "formatselect, fontselect, fontsizeselect, bold, italic, underline, alignleft, aligncenter, alignright, alignjustify, bullist, numlist, outdent, indent, blockquote, undo, redo, removeformat, link, spellchecker",
-        statusbar:  false,
-        menubar:    false,
-    });*/
-});
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            var http_code = jqXHR.status;
+            if(http_code === 401){
+                alert('you are not logged in!');
+                location.reload();
+            }
+        });
 
-function saveReview(event_id) {
-    var rating = $('#rating-'+event_id).val();
-    var comment = $('#comment-'+event_id).val();
-    var review = {rating: rating, comment: comment};
 
-    if (rating == 0 || comment == ''){
-        swal('Error', 'Please fill in the rating and the comment.', 'warning');
     }
 
-    $('#'+event_id).prop('disabled',true);
+    function saveReview() {
+        var event_id = $('#event_id').val();
+        var rating = $('#rating').val();
+        var comment = $('#comment').val();
+        var member_id = $('#member_id').val();
+        var summit_id = $('#summit_id').val();
+        var review = {rating: rating, comment: comment, member_id: member_id, event_id: event_id, Approved : 0};
 
-    $.ajax({
-        type: 'POST',
-        url:  'api/v1/summits/'+summit_id+'/schedule/'+event_id+'/feedback',
-        data: JSON.stringify(review),
-        timeout:10000,
-        contentType: "application/json; charset=utf-8",
-        success: function (data) {
-            $('#'+event_id).text('Saved');
+        if (rating == 0 || comment == ''){
+            swal('Error', 'Please fill in the rating and the comment.', 'warning');
+            return;
         }
-    }).fail(function (jqXHR, textStatus, errorThrown) {
-        var http_code = jqXHR.status;
-        if(http_code === 401){
-            // user lost its session
-            alert('you are not logged in!');
-            location.reload();
-        }
-    });
-}
+
+        $('#'+event_id).prop('disabled',true);
+
+        $.ajax({
+            type: 'POST',
+            url:  'api/v1/summits/'+summit_id+'/schedule/'+event_id+'/feedback',
+            data: JSON.stringify(review),
+            timeout:10000,
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                swal({
+                    title: 'Thanks!',
+                    text: 'Your feedback has been sent!',
+                    type: "success",
+                }).then(function () {
+                    $('.feedback_box').hide();
+                    getReviews(event_id);
+                });
+            }
+
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            var http_code = jqXHR.status;
+            if(http_code === 401){
+                alert('you are not logged in!');
+                location.reload();
+            }
+        });
+    }
+});
