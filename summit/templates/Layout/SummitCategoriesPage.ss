@@ -64,7 +64,7 @@
                 <h1 id="all-tracks">All Summit Tracks</h1>
                 <% loop $Summit.getPublicCategories() %>
                 <p>
-                    <a name="$Title" /><strong> $Title </strong><br>
+                    <a name="$Title"></a><strong> $Title </strong><br>
                     $Description
                 </p>
                 <% end_loop %>
