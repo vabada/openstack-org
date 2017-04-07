@@ -18,7 +18,7 @@
                         <h3>
                             <a href="{$Top.Summit.getScheduleLink()}#track_groups={$ID}">
                                 <span class="dot" style="background:#{$Color};"></span> $Name
-                            </a><a name="$Name" />
+                            </a><a name="$Name">&nbsp;</a>
                         </h3>
                         <div class="session-list-tracks">
                             <ul>
