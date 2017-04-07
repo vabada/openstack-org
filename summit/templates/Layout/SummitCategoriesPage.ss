@@ -17,14 +17,14 @@
                     <div class="session-wrapper" id="containers">
                         <h3>
                             <a href="{$Top.Summit.getScheduleLink()}#track_groups={$ID}">
-                                <span class="dot" style="background:#{$Color};"></span> $Name<a name="$Name" />
-                            </a>
+                                <span class="dot" style="background:#{$Color};"></span> $Name
+                            </a><a name="$Name" />
                         </h3>
                         <div class="session-list-tracks">
                             <ul>
                                 <% loop Categories() %>
                                 <li class="tracks-tooltip" title="{$Description}">
-                                    $Title<% if not $VotingVisible %> * <% end_if %><a name="$Title" style="width:0px;height:0px;" />
+                                    $Title<% if not $VotingVisible %> * <% end_if %>
                                 </li>
                                 <% end_loop %>
                             </ul>
@@ -64,7 +64,7 @@
                 <h1 id="all-tracks">All Summit Tracks</h1>
                 <% loop $Summit.getPublicCategories() %>
                 <p>
-                    <strong> $Title </strong><br>
+                    <a name="$Title" /><strong> $Title </strong><br>
                     $Description
                 </p>
                 <% end_loop %>
