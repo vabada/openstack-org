@@ -24,7 +24,7 @@
                             <ul>
                                 <% loop Categories() %>
                                 <li class="tracks-tooltip" title="{$Description}">
-                                    $Title <% if not $VotingVisible %> * <% end_if %>
+                                    $Title<% if not $VotingVisible %> * <% end_if %><a name="$Title" style="width:0px;height:0px;" />
                                 </li>
                                 <% end_loop %>
                             </ul>
