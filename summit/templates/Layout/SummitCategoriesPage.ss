@@ -17,7 +17,7 @@
                     <div class="session-wrapper" id="containers">
                         <h3>
                             <a href="{$Top.Summit.getScheduleLink()}#track_groups={$ID}">
-                                <span class="dot" style="background:#{$Color};"></span> $Name
+                                <span class="dot" style="background:#{$Color};"></span> $Name<a name="$Name" />
                             </a>
                         </h3>
                         <div class="session-list-tracks">
