@@ -26,6 +26,7 @@ SummitAppSchedPage_Controller:
     SpeakerRepository: "%$SpeakerRepository"
     EventRepository: "%$EventRepository"
     RSVPRepository: "%$RSVPRepository"
+    EventFeedbackRepository: "%$EventFeedbackRepository"
 SummitAttendeeManager:
     dependencies:
       EventbriteEventManager: '%$EventbriteEventManager'
