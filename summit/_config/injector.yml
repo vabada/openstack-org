@@ -26,6 +26,9 @@ SummitAppSchedPage_Controller:
     SpeakerRepository: "%$SpeakerRepository"
     EventRepository: "%$EventRepository"
     RSVPRepository: "%$RSVPRepository"
+SummitAttendeeManager:
+    dependencies:
+      EventbriteEventManager: '%$EventbriteEventManager'
 Injector:
   SchedRestfulService:
     class: RestfulService
@@ -228,8 +231,9 @@ Injector:
     constructor:
       0: '%$SummitAttendeeRepository'
       1: '%$MemberRepository'
-      2: '%$EventbriteAttendeeRepository'
-      3: '%$TransactionManager'
+      2: '%$SummitAttendeeFactory'
+      3: '%$EventbriteAttendeeRepository'
+      4: '%$TransactionManager'
   EventFeedbackFactory:
     class: EventFeedbackFactory
   EventFeedbackRepository:
