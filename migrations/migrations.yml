@@ -70,5 +70,5 @@ migrations:
   - CreateEventbriteAttendeeSummitAttendeeTicketIndexMigration
   - UpdateComponentReleasesMigration
   - GenerateComponentSlugMigration
-  - SetMascotNamesMigration
   - SummitSponsorsMigration
+  - PopulateMascotsMigration
