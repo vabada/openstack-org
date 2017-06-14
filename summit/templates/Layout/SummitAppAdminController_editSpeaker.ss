@@ -116,11 +116,12 @@
                     </div>
                 </div>
             </div>
+            <hr>
             <% if $Speaker.AllPresentations($Top.Summit.ID) %>
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-12">
-                     <h2>Presentations</h2>
+                     <h3>Presentations</h3>
                      <ul>
                          <% loop $Speaker.AllPresentations($Top.Summit.ID) %>
                              <li>
@@ -132,6 +133,22 @@
                     </div>
                 </div>
             </div>
+            <% end_if %>
+            <% if $Speaker.SummitAssistances() %>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                         <h3>Previous Summit Attendance</h3>
+                         <ul>
+                             <% loop $Speaker.SummitAssistances() %>
+                                 <li>
+                                    $Summit.Name
+                                </li>
+                             <% end_loop %>
+                         </ul>
+                        </div>
+                    </div>
+                </div>
             <% end_if %>
             <hr>
             <button type="submit" class="btn btn-primary">Save</button>
