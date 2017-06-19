@@ -15,5 +15,6 @@ module.exports = {
     "sync-calendar":"./source/js/schedule/sync-calendar.js",
     "global-search":"./source/js/schedule/global-search.js",
     "search-result-event-list":"./source/js/schedule/search-result-event-list.js",
+    "summit-main-data":"./source/js/admin/summit/main_data/index.js"
   }
 };

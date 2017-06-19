@@ -40,18 +40,25 @@ final class SummitsApi extends AbstractRestfulJsonApi
      */
     private $summit_repository;
 
+    /**
+     * @var ISummitManager
+     */
+    private $summit_manager;
+
     public function __construct(
         IEntityRepository $sponsorship_package_repository,
         IEntityRepository $sponsorship_add_on_repository,
         ISummitPackagePurchaseOrderManager $package_purchase_order_manager,
-        ISummitRepository $summit_repository
+        ISummitRepository $summit_repository,
+        ISummitManager $summit_manager
     ) {
         parent::__construct();
 
-        $this->sponsorship_add_on_repository = $sponsorship_add_on_repository;
+        $this->sponsorship_add_on_repository  = $sponsorship_add_on_repository;
         $this->sponsorship_package_repository = $sponsorship_package_repository;
         $this->package_purchase_order_manager = $package_purchase_order_manager;
         $this->summit_repository              = $summit_repository;
+        $this->summit_manager                 = $summit_manager;
 
         $this_var = $this;
 
@@ -149,6 +156,7 @@ final class SummitsApi extends AbstractRestfulJsonApi
         '$SUMMIT_ID/registration-codes'                              => 'handleRegistrationCodes',
         'PUT packages/purchase-orders/$PURCHASE_ORDER_ID/approve'    => 'approvePurchaseOrder',
         'PUT packages/purchase-orders/$PURCHASE_ORDER_ID/reject'     => 'rejectPurchaseOrder',
+        'PUT $SUMMIT_ID'                                             => 'updateSummit',
     );
 
     static $allowed_actions = array(
@@ -169,6 +177,7 @@ final class SummitsApi extends AbstractRestfulJsonApi
         'handleRegistrationCodes',
         'getCategoriesByGroup',
         'getExtraQuestionsForPresentation',
+        'updateSummit',
     );
 
     // this is called when typing a tag name to add as a tag on edit event
@@ -497,6 +506,35 @@ final class SummitsApi extends AbstractRestfulJsonApi
         {
             SS_Log::log($ex->getMessage(), SS_Log::ERR);
             return $ex->getMessage();
+        }
+    }
+
+    public function updateSummit(SS_HTTPRequest $request)
+    {
+        try {
+            $summit_id    = intval($request->param('SUMMIT_ID'));
+            $summit       = $this->summit_repository->getById($summit_id);
+            if(is_null($summit)) throw new NotFoundEntityException('Summit', sprintf(' id %s', $summit_id));
+
+            if(!$this->isJson()) return $this->validationError(array('invalid content type!'));
+            $data        = $this->getJsonRequest();
+
+            $summit = $this->summit_manager->updateSummit($data['summit']);
+
+            return $this->ok(['msg' => 'Summit data updated successfully!', 'msg_type' => 'success']);
+
+        } catch (NotFoundEntityException $ex1) {
+            SS_Log::log($ex1, SS_Log::ERR);
+
+            return $this->notFound($ex1->getMessage());
+        } catch (EntityValidationException $ex2) {
+            SS_Log::log($ex2, SS_Log::NOTICE);
+
+            return $this->validationError($ex2->getMessages());
+        } catch (Exception $ex) {
+            SS_Log::log($ex, SS_Log::ERR);
+
+            return $this->serverError();
         }
     }
 

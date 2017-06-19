@@ -2,6 +2,21 @@
     <li <% if $Active == 'dashboard' %> class="active" <% end_if %>>
         <a href="$AdminLink/$SummitID/dashboard"><span class="fa-stack fa-lg pull-left"><i class="fa fa-dashboard fa-stack-1x "></i></span>Dashboard</a>
     </li>
+    <li <% if $Active == 'core_settings' %> class="active" <% end_if %>>
+        <a href="$AdminLink/$SummitID/summit/main_data"><span class="fa-stack fa-lg pull-left"><i class="fa fa-users fa-stack-1x "></i></span>Main Data</a>
+        <ul class="nav-pills nav-stacked" style="list-style-type:none;">
+            <li <% if $Active == 'summit_dates' %> class="active" <% end_if %>>
+                <a href="$AdminLink/$SummitID/summit/dates">
+                    <span class="fa-stack pull-left"><i class="fa fa-chevron-right fa-stack-1x" style="padding-top: 5px;"></i></span>Summit Dates
+                </a>
+            </li>
+            <li <% if $Active == 'summit_wifi' %> class="active" <% end_if %>>
+                <a href="$AdminLink/$SummitID/summit/wifi">
+                    <span class="fa-stack pull-left"><i class="fa fa-chevron-right fa-stack-1x" style="padding-top: 5px;"></i></span>Summit WiFi
+                </a>
+            </li>
+        </ul>
+    </li>
     <li <% if $Active == 'attendees' %> class="active" <% end_if %>>
         <a href="$AdminLink/$SummitID/attendees"><span class="fa-stack fa-lg pull-left"><i class="fa fa-users fa-stack-1x "></i></span>Attendees</a>
         <ul class="nav-pills nav-stacked" style="list-style-type:none;">

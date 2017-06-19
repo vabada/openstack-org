@@ -14,7 +14,8 @@
 /**
  * Class SummitManager
  */
-final class SummitManager {
+final class SummitManager
+    implements ISummitManager {
 
 	/**
 	 * @var IEntityRepository
@@ -30,36 +31,14 @@ final class SummitManager {
 	 */
 	private $tx_manager;
 
-	public function __construct(IEntityRepository $summit_repository,
+	public function __construct(ISummitRepository $summit_repository,
                                 ISummitFactory $summit_factory,
-                               ITransactionManager $tx_manager){
+                                ITransactionManager $tx_manager){
 		$this->summit_repository     = $summit_repository;
 		$this->summit_factory        = $summit_factory;
         $this->tx_manager            = $tx_manager;
 	}
 
-    /**
-     * @param array $data
-     * @return ISummit
-     */
-    public function createSummit(array $data){
-
-        $this_var           = $this;
-        $repository         = $this->summit_repository;
-        $factory            = $this->summit_factory;
-
-        return  $this->tx_manager->transaction(function() use ($this_var, $factory, $data, $repository){
-            $summit = new Summit();
-            $summit->registerMainInfo($factory->buildMainInfo($data));
-
-            if ($repository->isDuplicated($summit)) {
-                throw new EntityAlreadyExistsException('Summit',sprintf('Name %s',$summit->getName()));
-            }
-
-            $repository->add($summit);
-            return $summit;
-        });
-    }
 
     /**
      * @param $id
@@ -75,6 +54,27 @@ final class SummitManager {
 
             $repository->delete($summit);
         });
+    }
+
+    /**
+     * @param $summit_data
+     * @return ISummit
+     */
+    public function updateSummit($summit_data){
+        $repository = $this->summit_repository;
+        $factory    = $this->summit_factory;
+
+        $summit =  $this->tx_manager->transaction(function() use ($summit_data, $repository, $factory){
+            $summit = $repository->getById($summit_data['id']);
+            if(!$summit)
+                throw new NotFoundEntityException('Summit',sprintf('id %s', $summit['id']));
+
+            $factory->update($summit, $summit_data);
+            $summit->write();
+            return $summit;
+        });
+
+        return $summit;
     }
 
 } 

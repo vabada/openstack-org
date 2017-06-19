@@ -79,6 +79,7 @@ final class SummitAppAdminController extends Controller implements PermissionPro
         'handleAttendees',
         'handleSpeakers',
         'handlePromocodes',
+        'summitMainData',
     );
 
     private static $url_handlers = array
@@ -91,6 +92,7 @@ final class SummitAppAdminController extends Controller implements PermissionPro
         '$SummitID!/attendees'                                       => 'handleAttendees',
         '$SummitID!/speakers'                                        => 'handleSpeakers',
         '$SummitID!/promocodes'                                      => 'handlePromocodes',
+        '$SummitID!/summit/main_data'                                => 'summitMainData',
     );
 
     /**
@@ -159,6 +161,26 @@ final class SummitAppAdminController extends Controller implements PermissionPro
                     'Summit' => $summit,
                     'Votes'  => $votes,
                     'Voters'  => $voters
+                )
+            )
+        );
+    }
+
+    public function summitMainData(SS_HTTPRequest $request)
+    {
+        $summit_id = intval($request->param('SummitID'));
+        $summit = Summit::get()->byID($summit_id);
+
+        Requirements::css('summit/css/simple-sidebar.css');
+        Requirements::css('themes/openstack/bower_assets/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
+        Requirements::javascript('summit/javascript/simple-sidebar.js');
+        return $this->getViewer('summit_maindata')->process
+        (
+            $this->customise
+            (
+                array
+                (
+                    'Summit' => $summit
                 )
             )
         );
