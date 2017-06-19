@@ -15,9 +15,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import SummitMainDataApp from './summit-main-data';
-import Message from '../../generic/containers/Message';
 import store from './store';
-import '../../generic/less/style.less';
 
 const containerId = 'summit-main-data';
 
@@ -28,15 +26,6 @@ document.addEventListener('DOMContentLoaded', function init() {
                 <SummitMainDataApp summit={summit} />
             </Provider>,
             document.getElementById(containerId)
-        );
-    }
-
-    if (document.getElementById('app-msg-wrapper')) {
-        render(
-            <Provider store={store}>
-                <Message />
-            </Provider>,
-            document.getElementById('app-msg-wrapper')
         );
     }
 });

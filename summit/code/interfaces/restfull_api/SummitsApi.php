@@ -521,7 +521,7 @@ final class SummitsApi extends AbstractRestfulJsonApi
 
             $summit = $this->summit_manager->updateSummit($data['summit']);
 
-            return $this->ok(['msg' => 'Summit data updated successfully!', 'msg_type' => 'success']);
+            return $this->updated();
 
         } catch (NotFoundEntityException $ex1) {
             SS_Log::log($ex1, SS_Log::ERR);

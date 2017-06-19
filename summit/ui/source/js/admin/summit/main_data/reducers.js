@@ -33,7 +33,9 @@ export const summitMainData = (
             const { response } = action.payload;
             return {
                 ...state,
-                loading: false
+                loading: false,
+                msg: 'Summit data updated successfully!',
+                msg_type: 'success'
             }
         }
         break;

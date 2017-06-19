@@ -11,7 +11,6 @@
             <li class="active">Main Data</li>
         </ol>
 
-        <div id="app-msg-wrapper"></div>
         <div id="summit-main-data"></div>
     </div>
 </div>
