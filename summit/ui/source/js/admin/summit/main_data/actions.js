@@ -13,7 +13,7 @@
 
 
 import URI from "urijs";
-import { putRequest, createAction, showMessage } from "../../generic/actions";
+import { putRequest, createAction } from "~core-utils/actions";
 
 export const UPDATE_SUMMIT = 'UPDATE_SUMMIT';
 export const SUMMIT_UPDATED = 'SUMMIT_UPDATED';

@@ -15,11 +15,11 @@ import { createStore, applyMiddleware, combineReducers, compose} from 'redux';
 import thunk from 'redux-thunk';
 import reduceReducers from 'reduce-reducers';
 import {summitMainData} from './reducers';
-import { generic_reducers } from '../../generic/reducers';
+import { genericReducers } from "~core-utils/reducers";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-let reducer = reduceReducers(summitMainData, generic_reducers);
+let reducer = reduceReducers(summitMainData, genericReducers);
 const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 
 export default store;
