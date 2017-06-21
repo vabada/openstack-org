@@ -8,7 +8,7 @@
   "scripts": {
     "serve": "webpack-dashboard -- node ./webpack",
     "watch": "webpack-dashboard -- node ./webpack",
-    "build": "NODE_ENV=production node ./webpack",
+    "build": "NODE_ENV=production & node ./webpack",
     "build-all": "NODE_ENV=production node ./webpack/build-all",
     "build-dev": "NODE_ENV=dev node ./webpack",
     "build-all-dev": "NODE_ENV=dev node ./webpack/build-all"

@@ -2,7 +2,7 @@
     <li <% if $Active == 'dashboard' %> class="active" <% end_if %>>
         <a href="$AdminLink/$SummitID/dashboard"><span class="fa-stack fa-lg pull-left"><i class="fa fa-dashboard fa-stack-1x "></i></span>Dashboard</a>
     </li>
-    <li <% if $Active == 'core_settings' %> class="active" <% end_if %>>
+    <li <% if $Active == 'main_data' %> class="active" <% end_if %>>
         <a href="$AdminLink/$SummitID/summit/main_data"><span class="fa-stack fa-lg pull-left"><i class="fa fa-users fa-stack-1x "></i></span>Main Data</a>
         <ul class="nav-pills nav-stacked" style="list-style-type:none;">
             <li <% if $Active == 'summit_dates' %> class="active" <% end_if %>>

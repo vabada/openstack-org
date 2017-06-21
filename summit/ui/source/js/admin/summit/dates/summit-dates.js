@@ -31,7 +31,6 @@ class summitDatesApp extends React.Component
     }
 
     render() {
-
         return (
             <div>
                 <Message />
@@ -45,51 +44,62 @@ class summitDatesApp extends React.Component
                     </div>
                     <div className="row form-group">
                         <div className="col-md-6">
-                            <div className="checkbox">
-                                <input type="checkbox" name="begin_date" checked={summit.begin_date} onChange={this.handleChange} />
-                                <label htmlFor="begin_date">Begin</label>
-                            </div>
+                            <input type="text" name="begin_date" value={summit.begin_date} onChange={this.handleChange} />
+                            <label htmlFor="begin_date">Begin</label>
                         </div>
                         <div className="col-md-6">
-                            <div className="checkbox">
-                                <input type="checkbox" name="finish_date" checked={summit.end_date} onChange={this.handleChange} />
-                                <label htmlFor="finish_date">Finish</label>
-                            </div>
+                            <input type="text" name="finish_date" value={summit.finish_date} onChange={this.handleChange} />
+                            <label htmlFor="finish_date">Finish</label>
                         </div>
                     </div>
                     <div className="row form-group">
                         <div className="col-md-6">
-                            <label htmlFor="max_submissions">Eventbrite Event Id</label>
-                            <input type="text" className="form-control" name="eventbrite_id" value={summit.eventbrite_id} onChange={this.handleChange} />
+                            <label htmlFor="venues_date">Venues Show From</label>
+                            <input type="text" className="form-control" name="venues_date" value={summit.venues_date} onChange={this.handleChange} />
                         </div>
-
                         <div className="col-md-6">
-                            <label htmlFor="max_submissions">Max Submissions per User</label>
-                            <input type="text" className="form-control" name="max_submissions" value={summit.max_submissions} onChange={this.handleChange} />
+                            <label htmlFor="default_date">Default Start Date</label>
+                            <input type="text" className="form-control" name="default_date" value={summit.default_date} onChange={this.handleChange} />
                         </div>
                     </div>
                     <div className="row form-group">
                         <div className="col-md-6">
-                            <label htmlFor="date_label">Date Label</label>
-                            <input type="text" className="form-control" name="date_label" value={summit.date_label} onChange={this.handleChange} />
+                            <label htmlFor="submissions_begin">Submissions Begin</label>
+                            <input type="text" className="form-control" name="submissions_begin" value={summit.submissions_begin} onChange={this.handleChange} />
                         </div>
                         <div className="col-md-6">
-                            <label htmlFor="coming_soon_label">Coming Soon Btn Text</label>
-                            <input type="text" className="form-control" name="coming_soon_label" value={summit.coming_soon_label} onChange={this.handleChange} />
+                            <label htmlFor="submissions_finish">Submissions Finish</label>
+                            <input type="text" className="form-control" name="submissions_finish" value={summit.submissions_finish} onChange={this.handleChange} />
                         </div>
                     </div>
                     <div className="row form-group">
-                        <div className="col-md-4">
-                            <label htmlFor="registration_link">Registration Link</label>
-                            <input type="text" className="form-control" name="registration_link" value={summit.registration_link} onChange={this.handleChange} />
+                        <div className="col-md-6">
+                            <label htmlFor="voting_begin">Voting Begin</label>
+                            <input type="text" className="form-control" name="voting_begin" value={summit.voting_begin} onChange={this.handleChange} />
                         </div>
-                        <div className="col-md-4">
-                            <label htmlFor="registration_link_2">Secondary Registration Link</label>
-                            <input type="text" className="form-control" name="registration_link_2" value={summit.registration_link_2} onChange={this.handleChange} />
+                        <div className="col-md-6">
+                            <label htmlFor="voting_finish">Voting Finish</label>
+                            <input type="text" className="form-control" name="voting_finish" value={summit.voting_finish} onChange={this.handleChange} />
                         </div>
-                        <div className="col-md-4">
-                            <label htmlFor="registration_label_2">Secondary Registration Label</label>
-                            <input type="text" className="form-control" name="registration_label_2" value={summit.registration_label_2} onChange={this.handleChange} />
+                    </div>
+                    <div className="row form-group">
+                        <div className="col-md-6">
+                            <label htmlFor="selections_begin">Selections Begin</label>
+                            <input type="text" className="form-control" name="selections_begin" value={summit.selections_begin} onChange={this.handleChange} />
+                        </div>
+                        <div className="col-md-6">
+                            <label htmlFor="selections_finish">Selections Finish</label>
+                            <input type="text" className="form-control" name="selections_finish" value={summit.selections_finish} onChange={this.handleChange} />
+                        </div>
+                    </div>
+                    <div className="row form-group">
+                        <div className="col-md-6">
+                            <label htmlFor="registration_begin">Registration Begin</label>
+                            <input type="text" className="form-control" name="registration_begin" value={summit.registration_begin} onChange={this.handleChange} />
+                        </div>
+                        <div className="col-md-6">
+                            <label htmlFor="registration_finish">Registration Finish</label>
+                            <input type="text" className="form-control" name="registration_finish" value={summit.registration_finish} onChange={this.handleChange} />
                         </div>
                     </div>
                     <div className="row">
