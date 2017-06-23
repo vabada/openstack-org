@@ -4,7 +4,7 @@ import { saveSummitDates } from './actions';
 import { AjaxLoader } from '~core-components/ajaxloader';
 import Message from "~core-components/message";
 
-class summitDatesApp extends React.Component
+class SummitDatesApp extends React.Component
 {
     constructor(props) {
         super(props);
@@ -37,19 +37,19 @@ class summitDatesApp extends React.Component
                 <AjaxLoader show={this.props.loading} />
                 <form onSubmit={this.handleSubmit}>
                     <div className="row form-group">
-                        <div className="col-md-12">
+                        <div className="col-md-6">
                             <label htmlFor="time_zone">Time Zone</label>
                             <input type="text" className="form-control" name="time_zone" value={summit.time_zone} onChange={this.handleChange} />
                         </div>
                     </div>
                     <div className="row form-group">
                         <div className="col-md-6">
-                            <input type="text" name="begin_date" value={summit.begin_date} onChange={this.handleChange} />
                             <label htmlFor="begin_date">Begin</label>
+                            <input type="text" className="form-control" name="begin_date" value={summit.begin_date} onChange={this.handleChange} />
                         </div>
                         <div className="col-md-6">
-                            <input type="text" name="finish_date" value={summit.finish_date} onChange={this.handleChange} />
                             <label htmlFor="finish_date">Finish</label>
+                            <input type="text" className="form-control" name="finish_date" value={summit.finish_date} onChange={this.handleChange} />
                         </div>
                     </div>
                     <div className="row form-group">
@@ -127,4 +127,4 @@ export default connect (
             return dispatch(saveSummitDates({ summit: this.summit }));
         }
     })
-)(summitDatesApp);
+)(SummitDatesApp);

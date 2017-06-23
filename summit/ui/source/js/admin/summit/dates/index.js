@@ -14,7 +14,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import summitDatesApp from './summit-dates';
+import SummitDatesApp from './summit-dates';
 import store from './store';
 
 const containerId = 'summit-dates';
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function init() {
     if (document.getElementById(containerId)) {
         render(
             <Provider store={store}>
-                <summitDatesApp summit={summit} />
+                <SummitDatesApp summit={summit} />
             </Provider>,
             document.getElementById(containerId)
         );
