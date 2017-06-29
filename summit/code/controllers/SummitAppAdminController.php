@@ -308,4 +308,11 @@ final class SummitAppAdminController extends Controller implements PermissionPro
         return time();
     }
 
+    public function getTimeZones() {
+        $time_zones = new ArrayList();
+        foreach (DateTimeZone::listIdentifiers() as $time_zone) {
+            $time_zones->push(new ArrayData(array('Name' => $time_zone)));
+        }
+        return $time_zones;
+    }
 }

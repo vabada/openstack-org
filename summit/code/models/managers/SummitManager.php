@@ -77,4 +77,35 @@ final class SummitManager
         return $summit;
     }
 
+    /**
+     * @param $summit_id
+     * @param $summit_dates
+     * @return ISummit
+     */
+    public function updateSummitDates($summit_id, $summit_dates){
+        $repository = $this->summit_repository;
+        $factory    = $this->summit_factory;
+
+        $summit =  $this->tx_manager->transaction(function() use ($summit_id, $summit_dates, $repository, $factory){
+            $summit = $repository->getById($summit_id);
+            if(!$summit)
+                throw new NotFoundEntityException('Summit',sprintf('id %s', $summit['id']));
+
+            $factory->updateDates($summit, $summit_dates);
+            $summit->write();
+            return $summit;
+        });
+
+        return $summit;
+    }
+
+    /**
+     * @param $summit_id
+     * @param $wifi_data
+     * @return ISummit
+     */
+    public function updateSummitWifi($summit_id, $wifi_data){
+
+    }
+
 } 

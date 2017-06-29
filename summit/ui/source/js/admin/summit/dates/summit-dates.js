@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { saveSummitDates } from './actions';
 import { AjaxLoader } from '~core-components/ajaxloader';
 import Message from "~core-components/message";
+import DateTimePicker from "~core-components/datetimepicker";
 
 class SummitDatesApp extends React.Component
 {
@@ -10,6 +11,7 @@ class SummitDatesApp extends React.Component
         super(props);
         this.state = {
             summit: props.summit,
+            time_zones: props.time_zones,
             loading: props.loading,
             msg: props.msg,
             msg_type: props.msg_type
@@ -25,6 +27,21 @@ class SummitDatesApp extends React.Component
         this.setState({summit: this.state.summit});
     }
 
+    handleDateChange(name, value) {
+        this.state.summit[name] = (typeof value == 'string') ? value : value.format('YYYY-MM-DD HH:mm:ss');
+        this.setState({summit: this.state.summit});
+    }
+
+    isValidDate(compareDateBefore, compareDateAfter, selectedDate, currentDate) {
+        currentDate = (typeof currentDate == 'string') ? moment(currentDate) : currentDate;
+        if (compareDateBefore == '<')
+            return (selectedDate < moment(compareDateAfter));
+        else if(compareDateBefore == '>')
+            return (selectedDate > moment(compareDateAfter));
+        else
+            return (selectedDate >= moment(compareDateBefore) && selectedDate <= moment(compareDateAfter));
+    }
+
     handleSubmit(event) {
         event.preventDefault();
         this.props.saveSummitDates();
@@ -36,70 +53,112 @@ class SummitDatesApp extends React.Component
                 <Message />
                 <AjaxLoader show={this.props.loading} />
                 <form onSubmit={this.handleSubmit}>
-                    <div className="row form-group">
+                    <div className="row form-group form-inline">
                         <div className="col-md-6">
                             <label htmlFor="time_zone">Time Zone</label>
-                            <input type="text" className="form-control" name="time_zone" value={summit.time_zone} onChange={this.handleChange} />
+                            <select type="text" className="form-control" name="time_zone" value={summit.time_zone} onChange={this.handleChange} >
+                                {Object.keys(time_zones).map(time_zone_id => (
+                                    <option key={time_zone_id} value={time_zone_id}>
+                                        {time_zones[time_zone_id]}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
                     </div>
-                    <div className="row form-group">
-                        <div className="col-md-6">
+                    <div className="row">
+                        <div className="col-md-6 form-group form-inline">
                             <label htmlFor="begin_date">Begin</label>
-                            <input type="text" className="form-control" name="begin_date" value={summit.begin_date} onChange={this.handleChange} />
+                            <DateTimePicker
+                                onChange={this.handleDateChange.bind(this, 'begin_date')}
+                                isValidDate={this.isValidDate.bind(this, '<', summit.finish_date)}
+                                dateFormat="YYYY-MM-DD" timeFormat="HH:mm:ss" value={summit.begin_date}/>
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-6 form-group form-inline">
                             <label htmlFor="finish_date">Finish</label>
-                            <input type="text" className="form-control" name="finish_date" value={summit.finish_date} onChange={this.handleChange} />
+                            <DateTimePicker
+                                onChange={this.handleDateChange.bind(this, 'finish_date')}
+                                isValidDate={this.isValidDate.bind(this, '>', summit.begin_date)}
+                                dateFormat="YYYY-MM-DD" timeFormat="HH:mm:ss" value={summit.finish_date}/>
                         </div>
                     </div>
-                    <div className="row form-group">
+                    <div className="row form-group form-inline">
                         <div className="col-md-6">
                             <label htmlFor="venues_date">Venues Show From</label>
-                            <input type="text" className="form-control" name="venues_date" value={summit.venues_date} onChange={this.handleChange} />
+                            <DateTimePicker
+                                onChange={this.handleDateChange.bind(this, 'venues_date')}
+                                isValidDate={this.isValidDate.bind(this, '<', summit.begin_date)}
+                                dateFormat="YYYY-MM-DD" timeFormat="HH:mm:ss" value={summit.venues_date}/>
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="default_date">Default Start Date</label>
-                            <input type="text" className="form-control" name="default_date" value={summit.default_date} onChange={this.handleChange} />
+                            <DateTimePicker
+                                onChange={this.handleDateChange.bind(this, 'default_date')}
+                                isValidDate={this.isValidDate.bind(this, summit.begin_date, summit.finish_date)}
+                                dateFormat="YYYY-MM-DD" timeFormat="HH:mm:ss" value={summit.default_date}/>
                         </div>
                     </div>
-                    <div className="row form-group">
+                    <div className="row form-group form-inline">
                         <div className="col-md-6">
                             <label htmlFor="submissions_begin">Submissions Begin</label>
-                            <input type="text" className="form-control" name="submissions_begin" value={summit.submissions_begin} onChange={this.handleChange} />
+                            <DateTimePicker
+                                onChange={this.handleDateChange.bind(this, 'submissions_begin')}
+                                isValidDate={this.isValidDate.bind(this, '<', summit.submissions_finish)}
+                                dateFormat="YYYY-MM-DD" timeFormat="HH:mm:ss" value={summit.submissions_begin}/>
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="submissions_finish">Submissions Finish</label>
-                            <input type="text" className="form-control" name="submissions_finish" value={summit.submissions_finish} onChange={this.handleChange} />
+                            <DateTimePicker
+                                onChange={this.handleDateChange.bind(this, 'submissions_finish')}
+                                isValidDate={this.isValidDate.bind(this, '>', summit.submissions_begin)}
+                                dateFormat="YYYY-MM-DD" timeFormat="HH:mm:ss" value={summit.submissions_finish}/>
                         </div>
                     </div>
-                    <div className="row form-group">
+                    <div className="row form-group form-inline">
                         <div className="col-md-6">
                             <label htmlFor="voting_begin">Voting Begin</label>
-                            <input type="text" className="form-control" name="voting_begin" value={summit.voting_begin} onChange={this.handleChange} />
+                            <DateTimePicker
+                                onChange={this.handleDateChange.bind(this, 'voting_begin')}
+                                isValidDate={this.isValidDate.bind(this, '<', summit.voting_finish)}
+                                dateFormat="YYYY-MM-DD" timeFormat="HH:mm:ss" value={summit.voting_begin}/>
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="voting_finish">Voting Finish</label>
-                            <input type="text" className="form-control" name="voting_finish" value={summit.voting_finish} onChange={this.handleChange} />
+                            <DateTimePicker
+                                onChange={this.handleDateChange.bind(this, 'voting_finish')}
+                                isValidDate={this.isValidDate.bind(this, '>', summit.voting_begin)}
+                                dateFormat="YYYY-MM-DD" timeFormat="HH:mm:ss" value={summit.voting_finish}/>
                         </div>
                     </div>
-                    <div className="row form-group">
+                    <div className="row form-group form-inline">
                         <div className="col-md-6">
                             <label htmlFor="selections_begin">Selections Begin</label>
-                            <input type="text" className="form-control" name="selections_begin" value={summit.selections_begin} onChange={this.handleChange} />
+                            <DateTimePicker
+                                onChange={this.handleDateChange.bind(this, 'selections_begin')}
+                                isValidDate={this.isValidDate.bind(this, '<', summit.selections_finish)}
+                                dateFormat="YYYY-MM-DD" timeFormat="HH:mm:ss" value={summit.selections_begin}/>
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="selections_finish">Selections Finish</label>
-                            <input type="text" className="form-control" name="selections_finish" value={summit.selections_finish} onChange={this.handleChange} />
+                            <DateTimePicker
+                                onChange={this.handleDateChange.bind(this, 'selections_finish')}
+                                isValidDate={this.isValidDate.bind(this, '>', summit.selections_begin)}
+                                dateFormat="YYYY-MM-DD" timeFormat="HH:mm:ss" value={summit.selections_finish}/>
                         </div>
                     </div>
-                    <div className="row form-group">
+                    <div className="row form-group form-inline">
                         <div className="col-md-6">
                             <label htmlFor="registration_begin">Registration Begin</label>
-                            <input type="text" className="form-control" name="registration_begin" value={summit.registration_begin} onChange={this.handleChange} />
+                            <DateTimePicker
+                                onChange={this.handleDateChange.bind(this, 'registration_begin')}
+                                isValidDate={this.isValidDate.bind(this, '<', summit.registration_finish)}
+                                dateFormat="YYYY-MM-DD" timeFormat="HH:mm:ss" value={summit.registration_begin}/>
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="registration_finish">Registration Finish</label>
-                            <input type="text" className="form-control" name="registration_finish" value={summit.registration_finish} onChange={this.handleChange} />
+                            <DateTimePicker
+                                onChange={this.handleDateChange.bind(this, 'registration_finish')}
+                                isValidDate={this.isValidDate.bind(this, '>', summit.registration_begin)}
+                                dateFormat="YYYY-MM-DD" timeFormat="HH:mm:ss" value={summit.registration_finish}/>
                         </div>
                     </div>
                     <div className="row">

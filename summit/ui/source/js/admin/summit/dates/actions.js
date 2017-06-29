@@ -23,7 +23,7 @@ export const saveSummitDates = (params) => dispatch => {
     putRequest(
         createAction(UPDATE_DATES),
         createAction(DATES_UPDATED),
-        `api/v1/summits/${params.summit.id}`,
+        `api/v1/summits/${params.summit.id}/dates`,
         params
 )(params)(dispatch);
 }

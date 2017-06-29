@@ -30,6 +30,7 @@ action = {}) {
                 ...state,
                 msg: action.payload.msg,
                 msg_type: action.payload.msg_type,
+                loading: false
             };
         case CLEAR_MESSAGE:
             return {

@@ -35,4 +35,37 @@ final class SummitFactory implements ISummitFactory
         $summit->ExternalEventId = $summit_data['eventbrite_id'];
         return $summit;
     }
+
+    /**
+     * @param ISummit $summit
+     * @param $summit_dates
+     * @return ISummit
+     */
+    public function updateDates(ISummit &$summit, $summit_dates)
+    {
+        $summit->SummitBeginDate = $summit_dates['begin_date'];
+        $summit->SummitEndDate = $summit_dates['finish_date'];
+        $summit->SubmissionBeginDate = $summit_dates['submissions_begin'];
+        $summit->SubmissionEndDate = $summit_dates['submissions_finish'];
+        $summit->VotingBeginDate = $summit_dates['voting_begin'];
+        $summit->VotingEndDate = $summit_dates['voting_finish'];
+        $summit->SelectionBeginDate = $summit_dates['selections_begin'];
+        $summit->SelectionEndDate = $summit_dates['selections_finish'];
+        $summit->RegistrationBeginDate = $summit_dates['registration_begin'];
+        $summit->RegistrationEndDate = $summit_dates['registration_finish'];
+        $summit->TimeZone = $summit_dates['time_zone'];
+        $summit->StartShowingVenuesDate = $summit_dates['venues_date'];
+        $summit->ScheduleDefaultStartDate = $summit_dates['default_date'];
+        return $summit;
+    }
+
+    /**
+     * @param ISummit $summit
+     * @param $wifi_data
+     * @return ISummit
+     */
+    public function updateWifi(ISummit &$summit, $wifi_data)
+    {
+        return $summit;
+    }
 }

@@ -65,6 +65,18 @@
 
 /* EDIT SUMMIT */
 
+#summit-dates label {
+    width: 200px;
+}
+
+#summit-dates .rdt {
+    display: inline;
+}
+
+#summit-dates .rdt .rdtPicker{
+    left: 0px;
+}
+
 #SummitForm_SummitForm .bootstrap-tagsinput {
     margin-bottom: 0;
     display: block;
@@ -265,3 +277,4 @@
     float:left;
     cursor: pointer;
 }
+

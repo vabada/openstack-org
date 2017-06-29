@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function init() {
     if (document.getElementById(containerId)) {
         render(
             <Provider store={store}>
-                <SummitDatesApp summit={summit} />
+                <SummitDatesApp summit={summit} time_zones={time_zones}/>
             </Provider>,
             document.getElementById(containerId)
         );

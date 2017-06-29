@@ -16,7 +16,7 @@
 </div>
 
 <script>
-var summit =
+    var summit =
         {
             id:   $Summit.ID,
             time_zone: "{$Summit.TimeZone.JS}",
@@ -33,6 +33,13 @@ var summit =
             registration_begin : "{$Summit.RegistrationBeginDate.JS}",
             registration_finish : "{$Summit.RegistrationEndDate.JS}",
         };
+
+    var time_zones = [];
+
+    <% loop $getTimeZones() %>
+        time_zones.push('{$Name}');
+    <% end_loop %>
+
 
 </script>
 

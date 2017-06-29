@@ -20,4 +20,18 @@ interface ISummitFactory
      * @return ISummit
      */
     public function update(ISummit &$summit, $summit_data);
+
+    /**
+     * @param ISummit $summit
+     * @param $summit_dates
+     * @return ISummit
+     */
+    public function updateDates(ISummit &$summit, $summit_dates);
+
+    /**
+     * @param ISummit $summit
+     * @param $wifi_data
+     * @return ISummit
+     */
+    public function updateWifi(ISummit &$summit, $wifi_data);
 }

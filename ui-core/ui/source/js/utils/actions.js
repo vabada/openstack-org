@@ -233,9 +233,19 @@ export const responseHandler = (dispatch, success, errorHandler) => {
         if (err || !res.ok) {
             if(errorHandler) {
                 errorHandler(err, res);
+                return;
+            } else {
+                console.log(err, res);
+                if (res.text) {
+                    var messages = JSON.parse(res.text).messages;
+                    var message_str = messages.map(function(elem){
+                            return elem.message;
+                        }).join(", ");
+                    dispatch(showMessage({msg:message_str, msg_type:'error'}));
+                } else {
+                    dispatch(showMessage({msg:GENERIC_ERROR, msg_type:'error'}));
+                }
             }
-            console.log(err, res);
-            dispatch(showMessage({msg:GENERIC_ERROR, msg_type:'error'}));
         }
         else if(typeof success === 'function') {
             success(res.body);

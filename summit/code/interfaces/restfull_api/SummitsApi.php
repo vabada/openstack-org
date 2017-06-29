@@ -156,6 +156,7 @@ final class SummitsApi extends AbstractRestfulJsonApi
         '$SUMMIT_ID/registration-codes'                              => 'handleRegistrationCodes',
         'PUT packages/purchase-orders/$PURCHASE_ORDER_ID/approve'    => 'approvePurchaseOrder',
         'PUT packages/purchase-orders/$PURCHASE_ORDER_ID/reject'     => 'rejectPurchaseOrder',
+        'PUT $SUMMIT_ID/dates'                                       => 'updateSummitDates',
         'PUT $SUMMIT_ID'                                             => 'updateSummit',
     );
 
@@ -178,6 +179,7 @@ final class SummitsApi extends AbstractRestfulJsonApi
         'getCategoriesByGroup',
         'getExtraQuestionsForPresentation',
         'updateSummit',
+        'updateSummitDates',
     );
 
     // this is called when typing a tag name to add as a tag on edit event
@@ -513,27 +515,44 @@ final class SummitsApi extends AbstractRestfulJsonApi
     {
         try {
             $summit_id    = intval($request->param('SUMMIT_ID'));
-            $summit       = $this->summit_repository->getById($summit_id);
-            if(is_null($summit)) throw new NotFoundEntityException('Summit', sprintf(' id %s', $summit_id));
 
             if(!$this->isJson()) return $this->validationError(array('invalid content type!'));
             $data        = $this->getJsonRequest();
 
             $summit = $this->summit_manager->updateSummit($data['summit']);
-
             return $this->updated();
 
         } catch (NotFoundEntityException $ex1) {
             SS_Log::log($ex1, SS_Log::ERR);
-
             return $this->notFound($ex1->getMessage());
         } catch (EntityValidationException $ex2) {
             SS_Log::log($ex2, SS_Log::NOTICE);
-
             return $this->validationError($ex2->getMessages());
         } catch (Exception $ex) {
             SS_Log::log($ex, SS_Log::ERR);
+            return $this->serverError();
+        }
+    }
 
+    public function updateSummitDates(SS_HTTPRequest $request)
+    {
+        try {
+            $summit_id    = intval($request->param('SUMMIT_ID'));
+
+            if(!$this->isJson()) return $this->validationError(array('invalid content type!'));
+            $data        = $this->getJsonRequest();
+
+            $summit = $this->summit_manager->updateSummitDates($summit_id, $data['summit']);
+            return $this->updated();
+
+        } catch (NotFoundEntityException $ex1) {
+            SS_Log::log($ex1, SS_Log::ERR);
+            return $this->notFound($ex1->getMessage());
+        } catch (EntityValidationException $ex2) {
+            SS_Log::log($ex2, SS_Log::NOTICE);
+            return $this->validationError($ex2->getMessage());
+        } catch (Exception $ex) {
+            SS_Log::log($ex, SS_Log::ERR);
             return $this->serverError();
         }
     }
