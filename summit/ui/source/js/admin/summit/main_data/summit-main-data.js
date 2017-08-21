@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { saveSummitMainData } from './actions';
 import { AjaxLoader } from '~core-components/ajaxloader';
 import Message from "~core-components/message";
+import WiFiPanel from './wifi-panel';
 
 class SummitMainDataApp extends React.Component
 {
@@ -28,6 +29,11 @@ class SummitMainDataApp extends React.Component
     handleSubmit(event) {
         event.preventDefault();
         this.props.saveSummitMainData();
+    }
+
+    updateWifis(wifis) {
+        this.state.summit.wifis = wifis;
+        this.setState({summit: this.state.summit});
     }
 
     render() {
@@ -94,6 +100,13 @@ class SummitMainDataApp extends React.Component
                         <div className="col-md-4">
                             <label htmlFor="registration_label_2">Secondary Registration Label</label>
                             <input type="text" className="form-control" name="registration_label_2" value={summit.registration_label_2} onChange={this.handleChange} />
+                        </div>
+                    </div>
+                    <hr />
+                    <div className="row form-group">
+                        <div className="col-md-12">
+                            <label htmlFor="wifi">WiFi Connections</label>
+                            <WiFiPanel wifis={summit.wifis} />
                         </div>
                     </div>
                     <div className="row">

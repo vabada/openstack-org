@@ -30,7 +30,16 @@ var summit =
             max_submissions: {$Summit.MaxSubmissionAllowedPerUser},
             coming_soon_label : "{$Summit.ComingSoonBtnText.JS}",
             eventbrite_id : "{$Summit.ExternalEventId.JS}",
+            wifis: []
         };
+
+        <% loop $Summit.WIFIConnections %>
+            summit.wifis.push({
+                id: {$ID},
+                network: "{$SSID.JS}",
+                password: "{$Password.JS}"
+            });
+        <% end_loop %>
 
 </script>
 
