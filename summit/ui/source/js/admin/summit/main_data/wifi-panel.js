@@ -20,6 +20,11 @@ class WiFiPanel extends React.Component {
 	constructor (props) {
 		super(props);
 
+        this.state = {
+            new_wifi_network: '',
+            new_wifi_pass: ''
+        }
+
         this.handleChange = this.handleChange.bind(this);
 	}
 
@@ -43,7 +48,7 @@ class WiFiPanel extends React.Component {
                     </thead>
                     <tbody>
                         {wifis.map((wifi, i) => (
-                            <tr>
+                            <tr key={i}>
                                 <td>wifi.network</td>
                                 <td>wifi.password</td>
                                 <td>
