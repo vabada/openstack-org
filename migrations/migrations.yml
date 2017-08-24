@@ -79,3 +79,4 @@ migrations:
   - NewMarketplaceTypeBookSeedTask
   - AddNewBooksMigration
   - AddMarketPlaceHelpLinksMigration
+  - SurveyDoubleEntryTableQuestionTemplateDataFixMigration
