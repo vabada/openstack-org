@@ -80,3 +80,4 @@ migrations:
   - AddNewBooksMigration
   - AddMarketPlaceHelpLinksMigration
   - SurveyDoubleEntryTableQuestionTemplateDataFixMigration
+  - CreateFreeTextTaggingGroupMigration
