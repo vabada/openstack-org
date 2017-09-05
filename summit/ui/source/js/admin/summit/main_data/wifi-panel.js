@@ -27,7 +27,7 @@ class WiFiPanel extends React.Component {
         }
 
         this.handleChange = this.handleChange.bind(this);
-        this.handleAdd = this.handleAdd.bind(this);
+        ;
 	}
 
     handleChange(ev) {
@@ -36,7 +36,7 @@ class WiFiPanel extends React.Component {
         this.setState({[name]: value});
     }
 
-    handleAdd(ev) {
+    handleAddWifi(ev) {
         ev.preventDefault();
         let wifis = this.state.wifis;
         wifis.push({
@@ -48,7 +48,19 @@ class WiFiPanel extends React.Component {
             wifis: wifis,
             new_wifi_network: '',
             new_wifi_pass: ''
-        }});
+        });
+
+    }
+
+    handleDeleteWifi(key, ev) {
+        ev.preventDefault();
+        let wifis = this.state.wifis;
+
+        wifis.splice(key,1);
+
+        this.setState({
+            wifis: wifis
+        });
 
     }
 
@@ -69,7 +81,7 @@ class WiFiPanel extends React.Component {
                                 <td>{wifi.network}</td>
                                 <td>{wifi.password}</td>
                                 <td>
-                                    <button className="btn btn-danger" > Delete </button>
+                                    <button className="btn btn-danger" onClick={this.handleDeleteWifi.bind(this, i)}> Delete </button>
                                 </td>
                             </tr>
                         ))}
@@ -81,7 +93,7 @@ class WiFiPanel extends React.Component {
                                 <input type="text" className="form-control" name="new_wifi_pass" value={this.state.new_wifi_pass} onChange={this.handleChange} />
                             </td>
                             <td>
-                                <button className="btn btn-default" onClick={this.handleAdd}> Add </button>
+                                <button className="btn btn-default" onClick={this.handleAddWifi.bind(this)}> Add </button>
                             </td>
                         </tr>
                     </tbody>

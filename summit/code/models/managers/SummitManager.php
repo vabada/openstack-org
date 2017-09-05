@@ -70,6 +70,7 @@ final class SummitManager
                 throw new NotFoundEntityException('Summit',sprintf('id %s', $summit['id']));
 
             $factory->update($summit, $summit_data);
+            $factory->updateWifi($summit, $summit_data['wifis']);
             $summit->write();
             return $summit;
         });
@@ -97,15 +98,6 @@ final class SummitManager
         });
 
         return $summit;
-    }
-
-    /**
-     * @param $summit_id
-     * @param $wifi_data
-     * @return ISummit
-     */
-    public function updateSummitWifi($summit_id, $wifi_data){
-
     }
 
 } 

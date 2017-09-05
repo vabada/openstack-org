@@ -34,10 +34,4 @@ interface ISummitManager
      */
     public function updateSummitDates($summit_id, $summit_dates);
 
-    /**
-     * @param $summit_id
-     * @param $wifi_data
-     * @return ISummit
-     */
-    public function updateSummitWifi($summit_id, $wifi_data);
 }

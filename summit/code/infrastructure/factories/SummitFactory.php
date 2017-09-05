@@ -66,6 +66,18 @@ final class SummitFactory implements ISummitFactory
      */
     public function updateWifi(ISummit &$summit, $wifi_data)
     {
+        foreach ($wifi_data as $wifi) {
+            if(isset($wifi['id']) && $wifi['id']) {
+                $wifi_obj = SummitWIFIConnection::get()->byID($wifi['id']);
+            } else {
+                $wifi_obj = new SummitWIFIConnection();
+            }
+
+            $wifi_obj->SSID = $wifi['network'];
+            $wifi_obj->Password = $wifi['password'];
+            $wifi_obj->SummitID = $summit->getIdentifier();
+            $wifi_obj->write();
+        }
         return $summit;
     }
 }
