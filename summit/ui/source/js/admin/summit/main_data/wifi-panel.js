@@ -28,10 +28,19 @@ class WiFiPanel extends React.Component {
         this.handleChange = this.handleChange.bind(this);
 	}
 
-    handleChange(event) {
-        const value = event.target.value;
-        const name = event.target.name;
+    handleChange(ev) {
+        const value = ev.target.value;
+        const name = ev.target.name;
         this.setState({[name]: value});
+    }
+
+    handleAdd(ev) {
+        ev.preventDefault();
+        this.props.wifis.push({
+            network: this.state.new_wifi_network,
+            password: this.state.new_wifi_pass
+        });
+
     }
 
 	render () {
@@ -56,12 +65,12 @@ class WiFiPanel extends React.Component {
                                 </td>
                             </tr>
                         ))}
-                        <tr>
+                        <tr id="new_wifi_row">
                             <td>
-                                <input type="text" className="form-control" name="new_wifi_network" value={new_wifi_network} onChange={this.handleChange} />
+                                <input type="text" className="form-control" name="new_wifi_network" value={this.state.new_wifi_network} onChange={this.handleChange} />
                             </td>
                             <td>
-                                <input type="text" className="form-control" name="new_wifi_pass" value={new_wifi_pass} onChange={this.handleChange} />
+                                <input type="text" className="form-control" name="new_wifi_pass" value={this.state.new_wifi_pass} onChange={this.handleChange} />
                             </td>
                             <td>
                                 <button className="btn btn-default" onClick={this.props.handleAdd}> Add </button>
