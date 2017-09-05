@@ -21,11 +21,13 @@ class WiFiPanel extends React.Component {
 		super(props);
 
         this.state = {
+            wifis: props.wifis,
             new_wifi_network: '',
             new_wifi_pass: ''
         }
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleAdd = this.handleAdd.bind(this);
 	}
 
     handleChange(ev) {
@@ -36,15 +38,21 @@ class WiFiPanel extends React.Component {
 
     handleAdd(ev) {
         ev.preventDefault();
-        this.props.wifis.push({
+        let wifis = this.state.wifis;
+        wifis.push({
             network: this.state.new_wifi_network,
             password: this.state.new_wifi_pass
         });
 
+        this.setState({
+            wifis: wifis,
+            new_wifi_network: '',
+            new_wifi_pass: ''
+        }});
+
     }
 
 	render () {
-		let { wifis } = this.props;
 
 		return (
             <div>
@@ -56,10 +64,10 @@ class WiFiPanel extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {wifis.map((wifi, i) => (
+                        {this.state.wifis.map((wifi, i) => (
                             <tr key={i}>
-                                <td>wifi.network</td>
-                                <td>wifi.password</td>
+                                <td>{wifi.network}</td>
+                                <td>{wifi.password}</td>
                                 <td>
                                     <button className="btn btn-danger" > Delete </button>
                                 </td>
@@ -73,7 +81,7 @@ class WiFiPanel extends React.Component {
                                 <input type="text" className="form-control" name="new_wifi_pass" value={this.state.new_wifi_pass} onChange={this.handleChange} />
                             </td>
                             <td>
-                                <button className="btn btn-default" onClick={this.props.handleAdd}> Add </button>
+                                <button className="btn btn-default" onClick={this.handleAdd}> Add </button>
                             </td>
                         </tr>
                     </tbody>
