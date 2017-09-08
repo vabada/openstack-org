@@ -81,6 +81,8 @@ final class SummitAppAdminController extends Controller implements PermissionPro
         'handlePromocodes',
         'summitMainData',
         'summitDates',
+        'sponsorPackages',
+        'sponsorAddons'
     );
 
     private static $url_handlers = array
@@ -95,6 +97,8 @@ final class SummitAppAdminController extends Controller implements PermissionPro
         '$SummitID!/promocodes'                                      => 'handlePromocodes',
         '$SummitID!/summit/main_data'                                => 'summitMainData',
         '$SummitID!/summit/dates'                                    => 'summitDates',
+        '$SummitID!/sponsors/packages'                               => 'sponsorPackages',
+        '$SummitID!/sponsors/addons'                                 => 'sponsorAddons',
     );
 
     /**
@@ -314,5 +318,45 @@ final class SummitAppAdminController extends Controller implements PermissionPro
             $time_zones->push(new ArrayData(array('Name' => $time_zone)));
         }
         return $time_zones;
+    }
+
+    public function sponsorPackages(SS_HTTPRequest $request)
+    {
+        $summit_id = intval($request->param('SummitID'));
+        $summit = Summit::get()->byID($summit_id);
+
+        Requirements::css('summit/css/simple-sidebar.css');
+        Requirements::css('themes/openstack/bower_assets/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
+        Requirements::javascript('summit/javascript/simple-sidebar.js');
+        return $this->getViewer('sponsors_packages')->process
+            (
+                $this->customise
+                    (
+                        array
+                        (
+                            'Summit' => $summit
+                        )
+                    )
+            );
+    }
+
+    public function sponsorAddons(SS_HTTPRequest $request)
+    {
+        $summit_id = intval($request->param('SummitID'));
+        $summit = Summit::get()->byID($summit_id);
+
+        Requirements::css('summit/css/simple-sidebar.css');
+        Requirements::css('themes/openstack/bower_assets/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
+        Requirements::javascript('summit/javascript/simple-sidebar.js');
+        return $this->getViewer('sponsors_addons')->process
+            (
+                $this->customise
+                    (
+                        array
+                        (
+                            'Summit' => $summit
+                        )
+                    )
+            );
     }
 }

@@ -10,11 +10,6 @@
                     <span class="fa-stack pull-left"><i class="fa fa-chevron-right fa-stack-1x" style="padding-top: 5px;"></i></span>Summit Dates
                 </a>
             </li>
-            <li <% if $Active == 'summit_wifi' %> class="active" <% end_if %>>
-                <a href="$AdminLink/$SummitID/summit/wifi">
-                    <span class="fa-stack pull-left"><i class="fa fa-chevron-right fa-stack-1x" style="padding-top: 5px;"></i></span>Summit WiFi
-                </a>
-            </li>
         </ul>
     </li>
     <li <% if $Active == 'attendees' %> class="active" <% end_if %>>
@@ -70,4 +65,14 @@
             </li>
         </ul>
     </li>
+    <li <% if $Active == 'sponsors_packages' %> class="active" <% end_if %>>
+            <a href="$AdminLink/$SummitID/sponsors/packages"><span class="fa-stack fa-lg pull-left"><i class="fa fa-ticket fa-stack-1x "></i></span>Sponsor Packages</a>
+            <ul class="nav-pills nav-stacked" style="list-style-type:none;">
+                <li <% if $Active == 'sponsors_addons' %> class="active" <% end_if %>>
+                    <a href="$AdminLink/$SummitID/sponsors/addons">
+                        <span class="fa-stack pull-left"><i class="fa fa-chevron-right fa-stack-1x" style="padding-top: 5px;"></i></span>Addons
+                    </a>
+                </li>
+            </ul>
+        </li>
 </ul>
