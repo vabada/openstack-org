@@ -1,3 +1,5 @@
+<?php
+
 /**
  * Copyright 2017 OpenStack Foundation
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -10,19 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+interface ISummitSponsorshipManager
+{
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import SponsorsPackagesApp from './sponsors-packages';
-import store from './store';
-
-ReactDOM.render(
-    <Provider store={store}>
-        <SponsorsPackagesApp />
-    </Provider>,
-    document.getElementById('sponsors-packages')
-);
-
-
-
+}

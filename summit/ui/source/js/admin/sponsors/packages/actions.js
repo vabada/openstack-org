@@ -13,18 +13,28 @@
 
 
 import URI from "urijs";
-import { putRequest, createAction } from "~core-utils/actions";
+import { getRequest, putRequest, createAction } from "~core-utils/actions";
 
 export const UPDATE_SUMMIT = 'UPDATE_SUMMIT';
 export const SUMMIT_UPDATED = 'SUMMIT_UPDATED';
+export const REQUEST_ALL = 'REQUEST_ALL';
+export const RECEIVE_ALL = 'RECEIVE_ALL';
 
+const StaticProps = {...window.ReactStaticProps};
 
 export const saveSummitMainData = (params) => dispatch => {
     putRequest(
         createAction(UPDATE_SUMMIT),
         createAction(SUMMIT_UPDATED),
-        `api/v1/summits/${params.summit.id}`,
+        `api/v1/summits/${summit_id}`,
         params
-)(params)(dispatch);
+    )(params)(dispatch);
 }
+
+export const fetchAll = getRequest(
+    createAction(REQUEST_ALL),
+    createAction(RECEIVE_ALL),
+    `api/v1/summits/${StaticProps.summit.id}/packages`
+);
+
 

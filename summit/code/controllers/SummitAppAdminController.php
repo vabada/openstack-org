@@ -328,13 +328,14 @@ final class SummitAppAdminController extends Controller implements PermissionPro
         Requirements::css('summit/css/simple-sidebar.css');
         Requirements::css('themes/openstack/bower_assets/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
         Requirements::javascript('summit/javascript/simple-sidebar.js');
+
         return $this->getViewer('sponsors_packages')->process
             (
                 $this->customise
                     (
                         array
                         (
-                            'Summit' => $summit
+                            'Summit' => $summit,
                         )
                     )
             );

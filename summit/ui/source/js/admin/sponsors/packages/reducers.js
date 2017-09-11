@@ -11,15 +11,36 @@
  * limitations under the License.
  **/
 
-import {UPDATE_SUMMIT, SUMMIT_UPDATED} from './actions';
+import {REQUEST_ALL, RECEIVE_ALL, UPDATE_SUMMIT, SUMMIT_UPDATED} from './actions';
 
-export const summitMainData = (
+export const sponsorsPackages = (
     state = {
         loading: false,
+        items: []
     },
     action = {}
 ) => {
     switch(action.type){
+        case REQUEST_ALL:
+        {
+            return {
+                ...state,
+                loading: true,
+            }
+        }
+        break;
+
+        case RECEIVE_ALL:
+        {
+            const { response } = action.payload;
+            return {
+                ...state,
+                items: response,
+                loading: false
+            }
+        }
+        break;
+
         case UPDATE_SUMMIT:
         {
             return {
@@ -28,6 +49,7 @@ export const summitMainData = (
             }
         }
         break;
+
         case SUMMIT_UPDATED:
         {
             const { response } = action.payload;
@@ -39,6 +61,7 @@ export const summitMainData = (
             }
         }
         break;
+
         default:
             return state;
     }

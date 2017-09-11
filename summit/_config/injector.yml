@@ -81,11 +81,17 @@ Injector:
         2: '%$TransactionManager'
   SummitsApi:
     constructor:
-      0: '%$SummitPackageRepository'
-      1: '%$SummitAddOnRepository'
-      2: '%$SummitPackagePurchaseOrderManager'
-      3: '%$SummitRepository'
-      4: '%$SummitManager'
+      0: '%$SummitPackagePurchaseOrderManager'
+      1: '%$SummitRepository'
+      2: '%$SummitManager'
+  SummitAppAddOnsApi:
+      constructor:
+        0: '%$SummitAddOnRepository'
+        1: '%$SummitSponsorshipManager'
+  SummitAppPackagesApi:
+        constructor:
+          0: '%$SummitPackageRepository'
+          1: '%$SummitSponsorshipManager'
   SummitAppAttendeesApi:
     constructor:
       0: '%$SummitRepository'
@@ -244,6 +250,11 @@ Injector:
       2: '%$SummitAttendeeFactory'
       3: '%$EventbriteAttendeeRepository'
       4: '%$TransactionManager'
+  SummitSponsorshipManager:
+      constructor:
+        0: '%$SummitPackageRepository'
+        1: '%$SummitAddOnRepository'
+        2: '%$TransactionManager'
   EventFeedbackFactory:
     class: EventFeedbackFactory
   EventFeedbackRepository:

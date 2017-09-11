@@ -21,16 +21,6 @@ final class SummitsApi extends AbstractRestfulJsonApi
     const ApiPrefix = 'api/v1/summits';
 
     /**
-     * @var IEntityRepository
-     */
-    private $sponsorship_add_on_repository;
-
-    /**
-     * @var IEntityRepository
-     */
-    private $sponsorship_package_repository;
-
-    /**
      * @var ISummitPackagePurchaseOrderManager
      */
     private $package_purchase_order_manager;
@@ -46,35 +36,17 @@ final class SummitsApi extends AbstractRestfulJsonApi
     private $summit_manager;
 
     public function __construct(
-        IEntityRepository $sponsorship_package_repository,
-        IEntityRepository $sponsorship_add_on_repository,
         ISummitPackagePurchaseOrderManager $package_purchase_order_manager,
         ISummitRepository $summit_repository,
         ISummitManager $summit_manager
     ) {
         parent::__construct();
 
-        $this->sponsorship_add_on_repository  = $sponsorship_add_on_repository;
-        $this->sponsorship_package_repository = $sponsorship_package_repository;
         $this->package_purchase_order_manager = $package_purchase_order_manager;
         $this->summit_repository              = $summit_repository;
         $this->summit_manager                 = $summit_manager;
 
         $this_var = $this;
-
-        $this->addBeforeFilter('getAllSponsorshipAddOnsBySummit', 'check_own_request',
-            function ($request) use ($this_var) {
-                if (!$this_var->checkOwnAjaxRequest()) {
-                    return $this_var->permissionFailure();
-                }
-            });
-
-        $this->addBeforeFilter('getAllSponsorshipAddOnsBySummit', 'check_own_request2',
-            function ($request) use ($this_var) {
-                if (!$this_var->checkOwnAjaxRequest()) {
-                    return $this_var->permissionFailure();
-                }
-            });
 
         $this->addBeforeFilter('approvePurchaseOrder', 'check_approve', function ($request) use ($this_var) {
             if (!$this_var->checkAdminPermissions($request)) {
@@ -139,13 +111,13 @@ final class SummitsApi extends AbstractRestfulJsonApi
     }
 
     static $url_handlers = array(
-        'GET $SUMMIT_ID/add-ons'                                     => 'getAllSponsorshipAddOnsBySummit',
-        'GET $SUMMIT_ID/packages'                                    => 'getAllSponsorshipPackagesBySummit',
         'GET $SUMMIT_ID/tags'                                        => 'getTags',
         'GET $SUMMIT_ID/companies'                                   => 'getCompanies',
         'GET $SUMMIT_ID/sponsors'                                    => 'getSponsors',
         'GET $SUMMIT_ID/categories/$CAT_ID/extra_questions/$PRES_ID' => 'getExtraQuestionsForPresentation',
         'GET $SUMMIT_ID/category_groups/$GROUP_ID/categories'        => 'getCategoriesByGroup',
+        '$SUMMIT_ID/add-ons'                                         => 'handleAddOns',
+        '$SUMMIT_ID/packages'                                        => 'handlePackages',
         '$SUMMIT_ID/speakers'                                        => 'handleSpeakers',
         '$SUMMIT_ID/schedule'                                        => 'handleSchedule',
         '$SUMMIT_ID/events'                                          => 'handleEvents',
@@ -161,8 +133,6 @@ final class SummitsApi extends AbstractRestfulJsonApi
     );
 
     static $allowed_actions = array(
-        'getAllSponsorshipAddOnsBySummit',
-        'getAllSponsorshipPackagesBySummit',
         'approvePurchaseOrder',
         'rejectPurchaseOrder',
         'handleSchedule',
@@ -180,6 +150,8 @@ final class SummitsApi extends AbstractRestfulJsonApi
         'getExtraQuestionsForPresentation',
         'updateSummit',
         'updateSummitDates',
+        'handleAddOns',
+        'handlePackages'
     );
 
     // this is called when typing a tag name to add as a tag on edit event
@@ -281,59 +253,6 @@ final class SummitsApi extends AbstractRestfulJsonApi
         }
     }
 
-    /**
-     * @CustomAnnotation\CachedMethod(lifetime=900, format="JSON")
-     * @param SS_HTTPRequest $request
-     * @return mixed|SS_HTTPResponse
-     */
-    public function getAllSponsorshipAddOnsBySummit(SS_HTTPRequest $request)
-    {
-        try {
-
-            $summit_id = (int)$request->param('SUMMIT_ID');
-            $query = new QueryObject(new SummitAddOn);
-            $query->addAndCondition(QueryCriteria::equal('SummitID', $summit_id));
-            $query->addOrder(QueryOrder::asc("Order"));
-            list($list, $count) = $this->sponsorship_add_on_repository->getAll($query, 0, PHP_INT_MAX);
-            $res = array();
-            foreach ($list as $add_on) {
-                array_push($res, SummitAddOnAssembler::toArray($add_on));
-            }
-
-            return $this->ok($res);
-        } catch (Exception $ex) {
-            SS_Log::log($ex, SS_Log::WARN);
-
-            return $this->serverError();
-        }
-    }
-
-    /**
-     * @CustomAnnotation\CachedMethod(lifetime=900, format="JSON")
-     * @param SS_HTTPRequest $request
-     * @return mixed|SS_HTTPResponse
-     */
-    public function getAllSponsorshipPackagesBySummit(SS_HTTPRequest $request)
-    {
-        try {
-            $query     = new QueryObject(new SummitPackage());
-            $summit_id = (int)$request->param('SUMMIT_ID');
-            $query->addAndCondition(QueryCriteria::equal('SummitID', $summit_id));
-            $query->addOrder(QueryOrder::asc("Order"));
-            list($list, $count) = $this->sponsorship_package_repository->getAll($query, 0, PHP_INT_MAX);
-            $res = array();
-            foreach ($list as $package) {
-                array_push($res, SummitPackageAssembler::toArray($package));
-            }
-
-            return $this->ok($res);
-        } catch (Exception $ex) {
-            SS_Log::log($ex, SS_Log::WARN);
-
-            return $this->serverError();
-        }
-    }
-
     public function approvePurchaseOrder()
     {
         try {
@@ -425,6 +344,18 @@ final class SummitsApi extends AbstractRestfulJsonApi
     public function handleRegistrationCodes(SS_HTTPRequest $request)
     {
         $api = SummitAppRegistrationCodesApi::create();
+        return $api->handleRequest($request, DataModel::inst());
+    }
+
+    public function handleAddOns(SS_HTTPRequest $request)
+    {
+        $api = SummitAppAddOnsApi::create();
+        return $api->handleRequest($request, DataModel::inst());
+    }
+
+    public function handlePackages(SS_HTTPRequest $request)
+    {
+        $api = SummitAppPackagesApi::create();
         return $api->handleRequest($request, DataModel::inst());
     }
 

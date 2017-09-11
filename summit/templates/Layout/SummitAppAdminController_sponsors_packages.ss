@@ -8,15 +8,15 @@
         <ol class="breadcrumb">
             <li><a href="$Top.Link">Home</a></li>
             <li><a href="$Top.Link/{$Summit.ID}/dashboard">$Summit.Name</a></li>
-            <li class="active">Main Data</li>
+            <li class="active">Sponsors Packages</li>
         </ol>
 
-        <div id="summit-main-data"></div>
+        <div id="sponsors-packages"></div>
     </div>
 </div>
 
-<script>
-var summit =
+<script type="text/javascript">
+    var summit =
         {
             id:   $Summit.ID,
             title: "{$Summit.Title.JS}",
@@ -29,18 +29,13 @@ var summit =
             registration_label_2: "{$Summit.SecondaryRegistrationBtnText.JS}",
             max_submissions: {$Summit.MaxSubmissionAllowedPerUser},
             coming_soon_label : "{$Summit.ComingSoonBtnText.JS}",
-            eventbrite_id : "{$Summit.ExternalEventId.JS}",
-            wifis: []
+            eventbrite_id : "{$Summit.ExternalEventId.JS}"
         };
 
-        <% loop $Summit.WIFIConnections %>
-            summit.wifis.push({
-                id: {$ID},
-                network: "{$SSID.JS}",
-                password: "{$Password.JS}"
-            });
-        <% end_loop %>
-
+    window.ReactStaticProps = {
+       summit: summit,
+       base_url: "{$Top.Link}"
+   };
 </script>
 
-$ModuleJS("summit-main-data", false, "summit")
+$ModuleJS("sponsors-packages")
