@@ -27,7 +27,7 @@
             </li>
             <li>
                 <a href="#hackathon">
-                    <img src="https://www.openstack.org/assets/sydney-summit/images/hackathon-menu-icon.png" style="margin-bottom:15px;"><br>
+                    <img src="https://www.openstack.org/assets/sydney-summit/images/hackathon-menu-icon.png" class="hackathonlogo"><br>
                     Hackathon
                 </a>
             </li>
@@ -295,7 +295,8 @@
         <div class="col-sm-12">
           <a href="http://hackathon.openstack.org.au/" class="btn academy-cta" target="_blank">Learn more about the Hackathon</a>
         </div>
-      </div>
+      </div> 
+      </div> 
     </div>
   </div>
 </div>
