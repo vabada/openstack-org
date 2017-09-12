@@ -11,7 +11,7 @@
  * limitations under the License.
  **/
 
-import {REQUEST_ALL, RECEIVE_ALL, UPDATE_SUMMIT, SUMMIT_UPDATED} from './actions';
+import {LOADING, STOP_LOADING, RECEIVE_ALL, PACKAGE_DELETED} from './actions';
 
 export const sponsorsPackages = (
     state = {
@@ -21,11 +21,20 @@ export const sponsorsPackages = (
     action = {}
 ) => {
     switch(action.type){
-        case REQUEST_ALL:
+        case LOADING:
         {
             return {
                 ...state,
                 loading: true,
+            }
+        }
+        break;
+
+        case STOP_LOADING:
+        {
+            return {
+                ...state,
+                loading: false,
             }
         }
         break;
@@ -41,23 +50,13 @@ export const sponsorsPackages = (
         }
         break;
 
-        case UPDATE_SUMMIT:
-        {
-            return {
-                ...state,
-                loading: true,
-            }
-        }
-        break;
-
-        case SUMMIT_UPDATED:
+        case PACKAGE_DELETED:
         {
             const { response } = action.payload;
             return {
                 ...state,
-                loading: false,
-                msg: 'Summit data updated successfully!',
-                msg_type: 'success'
+                items: state.items.filter(p => p.id != response),
+                loading: false
             }
         }
         break;

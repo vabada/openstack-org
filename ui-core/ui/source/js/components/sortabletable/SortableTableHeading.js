@@ -16,9 +16,4 @@ class SortableTableHeading extends React.Component {
 	
 }
 
-SortableTableHeading.propTypes = {
-	columnIndex: React.PropTypes.number,
-	columnKey: React.PropTypes.any,
-};
-
 export default SortableTableHeading;

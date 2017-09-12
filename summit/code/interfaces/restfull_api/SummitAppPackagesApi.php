@@ -60,18 +60,17 @@ class SummitAppPackagesApi extends AbstractRestfulJsonApi {
     }
 
     static $url_handlers = array(
-        'GET '        => 'getPackagesBySummit',
+        'GET '                  => 'getPackagesBySummit',
+        'PUT reorder'           => 'updatePackageOrder',
+        'DELETE $PACKAGE_ID!'   => 'deletePackage',
     );
 
     static $allowed_actions = array(
         'getPackagesBySummit',
+        'updatePackageOrder',
+        'deletePackage',
     );
 
-    /**
-     * @CustomAnnotation\CachedMethod(lifetime=900, format="JSON")
-     * @param SS_HTTPRequest $request
-     * @return mixed|SS_HTTPResponse
-     */
     public function getPackagesBySummit(SS_HTTPRequest $request)
     {
         try {
@@ -86,6 +85,50 @@ class SummitAppPackagesApi extends AbstractRestfulJsonApi {
             }
 
             return $this->ok($res);
+        } catch (Exception $ex) {
+            SS_Log::log($ex, SS_Log::WARN);
+
+            return $this->serverError();
+        }
+    }
+
+    public function updatePackageOrder(SS_HTTPRequest $request)
+    {
+        try {
+            $summit_id    = intval($request->param('SUMMIT_ID'));
+            $summit       = Summit::get()->byID($summit_id);
+            if(is_null($summit)) throw new NotFoundEntityException('Summit', sprintf(' id %s', $summit_id));
+
+            $data = $this->getJsonRequest();
+            $package_ids = explode(',',$data['ids']);
+
+            $packages = $this->sponsorship_manager->updatePackageOrder($package_ids);
+
+            return $this->ok();
+
+        } catch (Exception $ex) {
+            SS_Log::log($ex, SS_Log::WARN);
+
+            return $this->serverError();
+        }
+    }
+
+    public function deletePackage(SS_HTTPRequest $request)
+    {
+        try {
+            $summit_id    = intval($request->param('SUMMIT_ID'));
+            $package_id   = intval($request->param('PACKAGE_ID'));
+
+            $summit       = Summit::get()->byID($summit_id);
+            if(is_null($summit)) throw new NotFoundEntityException('Summit', sprintf(' id %s', $summit_id));
+
+            $package       = SummitPackage::get()->byID($package_id);
+            if(is_null($package)) throw new NotFoundEntityException('SummitPackage', sprintf(' id %s', $package_id));
+
+            $this->sponsorship_manager->deletePackage($package);
+
+            return $this->ok($package_id);
+
         } catch (Exception $ex) {
             SS_Log::log($ex, SS_Log::WARN);
 

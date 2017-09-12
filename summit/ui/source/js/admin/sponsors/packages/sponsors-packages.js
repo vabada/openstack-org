@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { AjaxLoader } from '~core-components/ajaxloader';
 import Message from "~core-components/message";
 import SortableTable from '~core-components/sortabletable/SortableTable';
-import { fetchAll } from './actions';
+import { fetchAll, postOrder, editPackage, deletePackage } from './actions';
 
 class SponsorsPackagesApp extends React.Component
 {
@@ -29,6 +29,10 @@ class SponsorsPackagesApp extends React.Component
 
         let table_options = {
             className: "table table-striped table-bordered table-hover dataTable",
+            actions: {
+                edit: this.props.editRow,
+                delete: this.props.deleteRow
+            }
         }
 
         return (
@@ -62,7 +66,14 @@ export default connect (
             dispatch(fetchAll());
         },
         setNewOrder(rows) {
-            console.log('row dropped');
+            let ids = rows.map(p => p.id).join(',');
+            dispatch(postOrder({ids}));
+        },
+        editRow(id) {
+            dispatch(editPackage({id}));
+        },
+        deleteRow(id) {
+            dispatch(deletePackage({id}));
         }
     })
 )(SponsorsPackagesApp);

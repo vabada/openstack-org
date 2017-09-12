@@ -13,28 +13,43 @@
 
 
 import URI from "urijs";
-import { getRequest, putRequest, createAction } from "~core-utils/actions";
+import { getRequest, putRequest, deleteRequest, createAction } from "~core-utils/actions";
 
-export const UPDATE_SUMMIT = 'UPDATE_SUMMIT';
-export const SUMMIT_UPDATED = 'SUMMIT_UPDATED';
-export const REQUEST_ALL = 'REQUEST_ALL';
+export const LOADING = 'LOADING';
+export const STOP_LOADING = 'STOP_LOADING';
 export const RECEIVE_ALL = 'RECEIVE_ALL';
+export const PACKAGE_DELETED = 'PACKAGE_DELETED';
 
 const StaticProps = {...window.ReactStaticProps};
 
-export const saveSummitMainData = (params) => dispatch => {
+export const postOrder = (params) => dispatch => {
     putRequest(
-        createAction(UPDATE_SUMMIT),
-        createAction(SUMMIT_UPDATED),
-        `api/v1/summits/${summit_id}`,
+        createAction(LOADING),
+        createAction(STOP_LOADING),
+        `api/v1/summits/${StaticProps.summit.id}/packages/reorder`,
         params
     )(params)(dispatch);
 }
 
 export const fetchAll = getRequest(
-    createAction(REQUEST_ALL),
+    createAction(LOADING),
     createAction(RECEIVE_ALL),
     `api/v1/summits/${StaticProps.summit.id}/packages`
 );
+
+export const editPackage = (params) => dispatch => {
+    let url = URI(`/${StaticProps.base_url}/sponsors/packages/${params.id}`).toString();
+    window.open(url);
+}
+
+export const deletePackage = (params) => dispatch => {
+    deleteRequest(
+        createAction(LOADING),
+        createAction(PACKAGE_DELETED),
+        `api/v1/summits/${StaticProps.summit.id}/packages/${params.id}`,
+    params
+)(params)(dispatch);
+}
+
 
 

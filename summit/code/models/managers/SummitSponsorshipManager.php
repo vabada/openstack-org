@@ -47,7 +47,43 @@ final class SummitSponsorshipManager implements ISummitSponsorshipManager
         $this->tx_service                     = $tx_service;
     }
 
+    /**
+     * @param $package
+     * @return void
+     */
+    public function deletePackage($package){
+        $repository = $this->sponsorship_package_repository;
 
+        $this->tx_service->transaction(function() use ($package, $repository){
+            $repository->delete($package);
+        });
+    }
 
+    /**
+     * @param array $package_ids
+     * @return array ISummitPackage
+     */
+    public function updatePackageOrder(array $package_ids)
+    {
+
+        return $this->tx_service->transaction(function () use ($package_ids) {
+            $order = 0;
+            $package_list = [];
+
+            foreach ($package_ids as $package_id) {
+                $package = SummitPackage::get()->byID($package_id);
+                if ($package) {
+                    $package->Order = $order;
+                    $package->write();
+                    $package_list[] = $package;
+                }
+
+                $order++;
+            }
+
+            return $package_list;
+
+        });
+    }
 
 }
