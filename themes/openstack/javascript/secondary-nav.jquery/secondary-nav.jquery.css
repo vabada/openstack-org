@@ -34,6 +34,9 @@ ul.secondary-nav-list li i, .hackathonlogo {
     margin-bottom: 10px;
     font-size: 2.2em; }
 
+.secondary-nav-list .hackathonlogo {
+    margin-bottom:10px; }
+
 .secondary-nav.fixed {
     position: fixed;
     top: 0;
@@ -89,3 +92,6 @@ ul.secondary-nav-list li i, .hackathonlogo {
     display: inline-block;
     margin: 0 5px;
     font-size: 1em; }
+
+.secondary-nav.fixed .hackathonlogo {
+    width:30px; }
