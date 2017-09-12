@@ -296,10 +296,11 @@
           <a href="http://hackathon.openstack.org.au/" class="btn academy-cta" target="_blank">Learn more about the Hackathon</a>
         </div>
       </div> 
-      </div> 
     </div>
   </div>
 </div>
+</div>
+
 <div class="summit-more-wrapper">
   <div class="container">
     <div class="row">
