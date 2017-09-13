@@ -38,14 +38,23 @@ export const fetchAll = getRequest(
 );
 
 export const editPackage = (params) => dispatch => {
-    let url = URI(`/${StaticProps.base_url}/sponsors/packages/${params.id}`).toString();
-    window.open(url);
+    let url = URI(`/${StaticProps.base_url}/${StaticProps.summit.id}/sponsors/packages/${params.id}`).toString();
+    window.location = url;
 }
 
 export const deletePackage = (params) => dispatch => {
     deleteRequest(
         createAction(LOADING),
         createAction(PACKAGE_DELETED),
+        `api/v1/summits/${StaticProps.summit.id}/packages/${params.id}`,
+    params
+)(params)(dispatch);
+}
+
+export const savePackage = (params) => dispatch => {
+    putRequest(
+        createAction(UPDATE_SUMMIT),
+        createAction(SUMMIT_UPDATED),
         `api/v1/summits/${StaticProps.summit.id}/packages/${params.id}`,
     params
 )(params)(dispatch);

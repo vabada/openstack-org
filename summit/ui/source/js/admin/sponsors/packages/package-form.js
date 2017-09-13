@@ -10,7 +10,7 @@ class PackageForm extends React.Component
     constructor(props) {
         super(props);
         this.state = {
-            package: props.package,
+            summit_package: props.summit_package,
             loading: props.loading,
             msg: props.msg,
             msg_type: props.msg_type
@@ -22,8 +22,8 @@ class PackageForm extends React.Component
 
     handleChange(event) {
         const value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value;
-        this.state.package[event.target.name] = value;
-        this.setState({package: this.state.package});
+        this.state.summit_package[event.target.name] = value;
+        this.setState({summit_package: this.state.summit_package});
     }
 
     handleSubmit(event) {
@@ -33,11 +33,22 @@ class PackageForm extends React.Component
 
     render() {
 
+        let {summit_package} = this.state;
+        let fields = [
+            {
+                class: 'rowClass',
+                inputs: [
+                    { name: 'title', value: summit_package.title },
+                    { name: 'cost', value: summit_package.cost }
+                ]
+            }
+        ];
+
         return (
             <div>
                 <Message />
                 <AjaxLoader show={this.props.loading} />
-
+                <SimpleForm fields={fields} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
             </div>
         );
     }
@@ -54,7 +65,7 @@ export default connect (
     dispatch => ({
         savePackage () {
             console.log('savePackage');
-            return dispatch(savePackage({ package: this.package }));
+            return dispatch(savePackage({ summit_package: this.summit_package }));
         }
     })
 )(PackageForm);

@@ -1,10 +1,30 @@
 import React from 'react';
 
+// fields structure
+/*
+
+ let fields = [
+    {
+        class: 'rowClass',
+        inputs: [
+            {
+                wrapper_class: 'wrapperClass',
+                name: 'title',
+                label: 'Title',
+                type: 'text',
+                class: 'inputClass',
+                value: this.state.title
+            }
+        ]
+    }
+ ];
+
+ */
+
 export default class SimpleForm extends React.Component {
 
     constructor (props) {
         super(props);
-        this.handleChange = this.handleChange.bind(this);
     }
 
     colClass(field_count) {
@@ -13,17 +33,32 @@ export default class SimpleForm extends React.Component {
         return _class + _size;
     }
 
+    getLabel(field) {
+        if (field.label) return field.label;
+        else return field.name.charAt(0).toUpperCase() + field.name.slice(1);
+    }
+
+    getType(field) {
+        if (field.type) return field.type;
+        else return 'text';
+    }
 
     render () {
-        const {fields, handleChange, handleSubmit} = this.props;
+        const {fields, handleChange, handleSubmit, children} = this.props;
         return (
             <form onSubmit={handleSubmit}>
-            {fields.map(row => (
-                <div className={ "row form-group " + row.class }>
-                {row.inputs.map(input => (
-                    <div className={colClass(row.inputs.length) + ' ' + input.wrapper_class}>
-                        <label htmlFor={input.name}>{input.label}</label>
-                        <input type={input.type} className={ "form-control " + input.class } name={input.name} value={input.value} onChange={handleChange} />
+            {fields.map((row,i) => (
+                <div key={i} className={ "row form-group " + row.class }>
+                {row.inputs.map((input,j) => (
+                    <div key={j} className={this.colClass(row.inputs.length) + ' ' + input.wrapper_class}>
+                        <label htmlFor={input.name}>{this.getLabel(input)}</label>
+                        <input
+                            type={this.getType(input)}
+                            className={ "form-control " + input.class }
+                            name={input.name}
+                            value={input.value}
+                            onChange={handleChange}
+                        />
                     </div>
                 ))}
                 </div>

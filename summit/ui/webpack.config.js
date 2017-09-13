@@ -17,6 +17,7 @@ module.exports = {
     "search-result-event-list":"./source/js/schedule/search-result-event-list.js",
     "summit-main-data":"./source/js/admin/summit/main_data/index.js",
     "summit-dates":"./source/js/admin/summit/dates/index.js",
-    "sponsors-packages":"./source/js/admin/sponsors/packages/index.js"
+    "sponsors-packages":"./source/js/admin/sponsors/packages/index.js",
+    "sponsors-package-edit":"./source/js/admin/sponsors/packages/package-edit.js"
   }
 };
