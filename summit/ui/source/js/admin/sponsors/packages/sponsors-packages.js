@@ -10,12 +10,18 @@ class SponsorsPackagesApp extends React.Component
     constructor(props) {
         super(props);
 
+        this.handleAddNew = this.handleAddNew.bind(this);
     }
 
     componentDidMount () {
         if(!this.props.items.length) {
             this.props.fetchAll();
         }
+    }
+
+    handleAddNew(event) {
+        event.preventDefault();
+        this.props.addNewPackage();
     }
 
     render() {
@@ -39,6 +45,11 @@ class SponsorsPackagesApp extends React.Component
             <div>
                 <Message />
                 <AjaxLoader show={this.props.loading} />
+                <div className="row">
+                    <div className="col-md-12">
+                        <button className="btn btn-primary" onClick={this.handleAddNew}> Add New </button>
+                    </div>
+                </div>
                 {this.props.items.length &&
                     <SortableTable
                         options={table_options}
@@ -74,6 +85,9 @@ export default connect (
         },
         deleteRow(id) {
             dispatch(deletePackage({id}));
-        }
+        },
+        addNewPackage() {
+            dispatch(editPackage({id: 0}));
+        },
     })
 )(SponsorsPackagesApp);

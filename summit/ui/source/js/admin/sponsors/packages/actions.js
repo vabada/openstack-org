@@ -13,14 +13,16 @@
 
 
 import URI from "urijs";
-import { getRequest, putRequest, deleteRequest, createAction } from "~core-utils/actions";
+import { getRequest, putRequest, postRequest, deleteRequest, createAction } from "~core-utils/actions";
 
 export const LOADING = 'LOADING';
 export const STOP_LOADING = 'STOP_LOADING';
 export const RECEIVE_ALL = 'RECEIVE_ALL';
 export const PACKAGE_DELETED = 'PACKAGE_DELETED';
+export const PACKAGE_UPDATED = 'PACKAGE_UPDATED';
+export const PACKAGE_ADDED = 'PACKAGE_ADDED';
 
-const StaticProps = {...window.ReactStaticProps};
+export const StaticProps = {...window.ReactStaticProps};
 
 export const postOrder = (params) => dispatch => {
     putRequest(
@@ -52,12 +54,22 @@ export const deletePackage = (params) => dispatch => {
 }
 
 export const savePackage = (params) => dispatch => {
-    putRequest(
-        createAction(UPDATE_SUMMIT),
-        createAction(SUMMIT_UPDATED),
-        `api/v1/summits/${StaticProps.summit.id}/packages/${params.id}`,
-    params
-)(params)(dispatch);
+    if (params.summit_package.id) {
+        putRequest(
+            createAction(LOADING),
+            createAction(PACKAGE_UPDATED),
+            `api/v1/summits/${StaticProps.summit.id}/packages/${params.summit_package.id}`,
+            params
+        )(params)(dispatch);
+    } else {
+        postRequest(
+            createAction(LOADING),
+            createAction(PACKAGE_ADDED),
+            `api/v1/summits/${StaticProps.summit.id}/packages`,
+            params
+        )(params)(dispatch);
+    }
+
 }
 
 

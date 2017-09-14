@@ -9,7 +9,7 @@
             <li><a href="$Top.Link">Home</a></li>
             <li><a href="$Top.Link/{$Summit.ID}/dashboard">$Summit.Name</a></li>
             <li><a href="$Top.Link/{$Summit.ID}/promocodes/">Sponsor Packages</a></li>
-            <li class="active"><% if $Package.Title %> $Package.Title <% else %> new <% end_if %></li>
+            <li class="active"><% if $Package.Exists %> $Package.Title <% else %> new <% end_if %></li>
         </ol>
 
         <div id="sponsors-package-edit"></div>
@@ -24,16 +24,24 @@
             link: "{$Summit.Link.JS}",
         };
 
-    var summit_package =
-        {
-            id:   $Package.ID,
-            title: "{$Package.Title.JS}",
-            cost: "{$Package.Cost.JS}",
-        };
+    var summit_package = {};
+
+    <% if $Package.Exists %>
+        summit_package =
+            {
+                id:   $Package.ID,
+                title: "{$Package.Title.JS}",
+                subtitle: "{$Package.SubTitle.JS}",
+                cost: {$Package.Cost},
+                max_available: {$Package.MaxAvailable},
+                available: {$Package.CurrentlyAvailable},
+                show_qty: {$Package.ShowQuantity},
+            };
+    <% end_if %>
 
     window.ReactStaticProps = {
        summit: summit,
-       base_url: "{$Top.Link}"
+       base_url: "{$Top.Link}/{$Summit.ID}/sponsors/packages"
    };
 </script>
 

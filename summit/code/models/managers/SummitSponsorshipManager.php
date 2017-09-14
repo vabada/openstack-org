@@ -51,7 +51,8 @@ final class SummitSponsorshipManager implements ISummitSponsorshipManager
      * @param $package
      * @return void
      */
-    public function deletePackage($package){
+    public function deletePackage($package)
+    {
         $repository = $this->sponsorship_package_repository;
 
         $this->tx_service->transaction(function() use ($package, $repository){
@@ -82,6 +83,68 @@ final class SummitSponsorshipManager implements ISummitSponsorshipManager
             }
 
             return $package_list;
+
+        });
+    }
+
+    /**
+     * @param array $package_data
+     * @return ISummitPackage
+     */
+    public function updatePackage(array $package_data)
+    {
+
+        return $this->tx_service->transaction(function () use ($package_data) {
+            if(!isset($package_data['id'])) throw new EntityValidationException('missing required param: id');
+            $package_id = intval($package_data['id']);
+            $package = SummitPackage::get()->byID($package_id);
+
+            if(is_null($package))
+                throw new NotFoundEntityException('Summit Package', sprintf('id %s', $package_id));
+
+            foreach ($package_data as $key => $value) {
+                $package_data[$key] = Convert::raw2sql($value);
+            }
+
+            $package->Title = $package_data['title'];
+            $package->SubTitle = $package_data['subtitle'];
+            $package->Cost = $package_data['cost'];
+            $package->ShowQuantity = $package_data['show_qty'];
+            $package->CurrentlyAvailable = $package_data['available'];
+            $package->MaxAvailable = $package_data['max_available'];
+
+            $package->write();
+
+            return $package;
+
+        });
+    }
+
+    /**
+     * @param array $package_data
+     * @return ISummitPackage
+     */
+    public function addPackage(array $package_data, $summit_id)
+    {
+
+        return $this->tx_service->transaction(function () use ($package_data, $summit_id) {
+            $package = new SummitPackage();
+
+            foreach ($package_data as $key => $value) {
+                $package_data[$key] = Convert::raw2sql($value);
+            }
+
+            $package->SummitID = $summit_id;
+            $package->Title = isset($package_data['title']) ? $package_data['title'] : '';
+            $package->SubTitle = isset($package_data['subtitle']) ? $package_data['subtitle'] : '';
+            $package->Cost = isset($package_data['cost']) ? $package_data['cost'] : 0;
+            $package->ShowQuantity = isset($package_data['show_qty']) ? $package_data['show_qty'] : 0;
+            $package->CurrentlyAvailable = isset($package_data['available']) ? $package_data['available'] : 0;
+            $package->MaxAvailable = isset($package_data['max_available']) ? $package_data['max_available'] : 0;
+
+            $package->write();
+
+            return $package;
 
         });
     }

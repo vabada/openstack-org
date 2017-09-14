@@ -1,4 +1,6 @@
 import React from 'react';
+import InputHolder from './InputHolder';
+import './simpleform.less';
 
 // fields structure
 /*
@@ -27,20 +29,8 @@ export default class SimpleForm extends React.Component {
         super(props);
     }
 
-    colClass(field_count) {
-        let _class = 'col-md-';
-        let _size = 12 / field_count;
-        return _class + _size;
-    }
-
-    getLabel(field) {
-        if (field.label) return field.label;
-        else return field.name.charAt(0).toUpperCase() + field.name.slice(1);
-    }
-
-    getType(field) {
-        if (field.type) return field.type;
-        else return 'text';
+    getClass(the_class) {
+        return (typeof the_class == 'undefined') ? '' : the_class;
     }
 
     render () {
@@ -48,18 +38,9 @@ export default class SimpleForm extends React.Component {
         return (
             <form onSubmit={handleSubmit}>
             {fields.map((row,i) => (
-                <div key={i} className={ "row form-group " + row.class }>
+                <div key={i} className={ "row form-group " + this.getClass(row.class) }>
                 {row.inputs.map((input,j) => (
-                    <div key={j} className={this.colClass(row.inputs.length) + ' ' + input.wrapper_class}>
-                        <label htmlFor={input.name}>{this.getLabel(input)}</label>
-                        <input
-                            type={this.getType(input)}
-                            className={ "form-control " + input.class }
-                            name={input.name}
-                            value={input.value}
-                            onChange={handleChange}
-                        />
-                    </div>
+                    <InputHolder input={input} key={j} row_length={row.inputs.length} handleChange={handleChange} />
                 ))}
                 </div>
             ))}

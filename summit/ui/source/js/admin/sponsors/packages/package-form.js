@@ -36,10 +36,27 @@ class PackageForm extends React.Component
         let {summit_package} = this.state;
         let fields = [
             {
-                class: 'rowClass',
                 inputs: [
                     { name: 'title', value: summit_package.title },
-                    { name: 'cost', value: summit_package.cost }
+                    { name: 'subtitle', value: summit_package.subtitle }
+                ]
+            },
+            {
+                inputs: [
+                    { name: 'cost', value: summit_package.cost, type: 'number' },
+                    {
+                        name: 'show_qty',
+                        value: summit_package.show_qty,
+                        type: 'checkbox',
+                        label: 'Show Quantity',
+                        wrapper_class: 'checkbox'
+                    }
+                ]
+            },
+            {
+                inputs: [
+                    { name: 'available', value: summit_package.available, type: 'number', label: 'Currently Available' },
+                    { name: 'max_available', value: summit_package.max_available, type: 'number', label: 'Max Available' }
                 ]
             }
         ];

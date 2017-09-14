@@ -61,7 +61,9 @@ class SummitAppPackagesApi extends AbstractRestfulJsonApi {
 
     static $url_handlers = array(
         'GET '                  => 'getPackagesBySummit',
+        'POST '                 => 'addPackage',
         'PUT reorder'           => 'updatePackageOrder',
+        'PUT $PACKAGE_ID!'      => 'updatePackage',
         'DELETE $PACKAGE_ID!'   => 'deletePackage',
     );
 
@@ -69,6 +71,8 @@ class SummitAppPackagesApi extends AbstractRestfulJsonApi {
         'getPackagesBySummit',
         'updatePackageOrder',
         'deletePackage',
+        'updatePackage',
+        'addPackage',
     );
 
     public function getPackagesBySummit(SS_HTTPRequest $request)
@@ -136,5 +140,44 @@ class SummitAppPackagesApi extends AbstractRestfulJsonApi {
         }
     }
 
+    public function updatePackage(SS_HTTPRequest $request)
+    {
+        try {
+            $summit_id    = intval($request->param('SUMMIT_ID'));
+            $summit       = Summit::get()->byID($summit_id);
+            if(is_null($summit)) throw new NotFoundEntityException('Summit', sprintf(' id %s', $summit_id));
+
+            $data = $this->getJsonRequest();
+
+            $this->sponsorship_manager->updatePackage($data['summit_package']);
+
+            return $this->ok();
+
+        } catch (Exception $ex) {
+            SS_Log::log($ex, SS_Log::WARN);
+
+            return $this->serverError();
+        }
+    }
+
+    public function addPackage(SS_HTTPRequest $request)
+    {
+        try {
+            $summit_id    = intval($request->param('SUMMIT_ID'));
+            $summit       = Summit::get()->byID($summit_id);
+            if(is_null($summit)) throw new NotFoundEntityException('Summit', sprintf(' id %s', $summit_id));
+
+            $data = $this->getJsonRequest();
+
+            $this->sponsorship_manager->addPackage($data['summit_package'], $summit_id);
+
+            return $this->ok();
+
+        } catch (Exception $ex) {
+            SS_Log::log($ex, SS_Log::WARN);
+
+            return $this->serverError();
+        }
+    }
 
 }

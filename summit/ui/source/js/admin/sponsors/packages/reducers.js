@@ -11,7 +11,7 @@
  * limitations under the License.
  **/
 
-import {LOADING, STOP_LOADING, RECEIVE_ALL, PACKAGE_DELETED} from './actions';
+import {StaticProps, LOADING, STOP_LOADING, RECEIVE_ALL, PACKAGE_DELETED, PACKAGE_UPDATED, PACKAGE_ADDED} from './actions';
 
 export const sponsorsPackages = (
     state = {
@@ -58,6 +58,25 @@ export const sponsorsPackages = (
                 items: state.items.filter(p => p.id != response),
                 loading: false
             }
+        }
+        break;
+
+        case PACKAGE_UPDATED:
+        {
+            const { response } = action.payload;
+            return {
+                ...state,
+                loading: false,
+                msg: 'Package saved successfully!',
+                msg_type: 'success'
+            }
+        }
+        break;
+
+        case PACKAGE_ADDED:
+        {
+            window.location = StaticProps.base_url;
+            break;
         }
         break;
 

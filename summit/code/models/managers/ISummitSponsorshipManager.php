@@ -14,5 +14,22 @@
  **/
 interface ISummitSponsorshipManager
 {
+    /**
+     * @param $package
+     * @return void
+     */
+    public function deletePackage($package);
+
+    /**
+     * @param array $package_ids
+     * @return array ISummitPackage
+     */
+    public function updatePackageOrder(array $package_ids);
+
+    /**
+     * @param array $package_data
+     * @return ISummitPackage
+     */
+    public function updatePackage(array $package_data);
 
 }

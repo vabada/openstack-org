@@ -237,10 +237,15 @@ export const responseHandler = (dispatch, success, errorHandler) => {
             } else {
                 console.log(err, res);
                 if (res.text) {
-                    var messages = JSON.parse(res.text).messages;
-                    var message_str = messages.map(function(elem){
+                    var message_str = GENERIC_ERROR;
+                    if (typeof res.text == 'string') {
+                        message_str = res.text;
+                    } else {
+                        var messages = JSON.parse(res.text).messages;
+                        message_str = messages.map(function(elem){
                             return elem.message;
                         }).join(", ");
+                    }
                     dispatch(showMessage({msg:message_str, msg_type:'error'}));
                 } else {
                     dispatch(showMessage({msg:GENERIC_ERROR, msg_type:'error'}));
