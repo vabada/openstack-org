@@ -149,4 +149,104 @@ final class SummitSponsorshipManager implements ISummitSponsorshipManager
         });
     }
 
+    /**
+     * @param $addon
+     * @return void
+     */
+    public function deleteAddOn($addon)
+    {
+        $repository = $this->sponsorship_add_on_repository;
+
+        $this->tx_service->transaction(function() use ($addon, $repository){
+            $repository->delete($addon);
+        });
+    }
+
+    /**
+     * @param array $addon_ids
+     * @return array ISummitAddOn
+     */
+    public function updateAddOnOrder(array $addon_ids)
+    {
+
+        return $this->tx_service->transaction(function () use ($addon_ids) {
+            $order = 0;
+            $addon_list = [];
+
+            foreach ($addon_ids as $addon_id) {
+                $addon = SummitAddOn::get()->byID($addon_id);
+                if ($addon) {
+                    $addon->Order = $order;
+                    $addon->write();
+                    $addon_list[] = $addon;
+                }
+
+                $order++;
+            }
+
+            return $addon_list;
+
+        });
+    }
+
+    /**
+     * @param array $addon_data
+     * @return ISummitAddOn
+     */
+    public function updateAddOn(array $addon_data)
+    {
+
+        return $this->tx_service->transaction(function () use ($addon_data) {
+            if(!isset($addon_data['id'])) throw new EntityValidationException('missing required param: id');
+            $addon_id = intval($addon_data['id']);
+            $addon = SummitAddOn::get()->byID($addon_id);
+
+            if(is_null($addon))
+                throw new NotFoundEntityException('Summit AddOn', sprintf('id %s', $addon_id));
+
+            foreach ($addon_data as $key => $value) {
+                $addon_data[$key] = Convert::raw2sql($value);
+            }
+
+            $addon->Title = $addon_data['title'];
+            $addon->Cost = $addon_data['cost'];
+            $addon->ShowQuantity = $addon_data['show_qty'];
+            $addon->CurrentlyAvailable = $addon_data['available'];
+            $addon->MaxAvailable = $addon_data['max_available'];
+
+            $addon->write();
+
+            return $addon;
+
+        });
+    }
+
+    /**
+     * @param array $addon_data
+     * @return ISummitAddOn
+     */
+    public function addAddOn(array $addon_data, $summit_id)
+    {
+
+        return $this->tx_service->transaction(function () use ($addon_data, $summit_id) {
+            $addon = new SummitAddOn();
+
+            foreach ($addon_data as $key => $value) {
+                $addon_data[$key] = Convert::raw2sql($value);
+            }
+
+            $addon->SummitID = $summit_id;
+            $addon->Title = isset($addon_data['title']) ? $addon_data['title'] : '';
+            $addon->Cost = isset($addon_data['cost']) ? $addon_data['cost'] : '0';
+            $addon->ShowQuantity = isset($addon_data['show_qty']) ? $addon_data['show_qty'] : 0;
+            $addon->CurrentlyAvailable = isset($addon_data['available']) ? $addon_data['available'] : 0;
+            $addon->MaxAvailable = isset($addon_data['max_available']) ? $addon_data['max_available'] : 0;
+
+            $addon->write();
+
+            return $addon;
+
+        });
+    }
+
 }

@@ -1,14 +1,14 @@
 <div id="wrapper">
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
-        <% include SummitAdmin_SidebarMenu AdminLink=$Top.Link, SummitID=$Summit.ID, Active=7 %>
+        <% include SummitAdmin_SidebarMenu AdminLink=$Top.Link, SummitID=$Summit.ID, Active='sponsors_packages' %>
     </div><!-- /#sidebar-wrapper -->
     <!-- Page Content -->
     <div id="page-content-wrapper" class="container-fluid summit-admin-container" >
         <ol class="breadcrumb">
             <li><a href="$Top.Link">Home</a></li>
             <li><a href="$Top.Link/{$Summit.ID}/dashboard">$Summit.Name</a></li>
-            <li><a href="$Top.Link/{$Summit.ID}/promocodes/">Sponsor Packages</a></li>
+            <li><a href="$Top.Link/{$Summit.ID}/sponsors/packages/">Sponsor Packages</a></li>
             <li class="active"><% if $Package.Exists %> $Package.Title <% else %> new <% end_if %></li>
         </ol>
 

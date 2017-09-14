@@ -110,9 +110,14 @@ class SummitAppPackagesApi extends AbstractRestfulJsonApi {
 
             return $this->ok();
 
-        } catch (Exception $ex) {
-            SS_Log::log($ex, SS_Log::WARN);
-
+        } catch (EntityValidationException $ex1) {
+            SS_Log::log($ex1->getMessage(), SS_Log::WARN);
+            return $this->validationError($ex1->getMessages());
+        } catch (NotFoundEntityException $ex2) {
+            SS_Log::log($ex2->getMessage(), SS_Log::WARN);
+            return $this->notFound($ex2->getMessages());
+        } catch (Exception $ex3) {
+            SS_Log::log($ex3, SS_Log::WARN);
             return $this->serverError();
         }
     }
@@ -133,9 +138,14 @@ class SummitAppPackagesApi extends AbstractRestfulJsonApi {
 
             return $this->ok($package_id);
 
-        } catch (Exception $ex) {
-            SS_Log::log($ex, SS_Log::WARN);
-
+        } catch (EntityValidationException $ex1) {
+            SS_Log::log($ex1->getMessage(), SS_Log::WARN);
+            return $this->validationError($ex1->getMessages());
+        } catch (NotFoundEntityException $ex2) {
+            SS_Log::log($ex2->getMessage(), SS_Log::WARN);
+            return $this->notFound($ex2->getMessages());
+        } catch (Exception $ex3) {
+            SS_Log::log($ex3, SS_Log::WARN);
             return $this->serverError();
         }
     }
@@ -153,9 +163,14 @@ class SummitAppPackagesApi extends AbstractRestfulJsonApi {
 
             return $this->ok();
 
-        } catch (Exception $ex) {
-            SS_Log::log($ex, SS_Log::WARN);
-
+        } catch (EntityValidationException $ex1) {
+            SS_Log::log($ex1->getMessage(), SS_Log::WARN);
+            return $this->validationError($ex1->getMessages());
+        } catch (NotFoundEntityException $ex2) {
+            SS_Log::log($ex2->getMessage(), SS_Log::WARN);
+            return $this->notFound($ex2->getMessages());
+        } catch (Exception $ex3) {
+            SS_Log::log($ex3, SS_Log::WARN);
             return $this->serverError();
         }
     }
@@ -173,9 +188,14 @@ class SummitAppPackagesApi extends AbstractRestfulJsonApi {
 
             return $this->ok();
 
-        } catch (Exception $ex) {
-            SS_Log::log($ex, SS_Log::WARN);
-
+        } catch (EntityValidationException $ex1) {
+            SS_Log::log($ex1->getMessage(), SS_Log::WARN);
+            return $this->validationError($ex1->getMessages());
+        } catch (NotFoundEntityException $ex2) {
+            SS_Log::log($ex2->getMessage(), SS_Log::WARN);
+            return $this->notFound($ex2->getMessages());
+        } catch (Exception $ex3) {
+            SS_Log::log($ex3, SS_Log::WARN);
             return $this->serverError();
         }
     }

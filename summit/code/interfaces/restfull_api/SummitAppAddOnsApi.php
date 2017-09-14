@@ -59,18 +59,21 @@ class SummitAppAddOnsApi extends AbstractRestfulJsonApi {
     }
 
     static $url_handlers = array(
-        'GET '        => 'getAddOnsBySummit',
+        'GET '                  => 'getAddOnsBySummit',
+        'POST '                 => 'addAddOn',
+        'PUT reorder'           => 'updateAddOnOrder',
+        'PUT $ADDON_ID!'        => 'updateAddOn',
+        'DELETE $ADDON_ID!'     => 'deleteAddOn',
     );
 
     static $allowed_actions = array(
         'getAddOnsBySummit',
+        'addAddOn',
+        'updateAddOnOrder',
+        'updateAddOn',
+        'deleteAddOn',
     );
 
-    /**
-     * @CustomAnnotation\CachedMethod(lifetime=900, format="JSON")
-     * @param SS_HTTPRequest $request
-     * @return mixed|SS_HTTPResponse
-     */
     public function getAddOnsBySummit(SS_HTTPRequest $request)
     {
         try {
@@ -89,6 +92,110 @@ class SummitAppAddOnsApi extends AbstractRestfulJsonApi {
         } catch (Exception $ex) {
             SS_Log::log($ex, SS_Log::WARN);
 
+            return $this->serverError();
+        }
+    }
+
+    public function updateAddOnOrder(SS_HTTPRequest $request)
+    {
+        try {
+            $summit_id    = intval($request->param('SUMMIT_ID'));
+            $summit       = Summit::get()->byID($summit_id);
+            if(is_null($summit)) throw new NotFoundEntityException('Summit', sprintf(' id %s', $summit_id));
+
+            $data = $this->getJsonRequest();
+            $addon_ids = explode(',',$data['ids']);
+
+            $addons = $this->sponsorship_manager->updateAddOnOrder($addon_ids);
+
+            return $this->ok();
+
+        } catch (EntityValidationException $ex1) {
+            SS_Log::log($ex1->getMessage(), SS_Log::WARN);
+            return $this->validationError($ex1->getMessages());
+        } catch (NotFoundEntityException $ex2) {
+            SS_Log::log($ex2->getMessage(), SS_Log::WARN);
+            return $this->notFound($ex2->getMessages());
+        } catch (Exception $ex3) {
+            SS_Log::log($ex3, SS_Log::WARN);
+            return $this->serverError();
+        }
+    }
+
+    public function deleteAddOn(SS_HTTPRequest $request)
+    {
+        try {
+            $summit_id    = intval($request->param('SUMMIT_ID'));
+            $addon_id   = intval($request->param('ADDON_ID'));
+
+            $summit       = Summit::get()->byID($summit_id);
+            if(is_null($summit)) throw new NotFoundEntityException('Summit', sprintf(' id %s', $summit_id));
+
+            $addon       = SummitAddOn::get()->byID($addon_id);
+            if(is_null($addon)) throw new NotFoundEntityException('SummitAddOn', sprintf(' id %s', $addon_id));
+
+            $this->sponsorship_manager->deleteAddOn($addon);
+
+            return $this->ok($addon_id);
+
+        } catch (EntityValidationException $ex1) {
+            SS_Log::log($ex1->getMessage(), SS_Log::WARN);
+            return $this->validationError($ex1->getMessages());
+        } catch (NotFoundEntityException $ex2) {
+            SS_Log::log($ex2->getMessage(), SS_Log::WARN);
+            return $this->notFound($ex2->getMessages());
+        } catch (Exception $ex3) {
+            SS_Log::log($ex3, SS_Log::WARN);
+            return $this->serverError();
+        }
+    }
+
+    public function updateAddOn(SS_HTTPRequest $request)
+    {
+        try {
+            $summit_id    = intval($request->param('SUMMIT_ID'));
+            $summit       = Summit::get()->byID($summit_id);
+            if(is_null($summit)) throw new NotFoundEntityException('Summit', sprintf(' id %s', $summit_id));
+
+            $data = $this->getJsonRequest();
+
+            $this->sponsorship_manager->updateAddOn($data['summit_addon']);
+
+            return $this->ok();
+
+        } catch (EntityValidationException $ex1) {
+            SS_Log::log($ex1->getMessage(), SS_Log::WARN);
+            return $this->validationError($ex1->getMessages());
+        } catch (NotFoundEntityException $ex2) {
+            SS_Log::log($ex2->getMessage(), SS_Log::WARN);
+            return $this->notFound($ex2->getMessages());
+        } catch (Exception $ex3) {
+            SS_Log::log($ex3, SS_Log::WARN);
+            return $this->serverError();
+        }
+    }
+
+    public function addAddOn(SS_HTTPRequest $request)
+    {
+        try {
+            $summit_id    = intval($request->param('SUMMIT_ID'));
+            $summit       = Summit::get()->byID($summit_id);
+            if(is_null($summit)) throw new NotFoundEntityException('Summit', sprintf(' id %s', $summit_id));
+
+            $data = $this->getJsonRequest();
+
+            $this->sponsorship_manager->addAddOn($data['summit_addon'], $summit_id);
+
+            return $this->ok();
+
+        } catch (EntityValidationException $ex1) {
+            SS_Log::log($ex1->getMessage(), SS_Log::WARN);
+            return $this->validationError($ex1->getMessages());
+        } catch (NotFoundEntityException $ex2) {
+            SS_Log::log($ex2->getMessage(), SS_Log::WARN);
+            return $this->notFound($ex2->getMessages());
+        } catch (Exception $ex3) {
+            SS_Log::log($ex3, SS_Log::WARN);
             return $this->serverError();
         }
     }

@@ -24,12 +24,14 @@ final class SummitSponsorsAdminController extends Controller
         'sponsorPackages',
         'sponsorAddons',
         'editPackage',
+        'editAddon',
     );
 
     private static $url_handlers = array
     (
         'packages/$PACKAGE_ID!'     => 'editPackage',
         'packages'                  => 'sponsorPackages',
+        'addons/$ADDON_ID!'         => 'editAddon',
         'addons'                    => 'sponsorAddons',
     );
 
@@ -109,6 +111,31 @@ final class SummitSponsorsAdminController extends Controller
                         (
                             'Summit'         => $summit,
                             'Package'        => $package,
+                        )
+                    )
+            );
+    }
+
+    public function editAddon(SS_HTTPRequest $request)
+    {
+        $summit_id  = intval($request->param('SummitID'));
+        $summit     = Summit::get()->byID($summit_id);
+        $addon_id = $request->param('ADDON_ID');
+
+        $addon = SummitAddOn::get()->byID($addon_id);
+
+        Requirements::css('summit/css/simple-sidebar.css');
+        Requirements::css('themes/openstack/bower_assets/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
+        Requirements::javascript('summit/javascript/simple-sidebar.js');
+
+        return $this->parent->getViewer('sponsors_editAddon')->process
+            (
+                $this->customise
+                    (
+                        array
+                        (
+                            'Summit'       => $summit,
+                            'Addon'        => $addon,
                         )
                     )
             );
