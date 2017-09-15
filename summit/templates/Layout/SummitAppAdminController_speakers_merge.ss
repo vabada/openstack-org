@@ -1,7 +1,7 @@
 <div id="wrapper">
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
-        <% include SummitAdmin_SidebarMenu AdminLink=$Top.Link, SummitID=$Summit.ID, Active='speakers_merge' %>
+        <% include SummitAdmin_SidebarMenu AdminLink=$Top.Link, SummitID=$Summit.ID, Active='speakers_merge', TabActive='speakers' %>
     </div><!-- /#sidebar-wrapper -->
     <!-- Page Content -->
     <div id="page-content-wrapper" class="container-fluid summit-admin-container">
