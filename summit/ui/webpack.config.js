@@ -20,6 +20,7 @@ module.exports = {
     "sponsors-packages":"./source/js/admin/sponsors/packages/index.js",
     "sponsors-package-edit":"./source/js/admin/sponsors/packages/package-edit.js",
     "sponsors-addons":"./source/js/admin/sponsors/addons/index.js",
-    "sponsors-addon-edit":"./source/js/admin/sponsors/addons/addon-edit.js"
+    "sponsors-addon-edit":"./source/js/admin/sponsors/addons/addon-edit.js",
+    "ticket-types":"./source/js/admin/tickets/ticket-types/index.js"
   }
 };

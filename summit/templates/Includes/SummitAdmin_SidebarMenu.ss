@@ -92,9 +92,14 @@
         </a>
         <div class="collapse <% if $TabActive == 'tickets' %> in <% end_if %>" id="tickets-nav">
             <ul class="nav-pills nav-stacked" style="list-style-type:none;" >
+                <li <% if $Active == 'ticket_types' %> class="active" <% end_if %>>
+                    <a href="$AdminLink/$SummitID/ticket_types">
+                        <span class="fa-stack pull-left"><i class="fa fa-chevron-right fa-stack-1x" style="padding-top: 5px;"></i></span>Ticket Types
+                    </a>
+                </li>
                 <li <% if $Active == 'promocodes' %> class="active" <% end_if %>>
                     <a href="$AdminLink/$SummitID/promocodes">
-                        <span class="fa-stack pull-left"><i class="fa fa-chevron-right fa-stack-1x" style="padding-top: 5px;"></i></span>Promo Codes
+                        <span class="fa-stack pull-left"><i class="fa fa-chevron-right fa-stack-1x" style="padding-top: 5px;"></i></span>PromoCodes
                     </a>
                 </li>
                 <li <% if $Active == 'promocodes_sponsors' %> class="active" <% end_if %>>
@@ -104,7 +109,7 @@
                 </li>
                 <li <% if $Active == 'promocodes_bulk' %> class="active" <% end_if %>>
                     <a href="$AdminLink/$SummitID/promocodes/bulk">
-                        <span class="fa-stack pull-left"><i class="fa fa-chevron-right fa-stack-1x" style="padding-top: 5px;"></i></span>Bulk Actions
+                        <span class="fa-stack pull-left"><i class="fa fa-chevron-right fa-stack-1x" style="padding-top: 5px;"></i></span>PromoCodes Bulk
                     </a>
                 </li>
             </ul>

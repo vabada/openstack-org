@@ -1,5 +1,4 @@
 import React from 'react';
-import { DragDropContext } from 'react-dnd';
 import TableHeading from './TableHeading';
 import TableCell from './TableCell';
 import TableRow from './TableRow';
