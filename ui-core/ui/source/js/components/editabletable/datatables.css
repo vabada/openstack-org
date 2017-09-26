@@ -463,3 +463,7 @@ div.dtr-modal div.dtr-modal-background {
         width: 95%
     }
 }
+
+.row_actions i{
+    margin: 0 10px;
+}

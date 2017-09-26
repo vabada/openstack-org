@@ -1,7 +1,7 @@
-import Table from './Table';
-import TableColumn from './TableColumn';
+import EditableTable from './EditableTable';
+import EditableTableColumn from './EditableTableColumn';
 
 export default {
-	Table,	
-	TableColumn
+	EditableTable,
+    EditableTableColumn
 };

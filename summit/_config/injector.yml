@@ -92,6 +92,9 @@ Injector:
         constructor:
           0: '%$SummitPackageRepository'
           1: '%$SummitSponsorshipManager'
+  SummitAppTicketsApi:
+      constructor:
+        0: '%$SummitTicketManager'
   SummitAppAttendeesApi:
     constructor:
       0: '%$SummitRepository'
@@ -255,6 +258,9 @@ Injector:
         0: '%$SummitPackageRepository'
         1: '%$SummitAddOnRepository'
         2: '%$TransactionManager'
+  SummitTicketManager:
+        constructor:
+          0: '%$TransactionManager'
   EventFeedbackFactory:
     class: EventFeedbackFactory
   EventFeedbackRepository:

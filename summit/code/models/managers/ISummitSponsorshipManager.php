@@ -21,6 +21,12 @@ interface ISummitSponsorshipManager
     public function deletePackage($package);
 
     /**
+     * @param array $package_data
+     * @return ISummitPackage
+     */
+    public function addPackage(array $package_data, $summit_id);
+
+    /**
      * @param array $package_ids
      * @return array ISummitPackage
      */
@@ -31,5 +37,29 @@ interface ISummitSponsorshipManager
      * @return ISummitPackage
      */
     public function updatePackage(array $package_data);
+
+    /**
+     * @param $addon
+     * @return void
+     */
+    public function deleteAddOn($addon);
+
+    /**
+     * @param array $addon_ids
+     * @return array ISummitAddOn
+     */
+    public function updateAddOnOrder(array $addon_ids);
+
+    /**
+     * @param array $addon_data
+     * @return ISummitAddOn
+     */
+    public function updateAddOn(array $addon_data);
+
+    /**
+     * @param array $addon_data
+     * @return ISummitAddOn
+     */
+    public function addAddOn(array $addon_data, $summit_id);
 
 }

@@ -1,14 +1,18 @@
 import React from 'react';
 
-const EditableTableCell = (props) => (
+const EditableTableCell = (props) => {
     if (props.is_edit) {
-        <td {...props}>
-            <input defaultValue={props.children} />
-        </td>
+        return (
+            <td>
+                <input className="form-control" defaultValue={props.children} name={props.name} id={props.id} onChange={props.handleChange}/>
+            </td>
+        );
     } else {
-        <td {...props}>{props.children}</td>
+        return (
+            <td>{props.children}</td>
+        );
     }
 
-);
+};
 
 export default EditableTableCell;

@@ -126,6 +126,7 @@ final class SummitsApi extends AbstractRestfulJsonApi
         '$SUMMIT_ID/reports'                                         => 'handleReports',
         '$SUMMIT_ID/locations'                                       => 'handleLocations',
         '$SUMMIT_ID/registration-codes'                              => 'handleRegistrationCodes',
+        '$SUMMIT_ID/tickets'                                         => 'handleTickets',
         'PUT packages/purchase-orders/$PURCHASE_ORDER_ID/approve'    => 'approvePurchaseOrder',
         'PUT packages/purchase-orders/$PURCHASE_ORDER_ID/reject'     => 'rejectPurchaseOrder',
         'PUT $SUMMIT_ID/dates'                                       => 'updateSummitDates',
@@ -151,7 +152,8 @@ final class SummitsApi extends AbstractRestfulJsonApi
         'updateSummit',
         'updateSummitDates',
         'handleAddOns',
-        'handlePackages'
+        'handlePackages',
+        'handleTickets'
     );
 
     // this is called when typing a tag name to add as a tag on edit event
@@ -356,6 +358,12 @@ final class SummitsApi extends AbstractRestfulJsonApi
     public function handlePackages(SS_HTTPRequest $request)
     {
         $api = SummitAppPackagesApi::create();
+        return $api->handleRequest($request, DataModel::inst());
+    }
+
+    public function handleTickets(SS_HTTPRequest $request)
+    {
+        $api = SummitAppTicketsApi::create();
         return $api->handleRequest($request, DataModel::inst());
     }
 

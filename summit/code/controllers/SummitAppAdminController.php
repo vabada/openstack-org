@@ -88,8 +88,8 @@ final class SummitAppAdminController extends Controller implements PermissionPro
     (
         '$SummitID!/dashboard'                                       => 'dashboard',
         '$SummitID!/reports/$Report'                                 => 'reports',
-        '$SummitID!/tickets'                                         => 'ticketTypes',
-        '$SummitID!/edit'                                            => 'editSummit',
+        '$SummitID!/ticket_types'                                    => 'ticketTypes',
+        '$SummitID!/edit'                                             => 'editSummit',
         '$SummitID!/events'                                          => 'handleEvents',
         '$SummitID!/attendees'                                       => 'handleAttendees',
         '$SummitID!/speakers'                                        => 'handleSpeakers',

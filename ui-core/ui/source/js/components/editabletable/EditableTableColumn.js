@@ -7,11 +7,11 @@ class EditableTableColumn extends React.Component {
 	}
 }
 
-TableColumn.defaultProps = {
+EditableTableColumn.defaultProps = {
 	cell: (data) => data
 };
 
-TableColumn.propTypes = {
+EditableTableColumn.propTypes = {
 	cell: React.PropTypes.func.isRequired,
     columnKey: React.PropTypes.any
 }
