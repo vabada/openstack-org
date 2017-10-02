@@ -11,7 +11,7 @@
 }
 
 .intro-header.edge .intro-message h1 {
-    font-family: "SF Display", Helvetica;
+    font-family: "Open Sans", Helvetica;
     font-size: 36px;
     color: #FFFFFF;
     letter-spacing: 0;
@@ -21,7 +21,7 @@
 
 .intro-header.edge .intro-message p {
 
-    font-family: "SF Display",Helvetica;
+    font-family: "Open Sans",Helvetica;
     font-size: 22px;
     color: #FFFFFF;
     letter-spacing: 0;
@@ -145,7 +145,7 @@
 
 .opendev-promo h2 {
     margin-bottom: 20px;
-    font-family: Helvetica;
+    font-family: "Open Sans", Helvetica;
     font-size: 30px;
     color: #FFFFFF;
     letter-spacing: 0;
@@ -153,7 +153,7 @@
 }
 
 .opendev-promo p {
-    font-family: Helvetica;
+    font-family: "Open Sans", Helvetica;
     font-size: 15px;
     color: #FFFFFF;
     letter-spacing: 0;
