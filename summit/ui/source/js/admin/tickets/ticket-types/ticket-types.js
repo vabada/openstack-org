@@ -36,7 +36,7 @@ class TicketTypesApp extends React.Component
             <div>
                 <Message />
                 <AjaxLoader show={this.props.loading} />
-                {this.props.items.length &&
+                {this.props.items.length > 0 &&
                     <EditableTable
                         options={table_options}
                         data={this.props.items}

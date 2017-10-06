@@ -70,7 +70,7 @@ class SummitAppEventsApi extends AbstractRestfulJsonApi {
      */
     protected function authorize(){
         if(!Permission::check('ADMIN_SUMMIT_APP_FRONTEND_ADMIN')) return false;
-        return $this->checkOwnAjaxRequest();
+        return true; //$this->checkOwnAjaxRequest();
     }
 
     protected function authenticate() {
@@ -79,15 +79,19 @@ class SummitAppEventsApi extends AbstractRestfulJsonApi {
 
     static $url_handlers = array(
         'POST '                       => 'createEvent',
+        'POST types'                  => 'createEventType',
         'POST $EVENT_ID!/attach'      => 'uploadAttachment',
         'PUT bulk'                    => 'updateBulkEvents',
         'PUT bulk_presentations'      => 'updateBulkPresentations',
         'PUT publish/bulk'            => 'updateAndPublishBulkEvents',
+        'PUT types/$TYPE_ID!'         => 'updateEventType',
         'PUT $EVENT_ID!/publish'      => 'publishEvent',
         'PUT $EVENT_ID!'              => 'updateEvent',
         'GET unpublished/$Source!'    => 'getUnpublishedEventsBySource',
         'GET published/$Source!'      => 'getPublishedEventsBySource',
+        'GET types'                   => 'getEventTypes',
         'DELETE unpublish/bulk'       => 'unPublishBulkEvents',
+        'DELETE types/$TYPE_ID!'      => 'deleteEventType',
         'DELETE $EVENT_ID!/unpublish' => 'unPublishEvent',
     );
 
@@ -103,6 +107,10 @@ class SummitAppEventsApi extends AbstractRestfulJsonApi {
         'unPublishBulkEvents',
         'updateBulkPresentations',
         'uploadAttachment',
+        'createEventType',
+        'updateEventType',
+        'getEventTypes',
+        'deleteEventType',
     );
 
     public function getUnpublishedEventsBySource(SS_HTTPRequest $request) {
@@ -579,6 +587,109 @@ class SummitAppEventsApi extends AbstractRestfulJsonApi {
         catch(Exception $ex)
         {
             SS_Log::log($ex->getMessage(), SS_Log::ERR);
+            return $this->serverError();
+        }
+    }
+
+
+    public function getEventTypes(SS_HTTPRequest $request)
+    {
+        try {
+            $summit_id = (int)$request->param('SUMMIT_ID');
+            $event_types = SummitEventType::get()->filter('SummitID',$summit_id);
+
+            $res = array();
+            foreach ($event_types as $event_type) {
+                $item = [
+                    'id' => $event_type->ID,
+                    'type' => $event_type->Type,
+                ];
+
+                array_push($res, $item);
+            }
+
+            return $this->ok($res);
+        } catch (Exception $ex) {
+            SS_Log::log($ex, SS_Log::WARN);
+
+            return $this->serverError();
+        }
+    }
+
+    public function deleteEventType(SS_HTTPRequest $request)
+    {
+        try {
+            $summit_id    = intval($request->param('SUMMIT_ID'));
+            $event_type_id   = intval($request->param('TYPE_ID'));
+
+            $summit       = Summit::get()->byID($summit_id);
+            if(is_null($summit)) throw new NotFoundEntityException('Summit', sprintf(' id %s', $summit_id));
+
+            $event_type       = SummitEventType::get()->byID($event_type_id);
+            if(is_null($event_type)) throw new NotFoundEntityException('SummitPackage', sprintf(' id %s', $event_type_id));
+
+            $this->summit_manager->deleteEventType($event_type);
+
+            return $this->ok($event_type_id);
+
+        } catch (EntityValidationException $ex1) {
+            SS_Log::log($ex1->getMessage(), SS_Log::WARN);
+            return $this->validationError($ex1->getMessages());
+        } catch (NotFoundEntityException $ex2) {
+            SS_Log::log($ex2->getMessage(), SS_Log::WARN);
+            return $this->notFound($ex2->getMessages());
+        } catch (Exception $ex3) {
+            SS_Log::log($ex3, SS_Log::WARN);
+            return $this->serverError();
+        }
+    }
+
+    public function updateEventType(SS_HTTPRequest $request)
+    {
+        try {
+            $summit_id    = intval($request->param('SUMMIT_ID'));
+            $summit       = Summit::get()->byID($summit_id);
+            if(is_null($summit)) throw new NotFoundEntityException('Summit', sprintf(' id %s', $summit_id));
+
+            $data = $this->getJsonRequest();
+
+            $this->summit_manager->updateEventType($data['event_type']);
+
+            return $this->ok();
+
+        } catch (EntityValidationException $ex1) {
+            SS_Log::log($ex1->getMessage(), SS_Log::WARN);
+            return $this->validationError($ex1->getMessages());
+        } catch (NotFoundEntityException $ex2) {
+            SS_Log::log($ex2->getMessage(), SS_Log::WARN);
+            return $this->notFound($ex2->getMessages());
+        } catch (Exception $ex3) {
+            SS_Log::log($ex3, SS_Log::WARN);
+            return $this->serverError();
+        }
+    }
+
+    public function addEventType(SS_HTTPRequest $request)
+    {
+        try {
+            $summit_id    = intval($request->param('SUMMIT_ID'));
+            $summit       = Summit::get()->byID($summit_id);
+            if(is_null($summit)) throw new NotFoundEntityException('Summit', sprintf(' id %s', $summit_id));
+
+            $data = $this->getJsonRequest();
+
+            $this->summit_manager->addEventType($data['event_type'], $summit_id);
+
+            return $this->ok();
+
+        } catch (EntityValidationException $ex1) {
+            SS_Log::log($ex1->getMessage(), SS_Log::WARN);
+            return $this->validationError($ex1->getMessages());
+        } catch (NotFoundEntityException $ex2) {
+            SS_Log::log($ex2->getMessage(), SS_Log::WARN);
+            return $this->notFound($ex2->getMessages());
+        } catch (Exception $ex3) {
+            SS_Log::log($ex3, SS_Log::WARN);
             return $this->serverError();
         }
     }

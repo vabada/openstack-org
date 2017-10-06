@@ -2,15 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { AjaxLoader } from '~core-components/ajaxloader';
 import Message from "~core-components/message";
-import SortableTable from '~core-components/sortabletable/SortableTable';
-import { fetchAll, postOrder, editPackage, deletePackage } from './actions';
+import { Table } from '~core-components/table/index.js';
+import { fetchAll, editEventType, deleteEventType, seedDefault } from './actions';
 
-class SponsorsPackagesApp extends React.Component
+class EventTypesApp extends React.Component
 {
     constructor(props) {
         super(props);
 
         this.handleAddNew = this.handleAddNew.bind(this);
+        this.handleSeedDefaults = this.handleSeedDefaults.bind(this);
     }
 
     componentDidMount () {
@@ -21,16 +22,18 @@ class SponsorsPackagesApp extends React.Component
 
     handleAddNew(event) {
         event.preventDefault();
-        this.props.addNewPackage();
+        this.props.addNewEventType();
+    }
+
+    handleSeedDefaults(event) {
+        event.preventDefault();
+        this.props.seedDefaultEventTypes();
     }
 
     render() {
 
         let columns = [
-            { columnKey: 'title', value: 'Title' },
-            { columnKey: 'cost', value: 'Cost' },
-            { columnKey: 'max_available', value: 'Max Available' },
-            { columnKey: 'available', value: 'Currently Available' }
+            { columnKey: 'type', value: 'Type' }
         ];
 
         let table_options = {
@@ -46,16 +49,18 @@ class SponsorsPackagesApp extends React.Component
                 <Message />
                 <AjaxLoader show={this.props.loading} />
                 <div className="row">
-                    <div className="col-md-12">
+                    <div className="col-md-4">
                         <button className="btn btn-primary" onClick={this.handleAddNew}> Add New </button>
+                    </div>
+                    <div className="col-md-4">
+                        <button className="btn btn-primary" onClick={this.handleSeedDefaults}> Seed Defaults </button>
                     </div>
                 </div>
                 {this.props.items.length > 0 &&
-                    <SortableTable
+                    <Table
                         options={table_options}
                         data={this.props.items}
                         columns={columns}
-                        dropCallback={this.props.setNewOrder}
                     />
                 }
             </div>
@@ -76,18 +81,17 @@ export default connect (
         fetchAll () {
             dispatch(fetchAll());
         },
-        setNewOrder(rows) {
-            let ids = rows.map(p => p.id).join(',');
-            dispatch(postOrder({ids}));
-        },
         editRow(id) {
-            dispatch(editPackage({id}));
+            dispatch(editEventType({id}));
         },
         deleteRow(id) {
-            dispatch(deletePackage({id}));
+            dispatch(deleteEventType({id}));
         },
-        addNewPackage() {
-            dispatch(editPackage({id: 0}));
+        addNewEventType() {
+            dispatch(editEventType({id: 0}));
         },
+        seedDefaultEventTypes() {
+            dispatch(seedDefault({id: 0}));
+        }
     })
-)(SponsorsPackagesApp);
+)(EventTypesApp);

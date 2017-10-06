@@ -61,6 +61,11 @@
                         <span class="fa-stack pull-left"><i class="fa fa-chevron-right fa-stack-1x" style="padding-top: 5px;"></i></span>Bulk Actions
                     </a>
                 </li>
+                <li <% if $Active == 'events_types' %> class="active" <% end_if %>>
+                    <a href="$AdminLink/$SummitID/events/types">
+                        <span class="fa-stack pull-left"><i class="fa fa-chevron-right fa-stack-1x" style="padding-top: 5px;"></i></span>Event Types
+                    </a>
+                </li>
             </ul>
         </div>
     </li>

@@ -35,6 +35,8 @@ final class SummitEventAdminController extends Controller
         'presentationLists',
         'eventsBulk',
         'editEvent',
+        'eventTypes',
+        'editEventType',
     );
 
     private static $url_handlers = array
@@ -46,6 +48,8 @@ final class SummitEventAdminController extends Controller
         'presentation-lists/$PresentationListId!'  => 'editPresentationList',
         'presentation-lists'                       => 'presentationLists',
         'bulk'                                     => 'eventsBulk',
+        'types/$TYPE_ID!'                          => 'editEventType',
+        'types'                                    => 'eventTypes',
         '$EventID'                                 => 'editEvent',
     );
 
@@ -314,6 +318,52 @@ final class SummitEventAdminController extends Controller
                         array
                         (
                             'Summit' => $summit,
+                        )
+                    )
+            );
+    }
+
+    public function eventTypes(SS_HTTPRequest $request)
+    {
+        $summit_id = intval($request->param('SummitID'));
+        $summit = Summit::get()->byID($summit_id);
+
+        Requirements::css('summit/css/simple-sidebar.css');
+        Requirements::css('themes/openstack/bower_assets/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
+        Requirements::javascript('summit/javascript/simple-sidebar.js');
+
+        return $this->parent->getViewer('events_types')->process
+            (
+                $this->customise
+                    (
+                        array
+                        (
+                            'Summit' => $summit,
+                        )
+                    )
+            );
+    }
+
+    public function editEventType(SS_HTTPRequest $request)
+    {
+        $summit_id  = intval($request->param('SummitID'));
+        $summit     = Summit::get()->byID($summit_id);
+        $type_id = $request->param('TYPE_ID');
+
+        $event_type = SummitEventType::get()->byID($type_id);
+
+        Requirements::css('summit/css/simple-sidebar.css');
+        Requirements::css('themes/openstack/bower_assets/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
+        Requirements::javascript('summit/javascript/simple-sidebar.js');
+
+        return $this->parent->getViewer('events_editEventType')->process
+            (
+                $this->customise
+                    (
+                        array
+                        (
+                            'Summit'         => $summit,
+                            'EventType'      => $event_type,
                         )
                     )
             );

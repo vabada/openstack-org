@@ -21,6 +21,8 @@ module.exports = {
     "sponsors-package-edit":"./source/js/admin/sponsors/packages/package-edit.js",
     "sponsors-addons":"./source/js/admin/sponsors/addons/index.js",
     "sponsors-addon-edit":"./source/js/admin/sponsors/addons/addon-edit.js",
-    "ticket-types":"./source/js/admin/tickets/ticket-types/index.js"
+    "ticket-types":"./source/js/admin/tickets/ticket-types/index.js",
+    "event-types":"./source/js/admin/event_types/index.js",
+    "event-type-edit":"./source/js/admin/event_types/event-type-edit.js"
   }
 };

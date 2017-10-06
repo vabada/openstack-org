@@ -50,7 +50,7 @@ class SponsorsAddOnsApp extends React.Component
                         <button className="btn btn-primary" onClick={this.handleAddNew}> Add New </button>
                     </div>
                 </div>
-                {this.props.items.length &&
+                {this.props.items.length > 0 &&
                     <SortableTable
                         options={table_options}
                         data={this.props.items}
