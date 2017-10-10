@@ -34,19 +34,19 @@ const getSortDir = (columnKey, columnIndex, sortCol, sortDir) => {
 };
 
 const Table = (props) => {
-    let {options, columns, children} = props;
+    let {options, columns} = props;
 
     return (
         <table className={props.className}>
             <thead>
                 <tr>
-			    {children.map((col,i) => {
+			    {columns.map((col,i) => {
 
-                    let sortCol = (options.sortCol) ? options.sortCol : defaults.sortCol;
-                    let sortDir = (options.sortDir) ? options.sortDir : defaults.sortDir;
-                    let sortFunc = (col.sortFunc) ? col.sortFunc : defaults.sortFunc;
-                    let sortable = (col.sortable) ? col.sortable : defaults.sortable;
-                    let colWidth = (col.width) ? col.width : defaults.colWidth;
+                    let sortCol = (typeof options.sortCol != 'undefined') ? options.sortCol : defaults.sortCol;
+                    let sortDir = (typeof options.sortDir != 'undefined') ? options.sortDir : defaults.sortDir;
+                    let sortFunc = (typeof col.sortFunc != 'undefined') ? col.sortFunc : defaults.sortFunc;
+                    let sortable = (typeof col.sortable != 'undefined') ? col.sortable : defaults.sortable;
+                    let colWidth = (typeof col.width != 'undefined') ? col.width : defaults.colWidth;
 
                     return (
                         <TableHeading
@@ -63,18 +63,23 @@ const Table = (props) => {
                         </TableHeading>
                     );
                 })}
+                {options.actions &&
+                    <TableHeading key='actions' >
+                        Actions
+                    </TableHeading>
+                }
                 </tr>
             </thead>
             <tbody>
-                {children.length > 0 && props.data.map((row,i) => {
-                    if(Array.isArray(row) && row.length !== children.length) {
-                        console.warn(`Data at row ${i} is ${row.length}. It should be ${children.length}.`);
+                {columns.length > 0 && props.data.map((row,i) => {
+                    if(Array.isArray(row) && row.length !== columns.length) {
+                        console.warn(`Data at row ${i} is ${row.length}. It should be ${columns.length}.`);
                         return <tr />
                     }
 
                     return (
                         <TableRow even={i%2 === 0} key={i}>
-                                    {createRow(row, children)}
+                                    {createRow(row, columns)}
                         </TableRow>
                     );
                 })}
@@ -83,3 +88,4 @@ const Table = (props) => {
     );
 };
 
+export default Table;

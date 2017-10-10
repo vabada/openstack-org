@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { AjaxLoader } from '~core-components/ajaxloader';
 import Message from "~core-components/message";
-import { Table } from '~core-components/table/index.js';
+import Table from '~core-components/table/Table';
 import { fetchAll, editEventType, deleteEventType, seedDefault } from './actions';
 
 class EventTypesApp extends React.Component
