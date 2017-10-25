@@ -30,7 +30,7 @@
     <% include Navigation %>
 
 <!-- Page Content -->
-<div class="container">
+<div id="summit-admin-container" class="container">
     $Message
     $Layout
 </div>

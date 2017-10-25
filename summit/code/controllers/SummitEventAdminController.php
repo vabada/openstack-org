@@ -35,11 +35,13 @@ final class SummitEventAdminController extends Controller
         'presentationLists',
         'eventsBulk',
         'editEvent',
+        'scheduleViewReactJS',
     );
 
     private static $url_handlers = array
     (
         'schedule'                                 => 'scheduleView',
+        'schedule2'                                => 'scheduleViewReactJS',
         'published'                                => 'publishedEvents',
         'unpublished'                              => 'pendingEvents',
         'bulk-action'                              => 'scheduleViewEditBulkAction',
@@ -228,6 +230,38 @@ final class SummitEventAdminController extends Controller
         if(is_null($summit) || $summit->ID <= 0) return $this->httpError(404);
 
         return $this->parent->getViewer('scheduleView')->process($this, [
+
+                'Summit'                    => $summit,
+                'PresentationStatusOptions' => new ArrayList
+                (
+                    [
+                        new ArrayData(array('Status'=> 'Non Received')),
+                        new ArrayData(array('Status'=> Presentation::STATUS_RECEIVED))
+                    ]
+                ),
+                'PresentationSelectionStatusOptions' => new ArrayList
+                (
+                    [
+                        //new ArrayData(array('Status'=> 'unaccepted')),
+                        new ArrayData(array('Status'=> 'accepted')),
+                        new ArrayData(array('Status'=> 'alternate')),
+                        new ArrayData(array('Status'=> 'lightning accepted')),
+                        new ArrayData(array('Status'=> 'lightning alternate')),
+                    ]
+                ),
+            ]
+        );
+    }
+
+    public function scheduleViewReactJS(SS_HTTPRequest $request)
+    {
+        SweetAlert2Dependencies::renderRequirements();
+        Requirements::css("summit/css/summit-admin2.css");
+        $summit_id = intval($request->param('SummitID'));
+        $summit    = Summit::get()->byID($summit_id);
+        if(is_null($summit) || $summit->ID <= 0) return $this->httpError(404);
+
+        return $this->parent->getViewer('scheduleViewReactJS')->process($this, [
 
                 'Summit'                    => $summit,
                 'PresentationStatusOptions' => new ArrayList
