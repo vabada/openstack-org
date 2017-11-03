@@ -61,6 +61,7 @@ class EventTypesApp extends React.Component
                         options={table_options}
                         data={this.props.items}
                         columns={columns}
+                        onSort={this.props.sortTable}
                     />
                 }
             </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import TableHeading from './TableHeading';
 import TableCell from './TableCell';
 import TableRow from './TableRow';
+import ActionsTableCell from './ActionsTableCell';
 import './datatables.css';
 
 const defaults = {
@@ -12,15 +13,22 @@ const defaults = {
     colWidth: ''
 }
 
-const createRow = (row, columns) => {
+const createRow = (row, columns, actions) => {
 
-	return columns.map((col,i) => {
-		return (
-		<TableCell key={i}>
-            {row[col.columnKey]}
-		</TableCell>
-		);
-	});
+    var action_buttons = '';
+    var cells = columns.map((col,i) => {
+        return (
+            <TableCell key={i}>
+                {row[col.columnKey]}
+            </TableCell>
+        );
+    });
+
+    if (actions) {
+        cells.push(<ActionsTableCell key='actions' id={row['id']} actions={actions}/>);
+    }
+
+    return cells;
 };
 
 const getSortDir = (columnKey, columnIndex, sortCol, sortDir) => {
@@ -37,7 +45,7 @@ const Table = (props) => {
     let {options, columns} = props;
 
     return (
-        <table className={props.className}>
+        <table className={"table table-striped " + props.className}>
             <thead>
                 <tr>
 			    {columns.map((col,i) => {
@@ -79,7 +87,7 @@ const Table = (props) => {
 
                     return (
                         <TableRow even={i%2 === 0} key={i}>
-                                    {createRow(row, columns)}
+                            {createRow(row, columns, options.actions)}
                         </TableRow>
                     );
                 })}

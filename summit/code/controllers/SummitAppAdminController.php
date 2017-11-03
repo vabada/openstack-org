@@ -180,7 +180,7 @@ final class SummitAppAdminController extends Controller implements PermissionPro
         $summit = Summit::get()->byID($summit_id);
 
         Requirements::css('summit/css/simple-sidebar.css');
-        Requirements::css('themes/openstack/bower_assets/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
+        Requirements::css('node_modules/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
         Requirements::javascript('summit/javascript/simple-sidebar.js');
         return $this->getViewer('summit_maindata')->process
         (
@@ -200,7 +200,7 @@ final class SummitAppAdminController extends Controller implements PermissionPro
         $summit = Summit::get()->byID($summit_id);
 
         Requirements::css('summit/css/simple-sidebar.css');
-        Requirements::css('themes/openstack/bower_assets/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
+        Requirements::css('node_modules/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
         Requirements::javascript('summit/javascript/simple-sidebar.js');
         return $this->getViewer('summit_dates')->process
             (

@@ -329,7 +329,7 @@ final class SummitEventAdminController extends Controller
         $summit = Summit::get()->byID($summit_id);
 
         Requirements::css('summit/css/simple-sidebar.css');
-        Requirements::css('themes/openstack/bower_assets/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
+        Requirements::css('node_modules/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
         Requirements::javascript('summit/javascript/simple-sidebar.js');
 
         return $this->parent->getViewer('events_types')->process
@@ -353,7 +353,7 @@ final class SummitEventAdminController extends Controller
         $event_type = SummitEventType::get()->byID($type_id);
 
         Requirements::css('summit/css/simple-sidebar.css');
-        Requirements::css('themes/openstack/bower_assets/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
+        Requirements::css('node_modules/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
         Requirements::javascript('summit/javascript/simple-sidebar.js');
 
         return $this->parent->getViewer('events_editEventType')->process

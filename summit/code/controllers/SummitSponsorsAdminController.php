@@ -56,7 +56,7 @@ final class SummitSponsorsAdminController extends Controller
         $summit = Summit::get()->byID($summit_id);
 
         Requirements::css('summit/css/simple-sidebar.css');
-        Requirements::css('themes/openstack/bower_assets/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
+        Requirements::css('node_modules/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
         Requirements::javascript('summit/javascript/simple-sidebar.js');
 
         return $this->parent->getViewer('sponsors_packages')->process
@@ -77,7 +77,7 @@ final class SummitSponsorsAdminController extends Controller
         $summit = Summit::get()->byID($summit_id);
 
         Requirements::css('summit/css/simple-sidebar.css');
-        Requirements::css('themes/openstack/bower_assets/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
+        Requirements::css('node_modules/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
         Requirements::javascript('summit/javascript/simple-sidebar.js');
         return $this->parent->getViewer('sponsors_addons')->process
             (
@@ -100,7 +100,7 @@ final class SummitSponsorsAdminController extends Controller
         $package = SummitPackage::get()->byID($package_id);
 
         Requirements::css('summit/css/simple-sidebar.css');
-        Requirements::css('themes/openstack/bower_assets/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
+        Requirements::css('node_modules/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
         Requirements::javascript('summit/javascript/simple-sidebar.js');
 
         return $this->parent->getViewer('sponsors_editPackage')->process
@@ -125,7 +125,7 @@ final class SummitSponsorsAdminController extends Controller
         $addon = SummitAddOn::get()->byID($addon_id);
 
         Requirements::css('summit/css/simple-sidebar.css');
-        Requirements::css('themes/openstack/bower_assets/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
+        Requirements::css('node_modules/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
         Requirements::javascript('summit/javascript/simple-sidebar.js');
 
         return $this->parent->getViewer('sponsors_editAddon')->process
