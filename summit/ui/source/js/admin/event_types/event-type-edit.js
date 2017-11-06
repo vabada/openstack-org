@@ -19,7 +19,7 @@ import store from './store';
 
 ReactDOM.render(
     <Provider store={store}>
-        <EventTypeForm event_type={event_type} />
+        <EventTypeForm event_type={event_type} type={type} />
     </Provider>,
     document.getElementById('event-type-edit')
 );

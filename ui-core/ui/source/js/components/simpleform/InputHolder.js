@@ -1,4 +1,7 @@
 import React from 'react';
+import HiddenInput from './HiddenInput';
+import CheckboxInput from './CheckboxInput';
+import GenericInput from './GenericInput';
 
 export default class InputHolder extends React.Component {
 
@@ -26,34 +29,31 @@ export default class InputHolder extends React.Component {
         const {input, row_length, handleChange} = this.props;
         const {colClass, getClass, getType, getLabel} = this;
 
-        return (
-            <div className={colClass(row_length) + ' ' + getClass(input.wrapper_class)}>
-                {input.type != 'checkbox' &&
-                    <div>
-                        <label htmlFor={input.name}>{getLabel(input)}</label>
-                        <input
+        let input_html = null;
+        if (input.type == 'hidden') {
+            input_html = <HiddenInput input={input} />;
+        } else if (input.type == 'checkbox'){
+            input_html = <CheckboxInput
+                            input={input}
+                            wrapper_class={colClass(row_length) + ' ' + getClass(input.wrapper_class)}
+                            input_class= {getClass(input.class)}
                             type={getType(input)}
-                            className={ "form-control " + getClass(input.class) }
-                            name={input.name}
-                            value={input.value}
-                            onChange={handleChange}
-                        />
-                    </div>
-                }
+                            handleChange={handleChange}
+                            label={getLabel(input)}
+                        />;
+        } else {
+            input_html = <GenericInput
+                            input={input}
+                            wrapper_class={colClass(row_length) + ' ' + getClass(input.wrapper_class)}
+                            input_class= {getClass(input.class)}
+                            type={getType(input)}
+                            handleChange={handleChange}
+                            label={getLabel(input)}
+                         />;
+        }
 
-                {input.type == 'checkbox' &&
-                    <div>
-                        <input
-                            type={getType(input)}
-                            className={ "form-control " + getClass(input.class) }
-                            name={input.name}
-                            checked={input.value ? true : false}
-                            onChange={handleChange}
-                        />
-                        <label htmlFor={input.name}>{getLabel(input)}</label>
-                    </div>
-                }
-            </div>
+        return (
+            <div>{input_html}</div>
         );
     }
 

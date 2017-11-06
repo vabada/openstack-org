@@ -310,15 +310,15 @@ final class SummitEventManager implements ISummitEventManager
      * @param int $max_file_size
      * @return File
      */
-    public function uploadAttachment(ISummit $summit, $event_id, $tmp_file, $max_file_size = 10*1024*1024)
-    {
+    public function uploadAttachment(ISummit $summit, $event_id, $tmp_file, $max_file_size = 10*1024*1024) {
 
         return $this->tx_service->transaction(function () use ($summit, $event_id, $tmp_file, $max_file_size) {
 
             $event_id = intval($event_id);
             $event    = $this->event_repository->getById($event_id);
 
-            if(is_null($event) || !$event instanceof SummitEventWithFile) throw new NotFoundEntityException('SummitEventWithFile');
+            if (is_null($event) || !$event instanceof SummitEventWithFile)
+                throw new NotFoundEntityException('SummitEventWithFile');
 
             $attachment = new File();
             $upload     = new Upload();
@@ -697,6 +697,101 @@ final class SummitEventManager implements ISummitEventManager
                 $event->Title = $presentation['title'];
                 $event->write();
             }
+        });
+    }
+
+    /**
+     * @param ISummit $summit
+     * @param array $data
+     */
+    public function updateEventType(ISummit $summit, array $data)
+    {
+        $this->tx_service->transaction(function() use($summit, $data){
+
+            $event_type_id = intval($data['id']);
+            $event_type    = SummitEventType::get()->byID($event_type_id);
+            if(is_null($event_type)) throw new NotFoundEntityException('EventType');
+
+            $event_type->Type                   = $event_type['type'];
+            $event_type->Color                  = $event_type['color'];
+            $event_type->BlackoutTimes          = $event_type['blackout'];
+            $event_type->UseSponsors            = $event_type['use_sponsors'];
+            $event_type->AreSponsorsMandatory   = $event_type['sponsors_mandatory'];
+
+            if (!$event_type->IsSummitEventType($event_type->Type)) {
+                $event_type->MaxSpeakers            = $event_type['max_speakers'];
+                $event_type->MinSpeakers            = $event_type['min_speakers'];
+                $event_type->MaxModerators          = $event_type['max_moderators'];
+                $event_type->MinModerators          = $event_type['min_moderators'];
+                $event_type->UseSpeakers            = $event_type['use_speakers'];
+                $event_type->AreSpeakersMandatory   = $event_type['speakers_mandatory'];
+                $event_type->UseModerator           = $event_type['use_moderator'];
+                $event_type->IsModeratorMandatory   = $event_type['moderator_mandatory'];
+                $event_type->ModeratorLabel         = $event_type['moderator_label'];
+                $event_type->ShouldBeAvailableOnCFP = $event_type['available_cfp'];
+            } else {
+                $event_type->AllowsAttachment   = $event_type['AllowsAttachment'];
+            }
+
+            $event_type->write();
+            return $event_type;
+        });
+    }
+
+    /**
+     * @param ISummit $summit
+     * @param array $data
+     */
+    public function addEventType(ISummit $summit, array $data, $type)
+    {
+        $this->tx_service->transaction(function() use($summit, $data, $type){
+
+            if (!$data['type'])
+                throw new EntityValidationException(EntityValidationException::buildMessage('Type cannot be empty'));
+
+            if ($type == 'presentation') {
+                $event_type = new PresentationType();
+            } else {
+                $event_type = new SummitEventType();
+            }
+
+            $event_type->SummitID               = $summit->getIdentifier();
+            $event_type->Type                   = $data['type'];
+            $event_type->Color                  = (isset($data['color'])) ? $data['color'] : '';
+            $event_type->BlackoutTimes          = (isset($data['blackout'])) ? $data['blackout'] : 0;
+            $event_type->UseSponsors            = (isset($data['use_sponsors'])) ? $data['use_sponsors'] : 0;
+            $event_type->AreSponsorsMandatory   = (isset($data['sponsors_mandatory'])) ? $data['sponsors_mandatory'] : 0;
+
+            if ($type == 'presentation') {
+                $event_type->MaxSpeakers            = (isset($data['max_speakers'])) ? $data['max_speakers'] : 0;
+                $event_type->MinSpeakers            = (isset($data['min_speakers'])) ? $data['min_speakers'] : 0;
+                $event_type->MaxModerators          = (isset($data['max_moderators'])) ? $data['max_moderators'] : 0;
+                $event_type->MinModerators          = (isset($data['min_moderators'])) ? $data['min_moderators'] : 0;
+                $event_type->UseSpeakers            = (isset($data['use_speakers'])) ? $data['use_speakers'] : 0;
+                $event_type->AreSpeakersMandatory   = (isset($data['speakers_mandatory'])) ? $data['speakers_mandatory'] : 0;
+                $event_type->UseModerator           = (isset($data['use_moderator'])) ? $data['use_moderator'] : 0;
+                $event_type->IsModeratorMandatory   = (isset($data['moderator_mandatory'])) ? $data['moderator_mandatory'] : 0;
+                $event_type->ModeratorLabel         = (isset($data['moderator_label'])) ? $data['moderator_label'] : '';
+                $event_type->ShouldBeAvailableOnCFP = (isset($data['available_cfp'])) ? $data['available_cfp'] : 0;
+            } else {
+                $event_type->AllowsAttachment   = (isset($data['AllowsAttachment'])) ? $data['AllowsAttachment'] : 0;
+            }
+
+            $event_type->write();
+            return $event_type;
+        });
+    }
+
+    /**
+     * @param Int $eventType
+     */
+    public function deleteEventType($event_type_id)
+    {
+        $this->tx_service->transaction(function() use ($event_type_id){
+            $event_type       = SummitEventType::get()->byID($event_type_id);
+            if(is_null($event_type)) throw new NotFoundEntityException('SummitEventType', sprintf(' id %s', $event_type_id));
+
+            $event_type->delete();
         });
     }
 

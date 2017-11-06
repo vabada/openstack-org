@@ -52,13 +52,13 @@ const Table = (props) => {
 
                     let sortCol = (typeof options.sortCol != 'undefined') ? options.sortCol : defaults.sortCol;
                     let sortDir = (typeof options.sortDir != 'undefined') ? options.sortDir : defaults.sortDir;
-                    let sortFunc = (typeof col.sortFunc != 'undefined') ? col.sortFunc : defaults.sortFunc;
+                    let sortFunc = (typeof options.sortFunc != 'undefined') ? options.sortFunc : defaults.sortFunc;
                     let sortable = (typeof col.sortable != 'undefined') ? col.sortable : defaults.sortable;
                     let colWidth = (typeof col.width != 'undefined') ? col.width : defaults.colWidth;
 
                     return (
                         <TableHeading
-                            onSort={options.onSort}
+                            onSort={props.onSort}
                             sortDir={getSortDir(col.columnKey, i, sortCol, sortDir)}
                             sortable={sortable}
                             sortFunc={sortFunc}

@@ -28,7 +28,7 @@ class EventTypeForm extends React.Component
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.saveEventType();
+        this.props.saveEventType(this.props.type, this.state.event_type);
     }
 
     render() {
@@ -37,26 +37,65 @@ class EventTypeForm extends React.Component
         let fields = [
             {
                 inputs: [
+                    { name: 'type_class', value: this.props.type, type: 'hidden' },
                     { name: 'type', value: event_type.type },
+                    { name: 'color', value: event_type.color }
                 ]
             },
             {
                 inputs: [
-                    {
-                        name: 'use_sponsors',
-                        value: event_type.use_sponsors,
-                        type: 'checkbox',
-                        label: 'Use Sponsors',
-                        wrapper_class: 'checkbox'
-                    }
+                    {name: 'use_sponsors', value: event_type.use_sponsors, type: 'checkbox', label: 'Use Sponsors', wrapper_class: 'checkbox'},
+                    {name: 'blackout', value: event_type.blackout, type: 'checkbox', wrapper_class: 'checkbox' },
+                    {name: 'sponsors_mandatory', value: event_type.sponsors_mandatory, type: 'checkbox', label: 'Sponsors Mandatory', wrapper_class: 'checkbox'}
                 ]
             }
         ];
+
+        if (this.props.type == 'presentation') {
+            fields.push({
+                inputs: [
+                    {name: 'available_cfp', value: event_type.available_cfp, type: 'checkbox', label: 'Available on CPF', wrapper_class: 'checkbox'},
+                    {name: 'use_speakers', value: event_type.use_speakers, type: 'checkbox', label: 'Use Speakers', wrapper_class: 'checkbox'},
+                    {name: 'speakers_mandatory', value: event_type.speakers_mandatory, type: 'checkbox', label: 'Speakers Mandatory', wrapper_class: 'checkbox'}
+                ]
+            });
+
+            fields.push({
+                inputs: [
+                    {name: 'min_speakers', value: event_type.min_speakers, type: 'number', label: 'Min Speakers'},
+                    {name: 'max_speakers', value: event_type.max_speakers, type: 'number', label: 'Max Speakers'}
+                ]
+            });
+
+            fields.push({
+                inputs: [
+                    {name: 'use_moderator', value: event_type.use_moderator, type: 'checkbox', label: 'Use Moderator', wrapper_class: 'checkbox'},
+                    {name: 'moderator_mandatory', value: event_type.moderator_mandatory, type: 'checkbox', label: 'Moderator Mandatory', wrapper_class: 'checkbox'}
+                ]
+            });
+
+            fields.push({
+                inputs: [
+                    {name: 'min_moderators', value: event_type.min_moderators, type: 'number', label: 'Min Moderators'},
+                    {name: 'max_moderators', value: event_type.max_moderators, type: 'number', label: 'Max Moderators'},
+                    {name: 'moderator_label', value: event_type.moderator_label, label: 'Moderator Label'}
+                ]
+            });
+        } else {
+            fields[1].inputs.push({
+                name: 'attachment',
+                value: event_type.attachment,
+                type: 'checkbox',
+                label: 'Allows Attachment',
+                wrapper_class: 'checkbox'
+            });
+        }
 
         return (
             <div>
                 <Message />
                 <AjaxLoader show={this.props.loading} />
+                <h2>Type: {this.props.type}</h2>
                 <SimpleForm fields={fields} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
             </div>
         );
@@ -72,9 +111,9 @@ export default connect (
         }
     },
     dispatch => ({
-        saveEventType () {
+        saveEventType (type, event_type) {
                 console.log('saveEventType');
-                return dispatch(saveEventType({ event_type: this.event_type }));
+                return dispatch(saveEventType({ type, event_type }));
             }
         })
     )(EventTypeForm);

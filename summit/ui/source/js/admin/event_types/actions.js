@@ -56,7 +56,7 @@ export const saveEventType = (params) => dispatch => {
         postRequest(
             createAction(LOADING),
             createAction(EVENT_TYPE_ADDED),
-            `api/v1/summits/${StaticProps.summit.id}/events/types`,
+            `api/v1/summits/${StaticProps.summit.id}/events/types/${params.type}`,
             params
         )(params)(dispatch);
     }

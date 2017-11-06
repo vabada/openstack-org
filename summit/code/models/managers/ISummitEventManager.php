@@ -48,7 +48,7 @@ interface ISummitEventManager
      * @param int $max_file_size
      * @return File
      */
-    public function uploadAttachment(ISummit $summit, $event_id, $tmp_file, $max_file_size = 10*1024*1024);
+    public function uploadAttachment(ISummit $summit, $event_id, $tmp_file, $max_file_size);
 
     /**
      * @param ISummit $summit
@@ -98,5 +98,22 @@ interface ISummitEventManager
      * @param array $data
      */
     public function updateBulkPresentations(ISummit $summit, array $data);
+
+    /**
+     * @param ISummit $summit
+     * @param array $data
+     */
+    public function updateEventType(ISummit $summit, array $data);
+
+    /**
+     * @param ISummit $summit
+     * @param array $data
+     */
+    public function addEventType(ISummit $summit, array $data, $type);
+
+    /**
+     * @param Int $eventType
+     */
+    public function deleteEventType($event_type_id);
 
 }

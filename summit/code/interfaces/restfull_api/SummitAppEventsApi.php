@@ -79,7 +79,8 @@ class SummitAppEventsApi extends AbstractRestfulJsonApi {
 
     static $url_handlers = array(
         'POST '                       => 'createEvent',
-        'POST types'                  => 'createEventType',
+        'POST types/seed'             => 'seedEventTypes',
+        'POST types/$TYPE!'           => 'createEventType',
         'POST $EVENT_ID!/attach'      => 'uploadAttachment',
         'PUT bulk'                    => 'updateBulkEvents',
         'PUT bulk_presentations'      => 'updateBulkPresentations',
@@ -111,6 +112,7 @@ class SummitAppEventsApi extends AbstractRestfulJsonApi {
         'updateEventType',
         'getEventTypes',
         'deleteEventType',
+        'seedEventTypes',
     );
 
     public function getUnpublishedEventsBySource(SS_HTTPRequest $request) {
@@ -625,10 +627,7 @@ class SummitAppEventsApi extends AbstractRestfulJsonApi {
             $summit       = Summit::get()->byID($summit_id);
             if(is_null($summit)) throw new NotFoundEntityException('Summit', sprintf(' id %s', $summit_id));
 
-            $event_type       = SummitEventType::get()->byID($event_type_id);
-            if(is_null($event_type)) throw new NotFoundEntityException('SummitPackage', sprintf(' id %s', $event_type_id));
-
-            $this->summit_manager->deleteEventType($event_type);
+            $this->summit_manager->deleteEventType($event_type_id);
 
             return $this->ok($event_type_id);
 
@@ -653,7 +652,7 @@ class SummitAppEventsApi extends AbstractRestfulJsonApi {
 
             $data = $this->getJsonRequest();
 
-            $this->summit_manager->updateEventType($data['event_type']);
+            $this->summit_manager->updateEventType($summit, $data['event_type']);
 
             return $this->ok();
 
@@ -669,16 +668,40 @@ class SummitAppEventsApi extends AbstractRestfulJsonApi {
         }
     }
 
-    public function addEventType(SS_HTTPRequest $request)
+    public function createEventType(SS_HTTPRequest $request)
     {
         try {
+            $type         = strtolower(Convert::raw2sql($request->param('TYPE')));
             $summit_id    = intval($request->param('SUMMIT_ID'));
             $summit       = Summit::get()->byID($summit_id);
             if(is_null($summit)) throw new NotFoundEntityException('Summit', sprintf(' id %s', $summit_id));
 
             $data = $this->getJsonRequest();
 
-            $this->summit_manager->addEventType($data['event_type'], $summit_id);
+            $this->summit_manager->addEventType($summit, $data['event_type'], $type);
+
+            return $this->ok();
+
+        } catch (EntityValidationException $ex1) {
+            SS_Log::log($ex1->getMessage(), SS_Log::WARN);
+            return $this->validationError($ex1->getMessages());
+        } catch (NotFoundEntityException $ex2) {
+            SS_Log::log($ex2->getMessage(), SS_Log::WARN);
+            return $this->notFound($ex2->getMessages());
+        } catch (Exception $ex3) {
+            SS_Log::log($ex3, SS_Log::WARN);
+            return $this->serverError();
+        }
+    }
+
+    public function seedEventTypes(SS_HTTPRequest $request)
+    {
+        try {
+            $summit_id    = intval($request->param('SUMMIT_ID'));
+            $summit       = Summit::get()->byID($summit_id);
+            if(is_null($summit)) throw new NotFoundEntityException('Summit', sprintf(' id %s', $summit_id));
+
+            Summit::seedBasicEventTypes($summit_id);
 
             return $this->ok();
 

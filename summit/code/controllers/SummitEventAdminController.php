@@ -349,8 +349,13 @@ final class SummitEventAdminController extends Controller
         $summit_id  = intval($request->param('SummitID'));
         $summit     = Summit::get()->byID($summit_id);
         $type_id = $request->param('TYPE_ID');
+        $type = $type_id;
 
         $event_type = SummitEventType::get()->byID($type_id);
+
+        if ($event_type) {
+            $type = (is_a($event_type, 'PresentationType')) ? 'presentation' : 'event';
+        }
 
         Requirements::css('summit/css/simple-sidebar.css');
         Requirements::css('node_modules/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
@@ -364,6 +369,7 @@ final class SummitEventAdminController extends Controller
                         (
                             'Summit'         => $summit,
                             'EventType'      => $event_type,
+                            'Type'           => $type
                         )
                     )
             );
