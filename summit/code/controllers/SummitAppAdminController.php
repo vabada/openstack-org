@@ -80,8 +80,7 @@ final class SummitAppAdminController extends Controller implements PermissionPro
         'handleSpeakers',
         'handlePromocodes',
         'handleSponsors',
-        'summitMainData',
-        'summitDates',
+        'handleSummit',
     );
 
     private static $url_handlers = array
@@ -95,8 +94,7 @@ final class SummitAppAdminController extends Controller implements PermissionPro
         '$SummitID!/speakers'                                        => 'handleSpeakers',
         '$SummitID!/sponsors'                                        => 'handleSponsors',
         '$SummitID!/promocodes'                                      => 'handlePromocodes',
-        '$SummitID!/summit/main_data'                                => 'summitMainData',
-        '$SummitID!/summit/dates'                                    => 'summitDates',
+        '$SummitID!/summit'                                          => 'handleSummit',
     );
 
     /**
@@ -131,6 +129,10 @@ final class SummitAppAdminController extends Controller implements PermissionPro
 
     public function handleSponsors(SS_HTTPRequest $r) {
         return new SummitSponsorsAdminController($this);
+    }
+
+    public function handleSummit(SS_HTTPRequest $r) {
+        return new SummitAdminController($this);
     }
 
     public function directory()
@@ -172,46 +174,6 @@ final class SummitAppAdminController extends Controller implements PermissionPro
                 )
             )
         );
-    }
-
-    public function summitMainData(SS_HTTPRequest $request)
-    {
-        $summit_id = intval($request->param('SummitID'));
-        $summit = Summit::get()->byID($summit_id);
-
-        Requirements::css('summit/css/simple-sidebar.css');
-        Requirements::css('node_modules/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
-        Requirements::javascript('summit/javascript/simple-sidebar.js');
-        return $this->getViewer('summit_maindata')->process
-        (
-            $this->customise
-            (
-                array
-                (
-                    'Summit' => $summit
-                )
-            )
-        );
-    }
-
-    public function summitDates(SS_HTTPRequest $request)
-    {
-        $summit_id = intval($request->param('SummitID'));
-        $summit = Summit::get()->byID($summit_id);
-
-        Requirements::css('summit/css/simple-sidebar.css');
-        Requirements::css('node_modules/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
-        Requirements::javascript('summit/javascript/simple-sidebar.js');
-        return $this->getViewer('summit_dates')->process
-            (
-                $this->customise
-                    (
-                        array
-                        (
-                            'Summit' => $summit
-                        )
-                    )
-            );
     }
 
     public function ticketTypes(SS_HTTPRequest $request)

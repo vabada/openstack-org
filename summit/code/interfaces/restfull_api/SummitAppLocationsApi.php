@@ -19,13 +19,20 @@ final class SummitAppLocationsApi extends AbstractRestfulJsonApi
      */
     private $summit_repository;
 
+    /**
+     * @var ISummitLocationManager
+     */
+    private $location_manager;
+
     public function __construct
     (
-        ISummitRepository $summit_repository
+        ISummitRepository $summit_repository,
+        ISummitLocationManager $location_manager
     )
     {
         parent::__construct();
         $this->summit_repository = $summit_repository;
+        $this->location_manager = $location_manager;
     }
 
     protected function isApiCall(){
@@ -47,11 +54,21 @@ final class SummitAppLocationsApi extends AbstractRestfulJsonApi
     }
 
     static $url_handlers = array(
-        'GET ' => 'getLocationsByDay',
+        'GET day'               => 'getLocationsByDay',
+        'GET '                  => 'getLocations',
+        'POST '                 => 'addLocation',
+        'PUT reorder'           => 'updateLocationOrder',
+        'PUT $LOC_ID!'          => 'updateLocation',
+        'DELETE $LOC_ID!'       => 'deleteLocation',
     );
 
     static $allowed_actions = array(
         'getLocationsByDay',
+        'getLocations',
+        'updateLocationOrder',
+        'deleteLocation',
+        'updateLocation',
+        'addLocation',
     );
 
     public function getLocationsByDay(SS_HTTPRequest $request) {
@@ -94,6 +111,128 @@ final class SummitAppLocationsApi extends AbstractRestfulJsonApi
         catch(Exception $ex)
         {
             SS_Log::log($ex->getMessage(), SS_Log::ERR);
+            return $this->serverError();
+        }
+    }
+
+    public function getLocations(SS_HTTPRequest $request)
+    {
+        try {
+            $summit_id = (int)$request->param('SUMMIT_ID');
+            $list = SummitAbstractLocation::get()->filter('SummitID', $summit_id)->sort('Order');
+            $res = array();
+            foreach ($list as $location) {
+                array_push($res, SummitLocationAssembler::toArray($location));
+            }
+
+            return $this->ok($res);
+        } catch (Exception $ex) {
+            SS_Log::log($ex, SS_Log::WARN);
+
+            return $this->serverError();
+        }
+    }
+
+    public function updateLocationOrder(SS_HTTPRequest $request)
+    {
+        try {
+            $summit_id    = intval($request->param('SUMMIT_ID'));
+            $summit       = Summit::get()->byID($summit_id);
+            if(is_null($summit)) throw new NotFoundEntityException('Summit', sprintf(' id %s', $summit_id));
+
+            $data = $this->getJsonRequest();
+            $location_ids = explode(',',$data['ids']);
+
+            $locations = $this->location_manager->updateLocationOrder($location_ids);
+
+            return $this->ok();
+
+        } catch (EntityValidationException $ex1) {
+            SS_Log::log($ex1->getMessage(), SS_Log::WARN);
+            return $this->validationError($ex1->getMessages());
+        } catch (NotFoundEntityException $ex2) {
+            SS_Log::log($ex2->getMessage(), SS_Log::WARN);
+            return $this->notFound($ex2->getMessages());
+        } catch (Exception $ex3) {
+            SS_Log::log($ex3, SS_Log::WARN);
+            return $this->serverError();
+        }
+    }
+
+    public function deleteLocation(SS_HTTPRequest $request)
+    {
+        try {
+            $summit_id    = intval($request->param('SUMMIT_ID'));
+            $location_id   = intval($request->param('LOC_ID'));
+
+            $summit       = Summit::get()->byID($summit_id);
+            if(is_null($summit)) throw new NotFoundEntityException('Summit', sprintf(' id %s', $summit_id));
+
+            $location       = SummitAbstractLocation::get()->byID($location_id);
+            if(is_null($location)) throw new NotFoundEntityException('SummitLocation', sprintf(' id %s', $location_id));
+
+            $this->location_manager->deleteLocation($location);
+
+            return $this->ok($location_id);
+
+        } catch (EntityValidationException $ex1) {
+            SS_Log::log($ex1->getMessage(), SS_Log::WARN);
+            return $this->validationError($ex1->getMessages());
+        } catch (NotFoundEntityException $ex2) {
+            SS_Log::log($ex2->getMessage(), SS_Log::WARN);
+            return $this->notFound($ex2->getMessages());
+        } catch (Exception $ex3) {
+            SS_Log::log($ex3, SS_Log::WARN);
+            return $this->serverError();
+        }
+    }
+
+    public function updateLocation(SS_HTTPRequest $request)
+    {
+        try {
+            $summit_id    = intval($request->param('SUMMIT_ID'));
+            $summit       = Summit::get()->byID($summit_id);
+            if(is_null($summit)) throw new NotFoundEntityException('Summit', sprintf(' id %s', $summit_id));
+
+            $data = $this->getJsonRequest();
+
+            $this->location_manager->updateLocation($data['item']);
+
+            return $this->ok();
+
+        } catch (EntityValidationException $ex1) {
+            SS_Log::log($ex1->getMessage(), SS_Log::WARN);
+            return $this->validationError($ex1->getMessages());
+        } catch (NotFoundEntityException $ex2) {
+            SS_Log::log($ex2->getMessage(), SS_Log::WARN);
+            return $this->notFound($ex2->getMessages());
+        } catch (Exception $ex3) {
+            SS_Log::log($ex3, SS_Log::WARN);
+            return $this->serverError();
+        }
+    }
+
+    public function addLocation(SS_HTTPRequest $request)
+    {
+        try {
+            $summit_id    = intval($request->param('SUMMIT_ID'));
+            $summit       = Summit::get()->byID($summit_id);
+            if(is_null($summit)) throw new NotFoundEntityException('Summit', sprintf(' id %s', $summit_id));
+
+            $data = $this->getJsonRequest();
+
+            $this->location_manager->addLocation($data['item'], $summit_id);
+
+            return $this->ok();
+
+        } catch (EntityValidationException $ex1) {
+            SS_Log::log($ex1->getMessage(), SS_Log::WARN);
+            return $this->validationError($ex1->getMessages());
+        } catch (NotFoundEntityException $ex2) {
+            SS_Log::log($ex2->getMessage(), SS_Log::WARN);
+            return $this->notFound($ex2->getMessages());
+        } catch (Exception $ex3) {
+            SS_Log::log($ex3, SS_Log::WARN);
             return $this->serverError();
         }
     }

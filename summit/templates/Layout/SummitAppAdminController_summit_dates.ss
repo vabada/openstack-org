@@ -44,3 +44,4 @@
 </script>
 
 $ModuleJS("summit-dates", false, "summit")
+$ModuleCSS("summit-dates", false, "summit")

@@ -15,7 +15,12 @@
                 </li>
                 <li <% if $Active == 'summit_dates' %> class="active" <% end_if %>>
                     <a href="$AdminLink/$SummitID/summit/dates">
-                        <span class="fa-stack pull-left"><i class="fa fa-chevron-right fa-stack-1x" style="padding-top: 5px;"></i></span>Summit Dates
+                        <span class="fa-stack pull-left"><i class="fa fa-chevron-right fa-stack-1x" style="padding-top: 5px;"></i></span>Dates
+                    </a>
+                </li>
+                <li <% if $Active == 'locations' %> class="active" <% end_if %>>
+                    <a href="$AdminLink/$SummitID/summit/locations">
+                        <span class="fa-stack pull-left"><i class="fa fa-chevron-right fa-stack-1x" style="padding-top: 5px;"></i></span>Locations
                     </a>
                 </li>
             </ul>

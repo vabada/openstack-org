@@ -142,7 +142,7 @@ schedule_admin_view_api.unpublish = function (summit_id, event_id){
 }
 
 schedule_admin_view_api.getLocations = function (summit_id, day){
-    var url = api_base_url.replace('@SUMMIT_ID', summit_id)+'/locations';
+    var url = api_base_url.replace('@SUMMIT_ID', summit_id)+'/locations/day';
     console.log('getLocations summit_id '+summit_id+' day '+day);
 
     return $.get(url+'?day='+day, function (data) {

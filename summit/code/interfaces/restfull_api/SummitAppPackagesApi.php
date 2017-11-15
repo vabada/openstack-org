@@ -25,14 +25,14 @@ class SummitAppPackagesApi extends AbstractRestfulJsonApi {
     private $sponsorship_package_repository;
 
     /**
-     * @var ISponsorshipManager
+     * @var ISummitSponsorshipManager
      */
     private $sponsorship_manager;
 
     public function __construct
     (
         IEntityRepository $sponsorship_package_repository,
-        ISponsorshipManager $sponsorship_manager
+        ISummitSponsorshipManager $sponsorship_manager
     )
     {
         parent::__construct();
