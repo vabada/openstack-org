@@ -21,7 +21,7 @@ ReactDOM.render(
     <Provider store={store}>
         <LocationForm summit_location={summit_location} />
     </Provider>,
-    document.getElementById('sponsors-location-edit')
+    document.getElementById('summit-location-edit')
 );
 
 

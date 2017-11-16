@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { savePackage } from './actions';
+import { saveItem } from './actions';
 import { AjaxLoader } from '~core-components/ajaxloader';
 import Message from "~core-components/message";
 import SimpleForm from "~core-components/simpleform";
