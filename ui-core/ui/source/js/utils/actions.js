@@ -227,6 +227,41 @@ export const postRequest = (
         )
 };
 
+export const postFilesRequest = (
+    requestActionCreator,
+    receiveActionCreator,
+    endpoint,
+    payload,
+    errorHandler
+) => (params = {}) => dispatch => {
+
+    let url = URI(endpoint);
+
+    if(!isObjectEmpty(params))
+        url = url.query(params);
+
+    console.log(`url ${url.toString()}`);
+
+    if(requestActionCreator && typeof requestActionCreator === 'function')
+        dispatch(requestActionCreator(params));
+    const req = http.post(url)
+        .field('file', payload)
+        .end(
+            responseHandler(
+                dispatch,
+                json => {
+                    if(typeof receiveActionCreator === 'function') {
+                        dispatch(receiveActionCreator({
+                            response: json
+                        }));
+                    }
+                    dispatch(receiveActionCreator);
+                },
+                errorHandler
+            )
+        )
+};
+
 export const responseHandler = (dispatch, success, errorHandler) => {
     return (err, res) => {
         dispatch(stopLoading());

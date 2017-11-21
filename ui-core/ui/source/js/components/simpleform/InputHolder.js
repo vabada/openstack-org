@@ -2,6 +2,7 @@ import React from 'react';
 import HiddenInput from './HiddenInput';
 import CheckboxInput from './CheckboxInput';
 import GenericInput from './GenericInput';
+import UploadInput from './UploadInput';
 
 export default class InputHolder extends React.Component {
 
@@ -41,15 +42,23 @@ export default class InputHolder extends React.Component {
                             handleChange={handleChange}
                             label={getLabel(input)}
                         />;
-        } else {
-            input_html = <GenericInput
+        } else if (input.type == 'upload'){
+            input_html = <UploadInput
                             input={input}
                             wrapper_class={colClass(row_length) + ' ' + getClass(input.wrapper_class)}
                             input_class= {getClass(input.class)}
-                            type={getType(input)}
-                            handleChange={handleChange}
+                            handleUpload={input.handleUpload}
                             label={getLabel(input)}
                          />;
+        } else {
+            input_html = <GenericInput
+                input={input}
+                wrapper_class={colClass(row_length) + ' ' + getClass(input.wrapper_class)}
+                input_class= {getClass(input.class)}
+                type={getType(input)}
+                handleChange={handleChange}
+                label={getLabel(input)}
+            />;
         }
 
         return (

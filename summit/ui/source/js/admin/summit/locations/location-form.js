@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { saveItem } from './actions';
 import { AjaxLoader } from '~core-components/ajaxloader';
-import Message from "~core-components/message";
-import SimpleForm from "~core-components/simpleform";
+import Message from '~core-components/message';
+import SimpleForm from '~core-components/simpleform';
+
 
 class LocationForm extends React.Component
 {
@@ -28,7 +29,7 @@ class LocationForm extends React.Component
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.savePackage();
+        this.props.saveItem();
     }
 
     render() {
@@ -37,34 +38,83 @@ class LocationForm extends React.Component
         let fields = [
             {
                 inputs: [
-                    { name: 'title', value: summit_location.title },
-                    { name: 'subtitle', value: summit_location.subtitle }
+                    { name: 'name', value: summit_location.name },
+                    { name: 'display', value: summit_location.display, type: 'checkbox', wrapper_class: 'checkbox' },
                 ]
             },
             {
                 inputs: [
-                    { name: 'cost', value: summit_location.cost, type: 'number' },
+                    { name: 'description', value: summit_location.description },
+                ]
+            },
+            {
+                inputs: [
+                    { name: 'websiteurl', value: summit_location.websiteurl },
+                ]
+            },
+            {
+                inputs: [
+                    { name: 'address1', value: summit_location.address1 },
+                    { name: 'address2', value: summit_location.address2 },
+                ]
+            },
+            {
+                inputs: [
+                    { name: 'zipcode', value: summit_location.zipcode },
+                    { name: 'city', value: summit_location.city },
+                    { name: 'state', value: summit_location.state },
+                    { name: 'country', value: summit_location.country }
+                ]
+            },
+            {
+                inputs: [
+                    { name: 'lng', value: summit_location.lng },
+                    { name: 'lat', value: summit_location.lat },
+                ]
+            },
+            {
+                inputs: [
+                    { name: 'message', value: summit_location.message },
                     {
-                        name: 'show_qty',
-                        value: summit_location.show_qty,
+                        name: 'show_details',
+                        value: summit_location.show_details,
                         type: 'checkbox',
-                        label: 'Show Quantity',
+                        label: 'Send people to a details page first?',
                         wrapper_class: 'checkbox'
                     }
                 ]
             },
             {
                 inputs: [
-                    { name: 'available', value: summit_location.available, type: 'number', label: 'Currently Available' },
-                    { name: 'max_available', value: summit_location.max_available, type: 'number', label: 'Max Available' }
+                    {
+                        name: 'images',
+                        type: 'upload',
+                        label: 'Upload Images',
+                        handleUpload: this.props.handleUpload
+                    }
                 ]
-            }
+            },
         ];
+
+        if (this.props.type == 'venue') {
+            fields.push({
+                inputs: [
+
+                ]
+            });
+        } else if (this.props.type == 'hotel') {
+
+        } else if (this.props.type == 'airport') {
+
+        } else if (this.props.type == 'external') {
+
+        }
 
         return (
             <div>
                 <Message />
                 <AjaxLoader show={this.props.loading} />
+                <h2>Type: {this.props.type}</h2>
                 <SimpleForm fields={fields} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
             </div>
         );
@@ -80,9 +130,12 @@ export default connect (
         }
     },
     dispatch => ({
-        savePackage () {
-            console.log('savePackage');
-            return dispatch(savePackage({ summit_location: this.summit_location }));
+        saveItem () {
+            console.log('saveItem');
+            return dispatch(saveItem({ summit_location: this.summit_location }));
+        },
+        handleUpload () {
+            console.log('file uploaded');
         }
     })
 )(LocationForm);

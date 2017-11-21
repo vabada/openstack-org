@@ -25,6 +25,7 @@
         };
 
     var summit_location = {};
+    var type = "{$Type.JS}";
 
     <% if $Location.Exists %>
         summit_location =

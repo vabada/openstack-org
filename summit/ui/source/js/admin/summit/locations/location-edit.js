@@ -19,7 +19,7 @@ import store from './store';
 
 ReactDOM.render(
     <Provider store={store}>
-        <LocationForm summit_location={summit_location} />
+        <LocationForm summit_location={summit_location} type={type}/>
     </Provider>,
     document.getElementById('summit-location-edit')
 );

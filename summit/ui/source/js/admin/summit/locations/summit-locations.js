@@ -3,12 +3,16 @@ import { connect } from 'react-redux';
 import { AjaxLoader } from '~core-components/ajaxloader';
 import Message from "~core-components/message";
 import SortableTable from '~core-components/sortabletable/SortableTable';
-import { fetchAll, postOrder, editPackage, deletePackage } from './actions';
+import { fetchAll, postOrder, editItem, deleteItem } from './actions';
 
 class SummitLocationsApp extends React.Component
 {
     constructor(props) {
         super(props);
+
+        this.state = {
+            add_location_type: 'venue'
+        }
 
         this.handleAddNew = this.handleAddNew.bind(this);
     }
@@ -19,9 +23,15 @@ class SummitLocationsApp extends React.Component
         }
     }
 
+    handleChangeType(ev) {
+        this.setState(
+            add_location_type: ev.target.value
+        );
+    }
+
     handleAddNew(event) {
         event.preventDefault();
-        this.props.addNewRow();
+        this.props.addNewRow(this.state.add_location_type);
     }
 
     render() {
@@ -44,7 +54,13 @@ class SummitLocationsApp extends React.Component
                 <Message />
                 <AjaxLoader show={this.props.loading} />
                 <div className="row">
-                    <div className="col-md-12">
+                    <div className="col-md-6 form-inline">
+                        <select className="form-control" onChange={(e) => this.handleChangeType(e)}>
+                            <option value="venue"> Venue </option>
+                            <option value="hotel"> Hotel </option>
+                            <option value="airport"> Airport </option>
+                            <option value="external"> External Location </option>
+                        </select>
                         <button className="btn btn-primary" onClick={this.handleAddNew}> Add New </button>
                     </div>
                 </div>
@@ -84,8 +100,8 @@ export default connect (
         deleteRow(id) {
             dispatch(deleteItem({id}));
         },
-        addNewRow() {
-            dispatch(editItem({id: 0}));
+        addNewRow(type) {
+            dispatch(editItem({id: type}));
         },
     })
 )(SummitLocationsApp);
