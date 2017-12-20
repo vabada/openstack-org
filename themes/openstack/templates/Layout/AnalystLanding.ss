@@ -88,7 +88,7 @@ https://reprints.forrester.com/#/assets/2/480/'RES136209'/reports" class="promo-
 						We think the progress the Foundation has achieved in seven years is remarkable .... The fact is that existential threats have been largely removed…. Indeed, the Foundation is now sold out of gold sponsorships, and there are mature OpenStack deployments.
 					</blockquote>
 					<div class="testimonial-attribute">
-						- “The future of the OpenStack Foundation: The clue is in the stack,” 451 Research, November 2017<br/><a href="/assets/analysts/451-OpenStack.pdf" target="_blank">Download this report</a>, Nov 2017
+						- “The future of the OpenStack Foundation: The clue is in the stack,” 451 Research, Nov 2017<br/><a href="/assets/analysts/451-OpenStack.pdf" target="_blank">Download this report</a>
 					</div>
 				</div>
 				<div class="col-sm-6 analysts-links">
