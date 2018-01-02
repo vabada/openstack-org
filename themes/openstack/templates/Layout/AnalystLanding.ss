@@ -3,22 +3,22 @@
     <!-- Begin Page Content -->
     <div class="analysts-hero">
 	<div class="container">
-		<h1>OpenStack’s global traction expands for its Newton Release</h1>
+		<h1>Global OpenStack adoption increases across industry and company size</h1>
 
 		<div id="analysts-quote-carousel" class="carousel slide" data-ride="carousel">
 		  <!-- Wrapper for slides -->
 		  <div class="carousel-inner" role="listbox">
 		    <div class="item active">
 		      <div class="carousel-caption">
-		        “Leading I&amp;O professionals, application developers, and CIOs at companies like American Express, Disney, and Walmart have embraced OpenStack. It’s the foundation of many private (and, increasingly, public) clouds that give your company the agility it needs.
+		        “Outside of the US, especially in China, [OpenStack adoption] momentum is increasing across the board and is not limited by industry or company size. The once skeptical and conservative telco industry has gone all in on OpenStack.”
 		        <div class="attribute">
-		        	- Forrester Research Report, "<a href="
-https://reprints.forrester.com/#/assets/2/480/'RES136209'/reports" target="_blank">OpenStack’s Global Traction Expands For Its Newton Release</a>,” December 2016)
+		        	- Forrester, "<a href="
+https://reprints.forrester.com/#/assets/2/480/RES140151/reports" target="_blank">OpenStack Fights To Defend Its Claim As A Standard</a>,” October 2017
 		        </div>
-						<div>
-							<a href="
-https://reprints.forrester.com/#/assets/2/480/'RES136209'/reports" class="promo-btn" target="_blank">Download the Report <i class="fa fa-chevron-right"></i></a>
-						</div>
+				<div>
+					<a href="
+https://reprints.forrester.com/#/assets/2/480/RES140151/reports" class="promo-btn" target="_blank">Download the Report <i class="fa fa-chevron-right"></i></a>
+				</div>
 		      </div>
 		    </div>
 		  </div>
