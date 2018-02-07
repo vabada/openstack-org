@@ -92,4 +92,4 @@ migrations:
   - CreateJobsManagerGroup
   - TagGroupMigration
   - AddOnDeleteCascadeFKPromoCodesMigration
-
+  - PresentationTagBugMigration
