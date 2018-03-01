@@ -75,8 +75,10 @@ class CommunityPageBis_Controller extends Page_Controller
         $groups = OpenStackComponent::$categories;
         $list = new ArrayList();
         foreach ($groups as $key => $group) {
+            $label = $group == 'None' ? 'Other' : $group;
             $list->push(new ArrayData([
                 'Name' => $group,
+                'Label' => $label,
                 'Key'  => $key
             ]));
         }
