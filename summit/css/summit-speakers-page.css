@@ -2,7 +2,7 @@
     text-align: center;
     font-size: 1.4em;
     line-height: 3em;
-    background-color: #abcdef;
+    background-color: #edf2f7;
     color: white;
     cursor: pointer;
     width: 100%;
@@ -25,3 +25,7 @@
     cursor: default;
     text-decoration: none !important;
 }
+
+.summit-users-wrapper::after {
+    display: none;
+    }

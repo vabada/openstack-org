@@ -8,7 +8,7 @@
         <% end_loop %>
     </div>
 
-    <div class="light summit-users-wrapper">
+    <div class="summit-users-wrapper">
         <div class="container-fluid">
             <% loop $AllSpeakers %>
                 <%if $First %>
