@@ -8,7 +8,6 @@
         <div class="main-body">
             $Layout
             <% include JS %>
-            <% include Quantcast %>
             <% include Footer %>
             <!-- Hidden Sidebar Nav -->
             <div class="sidebar-nav">
