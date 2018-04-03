@@ -137,7 +137,6 @@ class Page extends SiteTree
 
     }    
 
-
     function requireDefaultRecords()
     {
 
@@ -222,6 +221,12 @@ class Page extends SiteTree
     public function removeExtension($extension){
         if($this->hasExtension($extension))
              unset($this->extension_instances[$extension]);
+    }
+
+    public function stripPTags($field) {
+        $value = $this->getField($field);
+        $value = $string = preg_replace('/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', $value);
+        return $value;
     }
 
 }
@@ -582,4 +587,5 @@ class Page_Controller extends ContentController
     public function getEnv($name) {
         return constant($name);
     }
+
 }
