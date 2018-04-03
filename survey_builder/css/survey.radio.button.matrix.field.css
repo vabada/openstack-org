@@ -19,3 +19,7 @@ tr.group-header td{
     padding-left: 10px;
     padding-top: 10px;
 }
+
+table tr td:first-child{
+    padding:10px;
+}
