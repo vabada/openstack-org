@@ -54,6 +54,11 @@
                 </div>
                 <% end_loop %>
             </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <a class="btn register-btn-lrg" href="speakers">View Additional Speakers</a>
+                </div>
+            </div>
         </div>
     </div>
     <% else_if $isClass('PageSectionVideos') %>
