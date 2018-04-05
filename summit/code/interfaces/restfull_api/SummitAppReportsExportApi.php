@@ -528,6 +528,7 @@ class SummitAppReportsExportApi extends AbstractRestfulJsonApi {
             $filters['status']    = (isset($query_string['status'])) ? Convert::raw2sql($query_string['status']) : '';
             $filters['published'] = (isset($query_string['published'])) ? Convert::raw2sql($query_string['published']) : '';
             $filters['track']     = (isset($query_string['track']) && $query_string['track']) ? explode(',',$query_string['track']) : array();
+            $filters['pres_type'] = (isset($query_string['pres_type']) && $query_string['pres_type']) ? $query_string['pres_type'] : '';
             $filters['show_col']  = (isset($query_string['show_col']) && $query_string['show_col']) ? explode(',',$query_string['show_col']) : array();
 
             $summit_id    = intval($request->param('SUMMIT_ID'));

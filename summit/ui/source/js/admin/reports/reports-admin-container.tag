@@ -49,7 +49,7 @@
     <reports-admin-rsvp-report if={ report == 'rsvp_report' } base_url="{ base_url }" page_limit="{ limit }" summit_id="{ summit_id }" dispatcher="{ dispatcher }"></reports-admin-rsvp-report>
     <reports-admin-track-questions-report if={ report == 'track_questions_report' } page_limit="{ limit }" summit_id="{ summit_id }" dispatcher="{ dispatcher }"></reports-admin-track-questions-report>
     <reports-admin-presentations-company-report if={ report == 'presentations_company_report' } page_limit="{ limit }" summit_id="{ summit_id }" dispatcher="{ dispatcher }"></reports-admin-presentations-company-report>
-    <reports-admin-presentations-by-track-report if={ report == 'presentations_by_track_report' } page_limit="{ limit }" summit_id="{ summit_id }" tracks="{ tracks }" dispatcher="{ dispatcher }"></reports-admin-presentations-by-track-report>
+    <reports-admin-presentations-by-track-report if={ report == 'presentations_by_track_report' } page_limit="{ limit }" summit_id="{ summit_id }" tracks="{ tracks }" pres_types="{ pres_types }" dispatcher="{ dispatcher }"></reports-admin-presentations-by-track-report>
     <reports-admin-feedback-report if={ report == 'feedback_report' } page_limit="{ limit }" summit_id="{ summit_id }" dispatcher="{ dispatcher }"></reports-admin-feedback-report>
 
     <div id="emailModal" class="modal fade" role="dialog" data-backdrop="static">
@@ -83,6 +83,7 @@
         this.limit              = opts.limit;
         this.locations          = opts.locations;
         this.tracks             = opts.tracks;
+        this.pres_types         = opts.pres_types;
         this.base_url           = opts.base_url;
         this.show_search        = true;
         this.show_status_filter = true;

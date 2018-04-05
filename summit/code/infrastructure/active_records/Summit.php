@@ -750,6 +750,16 @@ class Summit extends DataObject implements ISummit
     }
 
     /**
+     * @return ISummitEventType[]
+     */
+    public function getPresentationTypes()
+    {
+        $query = new QueryObject();
+        $query->addAndCondition(QueryCriteria::equal('ClassName', 'PresentationType'));
+        return AssociationFactory::getInstance()->getOne2ManyAssociation($this, 'EventTypes', $query);
+    }
+
+    /**
      * @param ISummitEventType $event_type
      * @throws Exception
      */

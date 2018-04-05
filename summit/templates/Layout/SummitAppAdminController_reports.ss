@@ -68,10 +68,18 @@
                     });
                 <% end_loop %>
 
+            var pres_types = [];
+                <% loop $Summit.getPresentationTypes() %>
+                    pres_types.push({
+                        id: $ID,
+                        name: "{$Type.JS}",
+                    });
+                <% end_loop %>
+
             var report = "{$Report.JS}";
 
             </script>
-            <reports-admin-container report="{ report }" limit="40" base_url="{$Top.Link}/{$Summit.ID}" summit_id="{$Summit.ID}" locations="{ locations }" tracks="{ tracks }"></reports-admin-container>
+            <reports-admin-container report="{ report }" limit="40" base_url="{$Top.Link}/{$Summit.ID}" summit_id="{$Summit.ID}" locations="{ locations }" tracks="{ tracks }" pres_types="{ pres_types }"></reports-admin-container>
 
         <% end_if %>
     </div>

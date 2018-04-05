@@ -698,6 +698,10 @@ SQL;
             $query_where .= " AND E.CategoryID IN({$tracks})";
         }
 
+        if ($filters['pres_type']) {
+            $query_where .= " AND E.TypeID = '{$filters['pres_type']}'";
+        }
+
         if ($search_term) {
             $query_where .= " AND (E.Title LIKE '%{$search_term}%' OR S.FirstName LIKE '%{$search_term}%'
                             OR S.LastName LIKE '%{$search_term}%' OR CONCAT(S.FirstName,' ',S.LastName) LIKE '%{$search_term}%'

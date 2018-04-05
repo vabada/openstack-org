@@ -33,6 +33,13 @@
                 </select>
             </div>
             <div class="col-md-2">
+                <label>Pres. Type</label>
+                <select id="pres_type_filter" class="form-control filter">
+                    <option value="">All</option>
+                    <option value="{ pres_type.id }" each={ pres_type, i in pres_types }>{ pres_type.name }</option>
+                </select>
+            </div>
+            <div class="col-md-2">
                 <label>Track Filter</label>
                 <select id="track_filter" multiple class="form-control filter">
                     <option value="{ track.id }" each={ track, i in tracks }>{ track.title }</option>
@@ -106,6 +113,7 @@
         this.page_data       = {total: 100, limit: opts.page_limit, page: 1};
         this.summit_id       = opts.summit_id;
         this.tracks          = opts.tracks;
+        this.pres_types      = opts.pres_types;
         this.presentations   = [];
         this.track_count     = [];
         this.show_col        = [];
@@ -134,11 +142,12 @@
             var status = $('#status_filter').val();
             var published = $('#published_filter').val();
             var track = $('#track_filter').val();
+            var pres_type = $('#pres_type_filter').val();
             var show_col = $('#display_filter').val();
 
             $.getJSON('api/v1/summits/'+self.summit_id+'/reports/presentations_by_track_report',
                 {page:page, items: self.page_data.limit, sort: sort, sort_dir: sort_dir, term: term,
-                status: status, published: published, track: track, show_col: show_col },
+                status: status, published: published, track: track, pres_type: pres_type, show_col: show_col },
                 function(data){
                     self.presentations = data.data;
                     self.page_data.page = page;
@@ -175,9 +184,10 @@
             var status = $('#status_filter').val();
             var published = $('#published_filter').val();
             var track = ($('#track_filter').val()) ? $('#track_filter').val() : '';
+            var pres_type = ($('#pres_type_filter').val()) ? $('#pres_type_filter').val() : '';
             var show_col = ($('#display_filter').val()) ? $('#display_filter').val() : '';
 
-            var query_string = 'term='+term+'&sort='+sort+'&sort_dir='+sort_dir+'&status='+status+'&published='+published+'&track='+track+'&show_col='+show_col;
+            var query_string = 'term='+term+'&sort='+sort+'&sort_dir='+sort_dir+'&status='+status+'&published='+published+'&track='+track+'&pres_type='+pres_type+'&show_col='+show_col;
 
             window.open('api/v1/summits/'+self.summit_id+'/reports/export/presentations_by_track_report?'+query_string, '_blank');
         });
