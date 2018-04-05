@@ -56,7 +56,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <a class="btn register-btn-lrg" href="/summit/vancouver-2018/speakers">View Additional Speakers</a>
+                    {$Text}
                 </div>
             </div>
         </div>
