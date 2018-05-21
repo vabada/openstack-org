@@ -34,6 +34,12 @@ class CustomSiteConfig extends DataExtension {
         $fields->addFieldToTab("Root.SiteBanner",$settings);
     }
 
+    public function updateCMSActions(FieldList $actions){
+        $actions->add(FormAction::create('clearSSCache', "Clear SS Cache")
+            ->addExtraClass('ss-ui-action-destructive')
+            ->setAttribute('data-icon', 'delete'));
+    }
+
     public function getSiteBannerMessage(){
         $current_lang = UserLanguage::getCurrentUserLang();
 

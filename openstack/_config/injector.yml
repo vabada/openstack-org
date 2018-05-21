@@ -24,3 +24,5 @@ Injector:
     constructor:
       0: '%$SapphireTagRepository'
       1: '%$TagManager'
+  CMSSettingsController:
+    class: CustomCMSSettingsController
