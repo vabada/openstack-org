@@ -142,6 +142,7 @@ class Presentation extends SummitEvent implements IPresentation
         'FeatureCloud'            => 'Boolean',
         'LightningTalk'           => 'Boolean',
         'ToRecord'                => 'Boolean',
+        'AttendingMedia'          => 'Boolean'
     );
 
     /**
