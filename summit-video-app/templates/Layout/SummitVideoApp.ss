@@ -1,3 +1,6 @@
+<meta property="og:image:height" content="200px">
+<meta property="og:image:width" content="200px">
+
 </div> <!-- Killing the main site .container -->
 $ModuleCSS('main')
 <div id="video-app"></div>
