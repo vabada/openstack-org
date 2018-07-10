@@ -404,6 +404,7 @@ final class PresentationManager implements IPresentationManager
             $presentation->SocialSummary           = trim($data['SocialSummary']);
             $presentation->AttendeesExpectedLearnt = trim($data['AttendeesExpectedLearnt']);
             $presentation->CategoryID              = intval(trim($data['CategoryID']));
+            $presentation->AttendingMedia          = isset($data['AttendingMedia']) ? $data['AttendingMedia'] : 0;
 
             if(intval($presentation->CategoryID) > 0) {
                 $category = PresentationCategory::get()->byID($presentation->CategoryID);
@@ -489,6 +490,7 @@ final class PresentationManager implements IPresentationManager
             $presentation->SocialSummary           = trim($data['SocialSummary']);
             $presentation->AttendeesExpectedLearnt = trim($data['AttendeesExpectedLearnt']);
             $presentation->CategoryID              = intval(trim($data['CategoryID']));
+            $presentation->AttendingMedia          = isset($data['AttendingMedia']) ? $data['AttendingMedia'] : 0;
 
             // remove moderator if its not needed
             if (!$presentation->Type()->UseModerator) {
