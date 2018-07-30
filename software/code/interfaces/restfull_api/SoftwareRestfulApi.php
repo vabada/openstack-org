@@ -92,7 +92,7 @@ class SoftwareRestfulApi extends AbstractRestfulJsonApi
         if(is_null($release))
             return $this->notFound();
 
-        $components = $this->manager->getComponentsGroupedByCategory
+        $components = $this->manager->getComponentsGroupedByCategoryAndSubcategory
         (
             $release,
             $term,
