@@ -192,9 +192,10 @@
                     IRC channels (on Freenode)
                 </div>
                 <div>
-                    <a href="https://webchat.freenode.net/?channels=openstack">#openstack</a> (usage questions)<br/>
-                    <a href="https://webchat.freenode.net/?channels=openstack-dev">#openstack-dev</a> (development questions)<br/>
-                    <a href="https://webchat.freenode.net/?channels=openstack-infra">#openstack-infra</a> (project infrastructure)<br/>
+                    <a href="https://docs.openstack.org/contributors/common/irc.html" target="_blank">How to set up IRC</a>
+                    <a href="https://webchat.freenode.net/?channels=openstack" target="_blank">#openstack</a> (usage questions)<br/>
+                    <a href="https://webchat.freenode.net/?channels=openstack-dev" target="_blank">#openstack-dev</a> (development questions)<br/>
+                    <a href="https://webchat.freenode.net/?channels=openstack-infra" target="_blank">#openstack-infra</a> (project infrastructure)<br/>
                     <a href="http://eavesdrop.openstack.org/">List of IRC meetings and channel logs</a>
                 </div>
             </div>
@@ -203,11 +204,11 @@
                     Mailing lists
                 </div>
                 <div>
-                    <a href="http://lists.openstack.org/cgi-bin/mailman/listinfo/openstack">OpenStack general list</a><br>
-                    <a href="http://lists.openstack.org/cgi-bin/mailman/listinfo/openstack-dev">OpenStack development list</a><br>
-                    <a href="http://lists.openstack.org/cgi-bin/mailman/listinfo/openstack-operators">OpenStack operators list</a><br>
-                    <a href="http://lists.openstack.org/cgi-bin/mailman/listinfo/openstack-sigs">OpenStack Special Interest Groups list</a><br>
-                    <a href="http://lists.openstack.org/cgi-bin/mailman/listinfo">List of all available mailing-lists</a>
+                    <a href="http://lists.openstack.org/cgi-bin/mailman/listinfo/openstack" target="_blank">OpenStack general list</a><br>
+                    <a href="http://lists.openstack.org/cgi-bin/mailman/listinfo/openstack-dev" target="_blank">OpenStack development list</a><br>
+                    <a href="http://lists.openstack.org/cgi-bin/mailman/listinfo/openstack-operators" target="_blank">OpenStack operators list</a><br>
+                    <a href="http://lists.openstack.org/cgi-bin/mailman/listinfo/openstack-sigs" target="_blank">OpenStack Special Interest Groups list</a><br>
+                    <a href="http://lists.openstack.org/cgi-bin/mailman/listinfo" target="_blank">List of all available mailing-lists</a>
                 </div>
             </div>
             <div class="col-md-4 col-sm-6 communicate-item">
