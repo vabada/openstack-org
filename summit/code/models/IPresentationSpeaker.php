@@ -426,6 +426,7 @@ interface IPresentationSpeaker extends IEntity
      * @param string $role
      * @param bool $include_sub_roles
      * @param array $excluded_tracks
+     * @param bool $published_ones
      * @return ArrayList|bool
      */
     public function AlternatePresentations
@@ -433,7 +434,8 @@ interface IPresentationSpeaker extends IEntity
         $summit_id = null,
         $role = IPresentationSpeaker::RoleSpeaker,
         $include_sub_roles = false,
-        array $excluded_tracks = []
+        array $excluded_tracks = [],
+        $published_ones = false
     );
 
     /**
