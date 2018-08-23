@@ -202,15 +202,13 @@
 }
 
 .project-button img {
-    width: 65px;
+    width: 100%;
     position: relative;
-    top: -5px;
-    left: -30px
+    top: -10px;
 }
 
 .project-button .code-name {
     position: relative;
-    top: -6px;
     left: -20px;
     font-weight: bold;
 }
