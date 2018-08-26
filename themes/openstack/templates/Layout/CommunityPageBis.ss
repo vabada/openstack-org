@@ -301,7 +301,7 @@
                     <a href="https://docs.openstack.org/project-team-guide/" target="_blank">Project team guide</a><br>
                     <a href="https://governance.openstack.org/tc/goals/" target="_blank">Community-wide goals</a><br>
                     <a href="http://specs.openstack.org/" target="_blank">Specs</a> and <a href="https://review.openstack.org/" target="_blank">Code reviews</a><br>
-                    <a href="http://codesearch.openstack.org/ target="_blank">Search all OpenStack code</a>
+                    <a href="http://codesearch.openstack.org/" target="_blank">Search all OpenStack code</a>
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 quick-links-item">
