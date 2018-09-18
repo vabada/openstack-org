@@ -112,3 +112,4 @@ migrations:
   - CreateContainersPaperMigration
   - CreateEdgeComputingPaperMigration
   - CreateSummitAdminRoomGroupMigration
+  - Survey2017To2018Migration
