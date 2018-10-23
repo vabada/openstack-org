@@ -28,7 +28,7 @@ final class AssetsSyncRequest extends DataObject
         if($this->Processed) return $this;
 
         $this->Processed     = true;
-        $this->ProcessedDate = MySQLDatabase56::nowRfc2822();
+        $this->ProcessedDate = CustomMySQLDatabase::nowRfc2822();
         return $this;
     }
 }

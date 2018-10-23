@@ -30,7 +30,7 @@ class BetterImage extends Image
             return $this;
         }
              
-        return parent::SetHeight($height);
+        return parent::ScaleHeight($height);
     }
      
     public function SetSize($width, $height) {
@@ -38,7 +38,7 @@ class BetterImage extends Image
             return $this;
         }
          
-        return parent::SetSize($width, $height);
+        return parent::Pad($width, $height);
     }
      
     public function SetRatioSize($width, $height) {
@@ -46,7 +46,7 @@ class BetterImage extends Image
             return $this;
         }
          
-        return parent::SetRatioSize($width, $height);
+        return parent::Fit($width, $height);
     }
      
     public function getFormattedImage($format, $arg1 = null, $arg2 = null) {

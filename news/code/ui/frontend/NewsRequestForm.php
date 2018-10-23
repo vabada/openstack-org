@@ -192,6 +192,20 @@ final class NewsRequestForm extends HoneyPotForm {
 
 	    $this->addExtraClass('news-registration-form');
 		parent::__construct($controller, $name, $fields, $actions, $validator = null);
+        // tiny MCE Config
+        $tinyMCE = HtmlEditorConfig::get('cms');
+        $tinyMCE->setOption('content_css', 'news/code/ui/frontend/css/htmleditor.css');
+        $tinyMCE->setOption('theme', 'advanced');
+        $tinyMCE->setOption('theme_advanced_toolbar_location', 'top');
+        $tinyMCE->setOption('theme_advanced_buttons1', 'bold,italic,underline,separator,justifyleft,justifycenter,justifyright,justifyfull,separator,outdent,indent,separator,bullist,link,undo,redo,code');
+        $tinyMCE->setOption('theme_advanced_buttons2', '');
+        $tinyMCE->setOption('theme_advanced_buttons3', '');
+        $tinyMCE->setOption('plugins', 'paste');
+        $tinyMCE->setOption('forced_root_block', 'p');
+        $tinyMCE->setOption('height', '250px');
+        $tinyMCE->setOption('width', '800px');
+        $tinyMCE->setOption('paste_preprocess', 'TinyMCENewsPasteProcess');
+        $tinyMCE->setOption('setup', 'OnSetupTinyMCENewsForm');
 	}
 
 	function forTemplate() {

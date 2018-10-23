@@ -78,8 +78,14 @@ class CompanyEditForm extends BootstrapForm
             $actionButton
         );
 
-
         parent::__construct($controller, $name, $fields, $actions);
+
+        // tiny MCE Config
+        $tinyMCE = HtmlEditorConfig::get('cms');
+        $tinyMCE->setOption('resize', 'false');
+        $tinyMCE->setOption('menubar', 'false');
+        $tinyMCE->setOption('statusbar', 'false');
+        $tinyMCE->setOption('setup', 'OnSetupTinyCompanyEditForm');
 
     }
 
